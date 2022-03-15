@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.somebody.db.MapperBon">
+
+<!-- 로그인 -->
+<insert id = "insertAccessHistory" parameterType = "beans.Staffs">
+INSERT INTO kmasters.AH(AHSFCTCODE,AHsfCODE,AHTIME, AHIP, AHTYPE) 
+	 VALUES(#{sfCtCode},#{sfId},DEFAULT, #{ahIp}, #{ahType})
+	</insert>
+<select id = "sfLogin" parameterType = "beans.Staffs" resultType ="string">
+	SELECT SFPASSWORD  AS sfPw FROM  kmasters.sf  WHERE SFCTCODE = #{sfCtCode} AND sfCode = #{sfId} 
+	</select>
+	
+	<select id = "sfInfo" parameterType = "beans.Staffs" resultType ="beans.Staffs">
+	select ctcode as sfctcode, ctname as ctName, sfcode as sfId, sfname as sfName, sfRank as sfRank, CANAME as sfRankName  from kmasters.sf
+	inner join kmasters.ct on sfctcode = ctcode 
+	inner join  kmasters.ca on cacode = sfrank WHERE sfCTCODE = #{sfCtCode} AND sfCode = #{sfId} 
+	</select>
+	<select id = "meLogin" parameterType = "beans.Members" resultType ="string">
+	SELECT MEPASSWORD  AS mePw FROM  kmasters.ME  WHERE MECODE = #{meCode} 
+	</select>
+	
+	<select id = "meInfo" parameterType = "beans.Members" resultType ="beans.Members">
+	SELECT CTCODE, CTNAME,MECODE, MENAME, MEBIRTH, MEGENDER from kmasters.PA 
+	INNER JOIN KMASTERS.ME ON MECODE = PAMECODE 
+	INNER JOIN KMASTERS.CT ON CTCODE = PALPCTCODE WHERE PAMECODE = #{meCode} 
+	</select>
+	
+	
+	
+	<!-- 인바디 -->
+	<insert id = "insInbody" parameterType = "beans.Inbodys">
+	INSERT INTO kmasters.IB(IBCODE,IBCTCODE,IBMECODE,IBDATE) 
+	 VALUES(concat(#{meCode},to_char(sysdate,'yyyymmdd')),#{ctCode},#{meCode}, DEFAULT)
+	</insert>
+	<insert id = "insInbodyDetail" parameterType = "beans.Inbodys">
+	INSERT INTO kmasters.ID(IDIBCODE,IDDACODE,IDCOUNT) 
+	 VALUES(concat(#{meCode},to_char(sysdate,'yyyymmdd')),#{ibDaCode},#{idCount})
+	</insert>
+	
+	<select id = "getMeInbody" parameterType = "beans.Inbodys" resultType ="beans.Inbodys">
+	 select iddacode, idcount from kmasters.id where idibcode = #{ibCode};
+	</select>
+</mapper>
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+
+<mapper namespace = "com.somebody.db.MapperYoung">
+	<insert id = "is" parameterType = "beans.Centers">
+	insert into kmasters.ct (CTCODE,CTNAME,CTADDRESS,CTCEO,CTNUMBER) values('3000','24','42','42','42') 
+	</insert>
+	<select id="goodsList" resultType = "beans.Equipments" parameterType = "beans.Equipments">
+		select * from kmasters.GoodsView where ctCode = ${ctCode}
+	</select>
+	<select id="searchGoods" resultType = "beans.Equipments" parameterType = "beans.Equipments">
+		select * from kmasters.GoodsView where ctCode = '${ctCode}' and ${eqCaCode} = '${eqCaName}'
+	</select>
+</mapper>
