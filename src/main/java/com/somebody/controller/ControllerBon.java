@@ -37,14 +37,13 @@ public class ControllerBon {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
-		return "join";
+		return "home";
 	}
 
 	@RequestMapping(value = "/meLogin", method = RequestMethod.POST)
 	public ModelAndView meLogin(Model model,@ModelAttribute Members me) {
 		
-		System.out.println(me.getMePw());
-		return this.auth.backControllerME("A02",me);
+		return this.auth.backControllerME("A02",model.addAttribute("send", me));
 	}
 
 	@RequestMapping(value = "/ctLogin", method = RequestMethod.POST)
@@ -55,15 +54,16 @@ public class ControllerBon {
 	}
 
 	@RequestMapping(value = "/logOut", method = RequestMethod.POST)
-	public void logOut(Model model, @ModelAttribute Staffs sf,@ModelAttribute Members me) {
-		System.out.println(sf.getSfCtCode());
-		System.out.println(me.getMeCode());
+	public void logOut(Model model, @ModelAttribute Staffs sf) {
+		System.out.println(11);
+		System.out.println(sf.getSfId());
 		if( sf.getSfId() != null) {
 			System.out.println(11);
 			this.auth.backControllerCT("A04",sf);
 		}else {
 			System.out.println(22);
-				this.auth.backControllerME("A04",me);
+			Members me =new Members ();
+				this.auth.backControllerME("A04",model.addAttribute("send", me));
 			}
 		}
 		
@@ -87,7 +87,8 @@ public class ControllerBon {
 	}
 	@RequestMapping(value = "/goMePage", method = RequestMethod.POST)
 	public void goMePage(Model model, @ModelAttribute Members me) {
-		this.me.backController("M01", me);
+		
+		this.me.backController("M01", model.addAttribute("send", me));
 	}
 
 	

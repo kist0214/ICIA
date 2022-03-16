@@ -7,29 +7,21 @@ let list;
 
 
 	
+
 	function UploadFilebyAJax(){
 
 	whatsend("meLogin", "","regedemp",true,"post");
 	}
 
-function jstest(){
-	
- const sttcode= "ctCode="+2022;
-	whatsend("meLogin", sttcode,"regedemp",true,"post");
-	}
+
 	
 	
-function getgoodsList(action, stcode){
-	//let jsondata = [];
-	//jsondata.push({"stCode":stcode});
-	//const clientdata = JSON.stringify(jsondata);
-	whatsend(action,"","writegoodslist",false,"post");
-}
+
 let data2;
-function writegoodslist(data){
+function getmemberlist(data){
 	data2 = data;
 	const list =  document.getElementById("list");
-	//let message = '<div><span>상품코드</span><span>상품이름</span><span>상품원가</span><span>상품가격</span><span>상품재고</span><span>상품할인률</span><span>판매상태</span><span>사진</span></div>';
+	
       while(list.hasChildNodes()){
 			list.removeChild(list.lastChild);
 		}
@@ -39,22 +31,20 @@ function writegoodslist(data){
 	div.setAttribute("onClick", "showGoodsinModal("+idx+")");
 	
 	let span1=  document.createElement("span");
-	span1.innerText = data[idx].goCode;
+	span1.innerText = data[idx].meName;
 	let span2=  document.createElement("span");
-	span2.innerText = data[idx].goName;
+	span2.innerText = data[idx].meGender;
 	let span3=  document.createElement("span");
-	span3.innerText = data[idx].goPrice;
+	span3.innerText = data[idx].meBirth;
 	let span4=  document.createElement("span");
-	span4.innerText = data[idx].goDiscount;
+	span4.innerText = data[idx].meNumber;
 	let span5=  document.createElement("span");
-	span5.innerText = data[idx].goImage;
+	span5.innerText = data[idx].meLsName;
 	div.appendChild(span1);
 	div.appendChild(span2);
 	div.appendChild(span3);   
-	div.appendChild(span4);   const userData = [document.getElementsByName("stCode")[0],
-	document.getElementsByName("elCode")[0],
-	document.getElementsByName("elPassword")[0],
-	document.getElementsByName("publicIp")[0]];
+	div.appendChild(span4);  
+
 	div.appendChild(span5);           
 //속성을 포함해서 넣으면 어펜드, 태그부터 넣을거면 innerhtml, 태그안에 텍스트만 넣을거면 innerText
   list.appendChild(div);
@@ -319,11 +309,20 @@ function loadPage(msg){
 }
 
 
+function meMg(ctcode, mecode){
+	
+	alert(ctcode, mecode);
+	let jsondata = [];
+	jsondata.push({"ctCode":ctcode,"meCode":mecode});
+	const clientdata = JSON.stringify(jsondata);
+	whatsend("ajax/meMg",clientdata,"getmemberlist",false,"post");
+	
+}
 
-
-function logOut(session){
-	alert(11);
-	alert(session);
+function logOut(){
+	
+	let form = makeForm("", "logOut", "POST");
+      document.body.appendChild(form);
 	form.submit();
    
 }

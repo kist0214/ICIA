@@ -5,19 +5,23 @@ pageEncoding="UTF-8"%>
 <head>
 <meta charset="UTF-8">
 <title>meMg Page</title>
-<script src="res/js/resource.js"></script>
+<script src="res/js/bon.js"></script>
 </head>
-<body>
+<body  onLoad = "meMg('${meInfo.ctCode}','${meInfo.meCode}')">
 	<div id="meMg">
+	<span>${meInfo.ctName}</span><span>${meInfo.meName}</span>
 		<div id="homeBtn">
 			<input type="button" value="HELP" onClick="meMg()"/>
 		</div>
 		<div id="logOut">
+		
 			<input type="button" value="로그아웃" onClick="logOut()" />
 		</div>
 		<div id="explainMe">
+		
 		Member<br> MemberManagement
 		</div>
+		
 		<div id="infoMe">
 			<label for="searchMember">회원검색</label>
 				<select>
@@ -55,6 +59,8 @@ pageEncoding="UTF-8"%>
 			<div class="category">
 				<p class="menuTitle" id="payMg" onClick="goPayPage()">결제관리</p>
 			</div>
+			
 	</div>
+	<div id = list>${list} </div>
 </body>
 </html>

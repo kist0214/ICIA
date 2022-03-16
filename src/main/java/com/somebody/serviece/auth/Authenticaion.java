@@ -1,6 +1,7 @@
 package com.somebody.serviece.auth;
 
 import java.io.UnsupportedEncodingException;
+import org.springframework.ui.Model;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -26,6 +27,7 @@ import com.somebody.db.MapperBon;
 import com.somebody.db.MapperDong;
 import com.somebody.db.MapperUone;
 import com.somebody.db.MapperYoung;
+import com.somebody.serviece.member.Member;
 
 import beans.Centers;
 import beans.Members;
@@ -52,8 +54,9 @@ public class Authenticaion extends CommonMethod {
 	private Encryption enc;
 	@Autowired
 	HttpSession session;
+	@Autowired
+	Member mes;
 
-	Members mme;
 
 	String page = null;
 	String message = null;
@@ -112,15 +115,15 @@ public class Authenticaion extends CommonMethod {
 	
 	
 	
-	public ModelAndView backControllerME(String sCode, Members me) {
+	public ModelAndView backControllerME(String sCode,  Model model) {
 		String gs = null;
 		List<Members> senddata = null;
 		switch (sCode) {
 		case "A02":
-			meLogin(me);
+			meLogin(model);
 			break;
 		case "A04":
-			logOutMe(me);
+			logOutMe(model);
 			break;
 		
 		}
@@ -153,30 +156,36 @@ public class Authenticaion extends CommonMethod {
 
 	}
 
-	public ModelAndView meLogin(Members mme) {
+	public ModelAndView meLogin( Model model) {
 
 		//아이디비번제어 일치시 로그인기록 저장
-		String pw = this.enc.encode(mme.getMePw());
+		String pw = mb.meLogin((Members)model.getAttribute("send"));
+		System.out.println(((Members)model.getAttribute("send")).getMePw()+"여기비번");
 	
-		System.out.println(mme.getMePw()+"여기비번");
-		System.out.println(pw);
-		
-
 		this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 		try {
 			if ((String)this.pu.getAttribute("meInfo") == null) {
+				System.out.println(11);
 				if (pw != null) {
-				
-				if (enc.matches(this.mb.meLogin(mme),pw)) {
-					System.out.println(11);
-					//로그인 기록은 센터만 하기로 함 
-					this.mav.addObject("meInfo", this.mb.meInfo(mme));
+					System.out.println(22);
+				if (enc.matches(((Members)model.getAttribute("send")).getMePw(), pw)) {
+					System.out.println(33);
+					//로그인 기록은 센터만
+					 List<Members> test = this.mb.meInfo((Members)model.getAttribute("send"));
+					System.out.println(this.mb.meInfo((Members)model.getAttribute("send")));
+					System.out.println(test);
+					this.mav.addObject("meInfo", this.mb.meInfo((Members)model.getAttribute("send")));
 					tran = true;
 					this.tranend(tran);
-					pu.setAttribute("meInfo", mme);
+					pu.setAttribute("meInfo", (Members)model.getAttribute("send"));
 					session.setMaxInactiveInterval(30*30) ;
+					
+					
+					
+					
 					this.mav.setViewName("meMg");
+				
 
 				}else {
 					this.message = "비밀번호가 일치하지 않습니다.";
@@ -187,9 +196,11 @@ public class Authenticaion extends CommonMethod {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return this.mav;
 	}
 		
+
 
 	public ModelAndView ctLogin(Staffs sf) {
 				String pw = this.mb.sfLogin(sf);
@@ -229,7 +240,7 @@ public class Authenticaion extends CommonMethod {
 
 	}
 
-	public void logOutMe(Members me) {
+	public void logOutMe(Model model) {
 		page = "redirect:/";// 기본페이지로 이동
 		this.mav.getModel().clear(); // 모델엔뷰 객체 지우기
 		

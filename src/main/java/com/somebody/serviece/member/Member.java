@@ -5,6 +5,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.somebody.db.CommonMethod;
@@ -37,167 +38,173 @@ public class Member extends CommonMethod{
 
 	String page = null;
 
-	public void backController(String sCode, Members me) {
+	public void backController(String sCode, Model model) {
 		String gs = null;
 		String senddata = null;
 
 		switch (sCode) {
 		//관리자페이지 접근
 		case "M01":
-			goMePage(me);
+			goMePage(model);
+			break;
 		case "M02":
-			meMg(me);
+			meMg(model);
+			break;
 		case "M03":
-			searchMeMg(me);
+			searchMeMg(model);
+			break;
 		case "M04":
-			 meDetail(me);
+			 meDetail(model);
+			 break;
 		case "M05":
-			getCaList(me);
+			getCaList(model);
+			break;
 		case "M06":
-			addMember(me);
+			addMember(model);
+			break;
 		case "M07":
-			modMe(me);
-		case "M09":
-			insInbody(me);
+			modMe(model);
 			break;
 
 			
 			//회원페이지 접근
 		case "C01":
-			infoLine(me);
+			infoLine(model);
 			break;
 		case "C02":
-			meDtInfo(me);
+			meDtInfo(model);
 			break;
 		case "C03":
-			meInbodyMg(me);
+			meInbodyMg(model);
 			break;
 		case "C04":
-			insTaState(me);
+			insTaState(model);
 			break;
 		case "C05":
-			meHealthMg(me);
+			meHealthMg(model);
 			break;
 		case "C06":
-			meFoodMg(me);
+			meFoodMg(model);
 			break;
 		case "C07":
-			meLessonMg(me);
+			meLessonMg(model);
 			break;
 		case "C08":
-			getLessonList(me);
+			getLessonList(model);
 			break;
 		case "C09":
-			searchLsMg(me);
+			searchLsMg(model);
 			break;
 		case "C10":
-			insMeLesson(me);
+			insMeLesson(model);
 			break;
 		case "C11":
-			delMeLesson(me);
+			delMeLesson(model);
 			break;
 		case "C12":
-			meConfig(me);
+			meConfig(model);
 			break;
 		
 		case "C15":
-			modMeMg(me);
+			modMeMg(model);
 			break;
 		case "C17":
-			delMe(me);
+			delMe(model);
 			break;
 
 		}
+		
+		
+		
 	}
 
-	public void goMePage(Members me) {
+	public void goMePage(Model model) {
 	
 		
 	}
 
-	public void meInbodyMg(Members me) {
+	public void meInbodyMg(Model model) {
 
 	}
 
-	public void meDtInfo(Members me) {
+	public void meDtInfo(Model model) {
 
 	}
 
-	public void meMg(Members me) {
+	public void meMg(Model model) {
+		
+	model.addAttribute("get",this.mb.meMg((Members)model.getAttribute("send")));
 
 	}
 
-	public void searchMeMg(Members me) {
+	public void searchMeMg(Model model) {
 
 	}
 
-	public void meDetail(Members me) {
+	public void meDetail(Model model) {
 
 	}
 
-	public void getCaList(Members me) {
+	public void getCaList(Model model) {
 
 	}
 
-	public void addMember(Members me) {
+	public void addMember(Model model) {
 
 	}
 
-	public void modMe(Members me) {
+	public void modMe(Model model) {
 
 	}
 
-	public void insInbody(Members me) {
+
+	public void insTaState(Model model) {
 
 	}
 
-	public void insTaState(Members me) {
+	public void meHealthMg(Model model) {
 
 	}
 
-	public void meHealthMg(Members me) {
+	public void meFoodMg(Model model) {
 
 	}
 
-	public void meFoodMg(Members me) {
+	public void meLessonMg(Model model) {
 
 	}
 
-	public void meLessonMg(Members me) {
+	public void getLessonList(Model model) {
 
 	}
 
-	public void getLessonList(Members me) {
+	public void searchLsMg(Model model) {
 
 	}
 
-	public void searchLsMg(Members me) {
+	public void insMeLesson(Model model) {
 
 	}
 
-	public void insMeLesson(Members me) {
+	public void delMeLesson(Model model) {
 
 	}
 
-	public void delMeLesson(Members me) {
-
-	}
-
-	public void meConfig(Members me) {
+	public void meConfig(Model model) {
 
 	}
 
 	
 
-	public void modMeMg(Members me) {
+	public void modMeMg(Model model) {
 
 	}
 
-	public void delMe(Members me) {
+	public void delMe(Model model) {
 
 	}
 
-	public void infoLine(Members me) {
+	public void infoLine(Model model) {
 
 	}
 

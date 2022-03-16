@@ -15,6 +15,10 @@ public class Members {
 	private String mePw;
 	private String meCaCode;
 	
+	private String ctCode;
+	private String ctName;
+	private String lsName;
+	
 	//Excercise, locker
 	private String meExCode;
 	private String meExName;

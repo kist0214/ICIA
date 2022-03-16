@@ -48,39 +48,41 @@ public class AjaxController {
 	}
 	@RequestMapping(value = "/meMg", method = RequestMethod.POST)
 	public void meMg(Model model, @RequestBody Members me) {
-		this.me.backController("M01",me);
+		System.out.println(me.getCtCode());
+		this.me.backController("M01",model);
 	}
 
 	@RequestMapping(value = "/searchMeMg", method = RequestMethod.POST)
 	public void searchMeMg(Model model, @RequestBody Members me) {
-		this.me.backController("M02",me);
+		this.me.backController("M02",model);
 	}
 
 	@RequestMapping(value = "/meDetail", method = RequestMethod.POST)
 	public void meDetail(Model model, @RequestBody Members me) {
-		this.me.backController("M03",me);
+		this.me.backController("M03",model);
 	}
 
 	@RequestMapping(value = "/getCaList", method = RequestMethod.POST)
 	public void getCaList(Model model, @RequestBody Members me) {
-		this.me.backController("M04", me);
+		this.me.backController("M04", model);
 	}
 
 	@RequestMapping(value = "/addMember", method = RequestMethod.POST)
 	public void addMember(Model model, @RequestBody Members me) {
-		this.me.backController("M06",me);
+		this.me.backController("M06",model);
 	}	
 
 	@RequestMapping(value = "/modMe", method = RequestMethod.POST)
 	public void modMe(Model model, @RequestBody Members me) {
-		this.me.backController("M07", me);
+		this.me.backController("M07", model);
 		
 	}
 
 	@RequestMapping(value = "/insInbody", method = RequestMethod.POST)
 	public void insInbody(Model model, @RequestBody Members me) {
-		this.me.backController("M09", me);
+		this.me.backController("M09", model);
 	}
+	
 	
 	
 

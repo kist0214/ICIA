@@ -162,9 +162,8 @@ h2 {
 				<!-- 모달 푸터 <div id = "list">${list} </div> -->
 				<div class="mfooter">
 					<button type="button" class="mbtn" value = "비밀번호수정" onclick="modPw()">비밀번호 수정</button>
-					<button type="button" class="mbtn" value = "회원가입" onclick="goMeJoinPage()">회원가입</button>
-					<button type="button" class="mbtn" value = "센터가입" onclick="ctJoinForm()">센터가입</button>
-					${meInfo} 
+					<button type="button" class="mbtn" value = "센터가입" onclick="joinForm()">가입</button>
+					
 				</div>
 				
 			</div>
