@@ -21,6 +21,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.MvcNamespaceHandler;
 
 import com.somebody.db.CommonMethod;
 import com.somebody.db.MapperBon;
@@ -48,6 +49,8 @@ public class Authenticaion extends CommonMethod {
 	private MapperUone mo;
 
 	private ModelAndView mav;
+	
+	
 	@Autowired
 	private ProjectUtils pu;
 	@Autowired
@@ -77,35 +80,8 @@ public class Authenticaion extends CommonMethod {
 		case "A06":
 			modPw(ct);
 			break;
-		
-		case "J02":
-			ctJoin(ct);
-			break;
-		case "P05":
-			psJoin(ct);
-			break;
 		case "P04":
 			getSelectCenter(ct);
-			break;
-		}
-
-	}
-
-	public void backController2(String sCode, Model model) {
-
-		String gs = null;
-		List<Members> senddata = null;
-
-		switch (sCode) {
-		
-		case "J03":
-			goMeJoinPage(model);
-			break;
-		case "C14":
-			checkMePw(model);
-			break;
-		case "J01":
-			joinForm(model);
 			break;
 		}
 
@@ -124,6 +100,10 @@ public class Authenticaion extends CommonMethod {
 			break;
 		case "A04":
 			logOutMe(model);
+			break;
+
+		case "C14":
+			checkMePw(model);
 			break;
 		
 		}
@@ -172,13 +152,13 @@ public class Authenticaion extends CommonMethod {
 				if (enc.matches(((Members)model.getAttribute("send")).getMePw(), pw)) {
 					System.out.println(33);
 					//로그인 기록은 센터만
-					 List<Members> test = this.mb.meInfo((Members)model.getAttribute("send"));
+					
 					System.out.println(this.mb.meInfo((Members)model.getAttribute("send")));
-					System.out.println(test);
+				
 					this.mav.addObject("meInfo", this.mb.meInfo((Members)model.getAttribute("send")));
 					tran = true;
 					this.tranend(tran);
-					pu.setAttribute("meInfo", (Members)model.getAttribute("send"));
+					pu.setAttribute("meInfo", this.mb.meInfo((Members)model.getAttribute("send")));
 					session.setMaxInactiveInterval(30*30) ;
 					
 					
@@ -240,19 +220,20 @@ public class Authenticaion extends CommonMethod {
 
 	}
 
-	public void logOutMe(Model model) {
-		page = "redirect:/";// 기본페이지로 이동
-		this.mav.getModel().clear(); // 모델엔뷰 객체 지우기
+	public ModelAndView logOutMe(Model model) {
+		
+		
 		
 		try {
+			this.mav.getModel().clear(); // 모델엔뷰 객체 지우기
 			pu.removeAttribute("meInfo");
 		} catch (Exception e) {
 			
 			e.printStackTrace();
 		}
 
-		
-		this.mav.setViewName(page);
+		mav.setViewName("home");
+		return this.mav;
 
 	}
 

@@ -7,14 +7,13 @@ pageEncoding="UTF-8"%>
 <title>meMg Page</title>
 <script src="res/js/bon.js"></script>
 </head>
-<body  onLoad = "meMg('${meInfo.ctCode}','${meInfo.meCode}')">
+<body  onLoad = "meMg('${meInfo[0].ctCode}','${meInfo[0].meCode}')">
 	<div id="meMg">
-	<span>${meInfo.ctName}</span><span>${meInfo.meName}</span>
+	<span>${meInfo[0].ctName}</span><span>${meInfo[0].meName}</span>
 		<div id="homeBtn">
 			<input type="button" value="HELP" onClick="meMg()"/>
 		</div>
 		<div id="logOut">
-		
 			<input type="button" value="로그아웃" onClick="logOut()" />
 		</div>
 		<div id="explainMe">
@@ -25,12 +24,12 @@ pageEncoding="UTF-8"%>
 		<div id="infoMe">
 			<label for="searchMember">회원검색</label>
 				<select>
-					<option value="이름">이름</option>
-					<option value="연락처" selected>연락처</option>
+					<option value="이름"   >이름</option>
+					<option value="연락처" id = meName selected>연락처</option>
 				</select>
 			<label for="CaMember">회원유형</label>
 				<select>
-					<option value="회원유형" selected>회원유형</option>
+					<option value="회원유형" id = caCode selected>회원유형</option>
 					<option value="일반">일반</option>
 					<option value="PT">PT</option>
 					<option value="요가">요가</option>

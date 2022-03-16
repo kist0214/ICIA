@@ -28,6 +28,7 @@ public interface MapperBon {
 	
 	//회원
 	public List<Members> meMg(Members me);
+	public List<Members> searchMeMg(Members me);
 	
 	
 }

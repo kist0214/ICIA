@@ -52,8 +52,8 @@ order by dacode asc
 	<!-- 회원 -->
 	
 	<select id = "meMg" parameterType = "beans.Members" resultType ="beans.Members">
-		SELECT MEcode,mename, (SELECT CA.CANAME FROM kmasters.CA WHERE CA.CACODE = ME.MEGENDER)AS meGender, 
-    (SELECT NVL(TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(SUBSTR(TO_CHAR(MEBIRTH,'YYYY'),1,4),'YYYY'))/12), 0)+1 FROM ME WHERE MECODE = #{meCode}) AS meBirth 
+		SELECT MEcode ,mename, (SELECT CA.CANAME FROM kmasters.CA WHERE CACODE = ME.MEGENDER) AS meGender, 
+    (SELECT NVL(TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(SUBSTR(TO_CHAR(MEBIRTH,'YYYY'),1,4),'YYYY'))/12), 0)+1 FROM kmasters.ME WHERE MECODE = #{meCode}) AS meBirth 
     ,menumber, (SELECT CA.CANAME FROM  kmasters.CA WHERE CA.CACODE = PA.PALPCACODE) AS lsName 
     FROM  kmasters.ME
     inner join kmasters.PA on MECODE = PAMECODE

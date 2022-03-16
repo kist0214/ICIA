@@ -133,11 +133,17 @@ public class Member extends CommonMethod{
 
 	public void meMg(Model model) {
 		
-	model.addAttribute("get",this.mb.meMg((Members)model.getAttribute("send")));
+	model.addAttribute("getmemlist",this.mb.meMg((Members)model.getAttribute("sendmelist")));
+	System.out.println(66);
+	System.out.println(model.getAttribute("getmelist"));
+	
 
 	}
 
 	public void searchMeMg(Model model) {
+		model.addAttribute("getmemlist",this.mb.searchMeMg((Members)model.getAttribute("sendmelist")));
+		System.out.println(66);
+		System.out.println(model.getAttribute("getmelist"));
 
 	}
 

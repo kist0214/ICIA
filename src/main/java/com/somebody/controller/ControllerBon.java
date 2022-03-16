@@ -54,7 +54,7 @@ public class ControllerBon {
 	}
 
 	@RequestMapping(value = "/logOut", method = RequestMethod.POST)
-	public void logOut(Model model, @ModelAttribute Staffs sf) {
+	public String logOut(Model model, @ModelAttribute Staffs sf, @ModelAttribute Members me) {
 		System.out.println(11);
 		System.out.println(sf.getSfId());
 		if( sf.getSfId() != null) {
@@ -62,9 +62,9 @@ public class ControllerBon {
 			this.auth.backControllerCT("A04",sf);
 		}else {
 			System.out.println(22);
-			Members me =new Members ();
 				this.auth.backControllerME("A04",model.addAttribute("send", me));
 			}
+		return "home";
 		}
 		
 	
@@ -72,13 +72,6 @@ public class ControllerBon {
 	@RequestMapping(value = "/sendEmailForm", method = RequestMethod.GET)
 	public void sendEmailForm(Model model, @ModelAttribute Centers ct) {
 		this.auth.backController("A05",ct);
-	}
-
-	@RequestMapping(value = "/joinForm", method = RequestMethod.GET)
-	public String ctJoinForm(Model model, @ModelAttribute Centers ct) {
-		//this.auth.backController("J01",ct);
-		//맥스값 두개 다 가지고 와야함
-		return "join";
 	}
 
 	@RequestMapping(value = "/ctJoin", method = RequestMethod.POST)

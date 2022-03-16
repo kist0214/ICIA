@@ -27,6 +27,7 @@ import beans.Pays;
 @RestController
 @RequestMapping(value ="/ajax",produces = "application/json;charset=UTF-8")
 public class AjaxController {
+	private static final int Members = 0;
 	@Autowired
 	Authenticaion auth;
 	@Autowired
@@ -46,25 +47,32 @@ public class AjaxController {
 	public void modPw(Model model, @RequestBody Centers ct) {
 		this.auth.backController("A06", ct);
 	}
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/meMg", method = RequestMethod.POST)
-	public void meMg(Model model, @RequestBody Members me) {
-		System.out.println(me.getCtCode());
-		this.me.backController("M01",model);
+	public List<Members> meMg(Model model, @RequestBody Members[] me) {
+		System.out.println(me[0].getCtCode());
+		this.me.backController("M02",model.addAttribute("sendmelist",me[0]));
+		
+		
+		return (List<Members>)model.getAttribute("getmelist");
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/searchMeMg", method = RequestMethod.POST)
-	public void searchMeMg(Model model, @RequestBody Members me) {
-		this.me.backController("M02",model);
+	public List<Members> searchMeMg(Model model, @RequestBody Members[] me) {
+		System.out.println(me[0].getCtCode());
+		this.me.backController("M03",model.addAttribute("sendmelist",me[0]));
+		return (List<Members>)model.getAttribute("getmelist");
 	}
 
 	@RequestMapping(value = "/meDetail", method = RequestMethod.POST)
 	public void meDetail(Model model, @RequestBody Members me) {
-		this.me.backController("M03",model);
+		this.me.backController("M04",model);
 	}
 
 	@RequestMapping(value = "/getCaList", method = RequestMethod.POST)
 	public void getCaList(Model model, @RequestBody Members me) {
-		this.me.backController("M04", model);
+		this.me.backController("M05", model);
 	}
 
 	@RequestMapping(value = "/addMember", method = RequestMethod.POST)
@@ -78,10 +86,6 @@ public class AjaxController {
 		
 	}
 
-	@RequestMapping(value = "/insInbody", method = RequestMethod.POST)
-	public void insInbody(Model model, @RequestBody Members me) {
-		this.me.backController("M09", model);
-	}
 	
 	
 	

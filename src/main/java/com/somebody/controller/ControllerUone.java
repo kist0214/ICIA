@@ -25,15 +25,15 @@ public class ControllerUone {
 	
 	@RequestMapping(value = "/meLessonMg", method = RequestMethod.POST)
 	public void meLessonMg(Model model, @ModelAttribute Members me) {
-		this.me.backController("C07", me);
+		this.me.backController("C07", model.addAttribute("send", me));
 	}
 	@RequestMapping(value = "/meConfig", method = RequestMethod.POST)
 	public void meConfig(Model model, @ModelAttribute Members me) {
-		this.me.backController("C12",me);
+		this.me.backController("C12",model.addAttribute("send", me));
 	}
 	@RequestMapping(value = "/delMe", method = RequestMethod.POST)
 	public void delMe(Model model, @ModelAttribute Members me) {
-		this.me.backController("C17",me);
+		this.me.backController("C17",model.addAttribute("send", me));
 	}
 	
 }

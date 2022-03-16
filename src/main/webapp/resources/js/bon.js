@@ -19,6 +19,7 @@ let list;
 
 let data2;
 function getmemberlist(data){
+	alert(data);
 	data2 = data;
 	const list =  document.getElementById("list");
 	
@@ -136,8 +137,68 @@ alert(ip);
 	
 	
 }
+
+
+
+function searchMeMg(){
+	let ctcode = document.getElementById("caCode");
+	let mecode = document.getElementById("meName");
+	
+	alert(mecode,ctcode);
+	
+	
+	
+	let jsondata = [];
+	jsondata.push({"caCode":ctcode,"meName": mecode});
+	
+	const clientdata = JSON.stringify(jsondata);
+	whatsend("ajax/searchMeMg",clientdata,"getselist",false,"post");
+	
+}
+function getselist(data){
+	alert(data);
+	data2 = data;
+	const list =  document.getElementById("list");
+	
+      while(list.hasChildNodes()){
+			list.removeChild(list.lastChild);
+		}
+	for (idx = 0; idx < data2.length; idx++) {
+		
+		let div = document.createElement("div");
+	div.setAttribute("onClick", "showGoodsinModal("+idx+")");
+	
+	let span1=  document.createElement("span");
+	span1.innerText = data[idx].meName;
+	let span2=  document.createElement("span");
+	span2.innerText = data[idx].meGender;
+	let span3=  document.createElement("span");
+	span3.innerText = data[idx].meBirth;
+	let span4=  document.createElement("span");
+	span4.innerText = data[idx].meNumber;
+	let span5=  document.createElement("span");
+	span5.innerText = data[idx].meLsName;
+	div.appendChild(span1);
+	div.appendChild(span2);
+	div.appendChild(span3);   
+	div.appendChild(span4);  
+
+	div.appendChild(span5);           
+//속성을 포함해서 넣으면 어펜드, 태그부터 넣을거면 innerhtml, 태그안에 텍스트만 넣을거면 innerText
+  list.appendChild(div);
+	
+}
+
 function getPublicIp(pip){
 	jsPIp = pip.ip;
+	
+}
+
+function getInbodyModal() {
+	let container =  document.getElementById("container");
+	container.style.filter = "alpha(Opacity=50)";
+	container.style.display = "block";
+	
 	
 }
 function meLogInModal() {
@@ -204,18 +265,6 @@ function whatsend(action, data, fn, content,method) {
 }
 
 
-function getedmemlist(data){
-	 message = '<table><tr><td>매장코드</td><td>회원코드</td><td>회원이름</td><td>회원등급</td></tr>';
-      for (idx = 0; idx < data.length; idx++) {
-         message += '<tr><td>' + data[idx].stCode + '</td><td>'
-               + data[idx].cmCode + '</td><td>' + data[idx].cmName
-               + '</td><td>' + data[idx].cmRank + '</td>';
-         message += '</tr>';
-      }
-      message += '</table>';
-      document.getElementById("list").innerHTML = message;
-	
-}
 function getempList(list, stcode, elcode){
 	
 
@@ -311,9 +360,12 @@ function loadPage(msg){
 
 function meMg(ctcode, mecode){
 	
-	alert(ctcode, mecode);
+	alert(55555);
+	
+	//alert(ctcode, mecode);
 	let jsondata = [];
-	jsondata.push({"ctCode":ctcode,"meCode":mecode});
+	jsondata.push({"ctCode":ctcode,"meCode": mecode});
+	
 	const clientdata = JSON.stringify(jsondata);
 	whatsend("ajax/meMg",clientdata,"getmemberlist",false,"post");
 	

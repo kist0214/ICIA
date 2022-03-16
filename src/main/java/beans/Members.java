@@ -18,6 +18,8 @@ public class Members {
 	private String ctCode;
 	private String ctName;
 	private String lsName;
+	private String caCode;
+	private String caName;
 	
 	//Excercise, locker
 	private String meExCode;

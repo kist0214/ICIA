@@ -40,11 +40,7 @@ public class ControllerYoung {
 		this.pa.backController("P01", pa);
 	}
 	
-	@RequestMapping(value = "/psJoin", method = RequestMethod.POST)
-	public void psJoin(Model model, @RequestBody Members[] me) {
-		this.auth.backController2("P05",model.addAttribute("mebean",me[0]));
-	}
-	
+
 	
 	
 	
