@@ -46,16 +46,7 @@
 						<i class="fas fa-user"></i> <input type="text" placeholder="성별" />
 					</div>
 					<input type="submit" value="Create" class="btn solid" />
-					<!--<p class="social-text">Or Sign in with social platforms</p>
-					  <div class="social-media">
-						<a href="#" class="social-icon"> <i class="fab fa-facebook-f"></i>
-						</a> <a href="#" class="social-icon"> <i class="fab fa-twitter"></i>
-						</a> <a href="#" class="social-icon"> <i class="fab fa-google"></i>
-						</a> <a href="#" class="social-icon"> <i
-							class="fab fa-linkedin-in"></i>
-						</a>
-					</div>
-					-->
+					
 				</form>
 				<form action="#" class="sign-up-form">
 					<h2 class="title">센터가입</h2>
@@ -88,16 +79,7 @@
 							pattern="(010)-\d{3,4}-\d{4}" title="형식 010-0000-0000" />
 					</div>
 					<input type="submit" class="btn" value="Create" />
-					<!--<p class="social-text">Or Sign up with social platforms</p>
-					<div class="social-media">
-						<a href="#" class="social-icon"> <i class="fab fa-facebook-f"></i>
-						</a> <a href="#" class="social-icon"> <i class="fab fa-twitter"></i>
-						</a> <a href="#" class="social-icon"> <i class="fab fa-google"></i>
-						</a> <a href="#" class="social-icon"> <i
-							class="fab fa-linkedin-in"></i>
-						</a>
-					</div>
-					 -->
+					
 				</form>
 			</div>
 		</div>
@@ -135,11 +117,9 @@
 	</div>
 
 	<script>
-
 	const sign_in_btn = document.querySelector("#sign-in-btn");
 	const sign_up_btn = document.querySelector("#sign-up-btn");
 	const container = document.querySelector(".container");
-
 	sign_up_btn.addEventListener("click", () => {
 	  container.classList.add("sign-up-mode");
 	});
@@ -147,7 +127,6 @@
 	sign_in_btn.addEventListener("click", () => {
 	  container.classList.remove("sign-up-mode");
 	});
-
 	</script>
 </body>
 </html>

@@ -3,7 +3,7 @@ package beans;
 import lombok.Data;
 
 @Data
-public class Centers {
+public class Centers extends Staffs{
 	
 	private String ctCode;
 	private String ctName;
@@ -12,6 +12,7 @@ public class Centers {
 	private String ctNumber;
 	
 	private String sfCode;
+	private String sfPw;
 	private String ahTime;
 	private String ahIp;
 	private String ahType;

@@ -12,6 +12,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.ddf.EscherColorRef.SysIndexProcedure;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -70,7 +71,7 @@ public class Authenticaion extends CommonMethod {
 		
 	}
 
-	public void backController(String sCode, Centers ct) {
+	public ModelAndView backController(String sCode, Centers ct) {
 		String gs = null;
 
 		switch (sCode) {
@@ -83,36 +84,30 @@ public class Authenticaion extends CommonMethod {
 		case "P04":
 			getSelectCenter(ct);
 			break;
+		case "J02":
+			goJoinPage();
+			break;
 		}
+		return mav;
 
 	}
 	
-	
-	
-	
-	
-	public ModelAndView backControllerME(String sCode,  Model model) {
-		String gs = null;
-		List<Members> senddata = null;
-		switch (sCode) {
-		case "A02":
-			meLogin(model);
-			break;
-		case "A04":
-			logOutMe(model);
-			break;
+	public ModelAndView backController(String sCode, Members me) {
 
-		case "C14":
-			checkMePw(model);
+		switch (sCode) {
+		case "J01":
+			goJoinPage();
 			break;
 		
+		case "J03":
+			meJoin(me);
+			break;
 		}
-		return this.mav;
+		return mav;
 	}
 	
 	public ModelAndView backControllerCT(String sCode, Staffs sf) {
-		String gs = null;
-		List<Members> senddata = null;
+
 		switch (sCode) {
 		case "A03":
 			ctLogin(sf);
@@ -124,15 +119,66 @@ public class Authenticaion extends CommonMethod {
 		}
 		return this.mav;
 	}
+
 	
 	
+	
+	public ModelAndView backControllerME(String sCode,  Model model) {
+	
+		switch (sCode) {
+		case "A02":
+			meLogin(model);
+			break;
+		case "A04":
+			logOutMe(model);
+			break;
+
+		case "C14":
+			checkMePw(model);
+			break;
+			
+		
+		}
+		return this.mav;
+	}
+	
+	
+	public void backController2(String sCode, Model md) {
+		switch (sCode) {
+		case "C01":
+			checkMeEmailNum(md);
+			break;
+
+		case "C02":
+			checkCtCode(md);
+			break;
+		}
+	}
+	
+	
+
+	private void checkCtCode(Model md) {
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		md.addAttribute("checkCtCode",this.my.checkCtCode());
+		tranend(true);
+	}
+	
+	private void checkMeEmailNum(Model md) {
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		md.addAttribute("checkMeEmailNum",this.my.checkMeEmailNum());
+		tranend(true);
+	}
 
 
 	public void checkMePw(Model model) {
 
 	}
 
-	private void goMeJoinPage(Model model) {
+	private void goJoinPage() {
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		mav.addObject("maxMeCode", this.my.maxCode());
+		mav.setViewName("join");
+		tranend(true);
 
 	}
 
@@ -164,7 +210,7 @@ public class Authenticaion extends CommonMethod {
 					
 					
 					
-					this.mav.setViewName("meMg");
+					this.mav.setViewName("infoLine");
 				
 
 				}else {
@@ -185,37 +231,52 @@ public class Authenticaion extends CommonMethod {
 	public ModelAndView ctLogin(Staffs sf) {
 				String pw = this.mb.sfLogin(sf);
 			
+			System.out.println(sf.getSfPw()+"%%");
+			
 
 				this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 
 				try {
 					if ((String)this.pu.getAttribute("sfInfo") == null) {
+						System.out.println(11);
 						if (pw != null && sf.getSfPw()!=null) {
+							System.out.println(22);
 						if (enc.matches(sf.getSfPw(),pw)) {
+							System.out.println(33);
 							//로그인 기록은 센터만 하기로 함 
+							this.mav.setViewName("sfMg");
 						
 							sf.setAhType("A1");
 							if(this.convertToBoolean(this.mb.insertAccessHistory(sf))) {
+								System.out.println(this.mav.getViewName());
 								sf = this.mb.sfInfo(sf);
+								System.out.println(66);
 								this.mav.addObject("sfInfo",sf);
+								System.out.println(77);
 								tran = true;
 								this.tranend(tran);
 								pu.setAttribute("sfInfo", sf);
-								session.setMaxInactiveInterval(30*30) ;
-								this.mav.setViewName("sfMg");
-							};
+								
+								//session.setMaxInactiveInterval(30*30) ;
+								
+							}else {
+								System.out.println("실패");
+								
+							}
 
-						}else {
+						}
+						else {
 							this.message = "비밀번호가 일치하지 않습니다.";
 							this.mav.addObject(this.message);
+							this.mav.setViewName("home");
 						}
 					}
-						this.message = "아이피가 없습니다.";
-						this.mav.addObject(this.message);
+					
 				}} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				System.out.println(mav.getViewName()+"****");
 				return this.mav;
 
 	}
@@ -279,8 +340,39 @@ public class Authenticaion extends CommonMethod {
 	}
 
 	public void ctJoin(Centers ct) {
-
+		page= "join";
+		String msg= "가입실패~!";
+		this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+		ct.setSfPw(this.enc.encode(ct.getSfPw()));
+		if(convertToBoolean(this.my.ctJoin(ct))) {
+			if(convertToBoolean(this.my.firstSfJoin(ct))) {
+				page = "login";
+				tran = true;
+				msg = "가입성공~!";
+			}
+		}
+		this.tranend(tran);
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
 	}
+
+	public void meJoin(Members me) {
+		page= "join";
+		String msg= "가입실패~!";
+		this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
+		me.setMePw(this.enc.encode(me.getMePw()));
+		if(convertToBoolean(this.my.meJoin(me))) {
+			page = "login";
+			tran = true;
+			msg = "가입성공~!";
+		}
+		this.tranend(tran);
+		mav.addObject("msg", msg);
+		mav.setViewName(page);
+	}
+
+	
+	
 
 	public void psJoin(Centers ct) {
 

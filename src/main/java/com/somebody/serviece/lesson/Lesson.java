@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.ui.Model;
 import com.somebody.db.CommonMethod;
 import com.somebody.db.MapperBon;
 import com.somebody.db.MapperDong;
@@ -37,90 +38,111 @@ public class Lesson extends CommonMethod{
 	private DefaultTransactionDefinition txdef;
 
 	String page = null;
+	public Lesson() {
+		mav = new ModelAndView();
+ }
 
-	public void backController(String sCode, Lessons ls) {
+	
+	
+	
+	public ModelAndView backController(String sCode, Lessons ls, Model model) {
 		String gs = null;
 		String senddata = null;
 
 		switch (sCode) {
+		case "L00":
+			goLessonPage(ls, model);
+			 break;
 		case "L01":
-			lessonMg(ls);
+			lessonMg(ls, model);
 			 break;
 		case "L02":
-			searchLesson(ls);
+			searchLesson(ls,model);
 			break;
 		case "L03":
-			getLsCaList(ls);
+			getLsCaList(ls,model);
 			break;
 		case "L04":
-			insLsPay(ls);
+			insLsPay(ls,model);
 			break;
 		case "L05":
-			getMaxLesson(ls);
+			getMaxLesson(ls,model);
 			break;
 		case "L06":
-			insLesson(ls);
+			insLesson(ls,model);
 			break;
 		case "L07":
-			modLesson(ls);
+			modLesson(ls,model);
 			break;
 		case "L08":
-			lsMemDetail(ls);
+			lsMemDetail(ls,model);
 			break;
 		case "L09":
-			modLsSuccess(ls);
+			modLsSuccess(ls,model);
 			break;
 		case "L10":
-			delLesson(ls);
+			delLesson(ls,model);
 			break;
 		}
-		
+		return mav;
 	}
-	public void lessonMg(Lessons ls) {
-		
-		
+	public void goLessonPage(Lessons ls,Model model) {
+
+		mav.addObject("lsSfCtCode", "3251012345");
+		mav.setViewName("lessonMg");	
 	}
 
-	public void searchLesson(Lessons ls) {
-		
-		
+	public void lessonMg(Lessons ls,Model model) {
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		model.addAttribute("lsList",  this.md.lsList(ls));
+		tranend(true);
+
 	}
 
-	public void getLsCaList(Lessons ls) {
+	public void searchLesson(Lessons ls,Model model) {
+
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		model.addAttribute("lsList",  this.md.lsList(ls));
+		tranend(true);
+
+	}
+
+	public void getLsCaList(Lessons ls,Model model) {
+
+
+	}
+
+	public void insLsPay(Lessons ls,Model model) {
+
+
+	}
+
+	public void getMaxLesson(Lessons ls,Model model) {
+
+
+	}
+
+	public void insLesson(Lessons ls,Model model) {
+
+
+	}
+
+	public void modLesson(Lessons ls,Model model) {
+
+
+	}
+
+	public void lsMemDetail(Lessons ls,Model model) {
+
+
+	}
+	public void modLsSuccess(Lessons ls,Model model) {
+
+
+	}
+	public void delLesson(Lessons ls,Model model) {
+
+
+	}
 	
-		
-	}
-
-	public void insLsPay(Lessons ls) {
-		
-		
-	}
-
-	public void getMaxLesson(Lessons ls) {
-		
-		
-	}
-
-	public void insLesson(Lessons ls) {
-	
-		
-	}
-
-	public void modLesson(Lessons ls) {
-	
-		
-	}
-
-	public void lsMemDetail(Lessons ls) {
-		
-		
-	}
-	public void modLsSuccess(Lessons ls) {
-		
-		
-	}
-	public void delLesson(Lessons ls) {
-	
-		
-	}
 }

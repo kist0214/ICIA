@@ -37,10 +37,12 @@ public class Member extends CommonMethod{
 	private DefaultTransactionDefinition txdef;
 
 	String page = null;
+	Members me;
+	Member(){
+		mav = new ModelAndView();
+	}
 
 	public void backController(String sCode, Model model) {
-		String gs = null;
-		String senddata = null;
 
 		switch (sCode) {
 		//관리자페이지 접근
@@ -117,8 +119,28 @@ public class Member extends CommonMethod{
 		
 		
 	}
+	
+	
+	public ModelAndView backControllerM(String sCode, Model model) {
+		String gs = null;
+		String senddata = null;
+
+		switch (sCode) {
+	
+		case "C17":
+			delMe(model);
+			break;
+
+		}
+		return this.mav;
+		
+		
+		
+	}
 
 	public void goMePage(Model model) {
+		this.mav.addObject("ctCode", me.getCtCode());
+		mav.setViewName("meMg");
 	
 		
 	}
@@ -128,6 +150,9 @@ public class Member extends CommonMethod{
 	}
 
 	public void meDtInfo(Model model) {
+		
+		model.addAttribute("list",this.mu.meDtInfo());
+		System.out.println(model.getAttribute("list"));
 
 	}
 
@@ -177,6 +202,8 @@ public class Member extends CommonMethod{
 	}
 
 	public void meLessonMg(Model model) {
+		String page = "/meLessonMg";
+		this.mav.setViewName(page);
 
 	}
 
@@ -197,20 +224,33 @@ public class Member extends CommonMethod{
 	}
 
 	public void meConfig(Model model) {
+		this.mav.setViewName("meConfig");
+		
 
 	}
 
 	
 
-	public void modMeMg(Model model) {
-
+	public ModelAndView modMeMg(Model model) {
+		me = new Members();
+		me = (Members) model.getAttribute("Member");
+		System.out.println(me);
+		System.out.println(((Members) model.getAttribute("Member")).getMeBirth()+":"+me.getMeBirth());
+		mu.modMeMg(me);
+		return mav;
 	}
 
-	public void delMe(Model model) {
+	public ModelAndView  delMe(Model model) {
+		mu.delMe(me) ;
+		String page = "/infoLine";
+		this.mav.setViewName(page);
+		return mav;
 
 	}
 
 	public void infoLine(Model model) {
+		String page = "/infoLine";
+		 this.mav.setViewName(page);
 
 	}
 

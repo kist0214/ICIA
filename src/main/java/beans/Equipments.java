@@ -14,4 +14,6 @@ public class Equipments {
 	private String sfName;
 	private String stCode;
 	private String stName;
+	private String egSfCode;
+	private String egstCode;
 }

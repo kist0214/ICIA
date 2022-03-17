@@ -9,13 +9,8 @@ let list;
 	
 
 	function UploadFilebyAJax(){
-
 	whatsend("meLogin", "","regedemp",true,"post");
 	}
-
-
-	
-	
 
 let data2;
 function getmemberlist(data){
@@ -52,82 +47,16 @@ function getmemberlist(data){
      }
 }
 
-//모달에서 상세정보보
-function showGoodsinModal(idx){
-	
-	let mheader = document.getElementById("mheader");
-	let mbody = document.getElementById("mbody");
-	//커멘드네임 세팅
-	let modalmod2 =  document.getElementsByName("modalmod")[0];
-	
-
-	modalmod2.setAttribute("onClick", "modGoodsInModal("+idx+")");
-	modalmod2.setAttribute("value","상품정보수정요청");
-	
-	
-	
-	//헤더 수정
-	
-	mheader.innerText = data2[idx].goName +"  상세정보"+"<br>";
-	//바디정보
-	let body2 = "<table>"+"<td><img src=\"res/"+data2[idx].goImage+"\"/></td><td>상품코드"+data2[idx].goCode+"</td><td>상품명"+data2[idx].goName+"</td>"+
-		
-	"<td>매입가"+data2[idx].goCost+"</td>"+"<td>판매가"+data2[idx].goPrice+"</td>"+
-	"<td>재고"+data2[idx].goStock+"</td>"+"<td>할인률"+data2[idx].goDiscount+"</td>"+"<td>판매상태"+data2[idx].goStatus+"</td></tr>";
-		mbody.innerHTML = body2;
-	openModal();
-}
-
-
-function modGoodsInModal(idx){
-	//폼 수정
-	let form = document.getElementsByName("dynamicFormdata")[0];
-	form.setAttribute("action", "final/modGoodsInModal");
-	form.setAttribute("method", "post");
-	form.setAttribute("enctype", "multipart/form-data");
-	
-	//파일정보가져오기
-	let files = document.getElementsByName("file")[0].files;
-
-	let formdata = new FormData(form);
-	formdata.append("goCode",data2[idx].goCode);
-	formdata.append("goName",data2[idx].goName);
-	formdata.append("goCost",data2[idx].goCost);
-	formdata.append("goPrice",data2[idx].goPrice);
-	formdata.append("goStatus",data2[idx].goStatus);
-	formdata.append("goDiscount",data2[idx].goDiscount);
-	formdata.append("goImage",files.length>0?data2[idx].goCode +"."+ files[0].type.substring(files[0].type.indexOf("/")+1) :data2[idx].goImage);
-		
-		formdata.append("goStock",data2[idx].goStock);
-	
-		
-		ajaxconnection(form.getAttribute("action"),formdata,"udtedGoodsInfo",false);
-		}
-
-function udtedGoodsInfo(data){
-
-	closeModal();
-	writegoodslist(data);
-	
-}
-
-
-
-
 function meLogIn(){
 	let form = document.getElementsByName("dynamicFormdata")[0];
 	form.submit();
 	
 }
 
-
-
 function ctLogIn(){
 	
-
      let  ip = jsPIp;
 alert(ip);
-
 	const hidden = makeInputElement("hidden","ahIp",ip,"");
 	
 	let form = document.getElementsByName("dynamicFormdata2")[0];
@@ -135,9 +64,7 @@ alert(ip);
 	alert(form+"jj");
 	form.submit();
 	
-	
 }
-
 
 
 function searchMeMg(){
@@ -145,7 +72,6 @@ function searchMeMg(){
 	let mecode = document.getElementById("meName");
 	
 	alert(mecode,ctcode);
-	
 	
 	
 	let jsondata = [];
@@ -186,6 +112,8 @@ function getselist(data){
 	div.appendChild(span5);           
 //속성을 포함해서 넣으면 어펜드, 태그부터 넣을거면 innerhtml, 태그안에 텍스트만 넣을거면 innerText
   list.appendChild(div);
+
+}
 	
 }
 
@@ -216,7 +144,7 @@ function ctLogInModal() {
 	
 }
 
-function closeModal(obj) {
+function closeModal() {
 	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
 	let container =  document.getElementById("container");
 	let containerSF =  document.getElementById("containerSF");
@@ -379,33 +307,6 @@ function logOut(){
    
 }
 
-function auth() {
-
-	
-	const hidden = makeInputElement("hidden","publicIp",jsPIp,"");
-	let form = document.getElementsByName("login")[0];
-	form.appendChild(hidden);
-	
-	const userData = [document.getElementsByName("stCode")[0],
-	document.getElementsByName("elCode")[0],
-	document.getElementsByName("elPassword")[0],
-	document.getElementsByName("publicIp")[0]];
-
-
-	
- 	message = ["매장코드없음","직원코드없음","직원비번없음","ip안넘어옴"];
-for(let index = 0; index< userData.length; index++){
-	if(!isEmpty(userData[index])){
-		alert(message[index]);
-
-		return;
-	}
-}
-	
-        form.submit();
-	
-      }
-
 
 function ClickOrderList(srCode){
 		let list = document.getElementById("list");
@@ -465,17 +366,6 @@ function addOrders (ordersInfo) {
 			
 }
 
-document.onkeydown = function(e){
-	// 새로고침 Ctrl+R Ctrl+N
-	const k = e.keyCode;
-	//F5
-	if(k == 116 || (e.ctrlKey && k == 82)){
-		refresh('1006','1006');
-		e.preventDefault(); //기존이벤트사용하게방지
-		e.returnValue = ''; //크롬필수로 ㄷ리턴값줘야함
-	}
-	
-}
 
 function refresh(stCode, elCode) {
 	
@@ -512,4 +402,3 @@ function goGoodsPage(qctCode){
 
 
 
-}

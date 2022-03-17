@@ -5,89 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>HOME</title>
-<link rel="stylesheet" type="text/css" href="res/css/Home.css" />
+<link rel="stylesheet" type="text/css" href="res/css/home.css" />
+
 <script src="res/js/bon.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <style>
-<style>
-span {
-	margin: 5px;
-	color: #000000;
-}
-
-#top {
-	text-align: right;
-	background-color: #BDBDBD;
-}
-
-#btn {
-	color: #ffffff;
-	height: 30px;
-	border: 1px solid #000000;
-	font-weight: 800;
-	background-color: #000000;
-	cursor: pointer;
-}
-
-#sideMenu {
-	background-color: #BDBDBD;
-	position: absolute;
-	height: 95%;
-	width: 18%;
-	float: left;
-}
-
-#middle {
-	color: #000000;
-	position: absolute;
-	top: 5%;
-	left: 20%;
-	font-weight: 800;
-	font-size: 15pt;
-}
-
-#bottom {
-	position: absolute;
-	top: 96%;
-	width: 98.7%;
-	height: 30px;
-	line-height: 30px;
-	background-color: #BDBDBD;
-	text-align: right;
-	font-weight: 800;
-}
-
-h2 {
-	font-size: 15pt;
-	margin: 20px 0 20px 20px;
-}
-
-.menuContainer {
-	width: 90%;
-	margin: 0 auto;
-}
-
-.managements {
-	margin-bottom: 13pt;
-	background: #fff;
-}
-
-.menuTitle {
-	padding: 5px;
-	color: #fff;
-	background: #333;
-	cursor: pointer;
-	text-align: center;
-}
-
-.items {
-	padding: 0 20px 3px 20px;
-	font-size: 10pt;
-	text-align: center;
-	}
-
 .container {
+   display : none;
    background-color: gray;
    background: rgba(0, 0, 0, 0.4);
    position: absolute;
@@ -95,18 +19,75 @@ h2 {
    min-height: 100%;
    left: 0;
    top: 0;
-   text-align:center;
+   text-align: center;
+   font-size: 17pt;
+   font-weight: 700;
+   z-index:100;
 }
-
-.mdialog {border :2px solid white;
+.mdialog {
+   border: 2px solid white;
    border-radius: 25px;
    background-color: #ffffff;
    position: absolute;
    top: 50%;
    left: 50%;
-   width: 60%;
-   height: 450px;
-   transform: translate(-50%,-50%);
+   width: 70%;
+   height: 750px;
+   transform: translate(-50%, -50%);
+   font-size: 17pt;
+   font-weight: 700;
+   z-index:101;
+}
+body	{font-family: 'Black Han Sans', sans-serif;}
+table {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 52%;
+}
+
+td {
+	text-align: center;
+}
+
+input {
+	width: 98%;
+	height: 40px;
+	text-align: center;
+	font-size: 15pt;
+	color: #0BC904;
+	font-family: 'Black Han Sans', sans-serif;
+}
+
+#state {
+	text-align: left;
+	padding-left: 20px;
+}
+
+#ips {
+	text-align: right;
+	padding-right: 20px;
+}
+
+#btn {
+	background-color: #0BC904;
+	color: #FFFFFF;
+	width: 99%;
+	height: 60px;
+	border: 1px solid #0BC904;
+	cursor: pointer;
+}
+
+.title {
+	height: 80px;
+	font-size: 20pt;
+	background-color: #0BC904;
+	color: #FFFFFF;
+}
+
+.line {
+	height: 60px;
 }
 </style>
 </head>

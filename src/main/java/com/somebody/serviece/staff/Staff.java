@@ -1,21 +1,20 @@
 package com.somebody.serviece.staff;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.ui.Model;
 import com.somebody.db.CommonMethod;
 import com.somebody.db.MapperBon;
 import com.somebody.db.MapperDong;
 import com.somebody.db.MapperUone;
 import com.somebody.db.MapperYoung;
-
-import kr.co.icia.plzec.services.Encryption;
-import kr.co.icia.plzec.services.ProjectUtils;
-
+import beans.Staffs;
 @Service
 public class Staff extends CommonMethod{
 	@Autowired
@@ -36,62 +35,95 @@ public class Staff extends CommonMethod{
 	private DefaultTransactionDefinition txdef;
 
 	String page = null;
-	public void backController(String sCode, Staff sf) {
+	Staff(){
+		mav = new ModelAndView();
+	}
+	public ModelAndView backController(String sCode, Staffs sf, Model model) {
 		String gs = null;
-		String senddata = null;
+		String sendData = null;
 
 		switch (sCode) {
+		case "S00":
+			goSfPage(model);
+			break;
 		case "S01":
-			sfMg(sf);
+			sfMg(sf, model);
 			 break;
 		case "S02":
-			searchSfMg(sf);
+			searchSfMg(sf, model);
 			break;
 		case "S03":
-			getMaxSf(sf);
+			getMaxSf(model);
 			break;
 		case "S04":
-			insSf(sf);
+			insSf(sf,model);
 			break;
 		case "S07":
-			modSf(sf);
+			modSf(sf, model);
 			break;
 		case "S09":
-			getMeMg(sf);
+			getMeMg(model);
 			break;
-		
 		}
-		
+		return mav;
 	}
 
-	public void sfMg(Staff sf) {
-		
-		
+	private void goSfPage(Model model) {
+
+		mav.addObject("sfCtCode", "1234512345");
+		mav.setViewName("sfMg");
+
 	}
 
-	public void searchSfMg(Staff sf) {
-		
-		
+	public void sfMg(Staffs sf, Model model) {
+
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		model.addAttribute("sfList",  this.md.sfList(sf));
+		tranend(true);		
 	}
 
-	public void getMaxSf(Staff sf) {
-		
-		
+	public void searchSfMg(Staffs sf, Model model) {
+
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		model.addAttribute("sfList",  this.md.sfList(sf));
+		tranend(true);
+
 	}
 
-	public void insSf(Staff sf) {
-		
-		
+	public void getMaxSf(Model model) {
+
+
 	}
 
-	public void modSf(Staff sf) {
-		
-		
+	public void insSf(Staffs sf, Model model) {
+
+		boolean tran = false;
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		if(convertToBoolean(this.md.insSf(sf))) {
+				model.addAttribute("sfList",  this.md.sfList(sf));
+				tran=true;
+
+		}
+		tranend(tran);
 	}
 
-	public void getMeMg(Staff sf) {
-		
-		
+
+	public void modSf(Staffs sf, Model model) {
+		boolean tran = false;
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		if(convertToBoolean(this.md.modSf(sf))){
+
+				model.addAttribute("modSf", this.md.sfList(sf));
+				tran = true;
+			}
+
+		tranend(tran);
+
+	}
+
+	public void getMeMg(Model model) {
+
+
 	}
 
 }

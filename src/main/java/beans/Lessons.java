@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class Lessons {
+	private String lsSfCtCode;
 	private String ctCode;
 	private String sfCode;
 	private String sfName;
@@ -11,7 +12,8 @@ public class Lessons {
 	private String lsName;
 	private String lsOpen;
 	private String lsProgress;
-	private String lsmeCount;
+
+	private String lsMeCount;
 	private String lsCaCode;
 	private String lsCaName;
 	
@@ -22,5 +24,5 @@ public class Lessons {
 	private String lpCaCode;
 	private String lpQty;
 	private String lpPrice;
-	
+	private String lpStocks;
 }

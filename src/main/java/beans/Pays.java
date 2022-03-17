@@ -3,12 +3,14 @@ package beans;
 import lombok.Data;
 
 @Data
-public class Pays {
+public class Pays extends Lessons{
 	private String ctCode;
+	private String caCode;
 	private String lpcaCode;
 	private String lpQty;
 	private String meCode;
 	private String meName;
 	private String paDate;
 	private String paCaCode;
+	private String paTotal;
 }

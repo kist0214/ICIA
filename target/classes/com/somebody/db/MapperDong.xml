@@ -3,8 +3,35 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace = "com.somebody.db.MapperDong">
-	<insert id = "is" parameterType = "beans.Centers">
-		insert into kmasters.ct (CTCODE,CTNAME,CTADDRESS,CTCEO,CTNUMBER) values(#{ctCode},'1','1','1','1') 
+	<select id="goSfPage" resultType="beans.Staffs">
+		SELECT SFCODE AS SFID, SFNAME, SFRANK, SFEMAIL, SFNUMBER FROM KMASTERS.SF
+	</select>
+	<select id="searchSfMg" resultType="beans.Staffs">
+		SELECT SFCODE AS sfId, SFNAME, sfRank, SFEMAIL, SFNUMBER FROM KMASTERS.SF
+	</select>
+	<insert id="insSf" parameterType = "beans.Staffs">
+		INSERT INTO KMASTERS.SF (SFCTCODE, SFCODE, SFPASSWORD, SFNAME, SFRANK, SFEMAIL, SFNUMBER) VALUES(#{sfCtCode} ,#{sfId}, #{sfPw}, #{sfName}, #{sfRank}, #{sfEmail}, #{sfNumber})
 	</insert>
+	<select id="sfList" resultType = "beans.Staffs" parameterType = "beans.Staffs">
+		SELECT SFCTCODE AS sfCtCode, SFCODE AS sfId, SFNAME, SFRANK, SFEMAIL, SFNUMBER FROM KMASTERS.SF
+	</select>
+	<update id="modSf" parameterType = "beans.Staffs">
+		UPDATE KMASTERS.SF SET SFCTCODE = #{sfCtCode} WHERE SFCODE = #{sfId} AND SFNAME =#{sfName} AND SFNUMBER =#{sfNumber} AND SFPASSWORD =#{sfPassword} AND SFEMAIL =#{sfEmail} AND SFRANK =#{sfRank} 
+	</update>
+	<select id="goLessonPage" resultType="beans.Lessons">
+		SELECT LSNAME AS lsName, LSOPEN AS lsOpen, LSSFCODE AS sfCode ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS
+	</select>
+	<select id="searchLesson" resultType="beans.Lessons">
+		SELECT LSNAME AS lsName, LSOPEN AS lsOpen, LSSFCODE AS sfCode ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS
+	</select>
+	<select id="lsList" resultType = "beans.Lessons" parameterType = "beans.Lessons">
+		SELECT LSNAME AS lsName, LSOPEN AS lsOpen, LSSFCODE AS sfCode ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS
+	</select>
+	<insert id="insLsForm" parameterType="beans.Lessons">
+		INSERT INTO KMASTERS.LS (LSSFCTCODE, LSNAME, LSOPEN, SFNAME, LSMECOUNT) VALUES(#{lsSfCtCode} ,#{lsName}, #{lsOpen}, #{sfName}, #{lsMeCount})
+	</insert>
+	<select id="lessonMg" resultType = "beans.Lessons" parameterType = "beans.Lessons">
+		SELECT LSNAME AS lsName, LSOPEN AS lsOpen, LSSFCODE AS sfCode ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS
+	</select>
 </mapper>
 

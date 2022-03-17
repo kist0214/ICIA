@@ -3,8 +3,36 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace = "com.somebody.db.MapperUone">
+
 	<insert id = "is" parameterType = "beans.Centers">
 		insert into kmasters.ct (CTCODE,CTNAME,CTADDRESS,CTCEO,CTNUMBER) values(#{ctCode},'1','1','1','1') 
 	</insert>
-</mapper>
+	
+	<select id = "meDtInfo" resultType = "beans.Members">
+		SELECT  ME.MENAME AS meName,
+        (SELECT NVL(TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(SUBSTR(TO_CHAR(MEBIRTH,'YYYY'),1,4),'YYYY'))/12), 0)+1 FROM KMASTERS.ME WHERE MECODE = '10001') AS meBirth,
+        ME.MEEMAIL AS meEmail,
+        ME.MEPASSWORD AS mePw,
+        ME.MENUMBER AS meNumber,
+        (SELECT CA.CANAME FROM KMASTERS.CA WHERE CA.CACODE = ME.MEGENDER)AS meGender,
+        PA.PATOTAL AS paTotal,
+        SUBSTR(TO_CHAR(PA.PADATE,'YYYYMMDD'),1,8) AS paDate,
+        SF.SFNAME AS sfName,
+        (SELECT CA.CANAME FROM KMASTERS.CA WHERE CA.CACODE = PA.PALPCACODE) AS lsName,
+        (SELECT EQ.EQNAME FROM KMASTERS.EQ WHERE EQ.EQCODE = (SELECT LGEQCODE FROM KMASTERS.LG WHERE LGMECODE = ME.MECODE)) AS locker
+		FROM KMASTERS.ME INNER JOIN KMASTERS.PA ON ME.MECODE = PA.PAMECODE
+        INNER JOIN KMASTERS.CA ON PA.PALPCACODE = CA.CACODE
+        INNER JOIN KMASTERS.SF ON PA.PALPCTCODE = SF.SFCTCODE
+        INNER JOIN KMASTERS.LG ON ME.MECODE = LG.LGMECODE
+        INNER JOIN KMASTERS.EQ ON LG.LGEQCODE = EQ.EQCODE
+		WHERE MECODE = '10001' AND SFCTCODE = '1234567890'
+	</select>
+	<update id="delMe" parameterType ="beans.Members">
+		UPDATE KMASTERS.ME SET MEBIRTH = (SELECT SYSDATE FROM DUAL) , MEEMAIL = 'DELETE',MENAME ='DELETE',MENUMBER='DELETE',MEPASSWORD='DELETE' WHERE MECODE ='10001'
+	</update>
+	
+	<update id="modMeMg" parameterType = "beans.Members">
+		UPDATE KMASTERS.ME SET MEBIRTH = #{meBirth} , MENAME = #{meName} , MENUMBER = #{meNumber} WHERE MECODE = '10001'
+	</update>
 
+</mapper>
