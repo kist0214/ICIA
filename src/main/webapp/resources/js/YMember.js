@@ -1,6 +1,9 @@
 /**
  * 
  */
+
+
+
 function ajax(action, data, fn) {
    let ajax = new XMLHttpRequest();
    ajax.onreadystatechange = function() {
@@ -44,7 +47,8 @@ function meList(json){
 	ajax.innerHTML=data;
 }
 
-//만료버튼클릭
-function clickExpiration(this){
-	
-}
+
+
+
+
+

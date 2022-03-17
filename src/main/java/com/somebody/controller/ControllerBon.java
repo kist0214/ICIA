@@ -54,20 +54,26 @@ public class ControllerBon {
 	}
 
 	@RequestMapping(value = "/logOut", method = RequestMethod.POST)
-	public String logOut(Model model, @ModelAttribute Staffs sf, @ModelAttribute Members me) {
-		System.out.println(11);
+	public String logOut(Model model, @ModelAttribute Staffs sf) {
+		System.out.println(88);
 		System.out.println(sf.getSfId());
+		System.out.println(sf.getCtCode());
+		System.out.println(sf.getSfCtCode());
 		if( sf.getSfId() != null) {
-			System.out.println(11);
+			System.out.println(99);
 			this.auth.backControllerCT("A04",sf);
 		}else {
-			System.out.println(22);
+			System.out.println(36363);
+			Members me  = new Members();
 				this.auth.backControllerME("A04",model.addAttribute("send", me));
 			}
 		return "home";
 		}
 		
-	
+	@RequestMapping(value = "/modPw", method = RequestMethod.GET)
+	public void modPw(Model model, @ModelAttribute Centers ct) {
+		this.auth.backController("A06",ct);
+	}
 
 	@RequestMapping(value = "/sendEmailForm", method = RequestMethod.GET)
 	public void sendEmailForm(Model model, @ModelAttribute Centers ct) {

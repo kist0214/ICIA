@@ -18,7 +18,7 @@ public interface MapperBon {
 	public String  meLogin(Members me);
 	public List<Members> meInfo(Members me);
 	public int insertAccessHistory(Staffs sf);
-	
+	public int insertAccessOutHistory(Staffs sf);
 	
 	//인바디
 	public int insInbody(Inbodys inbody);

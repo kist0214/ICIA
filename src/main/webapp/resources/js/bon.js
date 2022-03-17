@@ -6,11 +6,6 @@ let jsPIp;
 let list;
 
 
-	
-
-	function UploadFilebyAJax(){
-	whatsend("meLogin", "","regedemp",true,"post");
-	}
 
 let data2;
 function getmemberlist(data){
@@ -56,12 +51,12 @@ function meLogIn(){
 function ctLogIn(){
 	
      let  ip = jsPIp;
-alert(ip);
+
 	const hidden = makeInputElement("hidden","ahIp",ip,"");
 	
 	let form = document.getElementsByName("dynamicFormdata2")[0];
 	form.appendChild(hidden);
-	alert(form+"jj");
+	
 	form.submit();
 	
 }
@@ -71,7 +66,7 @@ function searchMeMg(){
 	let ctcode = document.getElementById("caCode");
 	let mecode = document.getElementById("meName");
 	
-	alert(mecode,ctcode);
+
 	
 	
 	let jsondata = [];
@@ -82,7 +77,7 @@ function searchMeMg(){
 	
 }
 function getselist(data){
-	alert(data);
+
 	data2 = data;
 	const list =  document.getElementById("list");
 	
@@ -92,7 +87,7 @@ function getselist(data){
 	for (idx = 0; idx < data2.length; idx++) {
 		
 		let div = document.createElement("div");
-	div.setAttribute("onClick", "showGoodsinModal("+idx+")");
+	div.setAttribe("onClick", "showGoodsinModal("+idx+")");
 	
 	let span1=  document.createElement("span");
 	span1.innerText = data[idx].meName;
@@ -123,7 +118,7 @@ function getPublicIp(pip){
 }
 
 function getInbodyModal() {
-	let container =  document.getElementById("container");
+	let container =  document.getElementById("containerIn");
 	container.style.filter = "alpha(Opacity=50)";
 	container.style.display = "block";
 	
@@ -144,17 +139,74 @@ function ctLogInModal() {
 	
 }
 
-function closeModal() {
+function closeModalb() {
 	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
 	let container =  document.getElementById("container");
 	let containerSF =  document.getElementById("containerSF");
+	let containerIn =  document.getElementById("containerIn");
 	
 	container.style.display = "none";
 	containerSF.style.display = "none";
+	containerIn.style.display = "none";
 	
 	
 	
 }
+function uploadFile(formName) {
+	
+		 const form = document.getElementsByName(formName)[0];
+		form.submit();
+	}
+	function UploadFilebyAJax(formName) {
+		let form = document.getElementsByName("dynamicFormdataIn")[0];
+		
+	form.submit();
+
+		
+	}
+	
+	
+	
+	function modPw(){
+		  const form =  makeForm("","modPw","GET");
+		form.submit;
+		
+		
+		
+	}
+	
+	function ajaxFromData(action, data, fn, method) {
+		const ajax = new XMLHttpRequest();
+		
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+			//alert(ajax.responseText);
+			window[fn](JSON.parse(ajax.responseText));
+			
+			
+		}
+		};
+		if(method == "Get"){
+			ajax.open("get", action, true);
+		}
+		else{
+		ajax.open("post", action, true);
+		//ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8 ");
+		}
+		
+		ajax.send(data);
+	}
+	
+	function ajaxCallback(msg){
+		alert(msg);
+		const list =  document.getElementById("msg");
+		
+		let span1=  document.createElement("span");
+	span1.innerText = msg;
+	div.appendChild(span1);
+	list.appendChild(div);
+	}
+	
 
 function ajaxconnection(action, data, fn, content) {
    let ajax = new XMLHttpRequest();
@@ -288,7 +340,7 @@ function loadPage(msg){
 
 function meMg(ctcode, mecode){
 	
-	alert(55555);
+	
 	
 	//alert(ctcode, mecode);
 	let jsondata = [];
@@ -299,9 +351,15 @@ function meMg(ctcode, mecode){
 	
 }
 
-function logOut(){
+function logOut(ct,id){
+	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
+	alert(id+"d34343"+ct);
 	
+	let a = makeInputElement("hidden", "sfId", id);
+	let b = makeInputElement("hidden", "ctCode", ct);
 	let form = makeForm("", "logOut", "POST");
+	form.appendChild(a);
+	form.appendChild(b);
       document.body.appendChild(form);
 	form.submit();
    

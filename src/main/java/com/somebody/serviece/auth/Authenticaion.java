@@ -184,7 +184,7 @@ public class Authenticaion extends CommonMethod {
 
 	public ModelAndView meLogin( Model model) {
 
-		//아이디비번제어 일치시 로그인기록 저장
+	
 		String pw = mb.meLogin((Members)model.getAttribute("send"));
 		System.out.println(((Members)model.getAttribute("send")).getMePw()+"여기비번");
 	
@@ -229,9 +229,11 @@ public class Authenticaion extends CommonMethod {
 
 
 	public ModelAndView ctLogin(Staffs sf) {
+		
+		//System.out.println(enc.encode(sf.getSfPw()));
 				String pw = this.mb.sfLogin(sf);
 			
-			System.out.println(sf.getSfPw()+"%%");
+			System.out.println(sf.getSfPw()+"%%" + pw);
 			
 
 				this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,false);
@@ -260,7 +262,7 @@ public class Authenticaion extends CommonMethod {
 								//session.setMaxInactiveInterval(30*30) ;
 								
 							}else {
-								System.out.println("실패");
+								System.out.println("인서트실패");
 								
 							}
 
@@ -271,18 +273,23 @@ public class Authenticaion extends CommonMethod {
 							this.mav.setViewName("home");
 						}
 					}
+						else{System.out.println("비번비어있음");}
 					
-				}} catch (Exception e) {
+				}else {
+					System.out.println("세션있ㅇ어서 안됨");
+				}
+					} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+	
 				System.out.println(mav.getViewName()+"****");
 				return this.mav;
 
 	}
 
 	public ModelAndView logOutMe(Model model) {
-		
+		System.out.println(345);
 		
 		
 		try {
@@ -306,7 +313,7 @@ public class Authenticaion extends CommonMethod {
 		try {
 
 			sf.setAhType("A2");
-			if (this.convertToBoolean(this.mb.insertAccessHistory(sf))) {
+			if (this.convertToBoolean(this.mb.insertAccessOutHistory(sf))) {
 			} else {
 			}
 		} catch (Exception e) {

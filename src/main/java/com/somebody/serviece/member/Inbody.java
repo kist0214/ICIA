@@ -36,13 +36,10 @@ public class Inbody extends CommonMethod {
 	private TransactionStatus txStatus;
 
 	private DefaultTransactionDefinition txdef;
+	String msg = null;
 
-	String page = null;
-
-	public void backController(String sCode, ArrayList<ArrayList<String>> list) {
-		String gs = null;
-		String senddata = null;
-
+	public String backController(String sCode, ArrayList<ArrayList<String>> list) {
+			
 		switch (sCode) {
 
 		case "M09":
@@ -50,17 +47,7 @@ public class Inbody extends CommonMethod {
 			break;
 
 		}
-	}
-
-	public void backController(String sCode, Inbodys in) {
-		String gs = null;
-		String senddata = null;
-
-		switch (sCode) {
-		case "99":
-			autoTargetExcercise(in);
-			break;
-		}
+		return sCode;
 	}
 
 	public void insInbody(ArrayList<ArrayList<String>> filters) {
@@ -74,20 +61,21 @@ public class Inbody extends CommonMethod {
 			System.out.println(inbody.getMeCode());
 			if (convertToBoolean(this.mb.insInbody(inbody))) {
 
-				System.out.println("인바디 T 등록 성공");
+				msg ="인바디 T 등록 성공";
 
 			} else {
-				System.out.println("등록 실패");
+				msg = "인바디 테이블 등록 실패";
 			}
 			;
 
 			System.out.println(filters.size()-26+"%%%" );
 
 		}
+		
 		insInbodyDetail(filters);
 	}
 
-	public void insInbodyDetail(ArrayList<ArrayList<String>> filters) {
+	public String insInbodyDetail(ArrayList<ArrayList<String>> filters) {
 		Inbodys inbody = new Inbodys();
 
 		for (int i = 0; i < filters.size() - 25; i++) {
@@ -211,9 +199,10 @@ public class Inbody extends CommonMethod {
 		}
 		;
 		autoTargetExcercise(inbody);
+		return this.msg;
 	}
 
-	public void autoTargetExcercise(Inbodys in) {
+	public String autoTargetExcercise(Inbodys in) {
 		// 회원코드 보내서 최신 인바디 결과에 따라  자동으로 목표 운동을 새로 고쳐줌
 		int height = 0;
 		int muscle =0 ;
@@ -243,7 +232,7 @@ public class Inbody extends CommonMethod {
 				 weight = Integer.parseInt(recentInbody.get(i).getIdCount()); //웨이트 왜 저장안돼
 
 			} else {
-				System.out.println("인바디코드가 달라요");
+				msg = "인바디코드가 달라요";
 			}
 			
 			
@@ -379,8 +368,9 @@ public class Inbody extends CommonMethod {
 				mb.insTargetExcercise(in);
 				
 			}else {
-				System.out.println("인간의 수치에 맞지않는 데이터값을 입력하였습니다.");
+				msg = "인간의 수치에 맞지않는 데이터값을 입력하였습니다.";
 			}
+			return this.msg;
 
 		}
 	}

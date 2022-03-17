@@ -6,6 +6,7 @@ let data;
 
 
 function sfMg(sfCode) {
+closeModalIn(); //지우지마시오
 
 
 	let jsonData = [];
@@ -151,6 +152,17 @@ function modSfModal() {
 }
 
 
+
+function closeModalIn() {
+//지우지마시오 - 본
+	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
+	
+	let containerIn =  document.getElementById("containerIn");
+	containerIn.style.display = "none";
+	
+	
+	
+}
 
  function closeModal() {
 		let container = document.getElementById("container");

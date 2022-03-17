@@ -9,6 +9,10 @@
 INSERT INTO kmasters.AH(AHSFCTCODE,AHsfCODE,AHTIME, AHIP, AHTYPE) 
 	 VALUES(#{sfCtCode},#{sfId},DEFAULT, #{ahIp}, #{ahType})
 	</insert>
+	<insert id = "insertAccessOutHistory" parameterType = "beans.Staffs">
+INSERT INTO kmasters.AH(AHSFCTCODE,AHsfCODE,AHTIME, AHIP, AHTYPE) 
+	 VALUES(#{sfCtCode},#{sfId},DEFAULT, #{ahIp}, #{ahType})
+	</insert>
 <select id = "sfLogin" parameterType = "beans.Staffs" resultType ="string">
 	SELECT SFPASSWORD  AS sfPw FROM  kmasters.sf  WHERE SFCTCODE = #{sfCtCode} AND sfCode = #{sfId} 
 	</select>
