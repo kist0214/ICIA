@@ -512,3 +512,4 @@ function goGoodsPage(qctCode){
 
 
 
+}
