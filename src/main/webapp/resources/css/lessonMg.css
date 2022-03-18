@@ -336,7 +336,7 @@ body.dark .home .search-box{
 	
 }
 select{
-	width:300px;
+	width:200px;
 	height:100%;
 	text-align:center;
 	font-size : 13pt;
@@ -345,6 +345,7 @@ select{
 	border : 0.5px solid lightGray;
 	cursor: pointer;
 	outline:none;
+	transition:all 0.4s;
 	letter-spacing:2px;
 }
 

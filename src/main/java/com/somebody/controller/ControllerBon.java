@@ -68,14 +68,16 @@ public class ControllerBon {
 		return "home";
 		}
 		
+	
+
+	@RequestMapping(value = "/sendEmailForm", method = RequestMethod.GET)
+	public String sendEmailForm() {
+		
+		return "sendEmailForm";
+	}
 	@RequestMapping(value = "/modPw", method = RequestMethod.GET)
 	public void modPw(Model model, @ModelAttribute Centers ct) {
 		this.auth.backController("A06",ct);
-	}
-
-	@RequestMapping(value = "/sendEmailForm", method = RequestMethod.GET)
-	public void sendEmailForm(Model model, @ModelAttribute Centers ct) {
-		this.auth.backController("A05",ct);
 	}
 
 	@RequestMapping(value = "/ctJoin", method = RequestMethod.POST)

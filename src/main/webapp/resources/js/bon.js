@@ -3,7 +3,7 @@
  */
 
 let jsPIp;
-let list;
+
 
 
 
@@ -56,7 +56,12 @@ function ctLogIn(){
 	const hidden = makeInputElement("hidden","ahIp",ip,"");
 	
 	let form = document.getElementsByName("dynamicFormdata2")[0];
+
+	
 	form.appendChild(hidden);
+	
+	
+	
 	
 	form.submit();
 	
@@ -148,7 +153,7 @@ function closeModalb() {
 	
 	container.style.display = "none";
 	containerSF.style.display = "none";
-	containerIn.style.display = "none";
+
 	
 	
 	
@@ -165,12 +170,9 @@ function closeModalb() {
 	
 	
 	
-	function modPw(){
-		  const form =  makeForm("","modPw","GET");
+	function sendEmailForm(){
+		  const form =  makeForm("","sendEmailForm","GET");
 		form.submit;
-		
-		
-		
 	}
 	
 	function ajaxFromData(action, data, fn, method) {
