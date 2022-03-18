@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div id="getSelectCenter">
-		
+
 		<div id="Create an Account">Create an Account</div>
 			<span id="Member" onClick="getSelectCenter()">Member</span> <span id="Center" onClick="ctJoinForm()"> | Center</span>
 			<form>
@@ -48,8 +48,8 @@
 					</tr>
 					<tr>
 						<td>
-							<input type='checkbox' name='human' value='male' onclick='checkOnlyOne(this)'/> 남자
-							<input type='checkbox' name='human' value='female' onclick='checkOnlyOne(this)'/> 여자
+							<input type='radio' name='human' value='male' onclick='checkOnlyOne(this)'/> 남자
+							<input type='radio' name='human' value='female' onclick='checkOnlyOne(this)'/> 여자
 						</td>
 					</tr>
 					<tr>
@@ -68,7 +68,7 @@
 						<td><input class="input" type="submit" value="Create an Account"
 							onClick="meJoin()" /></td>
 					</tr>
-					
+
 
 				</table>
 			</form>

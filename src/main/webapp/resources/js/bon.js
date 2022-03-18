@@ -6,30 +6,13 @@ let jsPIp;
 let list;
 
 
-	
-	function UploadFilebyAJax(){
 
-	whatsend("meLogin", "","regedemp",true,"post");
-	}
-
-function jstest(){
-	
- const sttcode= "ctCode="+2022;
-	whatsend("meLogin", sttcode,"regedemp",true,"post");
-	}
-	
-	
-function getgoodsList(action, stcode){
-	//let jsondata = [];
-	//jsondata.push({"stCode":stcode});
-	//const clientdata = JSON.stringify(jsondata);
-	whatsend(action,"","writegoodslist",false,"post");
-}
 let data2;
-function writegoodslist(data){
+function getmemberlist(data){
+	alert(data);
 	data2 = data;
 	const list =  document.getElementById("list");
-	//let message = '<div><span>상품코드</span><span>상품이름</span><span>상품원가</span><span>상품가격</span><span>상품재고</span><span>상품할인률</span><span>판매상태</span><span>사진</span></div>';
+	
       while(list.hasChildNodes()){
 			list.removeChild(list.lastChild);
 		}
@@ -39,89 +22,25 @@ function writegoodslist(data){
 	div.setAttribute("onClick", "showGoodsinModal("+idx+")");
 	
 	let span1=  document.createElement("span");
-	span1.innerText = data[idx].goCode;
+	span1.innerText = data[idx].meName;
 	let span2=  document.createElement("span");
-	span2.innerText = data[idx].goName;
+	span2.innerText = data[idx].meGender;
 	let span3=  document.createElement("span");
-	span3.innerText = data[idx].goPrice;
+	span3.innerText = data[idx].meBirth;
 	let span4=  document.createElement("span");
-	span4.innerText = data[idx].goDiscount;
+	span4.innerText = data[idx].meNumber;
 	let span5=  document.createElement("span");
-	span5.innerText = data[idx].goImage;
+	span5.innerText = data[idx].meLsName;
 	div.appendChild(span1);
 	div.appendChild(span2);
 	div.appendChild(span3);   
-	div.appendChild(span4);   const userData = [document.getElementsByName("stCode")[0],
-	document.getElementsByName("elCode")[0],
-	document.getElementsByName("elPassword")[0],
-	document.getElementsByName("publicIp")[0]];
+	div.appendChild(span4);  
+
 	div.appendChild(span5);           
 //속성을 포함해서 넣으면 어펜드, 태그부터 넣을거면 innerhtml, 태그안에 텍스트만 넣을거면 innerText
   list.appendChild(div);
      }
 }
-
-//모달에서 상세정보보
-function showGoodsinModal(idx){
-	
-	let mheader = document.getElementById("mheader");
-	let mbody = document.getElementById("mbody");
-	//커멘드네임 세팅
-	let modalmod2 =  document.getElementsByName("modalmod")[0];
-	
-
-	modalmod2.setAttribute("onClick", "modGoodsInModal("+idx+")");
-	modalmod2.setAttribute("value","상품정보수정요청");
-	
-	
-	
-	//헤더 수정
-	
-	mheader.innerText = data2[idx].goName +"  상세정보"+"<br>";
-	//바디정보
-	let body2 = "<table>"+"<td><img src=\"res/"+data2[idx].goImage+"\"/></td><td>상품코드"+data2[idx].goCode+"</td><td>상품명"+data2[idx].goName+"</td>"+
-		
-	"<td>매입가"+data2[idx].goCost+"</td>"+"<td>판매가"+data2[idx].goPrice+"</td>"+
-	"<td>재고"+data2[idx].goStock+"</td>"+"<td>할인률"+data2[idx].goDiscount+"</td>"+"<td>판매상태"+data2[idx].goStatus+"</td></tr>";
-		mbody.innerHTML = body2;
-	openModal();
-}
-
-
-function modGoodsInModal(idx){
-	//폼 수정
-	let form = document.getElementsByName("dynamicFormdata")[0];
-	form.setAttribute("action", "final/modGoodsInModal");
-	form.setAttribute("method", "post");
-	form.setAttribute("enctype", "multipart/form-data");
-	
-	//파일정보가져오기
-	let files = document.getElementsByName("file")[0].files;
-
-	let formdata = new FormData(form);
-	formdata.append("goCode",data2[idx].goCode);
-	formdata.append("goName",data2[idx].goName);
-	formdata.append("goCost",data2[idx].goCost);
-	formdata.append("goPrice",data2[idx].goPrice);
-	formdata.append("goStatus",data2[idx].goStatus);
-	formdata.append("goDiscount",data2[idx].goDiscount);
-	formdata.append("goImage",files.length>0?data2[idx].goCode +"."+ files[0].type.substring(files[0].type.indexOf("/")+1) :data2[idx].goImage);
-		
-		formdata.append("goStock",data2[idx].goStock);
-	
-		
-		ajaxconnection(form.getAttribute("action"),formdata,"udtedGoodsInfo",false);
-		}
-
-function udtedGoodsInfo(data){
-
-	closeModal();
-	writegoodslist(data);
-	
-}
-
-
-
 
 function meLogIn(){
 	let form = document.getElementsByName("dynamicFormdata")[0];
@@ -129,25 +48,80 @@ function meLogIn(){
 	
 }
 
-
-
 function ctLogIn(){
 	
-
      let  ip = jsPIp;
-alert(ip);
 
 	const hidden = makeInputElement("hidden","ahIp",ip,"");
 	
 	let form = document.getElementsByName("dynamicFormdata2")[0];
 	form.appendChild(hidden);
-	alert(form+"jj");
+	
 	form.submit();
 	
+}
+
+
+function searchMeMg(){
+	let ctcode = document.getElementById("caCode");
+	let mecode = document.getElementById("meName");
+	
+
+	
+	
+	let jsondata = [];
+	jsondata.push({"caCode":ctcode,"meName": mecode});
+	
+	const clientdata = JSON.stringify(jsondata);
+	whatsend("ajax/searchMeMg",clientdata,"getselist",false,"post");
 	
 }
+function getselist(data){
+
+	data2 = data;
+	const list =  document.getElementById("list");
+	
+      while(list.hasChildNodes()){
+			list.removeChild(list.lastChild);
+		}
+	for (idx = 0; idx < data2.length; idx++) {
+		
+		let div = document.createElement("div");
+	div.setAttribe("onClick", "showGoodsinModal("+idx+")");
+	
+	let span1=  document.createElement("span");
+	span1.innerText = data[idx].meName;
+	let span2=  document.createElement("span");
+	span2.innerText = data[idx].meGender;
+	let span3=  document.createElement("span");
+	span3.innerText = data[idx].meBirth;
+	let span4=  document.createElement("span");
+	span4.innerText = data[idx].meNumber;
+	let span5=  document.createElement("span");
+	span5.innerText = data[idx].meLsName;
+	div.appendChild(span1);
+	div.appendChild(span2);
+	div.appendChild(span3);   
+	div.appendChild(span4);  
+
+	div.appendChild(span5);           
+//속성을 포함해서 넣으면 어펜드, 태그부터 넣을거면 innerhtml, 태그안에 텍스트만 넣을거면 innerText
+  list.appendChild(div);
+
+}
+	
+}
+
 function getPublicIp(pip){
 	jsPIp = pip.ip;
+	
+}
+
+function getInbodyModal() {
+	let container =  document.getElementById("containerIn");
+	container.style.filter = "alpha(Opacity=50)";
+	container.style.display = "block";
+	
 	
 }
 function meLogInModal() {
@@ -165,17 +139,74 @@ function ctLogInModal() {
 	
 }
 
-function closeModal(obj) {
+function closeModalb() {
 	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
 	let container =  document.getElementById("container");
 	let containerSF =  document.getElementById("containerSF");
+	let containerIn =  document.getElementById("containerIn");
 	
 	container.style.display = "none";
 	containerSF.style.display = "none";
+	containerIn.style.display = "none";
 	
 	
 	
 }
+function uploadFile(formName) {
+	
+		 const form = document.getElementsByName(formName)[0];
+		form.submit();
+	}
+	function UploadFilebyAJax(formName) {
+		let form = document.getElementsByName("dynamicFormdataIn")[0];
+		
+	form.submit();
+
+		
+	}
+	
+	
+	
+	function modPw(){
+		  const form =  makeForm("","modPw","GET");
+		form.submit;
+		
+		
+		
+	}
+	
+	function ajaxFromData(action, data, fn, method) {
+		const ajax = new XMLHttpRequest();
+		
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+			//alert(ajax.responseText);
+			window[fn](JSON.parse(ajax.responseText));
+			
+			
+		}
+		};
+		if(method == "Get"){
+			ajax.open("get", action, true);
+		}
+		else{
+		ajax.open("post", action, true);
+		//ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8 ");
+		}
+		
+		ajax.send(data);
+	}
+	
+	function ajaxCallback(msg){
+		alert(msg);
+		const list =  document.getElementById("msg");
+		
+		let span1=  document.createElement("span");
+	span1.innerText = msg;
+	div.appendChild(span1);
+	list.appendChild(div);
+	}
+	
 
 function ajaxconnection(action, data, fn, content) {
    let ajax = new XMLHttpRequest();
@@ -214,18 +245,6 @@ function whatsend(action, data, fn, content,method) {
 }
 
 
-function getedmemlist(data){
-	 message = '<table><tr><td>매장코드</td><td>회원코드</td><td>회원이름</td><td>회원등급</td></tr>';
-      for (idx = 0; idx < data.length; idx++) {
-         message += '<tr><td>' + data[idx].stCode + '</td><td>'
-               + data[idx].cmCode + '</td><td>' + data[idx].cmName
-               + '</td><td>' + data[idx].cmRank + '</td>';
-         message += '</tr>';
-      }
-      message += '</table>';
-      document.getElementById("list").innerHTML = message;
-	
-}
 function getempList(list, stcode, elcode){
 	
 
@@ -319,41 +338,32 @@ function loadPage(msg){
 }
 
 
+function meMg(ctcode, mecode){
+	
+	
+	
+	//alert(ctcode, mecode);
+	let jsondata = [];
+	jsondata.push({"ctCode":ctcode,"meCode": mecode});
+	
+	const clientdata = JSON.stringify(jsondata);
+	whatsend("ajax/meMg",clientdata,"getmemberlist",false,"post");
+	
+}
 
-
-function logOut(session){
-	alert(11);
-	alert(session);
+function logOut(ct,id){
+	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
+	alert(id+"d34343"+ct);
+	
+	let a = makeInputElement("hidden", "sfId", id);
+	let b = makeInputElement("hidden", "ctCode", ct);
+	let form = makeForm("", "logOut", "POST");
+	form.appendChild(a);
+	form.appendChild(b);
+      document.body.appendChild(form);
 	form.submit();
    
 }
-
-function auth() {
-
-	
-	const hidden = makeInputElement("hidden","publicIp",jsPIp,"");
-	let form = document.getElementsByName("login")[0];
-	form.appendChild(hidden);
-	
-	const userData = [document.getElementsByName("stCode")[0],
-	document.getElementsByName("elCode")[0],
-	document.getElementsByName("elPassword")[0],
-	document.getElementsByName("publicIp")[0]];
-
-
-	
- 	message = ["매장코드없음","직원코드없음","직원비번없음","ip안넘어옴"];
-for(let index = 0; index< userData.length; index++){
-	if(!isEmpty(userData[index])){
-		alert(message[index]);
-
-		return;
-	}
-}
-	
-        form.submit();
-	
-      }
 
 
 function ClickOrderList(srCode){
@@ -414,17 +424,6 @@ function addOrders (ordersInfo) {
 			
 }
 
-document.onkeydown = function(e){
-	// 새로고침 Ctrl+R Ctrl+N
-	const k = e.keyCode;
-	//F5
-	if(k == 116 || (e.ctrlKey && k == 82)){
-		refresh('1006','1006');
-		e.preventDefault(); //기존이벤트사용하게방지
-		e.returnValue = ''; //크롬필수로 ㄷ리턴값줘야함
-	}
-	
-}
 
 function refresh(stCode, elCode) {
 	

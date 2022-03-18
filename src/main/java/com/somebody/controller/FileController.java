@@ -43,30 +43,21 @@ public class FileController {
 	@Autowired
 	Inbody inbody;
 
-	@RequestMapping(value = "/getFilePage", method = RequestMethod.GET)
-	public String home() {
-		return "upload";
-	}
-
 	@RequestMapping(value = "/insInbody", method = RequestMethod.POST)
-	@ResponseBody // rest방식아닐때 사용
-	public void insInbody(@RequestParam("file") MultipartFile[] f, @ModelAttribute Inbodys in) {
-
+	@ResponseBody 
+	public String insInbody(@RequestParam("file") MultipartFile[] f, @ModelAttribute Inbodys in) {
+String msg = null;
 		for (MultipartFile e : f) {
-			System.out.println(e.getOriginalFilename() + "gg");
-			this.savePath = new File("C:\\REST\\workspace\\help\\src\\main\\webapp\\resources\\excel",
-					e.getOriginalFilename());
-			try {
-
-				e.transferTo(savePath);
-				
-				inbody.backController("M10", readFilter(e.getOriginalFilename()));
-			
-			} catch (IllegalStateException | IOException e1) {
-				e1.printStackTrace();
+				try {
+				msg =	inbody.backController("M09", readFilter(e.getOriginalFilename()));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
-		}
+		
+		return msg;
 	}
+	
 
 	
 	

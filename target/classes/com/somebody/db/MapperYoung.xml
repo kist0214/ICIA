@@ -5,13 +5,116 @@
 
 
 <mapper namespace = "com.somebody.db.MapperYoung">
-	<insert id = "is" parameterType = "beans.Centers">
-	insert into kmasters.ct (CTCODE,CTNAME,CTADDRESS,CTCEO,CTNUMBER) values('3000','24','42','42','42') 
+	<select id="goodsList" resultType="beans.Equipments"
+		parameterType="beans.Equipments">
+		select * from kmasters.GoodsView where ctCode =
+		${ctCode}
+	</select>
+	<select id="searchGoods" resultType="beans.Equipments"
+		parameterType="beans.Equipments">
+		select * from kmasters.GoodsView where ctCode =
+		'${ctCode}' and ${eqCaCode} = '${eqCaName}'
+	</select>
+	<select id="getGoCaList" resultType="beans.Equipments">
+		select cacode as eqCaCode ,
+		caname as eqCaName from kmasters.ca where cacode like 'E_'
+	</select>
+	<select id="getGoSfList" resultType="beans.Equipments">
+		select sfcode as sfCode ,
+		sfname as sfName from kmasters.sf where sfctcode = ${ctCode}
+	</select>
+	<select id="getGoStList" resultType="beans.Equipments">
+		select stcode as stCode ,
+		stname as stName from kmasters.st where stcode like 'E_'
+	</select>
+	<update id="modGoods" parameterType="beans.Equipments">
+		update kmasters.eq set
+		eqcacode = '${eqCaCode}' , eqname = '${eqName}' where eqctcode =
+		'${ctCode}' and eqcode = '${eqCode}'
+	</update>
+	<update id="modGoodsMg" parameterType="beans.Equipments">
+		update kmasters.eg set
+		egsfcode = '${sfCode}' , egstcode = '${stCode}',
+		egdate = '${egDate}'
+		where egeqctcode = '${ctCode}' and egeqcode =
+		'${eqCode}'
+	</update>
+	<select id="getGoodsCodeE1" resultType="beans.Equipments"
+		parameterType="beans.Equipments">
+		select Max(eqcode)+1 as eqCode, eqcacode as eqCaCode
+		from kmasters.eq where eqcacode = 'E1' and eqctcode = ${ctCode} group
+		by eqcacode
+	</select>
+	<select id="getGoodsCodeE2" resultType="beans.Equipments"
+		parameterType="beans.Equipments">
+		select Max(eqcode)+1 as eqCode, eqcacode as eqCaCode
+		from kmasters.eq where eqcacode = 'E2' and eqctcode = ${ctCode} group
+		by eqcacode
+	</select>
+	<select id="getGoodsCodeE3" resultType="beans.Equipments"
+		parameterType="beans.Equipments">
+		select Max(eqcode)+1 as eqCode, eqcacode as eqCaCode
+		from kmasters.eq where eqcacode = 'E3' and eqctcode = ${ctCode} group
+		by eqcacode
+	</select>
+	<insert id="inseq" parameterType="beans.Equipments">
+		insert into
+		kmasters.eq(eqctcode,eqcode,eqcacode,eqname)
+		VALUES('${ctCode}','${eqCode}','${eqCaCode}','${eqName}')
 	</insert>
-	<select id="goodsList" resultType = "beans.Equipments" parameterType = "beans.Equipments">
-		select * from kmasters.GoodsView where ctCode = ${ctCode}
+	<insert id="inseg" parameterType="beans.Equipments">
+		insert into
+		kmasters.eg(egeqctcode,egeqcode,egsfcode,egstcode,egdate)
+		values('${ctCode}','${eqCode}','${sfCode}','${stCode}','${egDate}')
+	</insert>
+	<select id="payList" parameterType="beans.Pays"
+		resultType="beans.Pays">
+		select ctCode, caCode, lpQty, meName, paDate, paTotal from
+		kmasters.PayView where ctCode='${ctCode}'
 	</select>
-	<select id="searchGoods" resultType = "beans.Equipments" parameterType = "beans.Equipments">
-		select * from kmasters.GoodsView where ctCode = '${ctCode}' and ${eqCaCode} = '${eqCaName}'
+	<select id="searchPay" parameterType="beans.Pays"
+		resultType="beans.Pays">
+		select ctCode, caCode, lpQty, meName, paDate, paTotal from
+		kmasters.PayView where ctCode='${ctCode}' and paDate = '${paDate}'
 	</select>
+	<select id="payGraph" parameterType="beans.Pays" resultType="beans.Pays">
+		select nvl(sum(patotal),0)/10000 as paTotal,
+		substr(padate,0,7) as paDate
+		from kmasters.pa
+		where (substr(padate,0,7)=
+		to_char(add_months(sysdate,-1),'yyyy-mm')
+		or substr(padate,0,7)=
+		to_char(add_months(sysdate,-2),'yyyy-mm')
+		or substr(padate,0,7)=
+		to_char(add_months(sysdate,-3),'yyyy-mm'))and
+		palpctcode = ${ctCode}
+		group by substr(padate,0,7)
+	</select>
+	<select id="checkMeEmailNum" resultType="beans.Members">
+		select meEmail, meNumber
+		from kmasters.me
+	</select>
+	<insert id="meJoin" parameterType="beans.Members">
+		insert into
+		kmasters.me(mecode,mename,mebirth,meemail,menumber,megender,mepassword)
+		values('${meCode}','${meName}','${meBirth}','${meEmail}','${meNumber}','${meGender}','${mePw}')
+	</insert>
+	<select id="maxCode" resultType="beans.Members">
+		select max(mecode)+1 as meCode
+		from kmasters.me
+	</select>
+	<select id="checkCtCode" resultType="beans.Centers">
+		select ctCode from
+		kmasters.ct
+	</select>
+	<insert id="ctJoin" parameterType="beans.Centers">
+		insert into
+		kmasters.ct(ctcode, ctname, ctaddress, ctceo, ctnumber)
+		values('${ctCode}','${ctName}','${ctAddress}','${sfName}','${sfNumber}')
+	</insert>
+	<insert id="firstSfJoin" parameterType="beans.Centers">
+		insert into
+		kmasters.sf(sfctcode,sfcode,sfpassword,sfname,sfrank,sfemail,sfnumber)
+		values('${ctCode}','10001','${sfPw}','${sfName}','M1','${sfEmail}','${sfNumber}')
+	</insert>
 </mapper>

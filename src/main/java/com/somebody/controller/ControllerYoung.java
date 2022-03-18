@@ -17,6 +17,7 @@ import com.somebody.serviece.lesson.Lesson;
 
 import com.somebody.serviece.pay.Pay;
 
+import beans.Centers;
 import beans.Equipments;
 import beans.Members;
 import beans.Pays;
@@ -31,20 +32,32 @@ public class ControllerYoung {
 	Pay pa;
 
 	@RequestMapping("/goGoodsPage")
-	public ModelAndView goGoodsPage(Model model, @ModelAttribute Equipments eq) {
-		return this.eq.backController1("G01",eq);
+	public ModelAndView goGoodsPage(@ModelAttribute Equipments eq) {
+		return this.eq.backController("G01",eq);
 	}
 	
-	@RequestMapping(value = "/payMg", method = RequestMethod.POST)
-	public void payMg(Model model, @ModelAttribute Pays pa) {
-		this.pa.backController("P01", pa);
+	@RequestMapping(value = "/goPayPage", method = RequestMethod.POST)
+	public ModelAndView payMg(@ModelAttribute Pays pa) {
+		return this.pa.backController("P01", pa);
 	}
 	
-	@RequestMapping(value = "/psJoin", method = RequestMethod.POST)
-	public void psJoin(Model model, @RequestBody Members[] me) {
-		this.auth.backController2("P05",model.addAttribute("mebean",me[0]));
+	@RequestMapping("/goJoinPage")
+	public ModelAndView goJoinPage(@ModelAttribute Members me) {
+		return this.auth.backController("J01",me);
 	}
 	
+	@RequestMapping(value = "/meJoin", method = RequestMethod.POST)
+	public ModelAndView meJoin(@ModelAttribute Members me) {
+		return this.auth.backController("J03",me);
+	}
+	
+	@RequestMapping(value = "/ctJoinn", method = RequestMethod.POST)
+	public ModelAndView ctJoin(Model model, @ModelAttribute Centers ct) {
+		return this.auth.backController("J02",ct);
+	}
+	
+	
+
 	
 	
 	

@@ -9,26 +9,28 @@
 INSERT INTO kmasters.AH(AHSFCTCODE,AHsfCODE,AHTIME, AHIP, AHTYPE) 
 	 VALUES(#{sfCtCode},#{sfId},DEFAULT, #{ahIp}, #{ahType})
 	</insert>
+	<insert id = "insertAccessOutHistory" parameterType = "beans.Staffs">
+INSERT INTO kmasters.AH(AHSFCTCODE,AHsfCODE,AHTIME, AHIP, AHTYPE) 
+	 VALUES(#{sfCtCode},#{sfId},DEFAULT, #{ahIp}, #{ahType})
+	</insert>
 <select id = "sfLogin" parameterType = "beans.Staffs" resultType ="string">
 	SELECT SFPASSWORD  AS sfPw FROM  kmasters.sf  WHERE SFCTCODE = #{sfCtCode} AND sfCode = #{sfId} 
-	</select>
-	
-	<select id = "sfInfo" parameterType = "beans.Staffs" resultType ="beans.Staffs">
-	select ctcode as sfctcode, ctname as ctName, sfcode as sfId, sfname as sfName, sfRank as sfRank, CANAME as sfRankName  from kmasters.sf
-	inner join kmasters.ct on sfctcode = ctcode 
-	inner join  kmasters.ca on cacode = sfrank WHERE sfCTCODE = #{sfCtCode} AND sfCode = #{sfId} 
 	</select>
 	<select id = "meLogin" parameterType = "beans.Members" resultType ="string">
 	SELECT MEPASSWORD  AS mePw FROM  kmasters.ME  WHERE MECODE = #{meCode} 
 	</select>
 	
+	<!-- 세션 -->
 	<select id = "meInfo" parameterType = "beans.Members" resultType ="beans.Members">
-	SELECT CTCODE, CTNAME,MECODE, MENAME, MEBIRTH, MEGENDER from kmasters.PA 
-	INNER JOIN KMASTERS.ME ON MECODE = PAMECODE 
-	INNER JOIN KMASTERS.CT ON CTCODE = PALPCTCODE WHERE PAMECODE = #{meCode} 
+	SELECT CTCODE, CTNAME,MECODE, MENAME, MEGENDER  from kmasters.MG
+	INNER JOIN KMASTERS.CT ON CTCODE = MGCTCODE
+    INNER JOIN KMASTERS.ME ON  MGMECODE=   MECODE WHERE MECODE= #{meCode}
 	</select>
-	
-	
+	<select id = "sfInfo" parameterType = "beans.Staffs" resultType ="beans.Staffs">
+	select ctcode as sfctcode, ctname as ctName, sfcode as sfId, sfname as sfName, sfRank as sfRank, CANAME as sfRankName  from kmasters.sf
+	inner join kmasters.ct on sfctcode = ctcode 
+	inner join  kmasters.ca on cacode = sfrank WHERE sfCTCODE = #{sfCtCode} AND sfCode = #{sfId} 
+	</select>
 	
 	<!-- 인바디 -->
 	<insert id = "insInbody" parameterType = "beans.Inbodys">
@@ -40,8 +42,28 @@ INSERT INTO kmasters.AH(AHSFCTCODE,AHsfCODE,AHTIME, AHIP, AHTYPE)
 	 VALUES(concat(#{meCode},to_char(sysdate,'yyyymmdd')),#{ibDaCode},#{idCount})
 	</insert>
 	
-	<select id = "getMeInbody" parameterType = "beans.Inbodys" resultType ="beans.Inbodys">
-	 select iddacode, idcount from kmasters.id where idibcode = #{ibCode};
+	<select id = "getMeRecentInbody" parameterType = "beans.Inbodys" resultType ="beans.Inbodys">
+	select idibcode as ibcode ,dacode as ibdacode, idcount from kmasters.id
+inner join kmasters.da on dacode = iddacode 
+where  SUBSTR(idibcode, 1,5) = #{meCode} and 
+(select max(idibcode) from kmasters.id) = kmasters.id.idibcode AND ( dacode = 10000  OR dacode = 10002 OR dacode = 10003  ) 
+order by dacode asc
 	</select>
+	<insert id = "insTargetExcercise" parameterType = "beans.Inbodys">
+	INSERT INTO kmasters.ta(taidIBCODE,taiddaCODE,taexcode,tamotion) 
+	 VALUES(#{ibCode},#{ibDaCode},#{exCode},'P1')
+	</insert>
+	<!-- 회원 -->
+	
+	<select id = "meMg" parameterType = "beans.Members" resultType ="beans.Members">
+		SELECT MEcode ,mename, (SELECT CA.CANAME FROM kmasters.CA WHERE CACODE = ME.MEGENDER) AS meGender, 
+    (SELECT NVL(TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(SUBSTR(TO_CHAR(MEBIRTH,'YYYY'),1,4),'YYYY'))/12), 0)+1 FROM kmasters.ME WHERE MECODE = #{meCode}) AS meBirth 
+    ,menumber, (SELECT CA.CANAME FROM  kmasters.CA WHERE CA.CACODE = PA.PALPCACODE) AS lsName 
+    FROM  kmasters.ME
+    inner join kmasters.PA on MECODE = PAMECODE
+     inner join kmasters.ca on caCODE = megender
+    WHERE  palpctcode = #{ctCode}
+    </select>
+	
 </mapper>
 

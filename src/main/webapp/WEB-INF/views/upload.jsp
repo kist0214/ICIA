@@ -49,7 +49,7 @@
 	}
 	
 </script>
-<link rel="stylesheet" type="text/css" href="res/css/common.css" />
+
 <style>
 body	{font-family: 'Black Han Sans', sans-serif;}
 table {

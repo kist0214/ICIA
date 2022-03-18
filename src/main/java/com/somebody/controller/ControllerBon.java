@@ -37,14 +37,13 @@ public class ControllerBon {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
-		return "join";
+		return "home";
 	}
 
 	@RequestMapping(value = "/meLogin", method = RequestMethod.POST)
 	public ModelAndView meLogin(Model model,@ModelAttribute Members me) {
 		
-		System.out.println(me.getMePw());
-		return this.auth.backControllerME("A02",me);
+		return this.auth.backControllerME("A02",model.addAttribute("send", me));
 	}
 
 	@RequestMapping(value = "/ctLogin", method = RequestMethod.POST)
@@ -55,30 +54,30 @@ public class ControllerBon {
 	}
 
 	@RequestMapping(value = "/logOut", method = RequestMethod.POST)
-	public void logOut(Model model, @ModelAttribute Staffs sf,@ModelAttribute Members me) {
+	public String logOut(Model model, @ModelAttribute Staffs sf) {
+		System.out.println(88);
+		System.out.println(sf.getSfId());
+		System.out.println(sf.getCtCode());
 		System.out.println(sf.getSfCtCode());
-		System.out.println(me.getMeCode());
 		if( sf.getSfId() != null) {
-			System.out.println(11);
+			System.out.println(99);
 			this.auth.backControllerCT("A04",sf);
 		}else {
-			System.out.println(22);
-				this.auth.backControllerME("A04",me);
+			System.out.println(36363);
+			Members me  = new Members();
+				this.auth.backControllerME("A04",model.addAttribute("send", me));
 			}
+		return "home";
 		}
 		
-	
+	@RequestMapping(value = "/modPw", method = RequestMethod.GET)
+	public void modPw(Model model, @ModelAttribute Centers ct) {
+		this.auth.backController("A06",ct);
+	}
 
 	@RequestMapping(value = "/sendEmailForm", method = RequestMethod.GET)
 	public void sendEmailForm(Model model, @ModelAttribute Centers ct) {
 		this.auth.backController("A05",ct);
-	}
-
-	@RequestMapping(value = "/joinForm", method = RequestMethod.GET)
-	public String ctJoinForm(Model model, @ModelAttribute Centers ct) {
-		//this.auth.backController("J01",ct);
-		//맥스값 두개 다 가지고 와야함
-		return "join";
 	}
 
 	@RequestMapping(value = "/ctJoin", method = RequestMethod.POST)
@@ -87,7 +86,8 @@ public class ControllerBon {
 	}
 	@RequestMapping(value = "/goMePage", method = RequestMethod.POST)
 	public void goMePage(Model model, @ModelAttribute Members me) {
-		this.me.backController("M01", me);
+		
+		this.me.backController("M01", model.addAttribute("send", me));
 	}
 
 	
