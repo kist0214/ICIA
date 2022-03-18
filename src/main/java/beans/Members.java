@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class Members extends Staffs {
+public class Members extends Staffs  {
 	private String meCode;
 	private String meName;
 	private String meBirth;
@@ -15,8 +15,8 @@ public class Members extends Staffs {
 	private String mePw;
 	private String meCaCode;
 	private String meCaName;
+	private String sfCtCode;
 	private String ctCode;
-	private String ctName;
 	private String lsName;
 	private String caCode;
 	private String caName;

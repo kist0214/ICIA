@@ -10,9 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.somebody.db.CommonMethod;
-import com.somebody.db.MapperBon;
-import com.somebody.db.MapperDong;
-import com.somebody.db.MapperUone;
 import com.somebody.db.MapperYoung;
 
 import beans.Pays;
@@ -68,10 +65,8 @@ public class Pay extends CommonMethod{
 	}
 
 	public void payMg(Pays pa) {
-		System.out.println(pa.getCtCode());
-		System.out.println(this.my.payGraph(pa));
 		this.mav.addObject("paGraph", this.my.payGraph(pa));
-		this.mav.addObject("ctCode", pa.getCtCode());
+		this.mav.addObject("sfCtCode", pa.getCtCode());
 		mav.setViewName("payMg");
 	}
 
@@ -82,12 +77,7 @@ public class Pay extends CommonMethod{
 	}
 
 	public void searchPay(Pays pa, Model md) {
-		String a1="";
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		for(int i=0; i< pa.getPaDate().split("-").length;i++) {
-			a1 += pa.getPaDate().split("-")[i];
-		}
-		pa.setPaDate(a1);
 		md.addAttribute("payList",this.my.searchPay(pa));
 		tranend(true);
 	}

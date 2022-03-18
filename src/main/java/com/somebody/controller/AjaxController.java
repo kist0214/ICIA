@@ -54,11 +54,8 @@ public class AjaxController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/meMg", method = RequestMethod.POST)
 	public List<Members> meMg(Model model, @RequestBody Members[] me) {
-		System.out.println(me[0].getCtCode());
-		this.me.backController("M02",model.addAttribute("sendmelist",me[0]));
-		
-		
-		return (List<Members>)model.getAttribute("getmelist");
+		this.me.backController("M02",model,me[0]);
+		return (List<Members>)model.getAttribute("meList");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -104,7 +101,7 @@ public class AjaxController {
 		public List<Staffs> searchSfMg(Model model, @RequestBody Staffs[] sf) {
 			
 			this.sfs.backController("S02", sf[0], model.addAttribute("sf",sf[0]));
-			return (List<Staffs>)model.getAttribute("searchSfMg");
+			return (List<Staffs>)model.getAttribute("sfList");
 		}
 		@RequestMapping(value = "/getMaxSf", method = RequestMethod.POST)
 		public void getMaxSf(Model model, @RequestBody Staffs[] sf) {

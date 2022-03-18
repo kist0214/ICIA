@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 function ajax(action, data, fn) {
    let ajax = new XMLHttpRequest();
    ajax.onreadystatechange = function() {
@@ -40,3 +38,10 @@ function searchPay(ctcode){
 	const data = JSON.stringify(json);
 	ajax("ajax/searchPay",data,"payList");
 }
+
+
+
+
+
+
+

@@ -240,21 +240,17 @@ public class Authenticaion extends CommonMethod {
 
 				try {
 					if ((String)this.pu.getAttribute("sfInfo") == null) {
-						System.out.println(11);
 						if (pw != null && sf.getSfPw()!=null) {
-							System.out.println(22);
 						if (enc.matches(sf.getSfPw(),pw)) {
-							System.out.println(33);
 							//로그인 기록은 센터만 하기로 함 
-							this.mav.setViewName("sfMg");
+							this.mav.setViewName("meMg");
 						
 							sf.setAhType("A1");
 							if(this.convertToBoolean(this.mb.insertAccessHistory(sf))) {
 								System.out.println(this.mav.getViewName());
 								sf = this.mb.sfInfo(sf);
-								System.out.println(66);
 								this.mav.addObject("sfInfo",sf);
-								System.out.println(77);
+								this.mav.addObject("ctCode", sf.getCtCode());
 								tran = true;
 								this.tranend(tran);
 								pu.setAttribute("sfInfo", sf);
@@ -283,7 +279,7 @@ public class Authenticaion extends CommonMethod {
 					e.printStackTrace();
 				}
 	
-				System.out.println(mav.getViewName()+"****");
+				
 				return this.mav;
 
 	}

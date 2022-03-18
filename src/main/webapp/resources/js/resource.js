@@ -184,7 +184,7 @@ function whatsend(action, data, fn, content,method) {
 	ajax.onreadystatechange = function() {
 		
 			if (ajax.readyState == 4 && ajax.status == 200) {
-			alert(ajax.responseText);
+		
 			window[fn](ajax.responseText);
 		}
 	};
@@ -745,7 +745,20 @@ function goJoinPage(){
 }
 
 function goMePage(ctcode){
+	
 	const form = makeForm("goMember", "goMePage", "POST");
+	const ctCode = makeInputElement("hidden", "ctCode", ctcode, "");
+	
+	form.appendChild(ctCode);
+	
+	document.body.appendChild(form);
+	
+	form.submit();
+}	
+
+function goSfPage(ctcode){
+
+	const form = makeForm("", "goSfPage", "POST");
 	const ctCode = makeInputElement("hidden", "ctCode", ctcode, "");
 	
 	form.appendChild(ctCode);

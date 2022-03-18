@@ -32,19 +32,20 @@
 }
 </style>
 </head>
-<body onload="goodsMg('${ctCode}')">
+<body onload="goodsMg('${sfCtCode}')">
 	<div id="goodsMg">
 		<div id="homeBtn">
-			<input type="button" value="HELP" onClick="goMePage('${ctCode}')"/>
+			<input type="button" value="HELP" onClick="goMePage('${sfCtCode}')"/>
 		</div>
 		<div id="logOut">
 			<input type="button" value="로그아웃" onClick="logOut()" />
 		</div>
 		<div id="explainGo">
 			Goods<br> GoodsManagement 
-			<span onClick="getGoodsCode('${ctCode}')">장비추가</span>
-			<span onClick="getCaCode('${ctCode}')">장비수정</span>
+			<span onClick="getGoodsCode('${sfCtCode}')">장비추가</span>
+			<span onClick="getCaCode('${sfCtCode}')">장비수정</span>
 		</div>
+		<div>${sfInfo}</div>
 		<div id="infoGo">
          <label for="searchGoods">장비검색</label> <select id="searchCategory">
             <option value="eqCaName" selected>분류</option>
@@ -52,23 +53,23 @@
             <option value="sfName">담당자</option>
          </select> <span>search</span> <input type="text" class="searchGo" /> <input
             type="button" class="goSearchBtn" value="검색"
-            onClick="searchGoods('${ctCode}')" />
+            onClick="searchGoods('${sfCtCode}')" />
       </div>
 		 <table id="ajax"></table>
 		<div class="category">
-				<p class="menuTitle" id="meMg" onClick="goMePage('${ctCode}')">회원관리</p>
+				<p class="menuTitle" id="meMg" onClick="goMePage('${sfCtCode}')">회원관리</p>
 			</div>
 				<div class="category">
-					<p class="menuTitle" id="sfMg" onClick="goSfPage('${ctCode}')">직원관리</p>
+					<p class="menuTitle" id="sfMg" onClick="goSfPage('${sfCtCode}')">직원관리</p>
 				</div>
 				<div class="category">
-					<p class="menuTitle" id="lessonMg" onClick="goLessonPage('${ctCode}')">수업관리</p>
+					<p class="menuTitle" id="lessonMg" onClick="goLessonPage('${sfCtCode}')">수업관리</p>
 				</div>
 				<div class="category">
-					<p class="menuTitle" id="goodsMg" onClick="goGoodsPage('${ctCode}')">장비관리</p>
+					<p class="menuTitle" id="goodsMg" onClick="goGoodsPage('${sfCtCode}')">장비관리</p>
 				</div>
 				<div class="category">
-					<p class="menuTitle" id="payMg" onClick="goPayPage('${ctCode}')">결제관리</p>
+					<p class="menuTitle" id="payMg" onClick="goPayPage('${sfCtCode}')">결제관리</p>
 				</div>
 	</div>
 	<div class="gModal" id="gModal">

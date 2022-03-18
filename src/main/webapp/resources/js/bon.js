@@ -9,7 +9,8 @@ let list;
 
 let data2;
 function getmemberlist(data){
-	alert(data);
+	
+	
 	data2 = data;
 	const list =  document.getElementById("list");
 	
@@ -152,13 +153,10 @@ function closeModalb() {
 	
 	
 }
-function uploadFile(formName) {
-	
-		 const form = document.getElementsByName(formName)[0];
-		form.submit();
-	}
-	function UploadFilebyAJax(formName) {
-		let form = document.getElementsByName("dynamicFormdataIn")[0];
+
+	function UploadFilebyAJax() {
+		let form = document.getElementsByName("dynamicFormDataIn")[0];
+		
 		
 	form.submit();
 
@@ -198,7 +196,7 @@ function uploadFile(formName) {
 	}
 	
 	function ajaxCallback(msg){
-		alert(msg);
+		
 		const list =  document.getElementById("msg");
 		
 		let span1=  document.createElement("span");
@@ -333,27 +331,14 @@ form.appendChild(ElCode);
 
 
 function loadPage(msg){
-	if(!msg=="")
-	alert(msg);
+	if(!msg==""){}else{}
+
 }
 
-
-function meMg(ctcode, mecode){
-	
-	
-	
-	//alert(ctcode, mecode);
-	let jsondata = [];
-	jsondata.push({"ctCode":ctcode,"meCode": mecode});
-	
-	const clientdata = JSON.stringify(jsondata);
-	whatsend("ajax/meMg",clientdata,"getmemberlist",false,"post");
-	
-}
 
 function logOut(ct,id){
 	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
-	alert(id+"d34343"+ct);
+	
 	
 	let a = makeInputElement("hidden", "sfId", id);
 	let b = makeInputElement("hidden", "ctCode", ct);
@@ -439,16 +424,6 @@ function refresh(stCode, elCode) {
 }
 
 
-function goGoodsPage(qctCode){
-	const form = makeForm("goGoods", "goGoodsPage", "POST");
-	const ctCode = makeInputElement("hidden", "ctCode", qctCode, "");
-	
-	form.appendChild(ctCode);
-	
-	document.body.appendChild(form);
-	
-	form.submit();
-}
 
 
 

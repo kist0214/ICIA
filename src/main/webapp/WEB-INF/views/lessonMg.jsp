@@ -7,6 +7,7 @@
 
 <script src="res/js/Dong.js"></script>
 <title>lessonMg Page</title>
+<script src="res/js/resource.js" src="res/js/Dong.js" src="res/js/bon.js"></script>
 <style>
 .container2 {
 	display : none;
@@ -523,19 +524,19 @@
 			</div>
 
 			<div class="category">
-				<p class="menuTitle" id="meMg" onClick="goMePage()">회원관리</p>
+				<p class="menuTitle" id="meMg" onClick="goMePage('${sfInfo.ctCode}')" >회원관리</p>
 			</div>
 			<div class="category">
-				<p class="menuTitle" id="sfMg" onClick="goSfPage()">직원관리</p>
+				<p class="menuTitle" id="sfMg"onClick="goSfPage('${sfInfo.ctCode}')" >직원관리</p>
 			</div>
 			<div class="category">
 				<p class="menuTitle" id="lessonMg" onClick="goLessonPage('${lsSfCtCode}')">수업관리</p>
 			</div>
 			<div class="category">
-				<p class="menuTitle" id="goodsMg" onClick="goGoodsPage()">장비관리</p>
+				<p class="menuTitle" id="goodsMg" onClick="goGoodsPage('${sfInfo.ctCode}')" >장비관리</p>
 			</div>
 			<div class="category">
-				<p class="menuTitle" id="payMg" onClick="goPayPage()">결제관리</p>
+				<p class="menuTitle" id="payMg" onClick="goPayPage('${sfInfo.ctCode}')" >결제관리</p>
 			</div>
 			<div class="category">
 				<div id="list">${list }</div>

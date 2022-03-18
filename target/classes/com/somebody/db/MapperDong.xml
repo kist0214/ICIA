@@ -4,16 +4,16 @@
 
 <mapper namespace = "com.somebody.db.MapperDong">
 	<select id="goSfPage" resultType="beans.Staffs">
-		SELECT SFCODE AS SFID, SFNAME, SFRANK, SFEMAIL, SFNUMBER FROM KMASTERS.SF
+		SELECT SFCTCODE AS CTCODE ,SFCODE AS SFID, SFNAME, SFRANK, SFEMAIL, SFNUMBER FROM KMASTERS.SF
 	</select>
 	<select id="searchSfMg" resultType="beans.Staffs">
 		SELECT SFCODE AS sfId, SFNAME, sfRank, SFEMAIL, SFNUMBER FROM KMASTERS.SF
 	</select>
 	<insert id="insSf" parameterType = "beans.Staffs">
-		INSERT INTO KMASTERS.SF (SFCTCODE, SFCODE, SFPASSWORD, SFNAME, SFRANK, SFEMAIL, SFNUMBER) VALUES(#{sfCtCode} ,#{sfId}, #{sfPw}, #{sfName}, #{sfRank}, #{sfEmail}, #{sfNumber})
+		INSERT INTO KMASTERS.SF (SFCTCODE, SFCODE, SFPASSWORD, SFNAME, SFRANK, SFEMAIL, SFNUMBER) VALUES(#{ctCode} ,#{sfId}, #{sfPw}, #{sfName}, #{sfRank}, #{sfEmail}, #{sfNumber})
 	</insert>
 	<select id="sfList" resultType = "beans.Staffs" parameterType = "beans.Staffs">
-		SELECT SFCTCODE AS sfCtCode, SFCODE AS sfId, SFNAME, SFRANK, SFEMAIL, SFNUMBER FROM KMASTERS.SF
+		SELECT SFCTCODE AS ctCode, SFCODE AS sfId, SFNAME, SFRANK, SFEMAIL, SFNUMBER FROM KMASTERS.SF 
 	</select>
 	<update id="modSf" parameterType = "beans.Staffs">
 		UPDATE KMASTERS.SF SET SFCTCODE = #{sfCtCode} WHERE SFCODE = #{sfId} AND SFNAME =#{sfName} AND SFNUMBER =#{sfNumber} AND SFPASSWORD =#{sfPassword} AND SFEMAIL =#{sfEmail} AND SFRANK =#{sfRank} 

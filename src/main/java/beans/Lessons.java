@@ -22,7 +22,5 @@ public class Lessons {
 	
 	//수업결제
 	private String lpCaCode;
-	private String lpQty;
 	private String lpPrice;
-	private String lpStocks;
 }

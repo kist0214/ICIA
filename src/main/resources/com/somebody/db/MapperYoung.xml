@@ -4,7 +4,12 @@
 
 
 
-<mapper namespace = "com.somebody.db.MapperYoung">
+<mapper namespace="com.somebody.db.MapperYoung">
+	<insert id="is" parameterType="beans.Centers">
+		insert into kmasters.ct
+		(CTCODE,CTNAME,CTADDRESS,CTCEO,CTNUMBER)
+		values('3000','24','42','42','42')
+	</insert>
 	<select id="goodsList" resultType="beans.Equipments"
 		parameterType="beans.Equipments">
 		select * from kmasters.GoodsView where ctCode =
@@ -78,21 +83,19 @@
 		kmasters.PayView where ctCode='${ctCode}' and paDate = '${paDate}'
 	</select>
 	<select id="payGraph" parameterType="beans.Pays" resultType="beans.Pays">
-		select nvl(sum(patotal),0)/10000 as paTotal,
-		substr(padate,0,7) as paDate
-		from kmasters.pa
-		where (substr(padate,0,7)=
-		to_char(add_months(sysdate,-1),'yyyy-mm')
-		or substr(padate,0,7)=
-		to_char(add_months(sysdate,-2),'yyyy-mm')
-		or substr(padate,0,7)=
-		to_char(add_months(sysdate,-3),'yyyy-mm'))and
-		palpctcode = ${ctCode}
-		group by substr(padate,0,7)
+	<![CDATA[
+		select nvl(sum(to_number(patotal,'999999999')),0)/10000 as paTotal, substr(padate,0,7) as paDate
+		from kmasters.payView
+		where (substr(padate,0,7)= to_char(add_months(sysdate,-1),'yyyy-mm')
+		or substr(padate,0,7)= to_char(add_months(sysdate,-2),'yyyy-mm')
+		or substr(padate,0,7)= to_char(add_months(sysdate,-3),'yyyy-mm'))
+       ]]>
+		and	ctcode =${ctCode}
+		group by substr(padate,0,7) order by substr(padate,0,7)
+	
 	</select>
 	<select id="checkMeEmailNum" resultType="beans.Members">
-		select meEmail, meNumber
-		from kmasters.me
+		select meEmail, meNumber from kmasters.me
 	</select>
 	<insert id="meJoin" parameterType="beans.Members">
 		insert into
@@ -104,8 +107,7 @@
 		from kmasters.me
 	</select>
 	<select id="checkCtCode" resultType="beans.Centers">
-		select ctCode from
-		kmasters.ct
+		select ctCode from kmasters.ct
 	</select>
 	<insert id="ctJoin" parameterType="beans.Centers">
 		insert into
@@ -117,4 +119,11 @@
 		kmasters.sf(sfctcode,sfcode,sfpassword,sfname,sfrank,sfemail,sfnumber)
 		values('${ctCode}','10001','${sfPw}','${sfName}','M1','${sfEmail}','${sfNumber}')
 	</insert>
+	<select id="meList" resultType="beans.Members" parameterType="beans.Members">
+      select mgctcode as ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode,lpQty from kmasters.MeMgView
+      where mgctcode = ${ctCode}
+   </select>
+   <select id="Count" resultType="int" parameterType="beans.Members">
+      select lpstocks from kmasters.CountView where ctCode = ${ctCode} and meCode = ${meCode} and caName = ${caName}
+   </select>
 </mapper>

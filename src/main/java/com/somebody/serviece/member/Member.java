@@ -1,8 +1,12 @@
 package com.somebody.serviece.member;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.ui.Model;
@@ -41,17 +45,23 @@ public class Member extends CommonMethod{
 	Member(){
 		mav = new ModelAndView();
 	}
-
+	public ModelAndView backController(String sCode, Model model, Members me) {
+		switch(sCode) {
+		case "M01":
+			goMePage(model,me);
+			break;
+		case "M02":
+			meMg(me, model);
+			break;
+		}
+		
+		return mav;
+	}
 	public void backController(String sCode, Model model) {
 
 		switch (sCode) {
 		//관리자페이지 접근
-		case "M01":
-			goMePage(model);
-			break;
-		case "M02":
-			meMg(model);
-			break;
+		
 		case "M03":
 			searchMeMg(model);
 			break;
@@ -138,7 +148,7 @@ public class Member extends CommonMethod{
 		
 	}
 
-	public void goMePage(Model model) {
+	public void goMePage(Model model,Members me) {
 		this.mav.addObject("ctCode", me.getCtCode());
 		mav.setViewName("meMg");
 	
@@ -156,14 +166,16 @@ public class Member extends CommonMethod{
 
 	}
 
-	public void meMg(Model model) {
-		
-	model.addAttribute("getmemlist",this.mb.meMg((Members)model.getAttribute("sendmelist")));
-	System.out.println(66);
-	System.out.println(model.getAttribute("getmelist"));
-	
-
-	}
+	public void meMg(Members me, Model md) {
+	      List<Members> meList = new ArrayList<Members>();
+	      tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+	      meList = this.my.meList(me);
+	      for(int i=0;i<meList.size();i++) {
+	         meList.get(i).setLpStocks(meList.get(i).getLpQty()-this.my.Count(meList.get(i)));
+	      }
+	      md.addAttribute("meList", meList);
+	      tranend(true);
+	   }
 
 	public void searchMeMg(Model model) {
 		model.addAttribute("getmemlist",this.mb.searchMeMg((Members)model.getAttribute("sendmelist")));
