@@ -7,14 +7,14 @@
 <!-- 로그인 -->
 <insert id = "insertAccessHistory" parameterType = "beans.Staffs">
 INSERT INTO kmasters.AH(AHSFCTCODE,AHsfCODE,AHTIME, AHIP, AHTYPE) 
-	 VALUES(#{sfCtCode},#{sfId},DEFAULT, #{ahIp}, #{ahType})
+	 VALUES(#{ctCode},#{sfId},DEFAULT, #{ahIp}, #{ahType})
 	</insert>
 	<insert id = "insertAccessOutHistory" parameterType = "beans.Staffs">
 INSERT INTO kmasters.AH(AHSFCTCODE,AHsfCODE,AHTIME, AHIP, AHTYPE) 
-	 VALUES(#{sfCtCode},#{sfId},DEFAULT, #{ahIp}, #{ahType})
+	 VALUES(#{ctCode},#{sfId},DEFAULT, #{ahIp}, #{ahType})
 	</insert>
 <select id = "sfLogin" parameterType = "beans.Staffs" resultType ="string">
-	SELECT SFPASSWORD  AS sfPw FROM  kmasters.sf  WHERE SFCTCODE = #{sfCtCode} AND sfCode = #{sfId} 
+	SELECT SFPASSWORD  AS sfPw FROM  kmasters.sf  WHERE SFCTCODE = #{ctCode} AND sfCode = #{sfId} 
 	</select>
 	<select id = "meLogin" parameterType = "beans.Members" resultType ="string">
 	SELECT MEPASSWORD  AS mePw FROM  kmasters.ME  WHERE MECODE = #{meCode} 
@@ -27,9 +27,9 @@ INSERT INTO kmasters.AH(AHSFCTCODE,AHsfCODE,AHTIME, AHIP, AHTYPE)
     INNER JOIN KMASTERS.ME ON  MGMECODE=   MECODE WHERE MECODE= #{meCode}
 	</select>
 	<select id = "sfInfo" parameterType = "beans.Staffs" resultType ="beans.Staffs">
-	select ctcode as sfctcode, ctname as ctName, sfcode as sfId, sfname as sfName, sfRank as sfRank, CANAME as sfRankName  from kmasters.sf
+	select ctcode as ctcode, ctname as ctName, sfcode as sfId, sfname as sfName, sfRank as sfRank, CANAME as sfRankName  from kmasters.sf
 	inner join kmasters.ct on sfctcode = ctcode 
-	inner join  kmasters.ca on cacode = sfrank WHERE sfCTCODE = #{sfCtCode} AND sfCode = #{sfId} 
+	inner join  kmasters.ca on cacode = sfrank WHERE sfCTCODE = #{ctCode} AND sfCode = #{sfId} 
 	</select>
 	
 	<!-- 인바디 -->

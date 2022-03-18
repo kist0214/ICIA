@@ -48,8 +48,6 @@ public class ControllerBon {
 
 	@RequestMapping(value = "/ctLogin", method = RequestMethod.POST)
 	public ModelAndView ctLogin(Model model, @ModelAttribute Staffs sf) {
-		System.out.println(sf.getSfCtCode());
-		System.out.println(sf.getAhIp());
 		return this.auth.backControllerCT("A03",sf);
 	}
 
@@ -58,7 +56,7 @@ public class ControllerBon {
 		System.out.println(88);
 		System.out.println(sf.getSfId());
 		System.out.println(sf.getCtCode());
-		System.out.println(sf.getSfCtCode());
+	
 		if( sf.getSfId() != null) {
 			System.out.println(99);
 			this.auth.backControllerCT("A04",sf);
@@ -85,10 +83,9 @@ public class ControllerBon {
 		this.auth.backController("J02",ct);
 	}
 	@RequestMapping(value = "/goMePage", method = RequestMethod.POST)
-	public void goMePage(Model model, @ModelAttribute Members me) {
-		
-		this.me.backController("M01", model.addAttribute("send", me));
-	}
+	   public ModelAndView goMePage(Model model, @ModelAttribute Members me) {
+	      return this.me.backController("M01", model,me);
+	   }
 
 	
 

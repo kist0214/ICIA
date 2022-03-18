@@ -23,12 +23,12 @@ function getMeMg(ctcode){
 	let json = [];
 	json.push({ctCode:ctcode});
 	const data = JSON.stringify(json);
-	ajax("ajax/meMg",data,"meList");
+	ajax("ajax/meMg",data,"getMeList");
 }
 
 let meList;
 
-function meList(json){
+function getMeList(json){
 	meList=json;
 	const ajax = document.getElementById("ajax");
 	let data = '<tr><td></td><td>이름</td><td>성별</td><td>연령</td><td>전화번호</td><td>유형</td><td>결제횟수/잔여횟수<td><td><td></tr>';

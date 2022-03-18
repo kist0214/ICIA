@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Staffs extends Pays {
-	private String sfCtCode;
+	private String ctCode;
 	private String ctName;
 	private String sfId;
 	private String sfName;
@@ -17,8 +17,8 @@ public class Staffs extends Pays {
 	private String ahIp;
 	private String ahType;
 	
-	private String sfCaCode;
-	private String sfCaName;
+	private String caCode;
+	private String caName;
 }
 
 

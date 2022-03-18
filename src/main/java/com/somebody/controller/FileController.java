@@ -47,7 +47,12 @@ public class FileController {
 	@ResponseBody 
 	public String insInbody(@RequestParam("file") MultipartFile[] f, @ModelAttribute Inbodys in) {
 String msg = null;
+
+
+
 		for (MultipartFile e : f) {
+			this.savePath = new File("C:\\REST\\workspace\\help\\src\\main\\webapp\\resources\\excel",
+					e.getOriginalFilename());
 				try {
 				msg =	inbody.backController("M09", readFilter(e.getOriginalFilename()));
 				} catch (IOException e1) {

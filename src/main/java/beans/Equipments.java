@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class Equipments {
+	
 	private String ctCode;
 	private String eqCode;
 	private String eqName;

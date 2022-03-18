@@ -44,7 +44,7 @@ public class Staff extends CommonMethod{
 
 		switch (sCode) {
 		case "S00":
-			goSfPage(model);
+			goSfPage(model,sf);
 			break;
 		case "S01":
 			sfMg(sf, model);
@@ -68,22 +68,24 @@ public class Staff extends CommonMethod{
 		return mav;
 	}
 
-	private void goSfPage(Model model) {
-
-		mav.addObject("sfCtCode", "1234512345");
+	private void goSfPage(Model model, Staffs sf) {
+		
+		mav.addObject("sfCtCode", sf.getCtCode());
 		mav.setViewName("sfMg");
 
 	}
 
 	public void sfMg(Staffs sf, Model model) {
-
+System.out.println(sf.getCtCode()+"안와");
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		model.addAttribute("sfList",  this.md.sfList(sf));
 		tranend(true);		
 	}
 
 	public void searchSfMg(Staffs sf, Model model) {
-
+		System.out.println(sf.getCaCode());
+		
+		System.out.println(sf.getCaName());
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		model.addAttribute("sfList",  this.md.sfList(sf));
 		tranend(true);

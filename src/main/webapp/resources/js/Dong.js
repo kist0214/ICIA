@@ -5,12 +5,12 @@
 let data;
 
 
-function sfMg(sfCode) {
+function getSfMg(ctcode) {
 closeModalIn(); //지우지마시오
 
 
 	let jsonData = [];
-	jsonData.push({sfCode:sfCode});
+	jsonData.push({ctCode:ctcode});
 	const clientData = JSON.stringify(jsonData);
 	
 	getAjax("ajax/sfMg", clientData, "sfList", false);
@@ -43,11 +43,20 @@ function sfList(json) {
 			msg.placeholder="입력해주세요.";}
 }
 
-function searchSfMg(sfCode){
-	const searchText = document.getElementById("searchMenu");
+function searchSfMg(ctcode){
+	
+	const searchText = document.getElementById("searchMenu").value;
 	const searchSf = document.getElementsByClassName("searchSf")[0].value;
-	let json = [];
-	json.push({sfCode:sfCode,sfCaCode:searchText,sfCaName:searchSf});
+	
+	alert(searchText);
+alert(searchSf);	
+
+
+let json = [];
+
+
+	
+	json.push({"ctCode":ctcode,"caCode":searchText,"caName":searchSf});
 	if(searchSf==""){
 		sfMg(sfCode);
 	}else{
@@ -97,7 +106,7 @@ function getAjax(action, data, fn,  content) {
 
 	ajax.onreadystatechange = function() {
 		if (ajax.readyState == 4 && ajax.status == 200) {
-			alert(data);
+			
 			window[fn](JSON.parse(ajax.responseText));
 			//document.getElementById("ajaxData").innerHTML = serverData;
 		}
@@ -108,7 +117,6 @@ function getAjax(action, data, fn,  content) {
 			content ? "application/x-www-form-urlencoded"
 					: "application/json; charset=utf-8");
 	
-	alert(data);
 	ajax.send(data);
 }
 
@@ -155,7 +163,7 @@ function modSfModal() {
 
 function closeModalIn() {
 //지우지마시오 - 본
-	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
+	
 	
 	let containerIn =  document.getElementById("containerIn");
 	containerIn.style.display = "none";
@@ -163,6 +171,7 @@ function closeModalIn() {
 	
 	
 }
+
 
  function closeModal() {
 		let container = document.getElementById("container");
@@ -361,11 +370,13 @@ function selectDateCheck() {
 				}
 	
 let lsInfo;
+	let dataa;
 function lsList(jsonData) {
+	dataa = jsonData;
 	
 	
 	let body = document.getElementById("list");
-	let data;
+
 	if(jsonData.length>0){
 	lsInfo = jsonData;
 	data = '<table><tr><td>수업명</td><td>개강일</td><td>트레이너명</td><td>수강인원</td></tr>';	

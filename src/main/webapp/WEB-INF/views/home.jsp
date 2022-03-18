@@ -165,7 +165,7 @@ input {
 				<!-- 모달 바디 -->
 				<div class="mbody" id="mbody">
 				<div >Center Business number</div>
-				<input type='text' class='id' name = 'sfCtCode' placeholder='사업자번호를 입력하세요'/>
+				<input type='text' class='id' name = 'ctCode' placeholder='사업자번호를 입력하세요'/>
 				<div >Staff code</div>
 				<input type='text' class='id' name = 'sfId' placeholder='코드를 입력하세요'/>
 				<div>Password</div>	
