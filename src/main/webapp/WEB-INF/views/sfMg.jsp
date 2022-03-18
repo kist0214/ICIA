@@ -4,223 +4,140 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>sfMg</title>
-<script  src="res/js/Dong.js" src="res/js/resource.js" src="res/js/bon.js"></script>
+<!----======== CSS ======== -->
+<link rel="stylesheet" href="res/css/sfMg.css">
+<!----===== Boxicons CSS ===== -->
+<link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
+	rel='stylesheet'>
 
-
-
-<!-- <script src="res/js/YMember.js"></script> -->
-<style>
-.container {
-	display: none;
-	background-color: gray;
-	background: rgba(0, 0, 0, 0.4);
-	position: absolute;
-	width: 100%;
-	min-height: 100%;
-	left: 0;
-	top: 0;
-	text-align: center;
-	font-size: 17pt;
-	font-weight: 700;
-}
-
-.container1 {
-	display: none;
-	background-color: gray;
-	background: rgba(0, 0, 0, 0.4);
-	position: absolute;
-	width: 100%;
-	min-height: 100%;
-	left: 0;
-	top: 0;
-	text-align: center;
-	font-size: 17pt;
-	font-weight: 700;
-}
-
-.mdialog {
-	border: 2px solid white;
-	border-radius: 25px;
-	background-color: #ffffff;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 70%;
-	height: 750px;
-	transform: translate(-50%, -50%);
-	font-size: 17pt;
-	font-weight: 700;
-}
-
-.containerIn {
-	display: none;
-	background-color: gray;
-	background: rgba(0, 0, 0, 0.4);
-	position: absolute;
-	width: 100%;
-	min-height: 100%;
-	left: 0;
-	top: 0;
-	text-align: center;
-	font-size: 17pt;
-	font-weight: 700;
-	z-index: 100;
-}
-</style>
+<title>StaffManament</title>
+<script src="res/js/resource.js"  src="res/js/bon.js" src="res/js/Dong.js"></script>
 </head>
-<body onLoad = "getSfMg('${sfInfo.ctCode}')">
-	<input type="button" value="인바디등록" onClick="getInbodyModal()" />
-	<div id="sfMg">
-		<div id="logOut">
-			<div id="homeBtn">
-				<input type="button" value="HELP" onClick="meMg()" /> <span>${sfInfo.ctName}매장</span>
-				<span>${sfInfo.sfName}님 </span><span>${sfInfo.sfRankName}</span>
-			</div>
-			<input type="button" value="로그아웃" 
-				onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')" />
-		</div>
-		<div id="explainSf1">
-			<span onClick="modSfModal()">직원수정</span>
-		</div>
-		<form name='dynamicFormData1'>
-			<div class="container1" id="container1">
-				<div class="mdialog">
-					<div class="mcontent">
-						<div class="mheader">
-							<h4 id=mheader class="mtitle">직원 수정</h4>
-						</div>
-						<div>센터번호</div>
-						<input class="input" type="text" name="ctCode"
-							readOnly="readOnly" /></br> </br>
-						<div>사원번호</div>
-						<input class="input" type="text" name="sfId" readOnly="readOnly" /></br>
-						</br>
-						<div>성명</div>
-						<input class="input" type="text" name="sfName"
-							placeholder="이름을 입력하세요." /></br> </br>
-						<div>연락처</div>
-						<input class="input" type="text" name="sfNumber"
-							pattern="(010)\d{3,4}\d{4}" title="형식 01000000000"></br> </br>
-						<div>비밀번호</div>
-						<input class="input" type="password" name="sfPw" maxlength='15' /></br>
-						</br>
-						<div>이메일</div>
-						<input class="input" type="email" name="sfEmail"
-							placeholder="Email 입력" /></br> </br>
-						<div>직위</div>
-						<select name="sfRank">
-							<option value="직급" selected>직급</option>
-							<option value="M1">M1</option>
-							<option value="M2">M2</option>
-							<option value="M3">M3</option>
-						</select></br> <input type="button" value="MODIFY" onClick="modSf('${list}')" />
-						<div class="mfooter">
-							<input type="button" class="mbtn" value="닫기"
-								onclick="closeModal()" />
-						</div>
-					</div>
+<body>
+	<nav class="sidebar close">
+		<header>
+			<div class="image-text">
+				<span class="image"> <!--<img src="logo.png" alt="">-->
+				</span>
+
+				<div class="text logo-text">
+					<span class="name" >HELP</span> <span class="profession" onClick="goMePage('${sfInfo.ctCode}')">Health
+						Plan </span>
 				</div>
 			</div>
-		</form>
 
-		<div id="explainSf">
-			<span onClick="getMaxSf(this)">직원추가</span>
-		</div>
-		<form name='dynamicFormData'>
-			<div class="container" id="container">
-				<div class="mdialog">
-					<div class="mcontent">
-						<div class="mheader">
-							<h4 id=mheader class="mtitle">직원 추가</h4>
-						</div>
-						<div>센터번호</div>
-						<input class="input" type="text" name="ctCode" /></br> </br>
-						<div>사원번호</div>
-						<input class="input" type="text" name="sfId" placeholder="Max" /></br>
-						</br>
-						<div>성명</div>
-						<input class="input" type="text" name="sfName"
-							placeholder="이름을 입력하세요." /></br> </br>
-						<div>연락처</div>
-						<input class="input" type="text" name="sfNumber"
-							pattern="(010)\d{3,4}\d{4}" title="형식 01000000000"></br> </br>
-						<div>비밀번호</div>
-						<input class="input" type="password" name="sfPw" maxlength='15' /></br>
-						</br>
-						<div>이메일</div>
-						<input class="input" type="email" name="sfEmail"
-							placeholder="Email 입력" /></br> </br>
-						<div>직위</div>
-						<select name="sfRank">
-							<option value="직급" selected>직급</option>
-							<option value="M1">M1</option>
-							<option value="M2">M2</option>
-							<option value="M3">M3</option>
-						</select></br> <input type="button" value="CREATE" onClick="insSf('${list}')" />
-						<div class="mfooter">
-							<input type="button" class="mbtn" value="닫기"
-								onclick="closeModal()" />
-						</div>
+			<i class='bx bx-chevron-right toggle'></i>
+		</header>
+
+		<div class="menu-bar">
+			<div class="menu">
+
+				<ul class="menu-links">
+					<li class="nav-link"><a>
+							<i class='bx bx-user icon'  onClick="goMePage('${sfInfo.ctCode}')"></i> <span class="text nav-text">회원관리</span>
+					</a></li>
+
+					<li class="nav-link"><a >
+							<i class='bx bx-group icon' id="sfMg" onClick= "goSfPage('${sfInfo.ctCode}')"></i> <span class="text nav-text">직원관리</span>
+					</a></li>
+
+					<li class="nav-link"><a
+						> <i
+							class='bx bx-chalkboard icon' id="lessonMg" onClick="goLessonPage('${sfInfo.ctCode}')"></i> <span class="text nav-text">수업관리</span>
+					</a></li>
+
+					<li class="nav-link"><a
+						> <i
+							class='bx bx-wrench icon' id="goodsMg" onClick="goGoodsPage('${sfInfo.ctCode}')"></i><span class="text nav-text" >장비관리</span>
+					</a></li>
+
+					<li class="nav-link"><a >
+							<i class='bx bx-credit-card icon' id="payMg" onClick="goPayPage('${sfInfo.ctCode}')"></i> <span
+							class="text nav-text">결제관리</span>
+					</a></li>
+
+
+				</ul>
+			</div>
+
+			<div class="bottom-content">
+				<li class=""><a href="#"> <i class='bx bx-id-card icon'></i>
+						
+					
+						<span class="text nav-text">	<span>${sfInfo.sfName}</span>
+						<span>(${sfInfo.sfRankName})</span></span>
+				</a></li>
+
+				<li class=""><a href="#"> <i class='bx bx-log-out icon' onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')"></i>
+						<span class="text nav-text" onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')">로그아웃</span>
+				</a></li>
+
+				<li class="mode">
+					<div class="sun-moon">
+						<i class='bx bx-moon icon moon'></i> <i class='bx bx-sun icon sun'></i>
+					</div> <span class="mode-text text">다크모드</span>
+
+					<div class="toggle-switch">
+						<span class="switch"></span>
 					</div>
-				</div>
+				</li>
+
 			</div>
-		</form>
+		</div>
 
-		<div id="infoSf">
-			<label for="searchStaff">직원검색</label>
-			 <select id="searchMenu">
-				<option value="이름" >이름</option>
-				<option value="직급" selected>직급</option>
-			</select>
-			 <span>search</span> <input type="text" class="searchSf" /> <input
-				type="button" class="sfSearchBtn" value="검색"
-				onClick="searchSfMg('${sfInfo.ctCode}')" />
-				
-		</div>
-		<div class="category">
-			<div class="menuTitle" id="meMg" onClick="goMePage('${sfInfo.ctCode}')" >회원관리</div>
-		</div>
-		<div class="category">
-			<p class="menuTitle" id="sfMg" onClick="goSfPage()">직원관리</p>
+	</nav>
 
-		</div>
-		<div class="category">
-			<p class="menuTitle" id="lessonMg"
-				onClick="goLessonPage('${sfInfo.ctCode}')">수업관리</p>
-		</div>
-		<div class="category">
-			<p class="menuTitle" id="goodsMg" onClick="goGoodsPage('${sfInfo.ctCode}')">장비관리</p>
-		</div>
-		<div class="category">
-			<p class="menuTitle" id="payMg" onClick="goPayPage('${sfInfo.ctCode}')">결제관리</p>
-		</div>
-		<div class="category">
-			<div id="list">${list}</div>
-			
-		</div>
-	</div>
-
-
-	<!-- 인바디모달 -->
-	<form name="dynamicFormDataIn" action="insInbody" method="post"
-		enctype="multipart/form-data">
-		<div class="containerIn" id="containerIn">
-			<div class="mdialog">
-			<br><br><br><br>
-				<div class="header">
-					<div>you can only upload excelfile</div><br><br>
-					<div>if excel cell don't be  writen anything , plz type 0</div><br><br><br><br>
-					<div>
-						<input type="file" name="file" multiple /><br><br><br>
-					</div>
-					<input type="button" id="btn" value="파일전송"
-						onClick="UploadFilebyAJax()" />
-				</div>
+	<section class="home">
+		<div class="text">StaffManagement</div>
+		<div class="search">
+			<div class="nav-search">
+				<select class="select">
+					<option disabled selected>직원검색</option>
+					<option>이름</option>
+					<option>직급</option>
+				</select> <span> <input type="text" placeholder="검색"> <i
+					class='bx bx-search icon'></i>
+				</span>
 			</div>
+
+		</div>
+		<div class="etc">
+			<div>
+				<button>
+					<i class='bx bx-user-plus icon'></i>
+				</button>
+				<button>
+					<i class='bx bx-edit-alt icon' ></i>
+				</button>
 			</div>
-			
-	</form>
-	<div id = msg>${msg}</div>
+		</div>
+
+		<table id="ajax"></table>
+
+
+	</section>
+
+	<script>
+	 const body = document.querySelector('body'),
+     sidebar = body.querySelector('nav'),
+     toggle = body.querySelector(".toggle"),
+     //searchBtn = body.querySelector(".search-box"),
+     modeSwitch = body.querySelector(".toggle-switch"),
+     modeText = body.querySelector(".mode-text");
+	toggle.addEventListener("click" , () =>{
+   sidebar.classList.toggle("close");
+	})
+	modeSwitch.addEventListener("click" , () =>{
+   body.classList.toggle("dark");
+   
+   if(body.classList.contains("dark")){
+       modeText.innerText = "라이트모드";
+   }else{
+       modeText.innerText = "다크모드";
+       
+   }
+	});
+	</script>
+
 </body>
 </html>

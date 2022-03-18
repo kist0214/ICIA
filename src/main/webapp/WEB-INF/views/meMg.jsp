@@ -11,9 +11,9 @@
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
 	rel='stylesheet'>
 
-<title>MemberManament</title>
-<script src="res/js/resource.js"></script>
-<script src="res/js/Dong.js"></script>
+<title>MemberManagement</title>
+<script src="res/js/resource.js"  src="res/js/bon.js"  src="res/js/Dong.js"></script>
+
 </head>
 <body>
 	<nav class="sidebar close">
@@ -22,7 +22,7 @@
 				<span class="image"> <!--<img src="logo.png" alt="">-->
 				</span>
 
-				<div class="text logo-text">
+				<div class="text logo-text" onClick="goMePage('${sfInfo.ctCode}')">
 					<span class="name">HELP</span> <span class="profession">Health
 						Plan </span>
 				</div>
@@ -35,25 +35,25 @@
 			<div class="menu">
 
 				<ul class="menu-links">
-					<li class="nav-link" onClick= "goMePage('${ctCode}')"><a>
+					<li class="nav-link" onClick= "goMePage('${sfInfo.ctCode}')"><a>
 							<i class='bx bx-user icon'></i> <span class="text nav-text" >회원관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick= "goSfPage('${ctCode}')"><a>
+					<li class="nav-link" onClick= "goSfPage('${sfInfo.ctCode}')"><a>
 							<i class='bx bx-group icon'></i> <span class="text nav-text" >직원관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick= "goLessonPage('${ctCode}')"><a
+					<li class="nav-link" onClick= "goLessonPage('${sfInfo.ctCode}')"><a
 						> <i
 							class='bx bx-chalkboard icon'></i> <span class="text nav-text" >수업관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick= "goGoodsPage('${ctCode}')"><a
+					<li class="nav-link" onClick= "goGoodsPage('${sfInfo.ctCode}')"><a
 						> <i
 							class='bx bx-wrench icon'></i><span class="text nav-text" >장비관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick=  "goPayPage('${ctCode}')"><a>
+					<li class="nav-link" onClick=  "goPayPage('${sfInfo.ctCode}')"><a>
 							<i class='bx bx-credit-card icon'></i> <span
 							class="text nav-text" >결제관리</span>
 					</a></li>
@@ -64,10 +64,11 @@
 
 			<div class="bottom-content">
 				<li class=""><a href="#"> <i class='bx bx-id-card icon'></i>
-						<span class="text nav-text">이동명</span> <span class="text nav-text">(트레이너)</span>
+						<span class="text nav-text"></span> <span class="text nav-text">	<span>${sfInfo.sfName}</span>
+						<span>(${sfInfo.sfRankName})</span></span>
 				</a></li>
 
-				<li class=""><a href="#"> <i class='bx bx-log-out icon'></i>
+				<li class=""><a href="#"> <i class='bx bx-log-out icon' onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')"></i>
 						<span class="text nav-text"  onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')">로그아웃</span>
 				</a></li>
 
@@ -87,7 +88,7 @@
 	</nav>
 
 	<section class="home">
-		<div class="text">회원관리</div>
+		<div class="text">MemberManagement</div>
 		<div class="search">
 			<div class="nav-search">
 				<select class="select">
@@ -115,118 +116,7 @@
 				</button>
 			</div>
 		</div>
-
-		<table>
-			<thead>
-				<tr>
-					<td></td>
-					<td>이름</td>
-					<td>성별</td>
-					<td>연령</td>
-					<td>휴대폰 번호</td>
-					<td>유형</td>
-					<td>잔여횟수</td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><input type="checkbox" id="cBox"></td>
-					<label for="cBox"></label>
-					<td>김한영</td>
-					<td>남</td>
-					<td>22</td>
-					<td>010-9924-1234</td>
-					<td>PT</td>
-					<td>10</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>조본</td>
-					<td>남</td>
-					<td>29</td>
-					<td>010-1457-4123</td>
-					<td>만료</td>
-					<td>10</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>최용희</td>
-					<td>여</td>
-					<td>28</td>
-					<td>010-4879-8545</td>
-					<td>PT</td>
-					<td>10</td>
-
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>김한일</td>
-					<td>남</td>
-					<td>19</td>
-					<td>010-1724-2234</td>
-					<td>일반</td>
-					<td>10</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>김유일</td>
-					<td>여</td>
-					<td>52</td>
-					<td>010-4924-1324</td>
-					<td>PT</td>
-					<td>10</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>김한영</td>
-					<td>남</td>
-					<td>22</td>
-					<td>010-9924-1234</td>
-					<td>PT</td>
-					<td>10</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>조본</td>
-					<td>남</td>
-					<td>29</td>
-					<td>010-1457-4123</td>
-					<td>만료</td>
-					<td>10</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>최용희</td>
-					<td>여</td>
-					<td>28</td>
-					<td>010-4879-8545</td>
-					<td>PT</td>
-					<td>10</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>김한일</td>
-					<td>남</td>
-					<td>19</td>
-					<td>010-1724-2234</td>
-					<td>일반</td>
-					<td>10</td>
-				</tr>
-				<tr>
-					<td><input type="checkbox"></td>
-					<td>김유일</td>
-					<td>여</td>
-					<td>52</td>
-					<td>010-4924-1324</td>
-					<td>PT</td>
-					<td>10</td>
-				</tr>
-
-
-
-			</tbody>
-		</table>
-
+<table id="ajax"></table>
 
 	</section>
 
