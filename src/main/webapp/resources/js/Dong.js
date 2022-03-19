@@ -5,8 +5,9 @@
 let data;
 
 
-function getSfMg(ctcode) {
+function sfMg(ctcode) {
 closeModalIn(); //지우지마시오
+closeModal();
 
 
 	let jsonData = [];
@@ -17,27 +18,31 @@ closeModalIn(); //지우지마시오
 	
 }
 let sfInfo;
+let datad;
 function sfList(json) {
-	
+
 	closeModal();
-	let body = document.getElementById("list");
-	let data;
+	let list = document.getElementById("ajax");
+	
 	if(json.length>0){
 	sfInfo = json;
-	data = '<table><tr><td>사원번호</td><td>직원명</td><td>직원등급</td><td>전화번호</td></tr>';	
+	datad = '<table><tr><td>사원번호</td><td>직원명</td><td>직원등급</td><td>전화번호</td></tr>';	
 	
 	for (i=0; i<json.length;i++) {
 		
-		data += '<tr><td><input type="radio" name="radioBtn"/></td>'
-		data +=	'<td>' + json[i].sfId + '</td>' 
-		data += '<td>' + json[i].sfName 
-		data +=	'</td><td>' + json[i].sfRank  
-		data +=	'</td><td>' + json[i].sfNumber + '</td>';
-		data += '</tr>';
+		datad += '<tr><td><input type="radio" name="radioBtn"/></td>'
+		datad +=	'<td>' + json[i].sfId + '</td>' 
+		datad += '<td>' + json[i].sfName 
+		datad +=	'</td><td>' + json[i].sfRank  
+		datad +=	'</td><td>' + json[i].sfNumber + '</td>';
+		datad += '</tr>';
 
 	}
-	data += '</table>';
-	body.innerHTML = data;
+	datad += '</table>';
+	
+	
+
+	list.innerHTML = datad;
 	}else{const msg = document.getElementsByClassName("sfSearchBtn")[0]
 			msg.value = "";
 			msg.placeholder="입력해주세요.";}
@@ -66,18 +71,18 @@ let json = [];
 }
 
 
-function insSf(sfCode) {
-	let ctcode = document.getElementsByName("sfCtCode")[0].value;
-	let id = document.getElementsByName("sfId")[0].value;
-	let name =  document.getElementsByName("sfName")[0].value;
-	let number =  document.getElementsByName("sfNumber")[0].value;
-	let password =  document.getElementsByName("sfPw")[0].value;
-	let email =  document.getElementsByName("sfEmail")[0].value;
-	let rank =  document.getElementsByName("sfRank")[0].value;	
-	
-	
+function insSf() {
+	let ctcode = document.getElementsByName("ctCode")[1].value;
+	let id = document.getElementsByName("sfId")[1].value;
+	let name =  document.getElementsByName("sfName")[1].value;
+	let number =  document.getElementsByName("sfNumber")[1].value;
+	let password =  document.getElementsByName("sfPw")[1].value;
+	let email =  document.getElementsByName("sfEmail")[1].value;
+	let rank =  document.getElementsByName("sfRank")[1].value;	
+	alert(rank);
+
 	let json = [];
-	json.push({"sfCtCode": ctcode, "sfId": id ,"sfName" : name, "sfNumber" : number , "sfPw" : password , "sfEmail" : email, "sfRank" : rank});
+	json.push({"ctCode": ctcode, "sfId": id ,"sfName" : name, "sfNumber" : number , "sfPw" : password , "sfEmail" : email, "sfRank" : rank});
 	const clientData = JSON.stringify(json);
 	getAjax("ajax/insSf", clientData, "sfList", false);
 
@@ -162,14 +167,63 @@ function modSfModal() {
 
 
 function closeModalIn() {
-//지우지마시오 - 본
-	
-	
-	let containerIn =  document.getElementById("containerIn");
+	let containerIn =  document.getElementsByName("containerIn")[0];
 	containerIn.style.display = "none";
+
+}
+
+function UploadinbodyFile() {
+		 const form = document.getElementsByName("containerIn")[0];
+		form.submit();
+	}
 	
 	
+	function UploadinbodyFile() {
+		 const form = document.getElementsByName("containerIn")[0];
+
+				 let data = new FormData(form);
+				 ajaxFromData("insInbody",data,"ajaxCallback","POST");
+	}
 	
+	
+	function ajaxFromData(action, data, fn, method) {
+		const ajax = new XMLHttpRequest();
+		
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+			//alert(ajax.responseText);
+			window[fn](JSON.parse(ajax.responseText));
+			
+			
+		}
+		};
+		if(method == "Get"){
+			ajax.open("get", action, true);
+		}
+		else{
+		ajax.open("post", action, true);
+		//ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8 ");
+		}
+		ajax.send(data);
+	}
+	
+	function ajaxCallback(msg){
+	
+		let ms = document.getElementById("msg");
+		ms.innerText = msg.msg;
+	}
+
+	
+	
+
+		
+	
+function openModalIn() {
+	
+	let containerIn = document.getElementsByName("containerIn")[0];
+	containerIn.style.filter = "alpha(Opacity=50)";
+	containerIn.style.display = "block";
+
 }
 
 

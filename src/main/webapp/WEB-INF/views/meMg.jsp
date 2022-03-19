@@ -12,7 +12,7 @@
 	rel='stylesheet'>
 
 <title>MemberManagement</title>
-<script src="res/js/resource.js"  src="res/js/bon.js"  src="res/js/Dong.js"></script>
+<script  src="res/js/resource.js" src="res/js/bon.js"    src="res/js/Dong.js"></script>
 
 </head>
 <body>

@@ -7,7 +7,9 @@ import java.nio.file.Files;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -17,13 +19,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.somebody.serviece.member.Inbody;
 
@@ -42,25 +45,29 @@ public class FileController {
 	File savePath;
 	@Autowired
 	Inbody inbody;
+	ModelAndView mav;
+	public FileController() {
+		this.mav = new ModelAndView();
+		
+	}
 
 	@RequestMapping(value = "/insInbody", method = RequestMethod.POST)
 	@ResponseBody 
-	public String insInbody(@RequestParam("file") MultipartFile[] f, @ModelAttribute Inbodys in) {
-String msg = null;
-
-
+	public   Inbodys insInbody(@RequestParam("file") MultipartFile[] f, @ModelAttribute Inbodys in , Model model) {
 
 		for (MultipartFile e : f) {
 			this.savePath = new File("C:\\REST\\workspace\\help\\src\\main\\webapp\\resources\\excel",
 					e.getOriginalFilename());
 				try {
-				msg =	inbody.backController("M09", readFilter(e.getOriginalFilename()));
+					
+			 inbody.backController("M09", readFilter(e.getOriginalFilename()),model);
+			 	
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			}
+		return  (Inbodys)model.getAttribute("msg");
 		
-		return msg;
 	}
 	
 

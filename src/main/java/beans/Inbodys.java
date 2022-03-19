@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class Inbodys {
 	private String file;
+	private String msg;
 	private String excelTitle;
 
 	

@@ -35,15 +35,15 @@ function getgoodsList(action, stcode){
 	whatsend(action,"","writegoodslist",false,"post");
 
 }
-let data2;
+let data22;
 function writegoodslist(data){
-	data2 = data;
+	data22 = data;
 	const list =  document.getElementById("list");
 	//let message = '<div><span>상품코드</span><span>상품이름</span><span>상품원가</span><span>상품가격</span><span>상품재고</span><span>상품할인률</span><span>판매상태</span><span>사진</span></div>';
       while(list.hasChildNodes()){
 			list.removeChild(list.lastChild);
 		}
-	for (idx = 0; idx < data2.length; idx++) {
+	for (idx = 0; idx < data22.length; idx++) {
 		
 		let div = document.createElement("div");
 	div.setAttribute("onClick", "showGoodsinModal("+idx+")");
@@ -616,9 +616,6 @@ function ClickOrderList(srCode){
 	whatsend("GetOrderInfo",data, "addOrders");
 	
 		}
-		
-let orderOne = [];		
-
 
 
 	

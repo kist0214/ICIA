@@ -159,14 +159,7 @@ function closeModalb() {
 	
 }
 
-	function UploadFilebyAJax() {
-		let form = document.getElementsByName("dynamicFormDataIn")[0];
-		
-		
-	form.submit();
-
-		
-	}
+	
 	
 	
 	
