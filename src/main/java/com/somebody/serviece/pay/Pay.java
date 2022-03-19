@@ -67,7 +67,7 @@ public class Pay extends CommonMethod{
 	public void payMg(Pays pa) {
 		
 		this.mav.addObject("paGraph", this.my.payGraph(pa));
-		this.mav.addObject("sfCtCode", pa.getCtCode());
+		this.mav.addObject("ctCode", pa.getCtCode());
 		mav.setViewName("payMg");
 	}
 
