@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>HOME</title>
 <link rel="stylesheet" type="text/css" href="res/css/home.css" />
-<script  src="res/js/bon.js"></script>
-<script  src="res/js/resource.js" ></script>
+<script  src="res/js/resource.js" src="res/js/bon.js"    ></script>
+
 
 
 <style>

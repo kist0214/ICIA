@@ -92,7 +92,7 @@
 					<button class="btn transparent" id="sign-up-btn">Click
 						Here!</button>
 				</div>
-				<img src="image/help.svg" class="image" alt="" />
+				<img src="res/images/help.svg" class="image" alt="" />
 			</div>
 			<div class="panel right-panel">
 				<div class="content">
@@ -101,7 +101,7 @@
 					<button class="btn transparent" id="sign-in-btn">Click
 						Here!</button>
 				</div>
-				<img src="image/plan.svg" class="image" alt="" />
+				<img src="res/images/plan.svg" class="image" alt="" />
 			</div>
 		</div>
 	</div>
