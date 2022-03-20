@@ -433,7 +433,7 @@ function lsList(jsonData) {
 
 	if(jsonData.length>0){
 	lsInfo = jsonData;
-	data = '<table><tr><td>수업명</td><td>개강일</td><td>트레이너명</td><td>수강인원</td></tr>';	
+	data = '<tr><td>수업명</td><td>개강일</td><td>트레이너명</td><td>수강인원</td></tr>';	
 	
 	for (i=0; i<jsonData.length;i++) {
 		
@@ -445,7 +445,6 @@ function lsList(jsonData) {
 		data += '</tr>';
 
 	}
-	data += '</table>';
 	body.innerHTML = data;
 	}else{const msg = document.getElementsByClassName("lsSearchBtn")[0]
 			msg.value = "";

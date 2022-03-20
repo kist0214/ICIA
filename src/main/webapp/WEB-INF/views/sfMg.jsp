@@ -68,9 +68,8 @@
 </style>
 <title>StaffManament</title>
 <script type="res/js/bon.js"></script>
-<script src="res/js/Dong.js" src="res/js/resource.js"
-	></script>
-	
+<script src="res/js/Dong.js" src="res/js/resource.js"></script>
+
 
 
 </head>
@@ -94,29 +93,29 @@
 			<div class="menu">
 
 				<ul class="menu-links">
-					<li class="nav-link"><a> <i class='bx bx-user icon'
-							onClick="goMePage('${sfInfo.ctCode}')"></i> <span
-							class="text nav-text">회원관리</span>
+					<li class="nav-link" onClick="goMePage('${sfInfo.ctCode}')"><a>
+							<i class='bx bx-user icon'></i> <span class="text nav-text">회원관리</span>
 					</a></li>
 
-					<li class="nav-link"><a> <i class='bx bx-group icon'
-							id="sfMg" onClick="goSfPage('${sfInfo.ctCode}')"></i> <span
+					<li class="nav-link" onClick="goSfPage('${sfInfo.ctCode}')"><a>
+							<i class='bx bx-group icon' id="sfMg"></i> <span
 							class="text nav-text">직원관리</span>
 					</a></li>
 
-					<li class="nav-link"><a> <i class='bx bx-chalkboard icon'
-							id="lessonMg" onClick="goLessonPage('${sfInfo.ctCode}')"></i> <span
+					<li class="nav-link" onClick="goLessonPage('${sfInfo.ctCode}')"><a>
+							<i class='bx bx-chalkboard icon' id="lessonMg"></i> <span
 							class="text nav-text">수업관리</span>
 					</a></li>
 
-					<li class="nav-link"><a> <i class='bx bx-wrench icon'
-							id="goodsMg" onClick="goGoodsPage('${sfInfo.ctCode}')"></i><span
+					<li class="nav-link" onClick="goGoodsPage('${sfInfo.ctCode}')"><a>
+							<i class='bx bx-wrench icon' id="goodsMg"></i> <span
 							class="text nav-text">장비관리</span>
 					</a></li>
 
-					<li class="nav-link"><a> <i class='bx bx-credit-card icon'
-							id="payMg" onClick="goPayPage('${sfInfo.ctCode}')"></i> <span
+					<li class="nav-link" onClick="goPayPage('${sfInfo.ctCode}')"><a>
+							<i class='bx bx-credit-card icon' id="payMg"></i> <span
 							class="text nav-text">결제관리</span>
+
 					</a></li>
 
 
@@ -280,27 +279,29 @@
 					<div class="mcontent">
 						<div class="mheader">
 
-							<span class="title"></span><br><br><br><br><br><br>
-							 <span>회원인바디 엑셀파일 업로드</span><br><br><br>
+							<span class="title"></span><br> <br> <br> <br>
+							<br> <br> <span>회원인바디 엑셀파일 업로드</span><br> <br>
+							<br>
 						</div>
 					</div>
 					<div class="line">
 						<input type="file" name="file" multiple />
 					</div>
-					<div><br>
-						<input type="button" id="btn" value="인바디 파일 전송"
+					<div>
+						<br> <input type="button" id="btn" value="인바디 파일 전송"
 							onClick="UploadinbodyFile()" />
-					</div><br><br>
-					<div id = msg> </div>
-					
+					</div>
+					<br> <br>
+					<div id=msg></div>
+
 				</div>
-				
+
 			</div>
 
 		</form>
-</section>
+	</section>
 
-		<script>
+	<script>
 	 const body = document.querySelector('body'),
      sidebar = body.querySelector('nav'),
      toggle = body.querySelector(".toggle"),

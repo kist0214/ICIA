@@ -53,15 +53,9 @@ public class ControllerBon {
 
 	@RequestMapping(value = "/logOut", method = RequestMethod.POST)
 	public String logOut(Model model, @ModelAttribute Staffs sf) {
-		System.out.println(88);
-		System.out.println(sf.getSfId());
-		System.out.println(sf.getCtCode());
-	
 		if( sf.getSfId() != null) {
-			System.out.println(99);
 			this.auth.backControllerCT("A04",sf);
 		}else {
-			System.out.println(36363);
 			Members me  = new Members();
 				this.auth.backControllerME("A04",model.addAttribute("send", me));
 			}

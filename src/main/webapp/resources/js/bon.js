@@ -1,24 +1,25 @@
-/**
- * 태그를 만들수 있음
- */
+
 
 let jsPIp;
 
 
 
 
-let data2;
+
+let data3;
+
+
 
 function getmemberlist(data){
 	
 	
-	data2 = data;
+	data3 = data;
 	const list =  document.getElementById("list");
 	
       while(list.hasChildNodes()){
 			list.removeChild(list.lastChild);
 		}
-	for (idx = 0; idx < data2.length; idx++) {
+	for (idx = 0; idx < data3.length; idx++) {
 		
 		let div = document.createElement("div");
 	div.setAttribute("onClick", "showGoodsinModal("+idx+")");
@@ -45,8 +46,6 @@ function getmemberlist(data){
 }
 
 
-	
-	
 	
 
 	function ajaxFromData(action, data, fn, method) {
@@ -244,46 +243,6 @@ function ClickOrderList(srCode){
 	whatsend("GetOrderInfo",data, "addOrders");
 	
 		}
-		
-let orderOne = [];		
-
-
-
-	
-	
-
-
-	
-
-function addOrders (ordersInfo) {
-
-	let list = document.getElementById("list");	
-	if(Object.keys(ordersInfo).length != 0){
-	for (colIndex= 0; colIndex <Object.keys(ordersInfo).length ; colIndex++) {	
-		
-		orderOne[colIndex] = 
-   		"<span id = 'otDate'>"+ordersInfo[colIndex].otDate+"</span>"+'\u00A0'+
-        "<span id = 'otTime'>"+ ordersInfo[colIndex].otTime+"에"+"</span>"+'\u00A0'+
-      	"<span id = 'meCode'>"+ordersInfo[colIndex].meCode+"</span>"+
-        "<span id = 'meName'>"+ordersInfo[colIndex].meName +"</span>"+'\u00A0'+"*"+'\u00A0'+
-        "<span id = 'otQuantity'>"+ordersInfo[colIndex].otQuantity+"개"+"</span>"+'\u00A0'+
-        "<span id = 'cuName'>"+ordersInfo[colIndex].cuName+"</span>"+"("+'\u00A0'+
-        "<span id = 'cuNumber'>"+ordersInfo[colIndex].cuNumber+"</span>"+") 님이"+
-        "<span id = 'stCode'>" +ordersInfo[colIndex].stCode+"</span>"+'\u00A0'+
-        "<span id = 'stName'>"+ordersInfo[colIndex].stName+"</span>"+"하셨습니다.";
-					
-		let div = document.createElement("div");
-		div.setAttribute("class","oneorder");
-		div.innerHTML = orderOne[colIndex];
-				
-			
-		list.appendChild(div);
-	}
-		}else{
-			alert("해당 날짜의 주문이 없습니다.");
-		}
-			
-}
 
 
 function refresh(stCode, elCode) {

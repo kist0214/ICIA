@@ -36,6 +36,6 @@ public interface MapperYoung {
 	public int firstSfJoin(Staffs sf);
 	//Members
 	public List<Members> meList(Members me);
-	public int Count(Members me);
+	public Pays Count(Members me);
 	
 }
