@@ -678,6 +678,131 @@ function refresh(stCode, elCode) {
 	document.body.appendChild(form);
 	form.submit();
 }
+
+
+function meLogIn(){
+	let form = document.getElementsByName("dynamicFormdata")[0];
+	form.submit();
+	
+}
+
+function ctLogIn(){
+	
+     let  ip = jsPIp;
+
+	const hidden = makeInputElement("hidden","ahIp",ip,"");
+	
+	let form = document.getElementsByName("dynamicFormdata2")[0];
+
+	
+	form.appendChild(hidden);
+	
+	
+	
+	
+	form.submit();
+	
+}
+
+
+function searchMeMg(){
+	let ctcode = document.getElementById("caCode");
+	let mecode = document.getElementById("meName");
+	
+
+	
+	
+	let jsondata = [];
+	jsondata.push({"caCode":ctcode,"meName": mecode});
+	
+	const clientdata = JSON.stringify(jsondata);
+	whatsend("ajax/searchMeMg",clientdata,"getselist",false,"post");
+	
+}
+function getselist(data){
+
+	data2 = data;
+	const list =  document.getElementById("list");
+	
+      while(list.hasChildNodes()){
+			list.removeChild(list.lastChild);
+		}
+	for (idx = 0; idx < data2.length; idx++) {
+		
+		let div = document.createElement("div");
+	div.setAttribe("onClick", "showGoodsinModal("+idx+")");
+	
+	let span1=  document.createElement("span");
+	span1.innerText = data[idx].meName;
+	let span2=  document.createElement("span");
+	span2.innerText = data[idx].meGender;
+	let span3=  document.createElement("span");
+	span3.innerText = data[idx].meBirth;
+	let span4=  document.createElement("span");
+	span4.innerText = data[idx].meNumber;
+	let span5=  document.createElement("span");
+	span5.innerText = data[idx].meLsName;
+	div.appendChild(span1);
+	div.appendChild(span2);
+	div.appendChild(span3);   
+	div.appendChild(span4);  
+
+	div.appendChild(span5);           
+//속성을 포함해서 넣으면 어펜드, 태그부터 넣을거면 innerhtml, 태그안에 텍스트만 넣을거면 innerText
+  list.appendChild(div);
+
+}
+	
+}
+
+function getPublicIp(pip){
+	jsPIp = pip.ip;
+	
+}
+
+function getInbodyModal() {
+	let container =  document.getElementById("containerIn");
+	container.style.filter = "alpha(Opacity=50)";
+	container.style.display = "block";
+	
+	
+}
+function meLogInModal() {
+	let container =  document.getElementById("container");
+	container.style.filter = "alpha(Opacity=50)";
+	container.style.display = "block";
+}
+
+
+function ctLogInModal() {
+	let container =  document.getElementById("containerSF");
+	container.style.filter = "alpha(Opacity=50)";
+	container.style.display = "block";
+	
+	
+}
+
+function closeModalb() {
+	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
+	let container =  document.getElementById("container");
+	let containerSF =  document.getElementById("containerSF");
+	
+	
+	container.style.display = "none";
+	containerSF.style.display = "none";
+
+	
+}
+
+	
+	function sendEmailForm(){
+		
+		  const form =  makeForm("","sendEmailForm","GET");
+document.body.appendChild(form);
+		form.submit();
+	}
+	
+
 function goGoodsPage(qctCode){
 	const form = makeForm("goGoods", "goGoodsPage", "POST");
 	const ctCode = makeInputElement("hidden", "ctCode", qctCode, "");
