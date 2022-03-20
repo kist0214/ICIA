@@ -11,12 +11,14 @@
 	rel='stylesheet'>
 
 <title>GoodsManament</title>
-<script src="res/js/resource.js" src="res/js/bon.js"
-	src="res/js/YGoods.js" src="res/js/Dong.js"></script>
+<script src="res/js/resource.js"></script>
+<script src="res/js/bon.js"></script>
+<script src="res/js/YGoods.js"></script>
+<script src="res/js/Dong.js"></script>
 
 
 </head>
-<body onload="goodsMg('${sfInfo.ctCode}')">
+<body onload="goodsMg('${ctCode}')">
 	<nav class="sidebar close">
 		<header>
 			<div class="image-text">
@@ -25,7 +27,7 @@
 
 				<div class="text logo-text">
 					<span class="name">HELP</span> <span class="profession"
-						onClick="goMePage('${sfInfo.ctCode}')">Health Plan </span>
+						onClick="goMePage('${ctCode}')">Health Plan </span>
 				</div>
 			</div>
 
@@ -36,27 +38,27 @@
 			<div class="menu">
 
 				<ul class="menu-links">
-					<li class="nav-link"onClick="goMePage('${sfInfo.ctCode}')"><a>
+					<li class="nav-link"onClick="goMePage('${ctCode}')"><a>
 					<i class='bx bx-user icon'></i> 
 					<span class="text nav-text">회원관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick="goSfPage('${sfInfo.ctCode}')"><a>
+					<li class="nav-link" onClick="goSfPage('${ctCode}')"><a>
 					<i class='bx bx-group icon'id="sfMg" ></i> 
 					<span class="text nav-text">직원관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick="goLessonPage('${sfInfo.ctCode}')"><a> 
+					<li class="nav-link" onClick="goLessonPage('${ctCode}')"><a> 
 					<i class='bx bx-chalkboard icon' id="lessonMg"></i>
 					<span class="text nav-text">수업관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick="goGoodsPage('${sfInfo.ctCode}')"><a>
+					<li class="nav-link" onClick="goGoodsPage('${ctCode}')"><a>
 					<i class='bx bx-wrench icon' id="goodsMg" ></i>
 					<span class="text nav-text">장비관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick="goPayPage('${sfInfo.ctCode}')"><a> 
+					<li class="nav-link" onClick="goPayPage('${ctCode}')"><a> 
 					<i class='bx bx-credit-card icon' id="payMg"></i> 
 					<span class="text nav-text">결제관리</span>
 					</a></li>
@@ -116,18 +118,18 @@
 
 		<div class="etc">
 			<div>
-				<button>
-					<i class='bx bx-plus' onClick="getGoodsCode('${ctCode}')"></i>
+				<button onClick="getGoodsCode('${ctCode}')">
+					<i class='bx bx-plus'></i>
 				</button>
-				<button>
-					<i class='bx bx-edit-alt icon' onClick="getCaCode('${ctCode}')"></i>
+				<button onClick="getCaCode('${ctCode}')">
+					<i class='bx bx-edit-alt icon'></i>
 				</button>
 			</div>
 		</div>
 
-
-	</section>
-	<table id="ajax"></table>
+		<table id="ajax"></table>
+	
+	
 	<div class="gModal" id="gModal">
 		<div class="goodsLog">
 			<div class="gcontent">
@@ -136,12 +138,12 @@
 				</div>
 				<div class="mbody" id="mdbody"></div>
 				<div class="mbody" id="mbody">
-					<input type="button" class="mbtn" onclick="closeModal()" value="닫기" />
+					<input type="button" class="mbtn" onclick="YcloseModal()" value="닫기" />
 				</div>
 			</div>
 		</div>
 	</div>
-
+</section>
 	<script>
 	 const body = document.querySelector('body'),
      sidebar = body.querySelector('nav'),

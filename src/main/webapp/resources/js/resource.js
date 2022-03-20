@@ -524,8 +524,8 @@ function getPublicIp(pip){
 
 function logout(stcode,elcode){
 	
-   const form = makeForm("", "AccessOut", "post")
-    const StCode = makeInputElement("hidden","StCode",stcode,"");
+const form = makeForm("", "AccessOut", "post")
+const StCode = makeInputElement("hidden","StCode",stcode,"");
 const ElCode = makeInputElement("hidden","ElCode",elcode,"");
 const PublicIp = makeInputElement("hidden","PublicIp",jsPIp,"");
 	form.appendChild(StCode);

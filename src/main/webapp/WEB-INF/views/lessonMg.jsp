@@ -67,10 +67,12 @@
 </style>
 
 <title>LessonManament</title>
-<script src="res/js/resource.js"  src="res/js/YGoods.js" src="res/js/YPay.js"  src="res/js/bon.js" src="res/js/Dong.js"> </script>
+<script src="res/js/resource.js"> </script>
+<script src="res/js/bon.js"> </script>
+<script src="res/js/Dong.js"> </script>
 
 </head>
-<body onLoad ="lessonMg('ajax/LessonMg', '${lsList}')">
+<body onLoad ="lessonMg('ajax/LessonMg')">
 	<nav class="sidebar close">
 		<header>
 			<div class="image-text">
@@ -200,7 +202,7 @@
 				</button>
 			</div>
 		</div>
- <table id="ajax"></table>
+ <table id="list"></table>
 
 	</section>
 

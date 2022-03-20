@@ -12,10 +12,13 @@
 	rel='stylesheet'>
 
 <title>MemberManagement</title>
-<script src="res/js/resource.js"  src="res/js/bon.js"  src="res/js/Dong.js"></script>
+<script src="res/js/resource.js"></script> 
+<script src="res/js/YMember.js"></script> 
+<script src="res/js/bon.js"></script> 
+<script src="res/js/Dong.js"></script>
 
 </head>
-<body>
+<body onload = "getMeMg('${ctCode}')">
 	<nav class="sidebar close">
 		<header>
 			<div class="image-text">

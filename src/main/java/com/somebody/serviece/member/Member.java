@@ -167,11 +167,15 @@ public class Member extends CommonMethod{
 	}
 
 	public void meMg(Members me, Model md) {
+		int stocks=0;
 	      List<Members> meList = new ArrayList<Members>();
 	      tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 	      meList = this.my.meList(me);
 	      for(int i=0;i<meList.size();i++) {
-	         meList.get(i).setLpStocks(meList.get(i).getLpQty()-this.my.Count(meList.get(i)));
+	    	  if(this.my.Count(meList.get(i)).getLpStocks() != null) {
+	    		  stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
+	    	  }
+	         meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
 	      }
 	      md.addAttribute("meList", meList);
 	      tranend(true);
@@ -179,8 +183,7 @@ public class Member extends CommonMethod{
 
 	public void searchMeMg(Model model) {
 		model.addAttribute("getmemlist",this.mb.searchMeMg((Members)model.getAttribute("sendmelist")));
-		System.out.println(66);
-		System.out.println(model.getAttribute("getmelist"));
+		
 
 	}
 
