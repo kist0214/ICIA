@@ -46,9 +46,7 @@ public class Lesson extends CommonMethod{
 	
 	
 	public ModelAndView backController(String sCode, Lessons ls, Model model) {
-		String gs = null;
-		String senddata = null;
-
+	
 		switch (sCode) {
 		case "L00":
 			goLessonPage(ls, model);
@@ -88,7 +86,7 @@ public class Lesson extends CommonMethod{
 	}
 	public void goLessonPage(Lessons ls,Model model) {
 
-		mav.addObject("lsSfCtCode", "3251012345");
+		mav.addObject("ctCode", ls.getCtCode());
 		mav.setViewName("lessonMg");	
 	}
 

@@ -39,6 +39,19 @@ function searchPay(ctcode){
 	ajax("ajax/searchPay",data,"payList");
 }
 
+function logOut(ct,id){
+	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
+	
+	
+	let a = makeInputElement("hidden", "sfId", id);
+	let b = makeInputElement("hidden", "ctCode", ct);
+	let form = makeForm("", "logOut", "POST");
+	form.appendChild(a);
+	form.appendChild(b);
+      document.body.appendChild(form);
+	form.submit();
+   
+}
 
 
 

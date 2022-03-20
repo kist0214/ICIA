@@ -12,10 +12,11 @@
 	rel='stylesheet'>
 
 <title>MemberManagement</title>
-<script  src="res/js/resource.js" src="res/js/bon.js"    src="res/js/Dong.js"></script>
+<script  src="res/js/resource.js" src="res/js/bon.js" src="res/js/Dong.js"></script> 
+
 
 </head>
-<body>
+<body onload = "getMeMg('${ctCode}')">
 	<nav class="sidebar close">
 		<header>
 			<div class="image-text">
@@ -33,29 +34,30 @@
 
 		<div class="menu-bar">
 			<div class="menu">
-
 				<ul class="menu-links">
-					<li class="nav-link" onClick= "goMePage('${sfInfo.ctCode}')"><a>
-							<i class='bx bx-user icon'></i> <span class="text nav-text" >회원관리</span>
+					<li class="nav-link"onClick="goMePage('${sfInfo.ctCode}')"><a>
+					<i class='bx bx-user icon'></i> 
+					<span class="text nav-text">회원관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick= "goSfPage('${sfInfo.ctCode}')"><a>
-							<i class='bx bx-group icon'></i> <span class="text nav-text" >직원관리</span>
+					<li class="nav-link" onClick="goSfPage('${sfInfo.ctCode}')"><a>
+					<i class='bx bx-group icon'id="sfMg" ></i> 
+					<span class="text nav-text">직원관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick= "goLessonPage('${sfInfo.ctCode}')"><a
-						> <i
-							class='bx bx-chalkboard icon'></i> <span class="text nav-text" >수업관리</span>
+					<li class="nav-link" onClick="goLessonPage('${sfInfo.ctCode}')"><a> 
+					<i class='bx bx-chalkboard icon' id="lessonMg"></i>
+					<span class="text nav-text">수업관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick= "goGoodsPage('${sfInfo.ctCode}')"><a
-						> <i
-							class='bx bx-wrench icon'></i><span class="text nav-text" >장비관리</span>
+					<li class="nav-link" onClick="goGoodsPage('${sfInfo.ctCode}')"><a>
+					<i class='bx bx-wrench icon' id="goodsMg" ></i>
+					<span class="text nav-text">장비관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick=  "goPayPage('${sfInfo.ctCode}')"><a>
-							<i class='bx bx-credit-card icon'></i> <span
-							class="text nav-text" >결제관리</span>
+					<li class="nav-link" onClick="goPayPage('${sfInfo.ctCode}')"><a> 
+					<i class='bx bx-credit-card icon' id="payMg"></i> 
+					<span class="text nav-text">결제관리</span>
 					</a></li>
 
 
@@ -68,8 +70,8 @@
 						<span>(${sfInfo.sfRankName})</span></span>
 				</a></li>
 
-				<li class=""><a href="#"> <i class='bx bx-log-out icon' onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')"></i>
-						<span class="text nav-text"  onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')">로그아웃</span>
+				<li class=""><a onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')"> <i class='bx bx-log-out icon' ></i>
+						<span class="text nav-text">로그아웃</span>
 				</a></li>
 
 				<li class="mode">

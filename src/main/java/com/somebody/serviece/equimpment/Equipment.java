@@ -83,8 +83,7 @@ public class Equipment extends CommonMethod {
 	   }
 
 	private void goGoodsPage(Equipments eq) {
-		//this.mav.addObject("sfCtCode", eq.getCtCode());
-		mav.addObject("sfCtCode", "1234567890");
+		this.mav.addObject("ctCode", eq.getCtCode());
 		mav.setViewName("goodsMg");
 	}
 

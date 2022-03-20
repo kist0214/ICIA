@@ -4,17 +4,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <!----======== CSS ======== -->
-<link rel="stylesheet" href="res/css/payMg.css">
+<link rel="stylesheet" href="res/css/PayMg.css">
 <!----===== Boxicons CSS ===== -->
-<link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
-	rel='stylesheet'>
+<link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 <title>PayManagement</title>
-<script src="res/js/resource.js" src="res/js/YPay.js"  src="res/js/bon.js" src="res/js/Dong.js"> </script>
-
-
+<script src="/res/js/Ypay.js"> </script>
+<script src="/res/js/resource.js"> </script>
+<script src="res/js/Dong.js"> </script>
 </head>
-<body onLoad="onLoadPay('${sfInfo.ctCode}')">
+<body onLoad="onLoadPay('${ctCode}')">
 	<nav class="sidebar close">
 		<header>
 			<div class="image-text">
@@ -22,7 +22,7 @@
 				</span>
 
 				<div class="text logo-text">
-					<span class="name">HELP</span> <span class="profession"  onClick="goMePage('${sfInfo.ctCode}')">Health
+					<span class="name">HELP</span> <span class="profession"  onClick="goMePage('${ctCode}')">Health
 						Plan </span>
 				</div>
 			</div>
@@ -34,29 +34,29 @@
 			<div class="menu">
 
 				<ul class="menu-links">
-					<li class="nav-link"><a> <i class='bx bx-user icon'
-							onClick="goMePage('${sfInfo.ctCode}')"></i> <span
-							class="text nav-text">회원관리</span>
+					<li class="nav-link"onClick="goMePage('${sfInfo.ctCode}')"><a>
+					<i class='bx bx-user icon'></i> 
+					<span class="text nav-text">회원관리</span>
 					</a></li>
 
-					<li class="nav-link"><a> <i class='bx bx-group icon'
-							id="sfMg" onClick="goSfPage('${sfInfo.ctCode}')"></i> <span
-							class="text nav-text">직원관리</span>
+					<li class="nav-link" onClick="goSfPage('${sfInfo.ctCode}')"><a>
+					<i class='bx bx-group icon'id="sfMg" ></i> 
+					<span class="text nav-text">직원관리</span>
 					</a></li>
 
-					<li class="nav-link"><a> <i class='bx bx-chalkboard icon'
-							id="lessonMg" onClick="goLessonPage('${sfInfo.ctCode}')"></i> <span
-							class="text nav-text">수업관리</span>
+					<li class="nav-link" onClick="goLessonPage('${sfInfo.ctCode}')"><a> 
+					<i class='bx bx-chalkboard icon' id="lessonMg"></i>
+					<span class="text nav-text">수업관리</span>
 					</a></li>
 
-					<li class="nav-link"><a> <i class='bx bx-wrench icon'
-							id="goodsMg" onClick="goGoodsPage('${sfInfo.ctCode}')"></i><span
-							class="text nav-text">장비관리</span>
+					<li class="nav-link" onClick="goGoodsPage('${sfInfo.ctCode}')"><a>
+					<i class='bx bx-wrench icon' id="goodsMg" ></i>
+					<span class="text nav-text">장비관리</span>
 					</a></li>
 
-					<li class="nav-link"><a> <i class='bx bx-credit-card icon'></i>
-							<span class="text nav-text" id="payMg"
-							onClick="goPayPage('${sfInfo.ctCode}')">결제관리</span>
+					<li class="nav-link" onClick="goPayPage('${sfInfo.ctCode}')"><a> 
+					<i class='bx bx-credit-card icon' id="payMg"></i> 
+					<span class="text nav-text">결제관리</span>
 					</a></li>
 
 

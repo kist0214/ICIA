@@ -8,7 +8,7 @@ public class Pays extends Lessons{
 	private String caCode;
 	private String lpcaCode;
 	private int lpQty;
-	private int lpStocks;
+	private String lpStocks;
 	private String meCode;
 	private String meName;
 	private String paDate;

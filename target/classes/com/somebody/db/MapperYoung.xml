@@ -5,11 +5,6 @@
 
 
 <mapper namespace="com.somebody.db.MapperYoung">
-	<insert id="is" parameterType="beans.Centers">
-		insert into kmasters.ct
-		(CTCODE,CTNAME,CTADDRESS,CTCEO,CTNUMBER)
-		values('3000','24','42','42','42')
-	</insert>
 	<select id="goodsList" resultType="beans.Equipments"
 		parameterType="beans.Equipments">
 		select * from kmasters.GoodsView where ctCode =
@@ -47,19 +42,19 @@
 	<select id="getGoodsCodeE1" resultType="beans.Equipments"
 		parameterType="beans.Equipments">
 		select Max(eqcode)+1 as eqCode, eqcacode as eqCaCode
-		from kmasters.eq where eqcacode = 'E1' and eqctcode = ${ctCode} group
+		from kmasters.eq where eqcode like '1%' and eqctcode = ${ctCode} group
 		by eqcacode
 	</select>
 	<select id="getGoodsCodeE2" resultType="beans.Equipments"
 		parameterType="beans.Equipments">
 		select Max(eqcode)+1 as eqCode, eqcacode as eqCaCode
-		from kmasters.eq where eqcacode = 'E2' and eqctcode = ${ctCode} group
+		from kmasters.eq where eqcode like '2%' and eqctcode = ${ctCode} group
 		by eqcacode
 	</select>
 	<select id="getGoodsCodeE3" resultType="beans.Equipments"
 		parameterType="beans.Equipments">
 		select Max(eqcode)+1 as eqCode, eqcacode as eqCaCode
-		from kmasters.eq where eqcacode = 'E3' and eqctcode = ${ctCode} group
+		from kmasters.eq where eqcode like '3%' and eqctcode = ${ctCode} group
 		by eqcacode
 	</select>
 	<insert id="inseq" parameterType="beans.Equipments">
@@ -120,10 +115,10 @@
 		values('${ctCode}','10001','${sfPw}','${sfName}','M1','${sfEmail}','${sfNumber}')
 	</insert>
 	<select id="meList" resultType="beans.Members" parameterType="beans.Members">
-      select mgctcode as ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode,lpQty from kmasters.MeMgView
+      select mgctcode as ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode,lpQty,meCode from kmasters.MeMgView
       where mgctcode = ${ctCode}
    </select>
-   <select id="Count" resultType="int" parameterType="beans.Members">
-      select lpstocks from kmasters.CountView where ctCode = ${ctCode} and meCode = ${meCode} and caName = ${caName}
+   <select id="Count" resultType="beans.Pays" parameterType="beans.Members">
+      select nvl(lpstocks,0) as lpStocks from kmasters.CountView where ctCode = ${ctCode} and meCode = ${meCode} and caName = '${caName}'
    </select>
 </mapper>

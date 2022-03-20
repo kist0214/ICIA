@@ -15,6 +15,7 @@ if(content){
 function goodsMg(ctCode){
 	json=[];
 	json.push({ctCode:ctCode});
+	alert(ctCode);
 	const data = JSON.stringify(json);
 	ajaxconnection("ajax/goodsMg", data, "goodsList", true);
 }
@@ -22,7 +23,8 @@ function goodsMg(ctCode){
 
 let goodsInfo;
 function goodsList(json){
-	closeModal();
+	alert(JSON.stringify(json));
+	YcloseModal();
 	let body = document.getElementById("ajax");
 	let data;
 	if(json.length>0){
@@ -184,7 +186,7 @@ function openModal(){
 	container.style.display = "block";
 }
 
-function closeModal(){
+function YcloseModal(){
 	let container = document.getElementById("gModal");
 	container.style.display = "none";
 }
