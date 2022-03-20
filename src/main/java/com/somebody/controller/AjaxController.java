@@ -111,6 +111,8 @@ public class AjaxController {
 		@RequestMapping("/insSf")
 		public List<Staffs> insSf(Model model, @RequestBody Staffs[] sf) {
 			
+			//#{sfId}, #{sfPw}, #{sfName}, #{sfRank}, #{sfEmail}, #{sfNumber}
+			System.out.println(sf[0].getSfId());
 			this.sfs.backController("S04", sf[0], model);
 			
 			return (List<Staffs>)model.getAttribute("sfList");

@@ -76,7 +76,7 @@ public class Staff extends CommonMethod{
 	}
 
 	public void sfMg(Staffs sf, Model model) {
-System.out.println(sf.getCtCode()+"안와");
+
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		model.addAttribute("sfList",  this.md.sfList(sf));
 		tranend(true);		
@@ -98,7 +98,8 @@ System.out.println(sf.getCtCode()+"안와");
 	}
 
 	public void insSf(Staffs sf, Model model) {
-
+System.out.println(sf.getSfRank());
+		System.out.println(this.md.insSf(sf));
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		if(convertToBoolean(this.md.insSf(sf))) {
