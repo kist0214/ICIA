@@ -46,14 +46,16 @@ public class AjaxController {
 	private MapperUone mu;
 	
 	public AjaxController(){}
+	
 	//Bon
 	@RequestMapping(value = "/modPw", method = RequestMethod.POST)
-	public void modPw(Model model, @RequestBody Centers ct) {
-		this.auth.backController("A06", ct);
+	public void modPw(Model model, @RequestBody Centers ct , @RequestBody Members me)  {
+		//this.auth.backController("A06", ct ,me);
 	}
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/meMg", method = RequestMethod.POST)
 	public List<Members> meMg(Model model, @RequestBody Members[] me) {
+		
 		this.me.backController("M02",model,me[0]);
 		return (List<Members>)model.getAttribute("meList");
 	}

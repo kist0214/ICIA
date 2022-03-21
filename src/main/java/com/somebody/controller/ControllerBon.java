@@ -35,6 +35,7 @@ public class ControllerBon {
 
 	private static final Logger logger = LoggerFactory.getLogger(ControllerBon.class);
 
+	//오늘작업한 	부분
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		return "home";
@@ -70,8 +71,8 @@ public class ControllerBon {
 		return "sendEmailForm";
 	}
 	@RequestMapping(value = "/modPw", method = RequestMethod.GET)
-	public void modPw(Model model, @ModelAttribute Centers ct) {
-		this.auth.backController("A06",ct);
+	public void modPw(Model model, @ModelAttribute Centers ct, @ModelAttribute Members me) {
+		//this.auth.backControllerE("A06",ct,me);
 	}
 
 	@RequestMapping(value = "/ctJoin", method = RequestMethod.POST)

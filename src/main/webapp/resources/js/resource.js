@@ -4,6 +4,7 @@
 
 
 let list;
+ let jsPIp;
 
 	
 
@@ -27,15 +28,46 @@ function meConfig(ctCode){
       document.body.appendChild(form);
       form.submit();
 }
-	
-function getgoodsList(action, stcode){
-	//let jsondata = [];
-	//jsondata.push({"stCode":stcode});
-	//const clientdata = JSON.stringify(jsondata);
-	whatsend(action,"","writegoodslist",false,"post");
+function getMeMg(ctcode){
+	let jsondata = [];
+	jsondata.push({"ctCode":ctcode});
+	const clientdata = JSON.stringify(jsondata);
+	whatsend("ajax/meMg","","getedmelist",false,"post");
 
 }
-let data22;
+function getedmelist(dataa){
+	let jsondata = [];
+	jsondata.push({"ctCode":ctcode});
+	const clientdata = JSON.stringify(jsondata);
+	whatsend("ajax/meMg","","getedmelist",false,"post");
+
+}
+	let data22;
+function getedmelist(json){
+	alert(JSON.stringify(json));
+
+	let body = document.getElementById("ajax");
+	
+	if(json.length>0){
+		data22 = json;
+		data = "<tr><td></td><td>이름</td><td>성별</td><td>연령</td><td>핸드폰</td><td>유형</td></tr>";
+		for(i=0;i<json.length;i++){
+			data += "<tr>";
+			data += "<td><input type=\"radio\" name=\"radibut\"/></td>";
+			data += "<td>"+json[i].meName+"</td>";
+			data += "<td>"+json[i].meGender+"</td>";
+			data += "<td>"+json[i].meBirth+"</td>";
+			data += "<td>"+json[i].meNumber+"</td>";
+			data += "<td>"+json[i].mecaName+"</td>";
+			
+			data += "</tr>"
+		}
+	body.innerHTML = data;
+	}else{const msg = document.getElementsByClassName("select")[0];
+			msg.value = "";
+			msg.placeholder="검색어를 확인해 주세요.";}
+}
+
 function writegoodslist(data){
 	data22 = data;
 	const list =  document.getElementById("list");
@@ -522,7 +554,7 @@ function getPublicIp(pip){
 }
 
 
-function logout(stcode,elcode){
+function logOut(stcode,elcode){
 	
 const form = makeForm("", "AccessOut", "post")
 const StCode = makeInputElement("hidden","StCode",stcode,"");
@@ -705,13 +737,31 @@ function ctLogIn(){
 }
 
 
+
+function sendEmailForm(mecode){
+	
+	let email = document.getElementById("email");
+	let jsondata = [];
+	jsondata.push({"meCode":mecode, "meEmail":email});
+	
+	const clientdata = JSON.stringify(jsondata);
+	whatsend("ajax/searchMeMg",clientdata,"getselist",false,"post");
+}
+function ctLogIn(){
+	
+     let  ip = jsPIp;
+	const hidden = makeInputElement("hidden","ahIp",ip,"");
+	let form = document.getElementsByName("dynamicFormdata2")[0];
+	form.appendChild(hidden);
+	form.submit();
+}
+
+
 function searchMeMg(){
 	let ctcode = document.getElementById("caCode");
 	let mecode = document.getElementById("meName");
 	
 
-	
-	
 	let jsondata = [];
 	jsondata.push({"caCode":ctcode,"meName": mecode});
 	
@@ -755,10 +805,7 @@ function getselist(data){
 	
 }
 
-function getPublicIp(pip){
-	jsPIp = pip.ip;
-	
-}
+
 
 function getInbodyModal() {
 	let container =  document.getElementById("containerIn");

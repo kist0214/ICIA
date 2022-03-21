@@ -93,12 +93,10 @@
 		<div class="text">MemberManagement</div>
 		<div class="search">
 			<div class="nav-search">
-				<select class="select">
+				 <select class="select">
 					<option disabled selected>회원검색</option>
 					<option>이름</option>
 					<option>연락처</option>
-				</select> <select class="select">
-					<option disabled selected>회원유형</option>
 					<option>일반</option>
 					<option>PT</option>
 					<option>만료</option>
