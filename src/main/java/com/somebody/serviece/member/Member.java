@@ -54,20 +54,20 @@ public class Member extends CommonMethod{
 			meMg(me, model);
 			break;
 		}
-		
+
 		return mav;
 	}
 	public void backController(String sCode, Model model) {
 
 		switch (sCode) {
 		//관리자페이지 접근
-		
+
 		case "M03":
 			searchMeMg(model);
 			break;
 		case "M04":
-			 meDetail(model);
-			 break;
+			meDetail(model);
+			break;
 		case "M05":
 			getCaList(model);
 			break;
@@ -78,7 +78,7 @@ public class Member extends CommonMethod{
 			modMe(model);
 			break;
 
-			
+
 			//회원페이지 접근
 		case "C01":
 			infoLine(model);
@@ -116,7 +116,7 @@ public class Member extends CommonMethod{
 		case "C12":
 			meConfig(model);
 			break;
-		
+
 		case "C15":
 			modMeMg(model);
 			break;
@@ -125,34 +125,34 @@ public class Member extends CommonMethod{
 			break;
 
 		}
-		
-		
-		
+
+
+
 	}
-	
-	
+
+
 	public ModelAndView backControllerM(String sCode, Model model) {
 		String gs = null;
 		String senddata = null;
 
 		switch (sCode) {
-	
+
 		case "C17":
 			delMe(model);
 			break;
 
 		}
 		return this.mav;
-		
-		
-		
+
+
+
 	}
 
 	public void goMePage(Model model,Members me) {
 		this.mav.addObject("ctCode", me.getCtCode());
 		mav.setViewName("meMg");
-	
-		
+
+
 	}
 
 	public void meInbodyMg(Model model) {
@@ -160,31 +160,35 @@ public class Member extends CommonMethod{
 	}
 
 	public void meDtInfo(Model model) {
-		
+
 		model.addAttribute("list",this.mu.meDtInfo());
 		System.out.println(model.getAttribute("list"));
 
 	}
 
 	public void meMg(Members me, Model md) {
-		int stocks=0;
-	      List<Members> meList = new ArrayList<Members>();
-	      tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-	      meList = this.my.meList(me);
-	      for(int i=0;i<meList.size();i++) {
-	    	  if(this.my.Count(meList.get(i)).getLpStocks() != null) {
-	    		  stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
-	    	  }
-	         meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
-	      }
-	      md.addAttribute("meList", meList);
-	      tranend(true);
-	   }
+
+		List<Members> meList = new ArrayList<Members>();
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		meList = this.my.meList(me);
+		for(int i=0;i<meList.size();i++) {
+			int stocks=0;
+			for(int j=0;j<this.my.remecode().size();j++) {
+				if(meList.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())) {
+					if(meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
+						stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
+						meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
+					}
+				}
+			}
+			meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
+		}
+		md.addAttribute("meList", meList);
+		tranend(true);
+	}
 
 	public void searchMeMg(Model model) {
 		model.addAttribute("getmemlist",this.mb.searchMeMg((Members)model.getAttribute("sendmelist")));
-		
-
 	}
 
 	public void meDetail(Model model) {
@@ -240,11 +244,11 @@ public class Member extends CommonMethod{
 
 	public void meConfig(Model model) {
 		this.mav.setViewName("meConfig");
-		
+
 
 	}
 
-	
+
 
 	public ModelAndView modMeMg(Model model) {
 		me = new Members();
@@ -265,10 +269,10 @@ public class Member extends CommonMethod{
 
 	public void infoLine(Model model) {
 		String page = "/infoLine";
-		 this.mav.setViewName(page);
+		this.mav.setViewName(page);
 
 	}
 
-	
-	
+
+
 }

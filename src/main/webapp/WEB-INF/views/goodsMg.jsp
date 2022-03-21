@@ -104,9 +104,9 @@
 					<select class="select" id="searchCategory">
 						<label for="searchGoods">장비검색</label>
 						<option disabled selected>장비분류</option>
-						<option>장비명</option>
-						<option>담당자</option>
-					</select> <span> <input type="text" placeholder="검색"> <i
+						<option value="eqName">장비명</option>
+						<option value="sfName">담당자</option>
+					</select> <span> <input class ="searchGo" type="text" placeholder="검색"> <i
 						class='bx bx-search icon' onClick="searchGoods('${ctCode}')">
 					</i>
 					</span>

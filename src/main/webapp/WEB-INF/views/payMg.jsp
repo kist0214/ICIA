@@ -14,7 +14,7 @@
 <script src="/res/js/resource.js"> </script>
 <script src="res/js/Dong.js"> </script>
 </head>
-<body onLoad="onLoadPay('${ctCode}')">
+<body onLoad="onLoadPay('${ctCode}')"  onLoad="payChart()">
 	<nav class="sidebar close">
 		<header>
 			<div class="image-text">
@@ -64,7 +64,7 @@
 			</div>
 
 			<div class="bottom-content">
-				<li class=""><a href="#"> <i class='bx bx-id-card icon'></i>
+				<li class=""><a> <i class='bx bx-id-card icon'></i>
 						<span class="text nav-text"><span class="text nav-text">
 								<span>${sfInfo.sfName}</span> <span>(${sfInfo.sfRankName})</span>
 						</span></span>
@@ -102,11 +102,13 @@
 						<script
 							src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 						<canvas id="bar-chart" width="300" height="230"></canvas>
+						
+						<canvas id="bar-chart2" width="300" height="230"></canvas>
 					</div>
 					<form>
-						<input id="searchDate" type="date" /> <input type="button"
+						<input id="searchDate" type="month" /> <input type="button"
 							class='bx bx-search icon' value="찾기"
-							onClick="searchPay('${sfInfo.ctCode}')" />
+							onClick="searchPay('${ctCode}')" />
 					</form>
 				</div>
 			</div>
@@ -122,6 +124,8 @@
 
 
 	<script>
+
+
 const d = new Date();
 const year = d.getFullYear(); // 년
 const month = d.getMonth();   // 월
@@ -129,9 +133,9 @@ const month = d.getMonth();   // 월
 new Chart(document.getElementById("bar-chart"), {
     type: 'bar',
     data: {
-      labels: [new Date(year, month - 3).toLocaleDateString().substring(2,8),
-	  new Date(year, month - 2).toLocaleDateString().substring(2,8),
-      new Date(year, month - 1).toLocaleDateString().substring(2,8)],
+      labels: [new Date(year, month - 2).toLocaleDateString().substring(2,8),
+	  new Date(year, month - 1).toLocaleDateString().substring(2,8),
+      new Date(year, month).toLocaleDateString().substring(2,8)],
       datasets: [
         {
         
@@ -163,6 +167,78 @@ new Chart(document.getElementById("bar-chart"), {
     }
 });
 
+
+let YChart = document.getElementById("bar-chart2");
+let YData = {
+    type: 'bar',
+    data: {
+      labels: ['P.T','요가','필라테스','줌바댄스','일반','스피닝'],
+      datasets: [
+        {
+          label: "만원",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#f60","#c00","#0ff"],
+          data: [0,0,0,0,0,0]
+        }
+      ]
+    },
+    options: {
+    responsive: false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						min: 0,
+						max: 300,
+						fontSize : 12,
+					}
+				}]
+			},
+      
+      legend: { display: false },
+      title: {
+        display: true,
+        text: '분류별 매출'
+        
+      }
+      
+    }
+};
+const YYChart=new Chart(YChart,YData);
+
+function newChart(json){
+	alert(json);
+	//데이터셋 수 만큼 반복
+	var dataset = YData.data.datasets;
+	var labels = YData.data.labels
+	for(var i=0; i<dataset.length; i++){
+		console.log(dataset);
+		//데이터 갯수 만큼 반복
+		var data = dataset[i].data;
+		for(var j=0 ; j < data.length ; j++){
+			data[j] = json[j];
+		}
+	}
+	YYChart.update();
+}
+
+const body = document.querySelector('body'),
+sidebar = body.querySelector('nav'),
+toggle = body.querySelector(".toggle"),
+//searchBtn = body.querySelector(".search-box"),
+modeSwitch = body.querySelector(".toggle-switch"),
+modeText = body.querySelector(".mode-text");
+toggle.addEventListener("click" , () =>{
+sidebar.classList.toggle("close");
+})
+modeSwitch.addEventListener("click" , () =>{
+body.classList.toggle("dark");
+
+if(body.classList.contains("dark")){
+  modeText.innerText = "라이트모드";
+}else{
+  modeText.innerText = "다크모드";
+  
+}
+});
 
 </script>
 
