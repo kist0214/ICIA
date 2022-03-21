@@ -4,42 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.somebody.db.CommonMethod;
-import com.somebody.db.MapperBon;
-import com.somebody.db.MapperDong;
-import com.somebody.db.MapperUone;
 import com.somebody.db.MapperYoung;
 
 import beans.Equipments;
-import kr.co.icia.plzec.services.Encryption;
-import kr.co.icia.plzec.services.ProjectUtils;
 
 @Service
 public class Equipment extends CommonMethod {
 	@Autowired
-	private MapperBon mb;
-	@Autowired
-	private MapperDong md;
-	@Autowired
 	private MapperYoung my;
-	@Autowired
-	private MapperUone mu;
 	private ModelAndView mav;
 	
-	@Autowired
-	private DataSourceTransactionManager tx;
-
-	private TransactionStatus txStatus;
-
-	private DefaultTransactionDefinition txdef;
 
 	String page = null;
 	

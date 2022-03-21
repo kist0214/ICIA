@@ -18,8 +18,10 @@ function ajax(action, data, fn) {
    ajax.send(data);
 }
 
-
-function getMeMg(ctcode){
+let sfRanCode=[];
+function getMeMg(ctcode,sfrank,sfcode){
+	sfRanCode[0]=sfrank;
+	sfRanCode[1]=sfcode;
 	let json = [];
 	json.push({ctCode:ctcode});
 	const data = JSON.stringify(json);
@@ -33,15 +35,29 @@ function getMeList(json){
 	const ajax = document.getElementById("ajax");
 	let data = '<tr><td></td><td>이름</td><td>성별</td><td>연령</td><td>전화번호</td><td>유형</td><td>결제횟수/잔여횟수<td><td><td></tr>';
 	for(i=0;i<json.length;i++){
-		data += '<tr><td><input type=\"radio\" name=\"radibut\"/></td>';
-		data +='<td>'+json[i].meName+'</td>';
-		data +='<td>'+json[i].meGender+'</td>';
-		data +='<td>'+json[i].meBirth+'</td>';
-		data +='<td>'+json[i].meNumber+'</td>';
-		data +='<td>'+json[i].meCaname+'</td>';
-		data +='<td>'+json[i].lpQty+'/'+json[i].lpStocks+'</td>';
-		if(json[i].stCode=='M1'){
-			data +='<td><input type="button" value="만료" onclick="clickExpiration(\''+i+'\')"/></td></tr>';
+		if(sfRanCode[0]=='M1'){
+			data += '<tr><td><input type=\"radio\" name=\"radibut\"/></td>';
+			data +='<td>'+json[i].meName+'</td>';
+			data +='<td>'+json[i].meGender+'</td>';
+			data +='<td>'+json[i].meBirth+'</td>';
+			data +='<td>'+json[i].meNumber+'</td>';
+			data +='<td>'+json[i].caName+'</td>';
+			data +='<td>'+json[i].lpQty+'/'+json[i].lpStocks+'</td>';
+			if(json[i].stCode=='M1'){
+				data +='<td><input type="button" value="만료" onclick="clickExpiration(\''+i+'\')"/></td></tr>';
+			}
+		}else if(sfRanCode[1]==json[i].sfCode){
+			data += '<tr><td><input type=\"radio\" name=\"radibut\"/></td>';
+			data +='<td>'+json[i].meName+'</td>';
+			data +='<td>'+json[i].meGender+'</td>';
+			data +='<td>'+json[i].meBirth+'</td>';
+			data +='<td>'+json[i].meNumber+'</td>';
+			data +='<td>'+json[i].caName+'</td>';
+			data +='<td>'+json[i].lpQty+'/'+json[i].lpStocks+'</td>';
+			if(json[i].stCode=='M1'){
+				data +='<td><input type="button" value="만료" onclick="clickExpiration(\''+i+'\')"/></td></tr>';
+		}
+		
 		}
 	}
 	ajax.innerHTML=data;

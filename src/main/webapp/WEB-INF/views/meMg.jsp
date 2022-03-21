@@ -12,11 +12,14 @@
 	rel='stylesheet'>
 
 <title>MemberManagement</title>
-<script  src="res/js/resource.js" src="res/js/bon.js" src="res/js/Dong.js"></script> 
+<script src="res/js/resource.js"></script> 
+<script src="res/js/bon.js"></script> 
+<script src="res/js/Dong.js"></script> 
+<script src="res/js/YMember.js"></script> 
 
 
 </head>
-<body onload = "getMeMg('${ctCode}')">
+<body onload = "getMeMg('${ctCode}','${sfInfo.sfRank}','${sfInfo.sfId}')">
 	<nav class="sidebar close">
 		<header>
 			<div class="image-text">
@@ -65,7 +68,7 @@
 			</div>
 
 			<div class="bottom-content">
-				<li class=""><a href="#"> <i class='bx bx-id-card icon'></i>
+				<li class=""><a> <i class='bx bx-id-card icon'></i>
 						<span class="text nav-text"></span> <span class="text nav-text">	<span>${sfInfo.sfName}</span>
 						<span>(${sfInfo.sfRankName})</span></span>
 				</a></li>

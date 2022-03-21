@@ -285,9 +285,6 @@ public class Authenticaion extends CommonMethod {
 	}
 
 	public ModelAndView logOutMe(Model model) {
-		System.out.println(345);
-		
-		
 		try {
 			this.mav.getModel().clear(); // 모델엔뷰 객체 지우기
 			pu.removeAttribute("meInfo");
@@ -303,7 +300,6 @@ public class Authenticaion extends CommonMethod {
 
 	
 	public void logOutCt(Staffs sf) {
-		System.out.println(1231231);
 		page = "redirect:/";// 기본페이지로 이동
 		this.mav.getModel().clear(); // 모델엔뷰 객체 지우기
 		try {

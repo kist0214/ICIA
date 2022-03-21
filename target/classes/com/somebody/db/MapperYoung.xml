@@ -70,20 +70,15 @@
 	<select id="payList" parameterType="beans.Pays"
 		resultType="beans.Pays">
 		select ctCode, caCode, lpQty, meName, paDate, paTotal from
-		kmasters.PayView where ctCode='${ctCode}'
-	</select>
-	<select id="searchPay" parameterType="beans.Pays"
-		resultType="beans.Pays">
-		select ctCode, caCode, lpQty, meName, paDate, paTotal from
 		kmasters.PayView where ctCode='${ctCode}' and paDate = '${paDate}'
 	</select>
 	<select id="payGraph" parameterType="beans.Pays" resultType="beans.Pays">
 	<![CDATA[
 		select nvl(sum(to_number(patotal,'999999999')),0)/10000 as paTotal, substr(padate,0,7) as paDate
 		from kmasters.payView
-		where (substr(padate,0,7)= to_char(add_months(sysdate,-1),'yyyy-mm')
-		or substr(padate,0,7)= to_char(add_months(sysdate,-2),'yyyy-mm')
-		or substr(padate,0,7)= to_char(add_months(sysdate,-3),'yyyy-mm'))
+		where (substr(padate,0,7)= to_char(sysdate,'yyyy-mm')
+		or substr(padate,0,7)= to_char(add_months(sysdate,-1),'yyyy-mm')
+		or substr(padate,0,7)= to_char(add_months(sysdate,-2),'yyyy-mm'))
        ]]>
 		and	ctcode =${ctCode}
 		group by substr(padate,0,7) order by substr(padate,0,7)
@@ -115,10 +110,17 @@
 		values('${ctCode}','10001','${sfPw}','${sfName}','M1','${sfEmail}','${sfNumber}')
 	</insert>
 	<select id="meList" resultType="beans.Members" parameterType="beans.Members">
-      select mgctcode as ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode,lpQty,meCode from kmasters.MeMgView
+      select mgctcode as ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode as stCode,lpQty,caCode, meCode from kmasters.MeMgView
       where mgctcode = ${ctCode}
    </select>
    <select id="Count" resultType="beans.Pays" parameterType="beans.Members">
-      select nvl(lpstocks,0) as lpStocks from kmasters.CountView where ctCode = ${ctCode} and meCode = ${meCode} and caName = '${caName}'
+		select clv.ctcode as ctCode, clv.caname as caName, count(rl.mecode) as lpStocks, rl.sfCode
+		from kmasters.calpview clv left outer join kmasters.relsview rl on clv.ctcode = rl.ctcode and clv.cacode = rl.cacode
+		where clv.ctCode = '${ctCode}' and rl.meCode = '${meCode}' and clv.caName = '${caName}'
+		group by clv.ctcode, clv.caname, rl.sfcode
    </select>
+   <select id="remecode" resultType="beans.Members" parameterType="beans.Members">
+	 select meCode, caCode from kmasters.relsview group by meCode, caCode
+   </select>
+  
 </mapper>

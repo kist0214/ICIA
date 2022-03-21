@@ -58,9 +58,6 @@ public class Pay extends CommonMethod{
 		case "P02":
 			onLoadPay(pa, md);
 			break;
-		case "P03":
-			searchPay(pa, md);
-			break;
 		}
 	}
 
@@ -77,10 +74,5 @@ public class Pay extends CommonMethod{
 		tranend(true);
 	}
 
-	public void searchPay(Pays pa, Model md) {
-		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		md.addAttribute("payList",this.my.searchPay(pa));
-		tranend(true);
-	}
 
 }

@@ -9,7 +9,6 @@ import beans.Pays;
 import beans.Staffs;
 
 public interface MapperYoung {
-	public int is(Centers ct);
 	//Equipments
 	public List<Equipments> goodsList(Equipments eq);
 	public List<Equipments> searchGoods(Equipments eq);
@@ -25,7 +24,6 @@ public interface MapperYoung {
 	public int inseg(Equipments eq);
 	//pay
 	public List<Pays> payList(Pays pa);
-	public List<Pays> searchPay(Pays pa);
 	public List<Pays> payGraph(Pays pa);
 	//Join
 	public List<Members> checkMeEmailNum();
@@ -37,5 +35,5 @@ public interface MapperYoung {
 	//Members
 	public List<Members> meList(Members me);
 	public Pays Count(Members me);
-	
+	public List<Members> remecode();
 }
