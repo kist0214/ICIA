@@ -61,7 +61,6 @@ public class AjaxController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/searchMeMg", method = RequestMethod.POST)
 	public List<Members> searchMeMg(Model model, @RequestBody Members[] me) {
-		System.out.println(me[0].getCtCode());
 		this.me.backController("M03",model.addAttribute("sendmelist",me[0]));
 		return (List<Members>)model.getAttribute("getmelist");
 	}
@@ -111,8 +110,6 @@ public class AjaxController {
 	@RequestMapping("/insSf")
 	public List<Staffs> insSf(Model model, @RequestBody Staffs[] sf) {
 
-		//#{sfId}, #{sfPw}, #{sfName}, #{sfRank}, #{sfEmail}, #{sfNumber}
-		System.out.println(sf[0].getSfId());
 		this.sfs.backController("S04", sf[0], model);
 
 		return (List<Staffs>)model.getAttribute("sfList");
@@ -139,7 +136,6 @@ public class AjaxController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/searchLesson")
 	public List<Lessons> searchLesson(Model model, @RequestBody Lessons[] ls) {
-		System.out.println("123");
 		this.lss.backController("L02",ls[0],model.addAttribute("ls", ls[0]));
 		return (List<Lessons>)model.getAttribute("searchLesson");
 	}
@@ -230,8 +226,12 @@ public class AjaxController {
 		this.auth.backController2("C02", model);
 		return (List<Centers>) model.getAttribute("checkCtCode");
 	}
-
-
+	@RequestMapping(value = "/clickExpiration", method = RequestMethod.POST)
+	public List<Members> clickExpiration(Model model, @RequestBody Members[] me) {
+		this.me.backController("M03", model, me[0]);
+		return (List<Members>) model.getAttribute("meList");
+	}
+	
 
 
 
@@ -241,7 +241,6 @@ public class AjaxController {
 
 	@RequestMapping(value = "/meDtInfo", method = RequestMethod.POST)
 	public List<Members> meDtInfo(Model model,@ModelAttribute Members me) {
-		System.out.println(mu.meDtInfo());
 		this.me.backController("C02",model.addAttribute("me",me));
 
 		return (List<Members>)model.getAttribute("list");

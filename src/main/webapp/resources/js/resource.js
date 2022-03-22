@@ -5,6 +5,16 @@
 
 let list;
 
+function YopenModal(){
+	let container = document.getElementById("gModal");
+	container.style.filter = "alpha(Opacity=50)";
+	container.style.display = "block";
+}
+
+function YcloseModal(){
+	let container = document.getElementById("gModal");
+	container.style.display = "none";
+}
 	
 
 	

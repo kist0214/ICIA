@@ -34,27 +34,27 @@
 			<div class="menu">
 
 				<ul class="menu-links">
-					<li class="nav-link"onClick="goMePage('${sfInfo.ctCode}')"><a>
+					<li class="nav-link"onClick="goMePage('${ctCode}')"><a>
 					<i class='bx bx-user icon'></i> 
 					<span class="text nav-text">회원관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick="goSfPage('${sfInfo.ctCode}')"><a>
+					<li class="nav-link" onClick="goSfPage('${ctCode}')"><a>
 					<i class='bx bx-group icon'id="sfMg" ></i> 
 					<span class="text nav-text">직원관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick="goLessonPage('${sfInfo.ctCode}')"><a> 
+					<li class="nav-link" onClick="goLessonPage('${ctCode}')"><a> 
 					<i class='bx bx-chalkboard icon' id="lessonMg"></i>
 					<span class="text nav-text">수업관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick="goGoodsPage('${sfInfo.ctCode}')"><a>
+					<li class="nav-link" onClick="goGoodsPage('${ctCode}')"><a>
 					<i class='bx bx-wrench icon' id="goodsMg" ></i>
 					<span class="text nav-text">장비관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick="goPayPage('${sfInfo.ctCode}')"><a> 
+					<li class="nav-link" onClick="goPayPage('${ctCode}')"><a> 
 					<i class='bx bx-credit-card icon' id="payMg"></i> 
 					<span class="text nav-text">결제관리</span>
 					</a></li>
@@ -205,7 +205,6 @@ let YData = {
 const YYChart=new Chart(YChart,YData);
 
 function newChart(json){
-	alert(json);
 	//데이터셋 수 만큼 반복
 	var dataset = YData.data.datasets;
 	var labels = YData.data.labels

@@ -41,21 +41,18 @@
 	</update>
 	<select id="getGoodsCodeE1" resultType="beans.Equipments"
 		parameterType="beans.Equipments">
-		select Max(eqcode)+1 as eqCode, eqcacode as eqCaCode
-		from kmasters.eq where eqcode like '1%' and eqctcode = ${ctCode} group
-		by eqcacode
+		select Max(eqcode)+1 as eqCode
+		from kmasters.eq where eqcode like '1%' and eqctcode = ${ctCode}
 	</select>
 	<select id="getGoodsCodeE2" resultType="beans.Equipments"
 		parameterType="beans.Equipments">
-		select Max(eqcode)+1 as eqCode, eqcacode as eqCaCode
-		from kmasters.eq where eqcode like '2%' and eqctcode = ${ctCode} group
-		by eqcacode
+		select Max(eqcode)+1 as eqCode
+		from kmasters.eq where eqcode like '2%' and eqctcode = ${ctCode}
 	</select>
 	<select id="getGoodsCodeE3" resultType="beans.Equipments"
 		parameterType="beans.Equipments">
-		select Max(eqcode)+1 as eqCode, eqcacode as eqCaCode
-		from kmasters.eq where eqcode like '3%' and eqctcode = ${ctCode} group
-		by eqcacode
+		select Max(eqcode)+1 as eqCode
+		from kmasters.eq where eqcode like '3%' and eqctcode = ${ctCode}
 	</select>
 	<insert id="inseq" parameterType="beans.Equipments">
 		insert into
@@ -122,5 +119,19 @@
    <select id="remecode" resultType="beans.Members" parameterType="beans.Members">
 	 select meCode, caCode from kmasters.relsview group by meCode, caCode
    </select>
-  
+  <update id="clickExpiration">
+  	update kmasters.mg set mgstcode='M2' where mgctcode='${ctCode}' and mgmecode='${meCode}'
+  </update>
+  <select id="searchMeList" resultType="beans.Members" parameterType="beans.Members">
+      select mgctcode as ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode as stCode,lpQty,caCode, meCode from kmasters.MeMgView
+      where mgctcode = '${ctCode}' and mgstcode = '${stCode}'
+   </select>
+   <select id="searchMeList2" resultType="beans.Members" parameterType="beans.Members">
+      select mgctcode as ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode as stCode,lpQty,caCode, meCode from kmasters.MeMgView
+      where mgctcode = '${ctCode}' and cacode = '${caCode}'
+   </select>
+   <select id="searchMeList3" resultType="beans.Members" parameterType="beans.Members">
+      select mgctcode as ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode as stCode,lpQty,caCode, meCode from kmasters.MeMgView
+      where mgctcode = '${ctCode}' and ${meCode} = '${meName}'
+   </select>
 </mapper>

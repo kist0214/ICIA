@@ -96,24 +96,29 @@
 		<div class="text">MemberManagement</div>
 		<div class="search">
 			<div class="nav-search">
-				<select class="select">
-					<option disabled selected>회원검색</option>
-					<option>이름</option>
-					<option>연락처</option>
-				</select> <select class="select">
-					<option disabled selected>회원유형</option>
-					<option>일반</option>
-					<option>PT</option>
-					<option>만료</option>
-				</select> <span> <input type="text" placeholder="검색"> <i
-					class='bx bx-search icon'></i>
+				<select class="select" id='select' onchange="searchMeCharTwo('${ctCode}','${sfInfo.sfRank}','${sfInfo.sfId}')">
+					<option selected value="1">회원유형</option>
+					<option value='meName'>이름</option>
+					<option value='meNumber'>연락처</option>
+					<option value='M1'>일반</option>
+					<option value='M2'>만료</option>
+					<option value='L1'>PT</option>
+					<option value='L2'>요가</option>
+					<option value='L3'>필라테스</option>
+					<option value='L4'>줌바댄스</option>
+					<option value='L5'>스피닝</option>
+					
+				</select>
+				<span>
+				 <input type="text" id='searchText'placeholder="검색">
+				 <i onclick="searchMe('${ctCode}')" class='bx bx-search icon'></i>
 				</span>
 			</div>
 
 		</div>
 		<div class="etc">
 			<div>
-				<button>
+				<button onClick="getCaList('${ctCode}')">
 					<i class='bx bx-user-plus icon'></i><span></span>
 				</button>
 				<button>
@@ -122,7 +127,19 @@
 			</div>
 		</div>
 <table id="ajax"></table>
-
+<div class="mModal" id="mModal">
+		<div class="memberLog">
+			<div class="mContent">
+				<div class="mheader">
+					<h4 class="mtitle" id="mdtitle"></h4>
+				</div>
+				<div class="mbody" id="mdbody"></div>
+				<div class="mbody" id="mbody">
+					<input type="button" class="mbtn" onclick="YcloseModal()" value="닫기" />
+				</div>
+			</div>
+		</div>
+	</div>
 	</section>
 
 	<script>

@@ -15,7 +15,6 @@ if(content){
 function goodsMg(ctCode){
 	json=[];
 	json.push({ctCode:ctCode});
-	alert(ctCode);
 	const data = JSON.stringify(json);
 	ajaxconnection("ajax/goodsMg", data, "goodsList", true);
 }
@@ -23,7 +22,6 @@ function goodsMg(ctCode){
 
 let goodsInfo;
 function goodsList(json){
-	alert(JSON.stringify(json));
 	YcloseModal();
 	let body = document.getElementById("ajax");
 	let data;
@@ -82,7 +80,7 @@ function getCaCode(ctcode){
 	json.push({ctCode:ctcode});
 	const jsonData = JSON.stringify(json);
 	ajaxconnection("ajax/getGoCaList", jsonData, "subModGoods", true);
-	openModal();
+	YopenModal();
 }
 
 function subModGoods(caData){
@@ -148,18 +146,18 @@ function getGoodsCode(ctcode){
 	ajaxconnection("ajax/getGoCaList", jsonData, "subModGoods", true);
 	
 	ajaxconnection("ajax/getGoodsCode", jsonData, "getGoodsMaxCode", true);
-	openModal();
+	YopenModal();
 }
 
 function getGoodsMaxCode(eqMaxCodes){
 	let data;
 	const meqCode = document.getElementById("meqCode");
 	for(i=0;i<eqMaxCodes.length;i++){
-		if(eqMaxCodes[i].eqCaCode=="E1"){
+		if(eqMaxCodes[i].eqCode.charAt(0)=="1"){
 			data += "<option value=\""+eqMaxCodes[i].eqCode+"\">장비</option>"
-		}else if(eqMaxCodes[i].eqCaCode=="E2"){
+		}else if(eqMaxCodes[i].eqCode.charAt(0)=="2"){
 			data += "<option value=\""+eqMaxCodes[i].eqCode+"\">용품</option>"
-		}else if(eqMaxCodes[i].eqCaCode=="E3"){
+		}else if(eqMaxCodes[i].eqCode.charAt(0)=="3"){
 			data += "<option value=\""+eqMaxCodes[i].eqCode+"\">락카</option>"
 		}
 	}
@@ -180,23 +178,13 @@ function insGoods(ctcode){
 	ajaxconnection("ajax/insGoods", data, "goodsList", true);
 }
 
-function openModal(){
-	let container = document.getElementById("gModal");
-	container.style.filter = "alpha(Opacity=50)";
-	container.style.display = "block";
-}
-
-function YcloseModal(){
-	let container = document.getElementById("gModal");
-	container.style.display = "none";
-}
-
 
 function change(){
 	const eqcode = document.getElementById("meqCode");
 	const eqcacode = document.getElementById("mcaCode");
 	
 	for(i=0;i<eqcode.length;i++){
+		eqcacode.options[i].removeAttribute('selected');
 		if(eqcode.options[eqcode.selectedIndex].innerText==eqcacode.options[i].innerText){
 			eqcacode.options[i].setAttribute('selected', '');
 		}
@@ -208,6 +196,7 @@ function change2(){
 	const eqcacode = document.getElementById("mcaCode");
 	
 	for(i=0;i<eqcacode.length;i++){
+		eqcode.options[i].removeAttribute('selected');
 		if(eqcacode.options[eqcacode.selectedIndex].innerText==eqcode.options[i].innerText){
 			eqcode.options[i].setAttribute('selected', '');
 		}
