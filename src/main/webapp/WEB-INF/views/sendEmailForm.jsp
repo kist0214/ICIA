@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>sendEmailForm</title>
-<script  src="res/js/resource.js"></script>
+<script src="res/js/resource.js"></script>
 </head>
 <link rel="stylesheet" type="text/css" href="res/css/sendEmailForm.css" />
 <body>
-	
+
 	<div class="bCircle"></div>
 	<div class="mCircle"></div>
 	<div class="mCircle2"></div>
@@ -44,18 +44,26 @@ pageEncoding="UTF-8"%>
 		</tr>
 		 -->
 		<tr>
-			<td><input class="email" type="email" id = "email" placeholder="이메일" /></td>
+			<td><input class="email" type="email" id="email"
+				placeholder="이메일" /></td>
 			<td class="emailIcon"><i class="fi fi-rr-envelope"></i></td>
 		</tr>
+
 		<tr>
 			<td><input class="sendEmail" type="button" value="Send Email"
-				onClick="sendEmailForm(${meInfo.meCode})" /></td>
+				id="email" onClick="sendEmail()" /></td>
 		</tr>
+
+		<tr>
+			<td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+				&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;${sfEmail}</td>
+		<tr>
 		<tr>
 			<td class=line><input class="join" type="button" value="계정만들기"
-				onClick="join()" /></td>
+				onClick="goJoinPage()" /></td>
 		</tr>
 	</table>
+
 	<div class="logo">
 		<div class="zero">
 			<br>

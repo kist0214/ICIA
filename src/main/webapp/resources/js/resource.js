@@ -737,15 +737,63 @@ function ctLogIn(){
 }
 
 
-
-function sendEmailForm(mecode){
+function modPw(){
+	let email = document.getElementById("email").value;
+	let pw1 = document.getElementById("pw1").value;
+	let pw2 = document.getElementById("pw2").value;
 	
-	let email = document.getElementById("email");
+	if(pw1 != pw2){
+		alert("비밀번호를 확인해주세요.");
+		/*
+		const msg = "비밀번호를 확인해주세요.";
+		document.getElementById("msg").innerText = msg;*/
+	}else{
+		const hidden1 = makeInputElement("hidden","sfEmail",email,"");
+		const hidden2 = makeInputElement("hidden","sfPw",pw2,"");
+		
+	 const form =  makeForm("","modPw","post");
+
+	form.appendChild(hidden1);
+	form.appendChild(hidden2);
+	document.body.appendChild(form);
+	form.submit();
+	
+	}
+}
+
+
+
+function sendEmail(){
+	
+	
+	let email = document.getElementById("email").value;
+	 
+	const hidden = makeInputElement("hidden","sfEmail",email,"");
+	 const form =  makeForm("","sendEmail","post");
+
+	form.appendChild(hidden);
+	document.body.appendChild(form);
+	form.submit();
+	
+	
+	/*
 	let jsondata = [];
-	jsondata.push({"meCode":mecode, "meEmail":email});
+	jsondata.push({sfEmail:email});
 	
 	const clientdata = JSON.stringify(jsondata);
-	whatsend("ajax/searchMeMg",clientdata,"getselist",false,"post");
+	alert(clientdata);
+	whatsend("sendEmail",clientdata,"sendmail",false,"post");
+	*/
+}
+
+
+function checkmail(msg){
+	alert(msg);
+	 msg = document.getElementById("msg");
+	
+	msg.innerHTML = msg;
+	
+	
 }
 function ctLogIn(){
 	
@@ -828,6 +876,8 @@ function ctLogInModal() {
 	
 	
 }
+
+
 
 function closeModalb() {
 	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
@@ -915,6 +965,11 @@ function goSfPage(ctcode){
 	
 	form.submit();
 }	
+function goHome() {
+	const form = makeForm("", "/", "GET")
+      document.body.appendChild(form);
+      form.submit();	
+}
 
 
 

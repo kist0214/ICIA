@@ -19,6 +19,10 @@ public interface MapperBon {
 	public List<Members> meInfo(Members me);
 	public int insertAccessHistory(Staffs sf);
 	public int insertAccessOutHistory(Staffs sf);
+	public String ismeEmail (Staffs sf);
+	public String issfEmail (Staffs sf);
+	public int modPwMe(Staffs sf);
+	public int modPwSf(Staffs sf);
 	
 	//인바디
 	public int insInbody(Inbodys inbody);
@@ -26,9 +30,11 @@ public interface MapperBon {
 	public List<Inbodys> getMeRecentInbody(Inbodys inbody);
 	public int insTargetExcercise(Inbodys inbody);
 	
-	//회원
-	public List<Members> meMg(Members me);
-	public List<Members> searchMeMg(Members me);
+
+	
+
+	
+	
 	
 	
 }

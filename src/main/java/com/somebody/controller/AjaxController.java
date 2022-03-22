@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.somebody.db.MapperUone;
 import com.somebody.serviece.auth.Authenticaion;
@@ -29,7 +30,7 @@ import beans.Staffs;
 @RestController
 @RequestMapping(value ="/ajax",produces = "application/json;charset=UTF-8")
 public class AjaxController {
-	private static final int Members = 0;
+	
 	@Autowired
 	Authenticaion auth;
 	@Autowired
@@ -48,10 +49,9 @@ public class AjaxController {
 	public AjaxController(){}
 	
 	//Bon
-	@RequestMapping(value = "/modPw", method = RequestMethod.POST)
-	public void modPw(Model model, @RequestBody Centers ct , @RequestBody Members me)  {
-		//this.auth.backController("A06", ct ,me);
-	}
+
+	
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/meMg", method = RequestMethod.POST)
 	public List<Members> meMg(Model model, @RequestBody Members[] me) {
