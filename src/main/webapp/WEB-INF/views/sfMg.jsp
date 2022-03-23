@@ -73,7 +73,7 @@
 
 
 </head>
-<body onLoad="sfMg('ajax/sfMg','${sfInfo.ctCode}')">
+<body onLoad="sfMg('${sfInfo.ctCode}')">
 	<nav class="sidebar close">
 		<header>
 			<div class="image-text">
@@ -157,11 +157,11 @@
 			<div class="nav-search">
 				<select class="select" id="searchMenu">
 					<option disabled selected>직원검색</option>
-					<option>이름</option>
-					<option>직급</option>
-				</select> <span> <input type="text" placeholder="검색" class="searchSf">
+					<option value="sfName">이름</option>
+					<option value="sfRank">직급</option>
+				</select> <span> <input class="searchSf" type="text" placeholder="검색">
 					<i class='bx bx-search icon'
-					onClick="searchSfMg('ajax/searchSfMg','${sfList}')"></i>
+					onClick="searchSfMg('${sfInfo.ctCode}')"></i>
 				</span>
 			</div>
 
@@ -196,7 +196,7 @@
 							<h4 id=mheader class="mtitle">직원 수정</h4>
 						</div>
 						<div>센터번호</div>
-						<input class="input" type="text" name="sfCtCode"
+						<input class="input" type="text" name="ctCode"
 							readOnly="readOnly" /><br> <br>
 						<div>사원번호</div>
 						<input class="input" type="text" name="sfId" readOnly="readOnly" /><br>
@@ -289,15 +289,15 @@
 					</div>
 					<div>
 						<br> <input type="button" id="btn" value="인바디 파일 전송"
-							onClick="UploadinbodyFile()" />
+							onClick="UploadinbodyFile()" /><br><br>
+							<input type="button" class="mbtn" value="닫기"/>
 					</div>
 					<br> <br>
 					<div id=msg></div>
-
+					
 				</div>
 
 			</div>
-
 		</form>
 	</section>
 

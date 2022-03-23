@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class Lessons {
-	private String lsSfCtCode;
 	private String ctCode;
 	private String sfCode;
 	private String sfName;

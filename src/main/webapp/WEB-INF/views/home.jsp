@@ -57,7 +57,7 @@
 }
 </style>
 </head>
-<body onLoad="closeModalb()">
+<body >
 	<div class=circle></div>
 	<div class=circle2></div>
 	<div class=circle3></div>
