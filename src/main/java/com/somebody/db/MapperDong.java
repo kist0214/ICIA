@@ -10,8 +10,7 @@ import beans.Staffs;
 public interface MapperDong {
 	/* Staffs */
 	public List<Staffs> goSfPage();
-	public List<Staffs> searchSfMg();
-	
+	public List<Staffs> searchSfMg(Staffs sf);
 	public int insSf(Staffs sf);
 	public int modSf(Staffs sf);
 	public List<Staffs> sfList(Staffs sf);

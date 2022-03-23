@@ -91,6 +91,8 @@ public class AjaxController {
 		@SuppressWarnings("unchecked")
 		@RequestMapping("/sfMg")
 		public List<Staffs> sfMg(Model model, @RequestBody Staffs[] sf) {
+			
+			System.out.println(sf[0].getCtCode()+"**");
 			sfs.backController("S01",sf[0], model);
 			return (List<Staffs>)model.getAttribute("sfList");
 			
@@ -99,9 +101,9 @@ public class AjaxController {
 		@SuppressWarnings("unchecked")
 		@RequestMapping("/searchSfMg")
 		public List<Staffs> searchSfMg(Model model, @RequestBody Staffs[] sf) {
-			
+			System.out.println(sf[0]);
 			this.sfs.backController("S02", sf[0], model.addAttribute("sf",sf[0]));
-			return (List<Staffs>)model.getAttribute("sfList");
+			return (List<Staffs>)model.getAttribute("searchSfMg");
 		}
 		@RequestMapping(value = "/getMaxSf", method = RequestMethod.POST)
 		public void getMaxSf(Model model, @RequestBody Staffs[] sf) {
@@ -112,7 +114,7 @@ public class AjaxController {
 		public List<Staffs> insSf(Model model, @RequestBody Staffs[] sf) {
 			
 			//#{sfId}, #{sfPw}, #{sfName}, #{sfRank}, #{sfEmail}, #{sfNumber}
-			System.out.println(sf[0].getSfId());
+			System.out.println(sf[0]+"*******");
 			this.sfs.backController("S04", sf[0], model);
 			
 			return (List<Staffs>)model.getAttribute("sfList");
@@ -133,6 +135,7 @@ public class AjaxController {
 		@RequestMapping("/lessonMg")
 		public List<Lessons> lessonMg(Model model, @RequestBody Lessons[] ls) {
 			lss.backController("L01",ls[0], model.addAttribute("ls", ls[0]));
+			System.out.println("1");
 			return (List<Lessons>)model.getAttribute("lsList");
 			
 		}
