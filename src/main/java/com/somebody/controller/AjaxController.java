@@ -18,6 +18,7 @@ import com.somebody.serviece.member.Member;
 import com.somebody.serviece.pay.Pay;
 import com.somebody.serviece.staff.Staff;
 
+
 import beans.Centers;
 import beans.Equipments;
 import beans.Lessons;
@@ -140,7 +141,6 @@ public class AjaxController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/searchLesson")
 	public List<Lessons> searchLesson(Model model, @RequestBody Lessons[] ls) {
-		System.out.println("123");
 		this.lss.backController("L02",ls[0],model.addAttribute("ls", ls[0]));
 		return (List<Lessons>)model.getAttribute("searchLesson");
 	}

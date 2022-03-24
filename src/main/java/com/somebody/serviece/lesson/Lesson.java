@@ -93,15 +93,14 @@ public class Lesson extends CommonMethod{
 	public void lessonMg(Lessons ls,Model model) {
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		model.addAttribute("lsList",  this.md.lsList(ls));
-		System.out.println(this.md.lsList(ls)+"&&&&");
 		tranend(true);
 
 	}
 
 	public void searchLesson(Lessons ls,Model model) {
-
+		
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		model.addAttribute("lsList",  this.md.lsList(ls));
+		model.addAttribute("searchLesson",  this.md.searchLesson(ls));
 		tranend(true);
 
 	}

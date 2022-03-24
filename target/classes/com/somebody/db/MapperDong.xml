@@ -7,14 +7,13 @@
 		SELECT SFCODE AS sfId, SFNAME AS sfName, SFRANK AS sfRank, SFEMAIL AS sfEmail, SFNUMBER AS sfNumber FROM KMASTERS.SF
 	</select>
 	<select id="searchSfMg" resultType="beans.Staffs">
-	SELECT  SFCODE AS sfId, SFNAME AS sfName, CANAME AS caName, SFEMAIL AS sfEmail, SFNUMBER AS sfNumber FROM KMASTERS.SF INNER JOIN KMASTERS.CA ON CACODE = SFRANK WHERE SFCTCODE =#{ctCode} AND (SFNAME = #{sfName} OR CANAME = #{sfName}) ORDER BY SFCODE ASC
+	SELECT  SFCODE AS sfId, SFNAME AS sfName, CANAME AS caName, SFEMAIL AS sfEmail, SFNUMBER AS sfNumber FROM KMASTERS.SF INNER JOIN KMASTERS.CA ON CACODE = SFRANK WHERE SFCTCODE =#{ctCode} AND (SFNAME = #{sfName} OR CANAME = #{caName}) ORDER BY SFCODE ASC
 	</select>
-
 	<insert id="insSf" parameterType = "beans.Staffs">
 		INSERT INTO KMASTERS.SF (SFCTCODE, SFCODE, SFPASSWORD, SFNAME, SFRANK, SFEMAIL, SFNUMBER) VALUES(#{ctCode} ,#{sfId}, #{sfPw}, #{sfName}, #{sfRank}, #{sfEmail}, #{sfNumber})
 	</insert>
 	<select id="sfList" parameterType = "beans.Staffs" resultType = "beans.Staffs" >
-		SELECT SFCODE AS sfId, SFNAME AS sfName, CANAME AS caName ,SFEMAIL AS sfEmail, SFNUMBER AS sfNumber FROM KMASTERS.SF INNER JOIN KMASTERS.CA ON CACODE = SFRANK WHERE SFCTCODE = #{ctCode} ORDER BY SFCODE ASC
+		SELECT SFCODE AS sfId, SFNAME AS sfName, CANAME AS caName , SFEMAIL AS sfEmail, SFNUMBER AS sfNumber FROM KMASTERS.SF INNER JOIN KMASTERS.CA ON CACODE = SFRANK WHERE SFCTCODE = #{ctCode} ORDER BY SFCODE ASC
 	</select> 
 	<update id="modSf" parameterType = "beans.Staffs">
 		UPDATE KMASTERS.SF SET SFCTCODE = #{sfCtCode} WHERE SFCODE = #{sfId} AND SFNAME =#{sfName} AND SFNUMBER =#{sfNumber} AND SFPASSWORD =#{sfPassword} AND SFEMAIL =#{sfEmail} AND SFRANK =#{sfRank} 
@@ -23,10 +22,10 @@
 		SELECT LSNAME AS lsName, LSOPEN AS lsOpen, LSSFCODE AS sfCode ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS
 	</select>
 	<select id="searchLesson" resultType="beans.Lessons">
-		SELECT LSNAME AS lsName, LSOPEN AS lsOpen, LSSFNAME AS sfName ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS
+		SELECT LSNAME AS lsName, LSOPEN AS lsOpen, SFNAME AS lsSfName ,LSMECOUNT AS lsMeCount FROM KMASTERS.LSINNER JOIN KMASTERS.SF ON SFCODE = LSSFCODE AND SFCTCODE = LSSFCTCODE WHERE LSSFCTCODE =#{ctCode} AND (LSOPEN =#{lsOpen} OR SFNAME =#{sfName}) ORDER BY LSOPEN ASC
 	</select>
 	<select id="lsList" resultType = "beans.Lessons" parameterType = "beans.Lessons">
-		SELECT LSNAME AS lsName, LSOPEN AS lsOpen, LSSFCODE AS sfName ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS INNER JOIN KMASTERS.SF ON SFCODE = LSSFCODE WHERE LSSFCTCODE =#{ctCode} ORDER BY SFCODE ASC
+		SELECT LSNAME AS lsName, LSOPEN AS lsOpen, SFNAME AS sfName ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS INNER JOIN KMASTERS.SF ON SFCODE =  LSSFCODE AND SFCTCODE = LSSFCTCODE WHERE LSSFCTCODE  =#{ctCode}
 	</select>
 	<insert id="insLsForm" parameterType="beans.Lessons">
 		INSERT INTO KMASTERS.LS (LSSFCTCODE, LSNAME, LSOPEN, SFNAME, LSMECOUNT) VALUES(#{lsSfCtCode} ,#{lsName}, #{lsOpen}, #{sfName}, #{lsMeCount})

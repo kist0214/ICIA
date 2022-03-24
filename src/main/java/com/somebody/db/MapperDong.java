@@ -18,6 +18,6 @@ public interface MapperDong {
 	public List<Lessons> goLessonPage();
 	public List<Lessons> lsList(Lessons ls);
 	public List<Lessons> insLsForm(Lessons ls);
-	public List<Lessons> searchLesson();
+	public List<Lessons> searchLesson(Lessons ls);
 	public List<Lessons> lessonMg(Lessons ls);
 }

@@ -20,43 +20,46 @@ closeModal();
 let sfInfo;
 let datad;
 function sfList(json) {
+
 	closeModal();
 	let list = document.getElementById("ajax");
 	
 	if(json.length>0){
 	sfInfo = json;
-	datad = '<tr><td><input type="radio" name="radioBtn"/></td><td>사원번호</td><td>직원명</td><td>직원등급</td><td>전화번호</td></tr>';	
+	datad = '<table><tr><td></td><td>사원번호</td><td>직원명</td><td>직원등급</td><td>이메일</td><td>전화번호</td></tr>';	
 	
 	for (i=0; i<json.length;i++) {
 		
-		datad += '<tr><td><input type="radio" name="radioBtn"/></td>'
+		datad += '<tr><td><input type="checkbox" name="radioBtn"/></td>'
 		datad += '<td>' + json[i].sfId + '</td>' 
-		datad += '<td>' + json[i].sfName + '</td>'
-		datad += '<td>' + json[i].caName + '</td>'
-		datad += '<td>' + json[i].sfNumber + '</td>';
+		datad += '<td>' + json[i].sfName 
+		datad += '</td><td>' + json[i].caName 
+		datad += '</td><td>' + json[i].sfEmail  
+		datad += '</td><td>' + json[i].sfNumber + '</td>';
 		datad += '</tr>';
 
 	}
+	datad += '</table>';
+	
+	
 
 	list.innerHTML = datad;
-	}else{const msg = document.getElementsByClassName("searchSf")[0];
+	}else{const msg = document.getElementsByClassName("searchSf")[0]
 			msg.value = "";
-			msg.placeholder= "검색어를 입력해주세요.";
-			}
+			msg.placeholder="입력해주세요.";}
 }
 
 function searchSfMg(ctcode){
 	
 	const searchText = document.getElementById("searchMenu").value;
-	
 	const searchSf = document.getElementsByClassName("searchSf")[0].value;
-	
-	let json = [];
-	json.push({ctCode : ctcode, caCode : searchText, sfName : searchSf});
+
+let json = [];
+
+	json.push({"ctCode":ctcode,"caCode":searchText,"sfName":searchSf});
 	if(searchSf==""){
-		sfMg(ctcode);
+		sfMg(ctCode);
 	}else{
-		
 		const data = JSON.stringify(json);
 		getAjax("ajax/searchSfMg", data, "sfList", false);
 	}
@@ -71,7 +74,6 @@ function insSf() {
 	let password =  document.getElementsByName("sfPw")[1].value;
 	let email =  document.getElementsByName("sfEmail")[1].value;
 	let caname =  document.getElementsByName("caName")[1].value;	
-	
 
 	let json = [];
 	json.push({"ctCode": ctcode, "sfId": id ,"sfName" : name, "sfNumber" : number , "sfPw" : password , "sfEmail" : email, "caName" : caname});
@@ -80,22 +82,7 @@ function insSf() {
 
 }
 
-function getSfMaxCode(sfMaxCodes){
-	let data;
-	const sfCode = document.getElementById("sfCode");
-	for(i=0;i<sfMaxCodes.length;i++){
-		if(sfMaxCodes[i].caCode=="M1"){
-			data += "<option value=\""+sfMaxCodes[i].caName+"\">관리자</option>"
-		}else if(sfMaxCodes[i].eqCaCode=="M2"){
-			data += "<option value=\""+sfMaxCodes[i].caName+"\">트레이너</option>"
-		}else if(sfMaxCodes[i].eqCaCode=="M3"){
-			data += "<option value=\""+sfMaxCodes[i].caName+"\">안내원</option>"
-		}
-	}
-	sfCode.innerHTML=data;
-}
-
-function modSf() {
+function modSf(sfCode) {
 	let ctcode = document.getElementsByName("sfCtCode")[0].value;
 	let id = document.getElementsByName("sfId")[0].value;
 	let name =  document.getElementsByName("sfName")[0].value;
@@ -127,23 +114,32 @@ function getAjax(action, data, fn,  content) {
 	ajax.open("post", action, true);
 	ajax.setRequestHeader("Content-type",
 			content ? "application/x-www-form-urlencoded"
-					: "application/json; charset=UTF-8");
+					: "application/json; charset=utf-8");
 	
 	ajax.send(data);
 }
 
-function ajaxconnection(action, data, fn, content) {
-   let ajax = new XMLHttpRequest();
-   ajax.onreadystatechange = function() {
-      if (ajax.readyState == 4 && ajax.status == 200) {
-         window[fn](JSON.parse(ajax.responseText));
-      }
-   };
-      ajax.open("post", action, true);
-if(content){
-      ajax.setRequestHeader("Content-type", "application/json; charset=utf-8");
-   }
-   ajax.send(data);
+function getAjaxData(action, data) {
+	let ajax = new XMLHttpRequest();
+
+	ajax.onreadystatechange = function() {
+		if (ajax.readyState == 4 && ajax.status == 200) {
+			let serverData = ajax.responseText;
+			if (serverData.substr(0, 1) != "<") {
+
+				document.getElementById(serverData).click();
+			} else {
+
+				document.getElementById("ajaxData").innerHTML = serverData;
+			}
+
+		}
+	};
+
+	ajax.open("post", action, true);
+	ajax.setRequestHeader("Content-type",
+			"application/x-www-form-urlencoded");
+	ajax.send(data);
 }
 
 /* Modal Dialog */
@@ -189,7 +185,7 @@ function UploadinbodyFile() {
 		
 		ajax.onreadystatechange = function() {
 			if (ajax.readyState == 4 && ajax.status == 200) {
-			
+			//alert(ajax.responseText);
 			window[fn](JSON.parse(ajax.responseText));
 			
 			
@@ -224,7 +220,12 @@ function openModalIn() {
 
 }
 
-
+function getLsCaList() {
+	
+	let container2 = document.getElementById("container2")[0];
+	container2.style.filter = "alpha(Opacity=50)";
+	container2.style.display = "block";
+}
  function closeModal() {
 		let container = document.getElementById("container");
 		container.style.display = "none";
@@ -292,6 +293,17 @@ function goLessonPage(ctcode) {
 	document.body.appendChild(form);
 	
 	form.submit();
+}
+
+function lessonMg(ctCode) {
+
+
+	let jsonData = [];
+	jsonData.push({ctCode:ctCode});
+	const clientData = JSON.stringify(jsonData);
+	
+	getAjax("ajax/lessonMg", clientData, "lsList", false);
+	
 }
 
 function selectDateCheck() {
@@ -411,57 +423,64 @@ function selectDateCheck() {
 				}
 	
 let lsInfo;
-let datat;
-	
-function lessonMg(ctcode) {
-
-	alert(ctcode);
-	let jsonData = [];
-	jsonData.push({ctCode:ctcode});
-	const clientData = JSON.stringify(jsonData);
-	
-	getAjax("ajax/lessonMg", clientData, "lsList", false);
-
-	
-}
-
+	let datat;
 function lsList(jsonData) {
-	lsInfo = jsonData;
+	datat = jsonData;
 	
-	alert(jsonData);
-	let body = document.getElementById("ajax");
+	
+	let body = document.getElementById("list");
 
 	if(jsonData.length>0){
-	datat = '<tr><td><input type="radio" name="radioBtn"/></td><td>수업명</td><td>개강일</td><td>트레이너명</td><td>수강인원</td></tr>';	
+	lsInfo = jsonData;
+	datat = '<tr><td></td><td>수업명</td><td>개강일</td><td>트레이너명</td><td>수강인원</td></tr>';	
 	
 	for (i=0; i<jsonData.length;i++) {
-		datat += '<tr>'
-		datat += '<td><input type="radio" name="radioBtn"/></td>'
-		datat += '<td>' + jsonData[i].lsName + '</td>' 
-		datat += '<td>' + jsonData[i].lsOpen + '</td>'
-		datat += '<td>' + jsonData[i].sfName + '</td>'
-		datat += '<td>' + jsonData[i].lsMeCount + '</td>'
+		
+		datat += '<tr><td><input type="checkbox" name="radioBtn"/></td>'
+		datat+=	'<td>' + jsonData[i].lsName + '</td>' 
+		datat += '<td>' + jsonData[i].lsOpen 
+		datat += '</td><td>' + jsonData[i].sfName  
+		datat += '</td><td>' + jsonData[i].lsMeCount + '</td>';
 		datat += '</tr>';
 
 	}
-	alert(datat);
 	body.innerHTML = datat;
-	}else{const msg = document.getElementsByClassName("searchLs")[0]
+	}else{const msg = document.getElementsByClassName("searchLesson")[0]
 			msg.value = "";
-			msg.placeholder="검색어를 입력해주세요.";}
+			msg.placeholder="입력해주세요.";}
 }
 
 function searchLesson(ctcode){
-	const searchText = document.getElementById("lsSearch");
-	const searchLs = document.getElementsByClassName("searchLs")[0].value;
+	alert(ctcode);
+	const searchText1 = document.getElementById("searchLsMenu1");
+	const searchLs = document.getElementsByClassName("searchLesson")[0].value;
+	alert(searchText1);
+	alert(searchLs);
+	
 	let json = [];
-	json.push({ctCode : ctcode, sfName : searchText, lsName : searchLs});
+	json.push({ctCode:ctcode, lsOpen:searchText1, sfName:searchLs});
 	if(searchLs==""){
 		lessonMg(ctcode);
 	}else{
 		const data = JSON.stringify(json);
 		getAjax("ajax/searchLesson", data, "lsList", false);
-	}
-	}
+	}}
 	
 	
+	function makeForm(fname, faction, fmethod){
+	const form = document.createElement("form");
+	if(fname != ""){form.setAttribute("name", fname);}
+	form.setAttribute("action", faction);
+	form.setAttribute("method", fmethod);
+	return form;
+}
+
+function makeInputElement(type, name, value, placeholder){
+	const input = document.createElement("input");
+	input.setAttribute("type", type);
+	input.setAttribute("name", name);
+	if(value != ""){input.setAttribute("value", value);}
+	if(placeholder != ""){input.setAttribute("placeholder", placeholder);}
+	
+	return input;
+}
