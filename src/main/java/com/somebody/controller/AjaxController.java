@@ -137,16 +137,19 @@ public class AjaxController {
 		this.lss.backController("L03",ls[0],model);
 	}*/
 	@RequestMapping(value = "/insLsPay", method = RequestMethod.POST)
-	public void insLsPay(Model model, @RequestBody Lessons[] ls) {
+	public List<Lessons> insLsPay(Model model, @RequestBody Lessons[] ls) {
 		this.lss.backController("L04",ls[0],model);
+		return (List<Lessons>)model.getAttribute("insLsPay");
 	}
 	@RequestMapping(value = "/getMaxLesson", method = RequestMethod.POST)
 	public void getMaxLesson(Model model, @RequestBody Lessons[] ls) {
 		this.lss.backController("L05",ls[0],model);
 	}
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/insLesson", method = RequestMethod.POST)
-	public void insLesson(Model model, @RequestBody Lessons[] ls) {
+	public List<Lessons> insLesson(Model model, @RequestBody Lessons[] ls) {
 		this.lss.backController("L06",ls[0],model);
+		return (List<Lessons>)model.getAttribute("insLesson");
 	}
 
 
