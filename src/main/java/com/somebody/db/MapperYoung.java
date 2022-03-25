@@ -2,8 +2,6 @@ package com.somebody.db;
 
 import java.util.List;
 
-import org.springframework.ui.Model;
-
 import beans.Centers;
 import beans.Equipments;
 import beans.Members;

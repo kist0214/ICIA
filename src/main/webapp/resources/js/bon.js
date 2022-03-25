@@ -1,52 +1,4 @@
-
-
 let jsPIp;
-
-
-
-
-
-let data3;
-
-
-
-function getmemberlist(data){
-	
-	
-	data3 = data;
-	const list =  document.getElementById("list");
-	
-      while(list.hasChildNodes()){
-			list.removeChild(list.lastChild);
-		}
-	for (idx = 0; idx < data3.length; idx++) {
-		
-		let div = document.createElement("div");
-	div.setAttribute("onClick", "showGoodsinModal("+idx+")");
-	
-	let span1=  document.createElement("span");
-	span1.innerText = data[idx].meName;
-	let span2=  document.createElement("span");
-	span2.innerText = data[idx].meGender;
-	let span3=  document.createElement("span");
-	span3.innerText = data[idx].meBirth;
-	let span4=  document.createElement("span");
-	span4.innerText = data[idx].meNumber;
-	let span5=  document.createElement("span");
-	span5.innerText = data[idx].meLsName;
-	div.appendChild(span1);
-	div.appendChild(span2);
-	div.appendChild(span3);   
-	div.appendChild(span4);  
-
-	div.appendChild(span5);           
-//속성을 포함해서 넣으면 어펜드, 태그부터 넣을거면 innerhtml, 태그안에 텍스트만 넣을거면 innerText
-  list.appendChild(div);
-     }
-}
-
-
-	
 
 	function ajaxFromData(action, data, fn, method) {
 		const ajax = new XMLHttpRequest();
@@ -118,29 +70,6 @@ function whatsend(action, data, fn, content,method) {
 }
 
 
-function getempList(list, stcode, elcode){
-	
-
-	let data = "stCode=" + encodeURIComponent(stcode)+"&elCode="+encodeURIComponent(elcode);
-	
-	whatsend(list, data, "getedemplist", "post")
-}
-function getedemplist(data){
-	
-	message = '<table><tr><td>매장코드</td><td>직원코드</td><td>직원이름</td><td>직원등급</td></tr>';
-      for (idx = 0; idx < data.length; idx++) {
-         message += '<tr><td>' + data[idx].stCode + '</td><td>'
-               + data[idx].elCode + '</td><td>' + data[idx].elName
-               + '</td><td>' + data[idx].lvCode+ '</td>';
-         message += '</tr>';
-      }
-
-      message += '</table>';
-
-
-      document.getElementById("list").innerHTML = message;
-	
-}
 function isEmpty(obj) {
 		let check = true;
 		if (obj.value == "") {
@@ -170,46 +99,6 @@ function makeInputElement(type, name, value, placeholder){
 	return input;
 }
 
-function getmanagepage(stcode,elcode,lvcode){
-	
-	const form = makeForm("", "GETMANAGEMENTPAGE", "get")
-const StCode = makeInputElement("hidden","StCode",stcode,"");
-const ElCode = makeInputElement("hidden","ElCode",elcode,"");    
-const lvCode = makeInputElement("hidden","lvCode",lvcode,"");
-
-form.appendChild(lvCode);
-form.appendChild(StCode);
-form.appendChild(ElCode);
-      
-      document.body.appendChild(form);
-      form.submit();
-	
-	
-}
-function getsalespage(stcode,elcode,lvcode){
-	
-	const form = makeForm("", "GETSALESPAGE", "get")
-const StCode = makeInputElement("hidden","StCode",stcode,"");
-const ElCode = makeInputElement("hidden","ElCode",elcode,"");    
-
-
-
-form.appendChild(StCode);
-form.appendChild(ElCode);
-      
-      document.body.appendChild(form);
-      form.submit();
-	
-
-}
-
-
-
-function loadPage(msg){
-	if(!msg==""){}else{}
-
-}
-
 
 function logOut(ct,id){
 	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
@@ -224,45 +113,6 @@ function logOut(ct,id){
 	form.submit();
    
 }
-
-
-function ClickOrderList(srCode){
-		let list = document.getElementById("list");
-		
-		while(list.hasChildNodes()){
-			list.removeChild(list.lastChild);
-		}
-					
-	const day = document.querySelector("#date").value;
-	if(day==""){
-		alert("날짜를 선택해주세요.");
-		return;
-	}
-		let data = "srCode=" + encodeURIComponent(srCode)+"&otDate="+encodeURIComponent(day);
-	//alert(data);
-	whatsend("GetOrderInfo",data, "addOrders");
-	
-		}
-
-
-function refresh(stCode, elCode) {
-	
-	const form = makeForm("", "Refresh", "post");
-	const clientData = [makeInputElement("hidden", "stCode", stCode, ""), makeInputElement("hidden", "elCode", elCode, ""), makeInputElement("hidden", "publicIp", publicIp, "")];
-	
-	for(idx=0; idx<clientData.length;idx++){
-		form.appendChild(clientData[idx]);
-	}		
-
-	document.body.appendChild(form);
-	form.submit();
-}
-
-
-
-
-
-	
 
 		
 		

@@ -46,6 +46,7 @@ public class AjaxController {
 	private MapperUone mu;
 
 	public AjaxController(){}
+	
 	//Bon
 	@RequestMapping(value = "/modPw", method = RequestMethod.POST)
 	public void modPw(Model model, @RequestBody Centers ct) {

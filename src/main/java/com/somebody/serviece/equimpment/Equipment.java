@@ -101,7 +101,6 @@ public class Equipment extends CommonMethod {
 		lgc.add(lgce2);
 		lgc.add(lgce3);
 		md.addAttribute("getEqCode",lgc);
-System.out.println(md.getAttribute("getEqCode").toString());
 
 	}
 

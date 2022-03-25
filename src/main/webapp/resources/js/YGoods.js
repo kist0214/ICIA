@@ -205,19 +205,6 @@ function change2(){
 	
 	
 }
-function refresh(stCode, elCode) {
-	
-	const form = makeForm("", "Refresh", "post");
-	const clientData = [makeInputElement("hidden", "stCode", stCode, ""), makeInputElement("hidden", "elCode", elCode, ""), makeInputElement("hidden", "publicIp", publicIp, "")];
-	
-	for(idx=0; idx<clientData.length;idx++){
-		form.appendChild(clientData[idx]);
-	}		
-
-	document.body.appendChild(form);
-	form.submit();
-}
-
 
 function goGoodsPage(qctCode){
 	const form = makeForm("goGoods", "goGoodsPage", "POST");

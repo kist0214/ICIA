@@ -2,8 +2,19 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
-		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+	<bean id="careerAlarmService" class="com.somebody.serviece.member.Scheduler" />
+	<task:scheduler id="gsScheduler" pool-size="10" />
+ 	<task:executor id="gsTaskExecutor" pool-size="10" />
+ 	<task:annotation-driven executor="gsTaskExecutor" scheduler="gsScheduler" />
+	<!-- Root Context: defines shared resources visible to all other web components -->
 
 	<!-- Root Context: defines shared resources visible to all other web components 
 		dbcp 만들어주는 법 (hiraki 처음 불르는 클래스 안 메서드 네임불러서 만듬 ) -->

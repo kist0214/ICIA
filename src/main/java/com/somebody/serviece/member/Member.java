@@ -1,14 +1,13 @@
 package com.somebody.serviece.member;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -48,8 +47,8 @@ public class Member extends CommonMethod{
 
 		return mav;
 	}
-	
-	
+
+
 	public void backController(String sCode, Model model) {
 
 		switch (sCode) {
@@ -123,7 +122,7 @@ public class Member extends CommonMethod{
 
 	}
 
-	
+
 	public ModelAndView backControllerM(String sCode, Model model) {
 		String gs = null;
 		String senddata = null;
@@ -140,8 +139,8 @@ public class Member extends CommonMethod{
 
 
 	}
-	
-	
+
+
 	private void clickExpiration(Members me, Model md) {
 		List<Members> meList = new ArrayList<Members>();
 		boolean tran=false;
@@ -149,7 +148,7 @@ public class Member extends CommonMethod{
 		if(convertToBoolean(this.my.clickExpiration(me))) {
 			tran = true;
 		}
-		
+
 		meList = this.my.meList(me);
 		for(int i=0;i<meList.size();i++) {
 			int stocks=0;
@@ -166,7 +165,7 @@ public class Member extends CommonMethod{
 		tranend(tran);
 		md.addAttribute("meList", meList);
 	}
-	
+
 	public void goMePage(Model model,Members me) {
 		this.mav.addObject("ctCode", me.getCtCode());
 		mav.setViewName("meMg");
@@ -188,7 +187,7 @@ public class Member extends CommonMethod{
 
 		List<Members> meList = new ArrayList<Members>();
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		
+
 		if(me.getStCode()==null&&me.getCaCode()==null&&me.getMeCode()==null) {
 			meList = this.my.meList(me);
 		}else if(me.getStCode() != null) {
@@ -196,7 +195,6 @@ public class Member extends CommonMethod{
 		}else if(me.getCaCode()!=null) {
 			meList = this.my.searchMeList2(me);
 		}else if(me.getMeCode()!=null&&me.getMeName()!=null) {
-			System.out.println(me.getMeCode()+":"+me.getMeName());
 			meList = this.my.searchMeList3(me);
 		}
 		for(int i=0;i<meList.size();i++) {
@@ -209,95 +207,105 @@ public class Member extends CommonMethod{
 					}
 				}
 			}
-			meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
+			
+				meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
+			
 		}
 		md.addAttribute("meList", meList);
 		tranend(true);
+	}
+	public void payCriteria(Members me) {
+		LocalDate now = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formatedNow = now.format(formatter);
+		System.out.println(formatedNow);
+
 	}
 
 	public void searchMeMg(Model model) {
 		model.addAttribute("getmemlist",this.mb.searchMeMg((Members)model.getAttribute("sendmelist")));
 	}
 
-	public void meDetail(Model model) {
 
-	}
+public void meDetail(Model model) {
 
-	public void getCaList(Model model) {
+}
 
-	}
+public void getCaList(Model model) {
 
-	public void addMember(Model model) {
+}
 
-	}
+public void addMember(Model model) {
 
-	public void modMe(Model model) {
+}
 
-	}
+public void modMe(Model model) {
 
-
-	public void insTaState(Model model) {
-
-	}
-
-	public void meHealthMg(Model model) {
-
-	}
-
-	public void meFoodMg(Model model) {
-
-	}
-
-	public void meLessonMg(Model model) {
-		String page = "/meLessonMg";
-		this.mav.setViewName(page);
-
-	}
-
-	public void getLessonList(Model model) {
-
-	}
-
-	public void searchLsMg(Model model) {
-
-	}
-
-	public void insMeLesson(Model model) {
-
-	}
-
-	public void delMeLesson(Model model) {
-
-	}
-
-	public void meConfig(Model model) {
-		this.mav.setViewName("meConfig");
+}
 
 
-	}
+public void insTaState(Model model) {
+
+}
+
+public void meHealthMg(Model model) {
+
+}
+
+public void meFoodMg(Model model) {
+
+}
+
+public void meLessonMg(Model model) {
+	String page = "/meLessonMg";
+	this.mav.setViewName(page);
+
+}
+
+public void getLessonList(Model model) {
+
+}
+
+public void searchLsMg(Model model) {
+
+}
+
+public void insMeLesson(Model model) {
+
+}
+
+public void delMeLesson(Model model) {
+
+}
+
+public void meConfig(Model model) {
+	this.mav.setViewName("meConfig");
+
+
+}
 
 
 
-	public ModelAndView modMeMg(Model model) {
-		me = new Members();
-		me = (Members) model.getAttribute("Member");
-		mu.modMeMg(me);
-		return mav;
-	}
+public ModelAndView modMeMg(Model model) {
+	me = new Members();
+	me = (Members) model.getAttribute("Member");
+	mu.modMeMg(me);
+	return mav;
+}
 
-	public ModelAndView  delMe(Model model) {
-		mu.delMe(me) ;
-		String page = "/infoLine";
-		this.mav.setViewName(page);
-		return mav;
+public ModelAndView  delMe(Model model) {
+	mu.delMe(me) ;
+	String page = "/infoLine";
+	this.mav.setViewName(page);
+	return mav;
 
-	}
+}
 
-	public void infoLine(Model model) {
-		String page = "/infoLine";
-		this.mav.setViewName(page);
+public void infoLine(Model model) {
+	String page = "/infoLine";
+	this.mav.setViewName(page);
 
-	}
+}
 
 
 
