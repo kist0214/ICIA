@@ -85,10 +85,15 @@ public class Lesson extends CommonMethod{
 		return mav;
 	}
 	public void goLessonPage(Lessons ls,Model model) {
-
+	
 		mav.addObject("ctCode", ls.getCtCode());
-		mav.setViewName("lessonMg");	
-	}
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		
+			tranend(true);
+			mav.setViewName("lessonMg");	
+		}
+		
+	
 
 	public void lessonMg(Lessons ls,Model model) {
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);

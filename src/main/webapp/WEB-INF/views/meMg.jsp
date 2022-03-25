@@ -96,6 +96,7 @@
 		<div class="text">MemberManagement</div>
 		<div class="search">
 			<div class="nav-search">
+<<<<<<< HEAD
 				<select class="select" id='select' onchange="searchMeCharTwo('${ctCode}','${sfInfo.sfRank}','${sfInfo.sfId}')">
 					<option selected value="1">회원유형</option>
 					<option value='meName'>이름</option>
@@ -112,17 +113,36 @@
 				<span>
 				 <input type="text" id='searchText'placeholder="검색">
 				 <i onclick="searchMe('${ctCode}')" class='bx bx-search icon'></i>
+=======
+				 <select class="select">
+					<option disabled selected>회원검색</option>
+					<option>이름</option>
+					<option>연락처</option>
+					<option>일반</option>
+					<option>PT</option>
+					<option>만료</option>
+				</select> <span> <input type="text" placeholder="검색"> <i
+					class='bx bx-search icon'></i>
+>>>>>>> master
 				</span>
 			</div>
 
 		</div>
 		<div class="etc">
 			<div>
+<<<<<<< HEAD
 				<button onClick="getCaList('${ctCode}')">
 					<i class='bx bx-user-plus icon'></i><span></span>
+=======
+				<button>
+					<i class='bx bx-user-plus icon' onClick="getMaxMe()"></i><span></span>
+>>>>>>> master
 				</button>
 				<button>
-					<i class='bx bx-user-x'></i>
+					<i class='bx bx-user-x' onClick="modMeModal()"></i>
+				</button>
+					<button>
+					<i class='bx bx-edit-alt icon' onClick="openModalIn()"></i>
 				</button>
 			</div>
 		</div>

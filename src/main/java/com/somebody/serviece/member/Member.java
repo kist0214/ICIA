@@ -16,9 +16,10 @@ import com.somebody.db.MapperBon;
 import com.somebody.db.MapperUone;
 import com.somebody.db.MapperYoung;
 
+import beans.Lessons;
 import beans.Members;
 @Service
-public class Member extends CommonMethod{
+public class Member extends CommonMethod {
 	@Autowired
 	private MapperBon mb;
 	@Autowired
@@ -27,13 +28,18 @@ public class Member extends CommonMethod{
 	private MapperUone mu;
 	private ModelAndView mav;
 
-	Member(){
+	String page = null;
+	Members me;
+
+	Member() {
+
 		mav = new ModelAndView();
 	}
+
 	public ModelAndView backController(String sCode, Model model, Members me) {
-		switch(sCode) {
+		switch (sCode) {
 		case "M01":
-			goMePage(model,me);
+			goMePage(model, me);
 			break;
 		case "M02":
 			meMg(me, model);
@@ -44,15 +50,21 @@ public class Member extends CommonMethod{
 		case "M04":
 			cgetCaList(me, model);
 			break;
+
 		}
 
 		return mav;
 	}
 
+
+
 	public void backController(String sCode, Model model) {
 
 		switch (sCode) {
-		//관리자페이지 접근
+		// 관리자페이지 접근
+		case "C09":
+			searchLsMg(model);
+			break;
 
 		case "M03":
 			searchMeMg(model);
@@ -71,7 +83,6 @@ public class Member extends CommonMethod{
 			break;
 
 
-			//회원페이지 접근
 		case "C01":
 			infoLine(model);
 			break;
@@ -94,11 +105,9 @@ public class Member extends CommonMethod{
 			meLessonMg(model);
 			break;
 		case "C08":
-			getLessonList(model);
+			getLessonList(model, me);
 			break;
-		case "C09":
-			searchLsMg(model);
-			break;
+
 		case "C10":
 			insMeLesson(model);
 			break;
@@ -112,16 +121,11 @@ public class Member extends CommonMethod{
 		case "C15":
 			modMeMg(model);
 			break;
-		case "C17":
-			delMe(model);
-			break;
+		
 
 		}
 
-
-
 	}
-
 
 	public ModelAndView backControllerM(String sCode, Model model) {
 
@@ -133,9 +137,6 @@ public class Member extends CommonMethod{
 
 		}
 		return this.mav;
-
-
-
 	}
 
 	private void cgetCaList(Members me, Model md) {
@@ -167,9 +168,10 @@ public class Member extends CommonMethod{
 		}
 		tranend(tran);
 		md.addAttribute("meList", meList);
+
 	}
 
-	public void goMePage(Model model,Members me) {
+	public void goMePage(Model model, Members me) {
 		this.mav.addObject("ctCode", me.getCtCode());
 		mav.setViewName("meMg");
 
@@ -187,7 +189,6 @@ public class Member extends CommonMethod{
 	}
 
 	public void meMg(Members me, Model md) {
-
 		List<Members> meList = new ArrayList<Members>();
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 
@@ -222,7 +223,8 @@ public class Member extends CommonMethod{
 	}
 
 	public void searchMeMg(Model model) {
-		model.addAttribute("getmemlist",this.mb.searchMeMg((Members)model.getAttribute("sendmelist")));
+		//model.addAttribute("getmemlist",this.mb.searchMeMg((Members)model.getAttribute("sendmelist")));
+
 	}
 
 
@@ -270,7 +272,6 @@ public class Member extends CommonMethod{
 
 	}
 
-
 	public void insTaState(Model model) {
 
 	}
@@ -289,11 +290,43 @@ public class Member extends CommonMethod{
 
 	}
 
-	public void getLessonList(Model model) {
+	@SuppressWarnings("unchecked")
+	public void getLessonList(Model model, Members me) {
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+
+		if (mb.getRegCenterList((Members) model.getAttribute("melist")) != null) {
+
+			model.addAttribute("mectlist", mb.getRegCenterList((Members) model.getAttribute("melist")));
+
+			tranend(true);
+		} else {
+			System.out.println(222);
+			me.setCaCode("가입된 매장이 없습니다.");
+			model.addAttribute("mectlist", me.getCaCode());
+		}
 
 	}
 
 	public void searchLsMg(Model model) {
+
+		System.out.println(((Members)model.getAttribute("mectlist")).getCtCode() + "****");
+		System.out.println(((Members)model.getAttribute("mectlist")).getMeCode() + "*9**");
+		
+		
+		((Members)model.getAttribute("mectlist")).getMeCode().split("-");
+		System.out.println(((Members)model.getAttribute("mectlist")).getMeCode() + "*8*");
+		
+		
+		
+		// 날짜없으면 텍스트
+		 if(((Members)model.getAttribute("mectlist")) != null) {
+		model.addAttribute("mectlslist",((Members)model.getAttribute("mectlist")).getMeCode() == null?
+				mb.getCtcaLessonList((Members)model.addAttribute("mectlist")) 
+				: mb.getCtdateLessonList((Members)model.addAttribute("mectlist")));
+		} else {
+			me.setCaCode("현재 매장에 수업이 없습니다.");
+			model.addAttribute("mectlslist", me.getCaCode());
+		}
 
 	}
 
@@ -307,15 +340,13 @@ public class Member extends CommonMethod{
 
 	public void meConfig(Model model) {
 		this.mav.setViewName("meConfig");
-
-
 	}
-
 
 
 	public ModelAndView modMeMg(Model model) {
 		Members me = new Members();
 		me = (Members) model.getAttribute("Member");
+		System.out.println(((Members) model.getAttribute("Member")).getMeBirth() + ":" + me.getMeBirth());
 		mu.modMeMg(me);
 		return mav;
 	}
@@ -334,7 +365,6 @@ public class Member extends CommonMethod{
 		this.mav.setViewName(page);
 
 	}
-
 
 
 }

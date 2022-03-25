@@ -7,6 +7,7 @@ import java.util.List;
 
 import beans.Centers;
 import beans.Inbodys;
+import beans.Lessons;
 import beans.Members;
 import beans.Staffs;
 
@@ -19,6 +20,10 @@ public interface MapperBon {
 	public List<Members> meInfo(Members me);
 	public int insertAccessHistory(Staffs sf);
 	public int insertAccessOutHistory(Staffs sf);
+	public String ismeEmail (Staffs sf);
+	public String issfEmail (Staffs sf);
+	public int modPwMe(Staffs sf);
+	public int modPwSf(Staffs sf);
 	
 	//인바디
 	public int insInbody(Inbodys inbody);
@@ -26,9 +31,21 @@ public interface MapperBon {
 	public List<Inbodys> getMeRecentInbody(Inbodys inbody);
 	public int insTargetExcercise(Inbodys inbody);
 	
-	//회원
-	public List<Members> meMg(Members me);
-	public List<Members> searchMeMg(Members me);
+	//예약레슨
+	public List<Members> getRegCenterList(Members me);
+	public List<Lessons> getCtAllLessonList(Members me);
+	public List<Lessons> getCtcaLessonList(Members me);
+	public List<Lessons> getCtdateLessonList(Members me);
+	public int remainLessonCount(Lessons ls);
+	
+
+	
+	
+
+	
+
+	
+	
 	
 	
 }
