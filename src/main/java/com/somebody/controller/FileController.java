@@ -56,7 +56,7 @@ public class FileController {
 	public   Inbodys insInbody(@RequestParam("file") MultipartFile[] f, @ModelAttribute Inbodys in , Model model) {
 
 		for (MultipartFile e : f) {
-			this.savePath = new File("C:\\REST\\workspace\\help\\src\\main\\webapp\\resources\\excel",
+			this.savePath = new File("C:\\REST\\workspace2\\help\\src\\main\\webapp\\resources\\excel",
 					e.getOriginalFilename());
 				try {
 					

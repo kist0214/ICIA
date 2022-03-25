@@ -112,7 +112,7 @@ public class Authenticaion extends CommonMethod {
 		case "A05":
 			sendEmail(sf);
 			break;
-		
+
 		case "A06":
 			modPw(sf);
 			break;
@@ -160,20 +160,18 @@ public class Authenticaion extends CommonMethod {
 		String sfadress = this.mb.issfEmail(sf);
 
 		String adress = null;
-		
 
 		if (meadress != null) {
 			System.out.println(11);
 			adress = meadress;
 
-		} else if(sfadress != null) {
+		} else if (sfadress != null) {
 			System.out.println(22);
 			adress = sfadress;
-		}else {
+		} else {
 			mav.addObject(object, message);
 			mav.setViewName(page);
 		}
-	
 
 		System.out.println(sf.getSfEmail());
 		/* Email Info */
@@ -213,7 +211,6 @@ public class Authenticaion extends CommonMethod {
 			mav.addObject(object, message);
 			mav.setViewName(page);
 
-			
 		}
 		return this.mav;
 	}
@@ -243,105 +240,84 @@ public class Authenticaion extends CommonMethod {
 	}
 
 	public ModelAndView meLogin(Model model) {
-		System.out.println(enc.encode(((Members) model.getAttribute("send")).getMePw()));
 
 		String pw = mb.meLogin((Members) model.getAttribute("send"));
-		System.out.println(((Members) model.getAttribute("send")).getMePw() + "여기비번");
-		System.out.println(pw);
+
+		this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,
+				false);
+		try {
+
+
+				if(pw != null) {
+				if (enc.matches(((Members) model.getAttribute("send")).getMePw(), enc.encode(pw))) {
+					this.mav.addObject("meInfo", this.mb.meInfo((Members) model.getAttribute("send")));
+					tran = true;
+					this.tranend(tran);
+					pu.setAttribute("meInfo", this.mb.meInfo((Members) model.getAttribute("send")));
+					session.setMaxInactiveInterval(100 * 100);
+
+					this.mav.setViewName("infoLine");
+
+				}} else {
+					Members me = new Members();
+					me.setCtCode("비밀번호가 일치하지 않습니다.");
+					this.mav.setViewName("home");
+					this.mav.addObject("meCode", me.getCtCode());
+				}
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		return this.mav;
+
+	}
+
+	public ModelAndView ctLogin(Staffs sf) {
+
+		// System.out.println(enc.encode(sf.getSfPw()));
+		String pw = this.mb.sfLogin(sf);
 
 		this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,
 				false);
 
 		try {
+			if ((String) this.pu.getAttribute("sfInfo") == null) {
+				if (enc.matches(sf.getSfPw(), pw)) {
 
-			if ((String) this.pu.getAttribute("meInfo") == null) {
-				System.out.println(11);
-				this.message = "세션끄세요.";
-				this.mav.addObject("meCode",this.message);
-				if (pw != null) {
-					System.out.println(22);
-					this.message = "비번 안왔어요";
-					this.mav.addObject("meCode",this.message);
-					if (enc.matches(((Members) model.getAttribute("send")).getMePw(),enc.encode(pw))) {
-						System.out.println(33);
-
-					
-						this.mav.addObject("meInfo", this.mb.meInfo((Members) model.getAttribute("send")));
+					sf.setAhType("A1");
+					if (this.convertToBoolean(this.mb.insertAccessHistory(sf))) {
+						sf = this.mb.sfInfo(sf);
+						this.mav.addObject("sfInfo", sf);
+						this.mav.addObject("ctCode", sf.getCtCode());
 						tran = true;
 						this.tranend(tran);
-						pu.setAttribute("meInfo", this.mb.meInfo((Members) model.getAttribute("send")));
+						pu.setAttribute("sfInfo", sf);
+						this.mav.setViewName("meMg");
+
 						session.setMaxInactiveInterval(100 * 100);
 
-						this.mav.setViewName("infoLine");
-
 					} else {
-						this.message = "비밀번호가 일치하지 않습니다.";
-						this.mav.addObject("meCode",this.message);
+						System.out.println("인서트실패");
+
 					}
+
+				} else {
+					this.message = "정보가 일치하지 않습니다.";
+					this.mav.addObject("ctCode", this.message);
+					this.mav.setViewName("home");
+
 				}
+
+			} else {
+				System.out.println("세션있ㅇ어서 안됨");
 			}
 		} catch (Exception e) {
-			
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return this.mav;
-	}
-
-
-	public ModelAndView ctLogin(Staffs sf) {
-		
-		//System.out.println(enc.encode(sf.getSfPw()));
-				String pw = this.mb.sfLogin(sf);
-			
-			System.out.println(sf.getSfPw()+"%%" + pw);
-			
-
-				this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,false);
-
-				try {
-					if ((String)this.pu.getAttribute("sfInfo") == null) {
-						if (pw != null && sf.getSfPw()!=null) {
-						if (enc.matches(sf.getSfPw(),pw)) {
-							//로그인 기록은 센터만 하기로 함 
-							this.mav.setViewName("meMg");
-						
-							sf.setAhType("A1");
-							if(this.convertToBoolean(this.mb.insertAccessHistory(sf))) {
-								sf = this.mb.sfInfo(sf);
-								this.mav.addObject("sfInfo",sf);
-								this.mav.addObject("ctCode", sf.getCtCode());
-								tran = true;
-								this.tranend(tran);
-								pu.setAttribute("sfInfo", sf);
-								
-								//session.setMaxInactiveInterval(30*30) ;
-								
-							}else {
-								System.out.println("인서트실패");
-								
-							}
-
-						}
-						else {
-							this.message = "비밀번호가 일치하지 않습니다.";
-							this.mav.addObject(this.message);
-							this.mav.setViewName("home");
-						}
-					}
-						else{System.out.println("비번비어있음");}
-					
-				}else {
-					System.out.println("세션있ㅇ어서 안됨");
-				}
-					} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	
-				
-				return this.mav;
-
 
 	}
 
@@ -383,35 +359,32 @@ public class Authenticaion extends CommonMethod {
 
 	}
 
-
-
 	public ModelAndView modPw(Staffs sf) {
 		String page = "modPw";
-		
-		String mepw= this.mb.ismeEmail(sf);
+
+		String mepw = this.mb.ismeEmail(sf);
 		String sffpw = this.mb.issfEmail(sf);
 
-		
 		sf.setSfPw(enc.encode(sf.getSfPw()));
 		if (mepw != null) {
-			
-			if(this.convertToBoolean(mb.modPwMe(sf))) {
+
+			if (this.convertToBoolean(mb.modPwMe(sf))) {
 				mav.addObject("sfEmail", "회원님 정상적으로 비밀번호가 변경되었습니다.");
 				mav.setViewName(page);
 				System.out.println(11111);
-			}else {
+			} else {
 				mav.addObject("sfEmail", "회원님 업데이트 안됐어여");
 				mav.setViewName(page);
 				System.out.println(5555);
-				
+
 			}
-		} else if(sffpw != null) {
-			
-			if(this.convertToBoolean(mb.modPwSf(sf))){
+		} else if (sffpw != null) {
+
+			if (this.convertToBoolean(mb.modPwSf(sf))) {
 				mav.addObject("sfEmail", "매장고객님 정상적으로 비밀번호가 변경되었습니다.");
 				mav.setViewName(page);
 				System.out.println(2222);
-			}else {
+			} else {
 				mav.addObject("sfEmail", "매장님 비번변경 안됐어여");
 				mav.setViewName(page);
 				System.out.println(3333);
@@ -419,7 +392,6 @@ public class Authenticaion extends CommonMethod {
 		}
 		return this.mav;
 	}
-		
 
 	public void joinForm(Model model) {
 
@@ -431,8 +403,8 @@ public class Authenticaion extends CommonMethod {
 		this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,
 				false);
 		ct.setSfPw(this.enc.encode(ct.getSfPw()));
-		if(convertToBoolean(this.my.ctJoin(ct))) {
-			if(convertToBoolean(this.my.firstSfJoin(ct))) {
+		if (convertToBoolean(this.my.ctJoin(ct))) {
+			if (convertToBoolean(this.my.firstSfJoin(ct))) {
 				page = "redirect:/";
 				tran = true;
 				msg = "가입성공~!";
@@ -449,7 +421,7 @@ public class Authenticaion extends CommonMethod {
 		this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,
 				false);
 		me.setMePw(this.enc.encode(me.getMePw()));
-		if(convertToBoolean(this.my.meJoin(me))) {
+		if (convertToBoolean(this.my.meJoin(me))) {
 			page = "redirect:/";
 
 			tran = true;

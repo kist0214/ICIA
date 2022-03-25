@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>HOME</title>
 <link rel="stylesheet" type="text/css" href="res/css/home.css" />
-<script  src="res/js/resource.js" src="res/js/bon.js"    ></script>
+<script src="res/js/resource.js" src="res/js/bon.js"></script>
 
 
 
@@ -104,19 +104,21 @@
 						placeholder='아이디를 입력하세요' /> <br> <br>
 					<div>Password</div>
 
-					<input type='password' class='pw' name='mePw' /><br> <br>
-					<input class="login" type="button" value="로그인" onClick="meLogIn()" /><br>
+					<input type='password' class='pw' name='mePw'
+						placeholder='비밀번호를 입력하세요.' /><br> <br> <input
+						class="login" type="button" value="로그인" onClick="meLogIn()" /><br>
 					<br> <input class="login" type="button" value="매장로그인"
 						onClick="ctLogInModal()" />
+					<div id="msg"></div>
 				</div>
 				<!-- 모달 푸터 <div id = "list">${list} </div> -->
 				<div class="mfooter">
 					<input type="button" class="mbtn" value="비밀번호변경"
 						onClick="sendEmailForm()" /> <input type="button" class="mbtn"
 						value="센터가입" onClick="goJoinPage()" />
-						
-				</div>
 
+				</div>
+				<div>${meCode}</div>
 			</div>
 		</div>
 	</form>
@@ -139,17 +141,20 @@
 					<input type='text' class='id' name='sfId' placeholder='코드를 입력하세요' /><br>
 					<br>
 					<div>Password</div>
-					<input type='password' class='pw' name='sfPw' /><br> <br>
-					<input class="login" type="button" value="직원로그인"
-						onClick="ctLogIn()" />
+					<input type='password' class='pw' name='sfPw'
+						placeholder='비밀번호를 입력하세요.' /><br> <br> <input
+						class="login" type="button" value="로그인" onClick="ctLogIn()" />
 				</div>
-				<br>
+				<input class="login" type="button" value="회원로그인"
+					onClick="meLogInModal()" /> <br>
 				<!-- 모달 푸터 <div id = "list">${list} </div> -->
+				<div id="ms"></div>
 				<div class="mfooter">
 					<input type="button" class="mbtn" value="비밀번호변경"
 						onClick="sendEmailForm()" /> <input type="button" class="mbtn"
 						value="센터가입" onClick="goJoinPage()" /> <br> <br>
-					${sfInfo.sfName}
+					${ctCode}
+
 				</div>
 
 			</div>

@@ -27,5 +27,7 @@ public class Lessons {
 	private int lpQty;
 	private String lsMeRemain;
 	private int lpPrice;
+	private String lpCaCode;
+
 
 }

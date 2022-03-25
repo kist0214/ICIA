@@ -15,6 +15,7 @@ function ajax(action, data, fn) {
 
 let sfRanCode=[];
 function getMeMg(ctcode,sfrank,sfcode){
+closeModalIn(); 
 	sfRanCode[0]=sfrank;
 	sfRanCode[1]=sfcode;
 	let json = [];
@@ -188,6 +189,64 @@ function addMember(ctcode){
 	var data = JSON.stringify(json);
 	ajax("ajax/addMember",data,"getMeList");
 }
+
+
+function closeModalIn() {
+	let containerIn =  document.getElementsByName("containerIn")[0];
+	containerIn.style.display = "none";
+
+}
+
+function UploadinbodyFile() {
+		 const form = document.getElementsByName("containerIn")[0];
+		form.submit();
+	}
+	
+	
+	function UploadinbodyFile() {
+		 const form = document.getElementsByName("containerIn")[0];
+
+				 let data = new FormData(form);
+				 ajaxFromData("insInbody",data,"ajaxCallback","POST");
+	}
+	
+	
+	function ajaxFromData(action, data, fn, method) {
+		const ajax = new XMLHttpRequest();
+		
+		ajax.onreadystatechange = function() {
+			if (ajax.readyState == 4 && ajax.status == 200) {
+			//alert(ajax.responseText);
+			window[fn](JSON.parse(ajax.responseText));
+			
+			
+		}
+		};
+		if(method == "Get"){
+			ajax.open("get", action, true);
+		}
+		else{
+		ajax.open("post", action, true);
+		//ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8 ");
+		}
+		ajax.send(data);
+	}
+	
+	function ajaxCallback(msg){
+	
+		let ms = document.getElementById("msg");
+		ms.innerText = msg.msg;
+	}
+	function openModalIn() {
+	
+	let containerIn = document.getElementsByName("containerIn")[0];
+	containerIn.style.filter = "alpha(Opacity=50)";
+	containerIn.style.display = "block";
+
+}
+
+	
+	
 
 
 

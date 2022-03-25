@@ -1,5 +1,4 @@
 
-let jsPIp;
 
 	function ajaxFromData(action, data, fn, method) {
 		const ajax = new XMLHttpRequest();

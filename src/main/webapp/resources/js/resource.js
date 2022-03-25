@@ -106,20 +106,6 @@ function whatsend(action, data, fn, content,method) {
 	ajax.send(data);
 }
 
-function getAjax(action, data, fn) {
-   let ajax = new XMLHttpRequest();
-
-   ajax.onreadystatechange = function() {
-      if (ajax.readyState == 4 && ajax.status == 200) {
-         window[fn](JSON.parse(ajax.responseText));
-         //document.getElementById("ajaxData").innerHTML = serverData;
-      }
-   };
-   ajax.open("post", action, true);
-   ajax.setRequestHeader("Content-type",
-         "application/x-www-form-urlencoded");
-   ajax.send(data);
-}
 
 function getAjax1(action, data, fn, content ,method) {
    let ajax = new XMLHttpRequest();
@@ -445,22 +431,45 @@ function isEmpty(obj) {
 
 
 function meLogIn(){
+
+
+let mecode = document.getElementsByName("meCode")[0].value;
+let mepw = document.getElementsByName("mePw")[0].value;
+
+
+
+if(mecode != "" || mepw != "" ){
 	let form = document.getElementsByName("dynamicFormdata")[0];
 	form.submit();
+}else{
+ let msg = document.getElementById("msg");
+ 
+ msg.innerText = "올바르게 입력해주세요.";
 	
-}
+}}
 
 function ctLogIn(){
+	let ctcode = document.getElementsByName("ctCode")[0].value;
+	let sfcode = document.getElementsByName("sfId")[0].value;
+	let sfpw = document.getElementsByName("sfPw")[0].value;
 	
      let  ip = jsPIp;
 
 	const hidden = makeInputElement("hidden","ahIp",ip,"");
 	
-	let form = document.getElementsByName("dynamicFormdata2")[0];
+	if(ctcode != "" && sfcode != "" && sfpw != ""){
+		let form = document.getElementsByName("dynamicFormdata2")[0];
 
 	form.appendChild(hidden);
 	
 	form.submit();
+}else{
+ let msg = document.getElementById("msg");
+ ms.innerText = "올바르게 입력해주세요.";
+	
+}
+	
+
 	
 }
 
@@ -523,14 +532,7 @@ function checkmail(msg){
 	
 	
 }
-function ctLogIn(){
-	
-     let  ip = jsPIp;
-	const hidden = makeInputElement("hidden","ahIp",ip,"");
-	let form = document.getElementsByName("dynamicFormdata2")[0];
-	form.appendChild(hidden);
-	form.submit();
-}
+
 
 
 function searchMeMg(){
@@ -575,7 +577,6 @@ function getselist(data){
 	div.appendChild(span4);  
 
 	div.appendChild(span5);           
-//속성을 포함해서 넣으면 어펜드, 태그부터 넣을거면 innerhtml, 태그안에 텍스트만 넣을거면 innerText
   list.appendChild(div);
 
 }
@@ -668,9 +669,13 @@ function getInbodyModal() {
 	
 }
 function meLogInModal() {
+let containerSF =  document.getElementById("containerSF");
+containerSF.style.display = "none";
+
 	let container =  document.getElementById("container");
 	container.style.filter = "alpha(Opacity=50)";
 	container.style.display = "block";
+	
 }
 
 
@@ -718,6 +723,7 @@ document.body.appendChild(form);
 	whatsend("ajax/searchLsMg",clientdata,"getselist",false,"post");
 	
 }
+	
 	
 	
 	

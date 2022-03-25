@@ -10,11 +10,37 @@
 <!----===== Boxicons CSS ===== -->
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
 	rel='stylesheet'>
-
+<style>
+.containerIn {
+	background-color: gray;
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	width: 100%;
+	min-height: 100%;
+	left: 0;
+	top: 0;
+	text-align: center;
+	font-size: 17pt;
+	font-weight: 700;
+}
+.mdialog {
+	border: 2px solid white;
+	border-radius: 25px;
+	background-color: #ffffff;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 70%;
+	height: 750px;
+	transform: translate(-50%, -50%);
+	font-size: 17pt;
+	font-weight: 700;
+}
+</style>
 <title>MemberManagement</title>
 <script src="res/js/resource.js"></script> 
-<script src="res/js/bon.js"></script> 
 <script src="res/js/Dong.js"></script> 
+<script src="res/js/bon.js"></script> 
 <script src="res/js/YMember.js"></script> 
 
 
@@ -144,6 +170,34 @@
 			</div>
 		</div>
 	</div>
+	
+	<form name="containerIn" action="insInbody" method="post"
+			enctype="multipart/form-data">
+			<div class="containerIn" id="containerIn">
+				<div class="mdialog">
+					<div class="mcontent">
+						<div class="mheader">
+
+							<span class="title"></span><br> <br> <br> <br>
+							<br> <br> <span>회원인바디 엑셀파일 업로드</span><br> <br>
+							<br>
+						</div>
+					</div>
+					<div class="line">
+						<input type="file" name="file" multiple />
+					</div>
+					<div>
+						<br> <input type="button" id="btn" value="인바디 파일 전송"
+							onClick="UploadinbodyFile()" /><br><br>
+							<input type="button" class="mbtn" value="닫기"/>
+					</div>
+					<br> <br>
+					<div id=msg></div>
+					
+				</div>
+
+			</div>
+		</form>
 	</section>
 
 	<script>

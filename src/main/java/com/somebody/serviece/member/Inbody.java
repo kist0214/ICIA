@@ -43,20 +43,20 @@ public class Inbody extends CommonMethod {
 		this.mav = new ModelAndView();
 	}
 
-	public ModelAndView backController(String sCode, ArrayList<ArrayList<String>> list,Model model) {
+	public ModelAndView backController(String sCode, ArrayList<ArrayList<String>> list, Model model) {
 
 		switch (sCode) {
 
 		case "M09":
-			insInbody(list,model);
+			insInbody(list, model);
 			break;
 
 		}
 		return this.mav;
-	
+
 	}
 
-	public void insInbody(ArrayList<ArrayList<String>> filters,Model model ) {
+	public void insInbody(ArrayList<ArrayList<String>> filters, Model model) {
 		Inbodys inbody = new Inbodys();
 
 		System.out.println(filters.size() + "사이즈");
@@ -78,10 +78,10 @@ public class Inbody extends CommonMethod {
 
 		}
 
-		insInbodyDetail(filters,model);
+		insInbodyDetail(filters, model);
 	}
 
-	public void insInbodyDetail(ArrayList<ArrayList<String>> filters, Model model ) {
+	public void insInbodyDetail(ArrayList<ArrayList<String>> filters, Model model) {
 		Inbodys inbody = new Inbodys();
 
 		for (int i = 0; i < filters.size() - 25; i++) {
@@ -93,20 +93,18 @@ public class Inbody extends CommonMethod {
 			inbody.setIdCount(filters.get(i).get(2));
 
 			if (convertToBoolean(this.mb.insInbodyDetail(inbody))) {
-				System.out.println("신장 등록 성공");
 
 			} else {
-				System.out.println("신장 등록 실패");
+
 			}
 			;
 
 			inbody.setIbDaCode("10001");// 체중(10001)
 			inbody.setIdCount(filters.get(i).get(3));
 			if (convertToBoolean(this.mb.insInbodyDetail(inbody))) {
-				System.out.println("체중 등록 성공");
 
 			} else {
-				System.out.println("체중 등록 실패");
+
 			}
 			;
 
@@ -114,30 +112,27 @@ public class Inbody extends CommonMethod {
 			inbody.setIbDaCode("10002");
 			inbody.setIdCount(filters.get(i).get(4));
 			if (convertToBoolean(this.mb.insInbodyDetail(inbody))) {
-				System.out.println("골격근량 등록 성공");
 
 			} else {
-				System.out.println("골격근량 등록 실패");
+
 			}
 			;
 			// 체지방량(10003)
 			inbody.setIbDaCode("10003");
 			inbody.setIdCount(filters.get(i).get(5));
 			if (convertToBoolean(this.mb.insInbodyDetail(inbody))) {
-				System.out.println("체지방량 등록 성공");
 
 			} else {
-				System.out.println("체지방량 등록 실패");
+
 			}
 			;
 			// 체수분함유량(10004)
 			inbody.setIbDaCode("10004");
 			inbody.setIdCount(filters.get(i).get(6));
 			if (convertToBoolean(this.mb.insInbodyDetail(inbody))) {
-				System.out.println("체수분함유량 등록 성공");
 
 			} else {
-				System.out.println("체수분함유량 등록 실패");
+
 			}
 			;
 			// 단백질(10005)
@@ -145,30 +140,26 @@ public class Inbody extends CommonMethod {
 			inbody.setIdCount(filters.get(i).get(7));
 
 			if (convertToBoolean(this.mb.insInbodyDetail(inbody))) {
-				System.out.println("단백질 등록 성공");
 
 			} else {
-				System.out.println("단백질 등록 실패");
+
 			}
 			;
 			// 무기질(10006)
 			inbody.setIbDaCode("10006");
 			inbody.setIdCount(filters.get(i).get(8));
 			if (convertToBoolean(this.mb.insInbodyDetail(inbody))) {
-				System.out.println("무기질 등록 성공");
 
 			} else {
-				System.out.println("무기질 등록 실패");
+
 			}
 			;
 			// BMI(10007)
 			inbody.setIbDaCode("10007");
 			inbody.setIdCount(filters.get(i).get(9));
 			if (convertToBoolean(this.mb.insInbodyDetail(inbody))) {
-				System.out.println("BMI 등록 성공");
 
 			} else {
-				System.out.println("BMI 등록 실패");
 
 			}
 			;
@@ -176,20 +167,18 @@ public class Inbody extends CommonMethod {
 			inbody.setIbDaCode("10008");
 			inbody.setIdCount(filters.get(i).get(10));
 			if (convertToBoolean(this.mb.insInbodyDetail(inbody))) {
-				System.out.println("내장지방률 등록 성공");
 
 			} else {
-				System.out.println("내장지방률 등록 실패");
+
 			}
 			;
 			// 복부지방률(10009)
 			inbody.setIbDaCode("10009");
 			inbody.setIdCount(filters.get(i).get(11));
 			if (convertToBoolean(this.mb.insInbodyDetail(inbody))) {
-				System.out.println("복부지방률 등록 성공");
 
 			} else {
-				System.out.println("복부지방률 등록 실패");
+
 			}
 			;
 			// 기초대사량(10010)
@@ -197,14 +186,13 @@ public class Inbody extends CommonMethod {
 			inbody.setIdCount(filters.get(i).get(12));
 
 			if (convertToBoolean(this.mb.insInbodyDetail(inbody))) {
-				System.out.println("기초대사량 등록 성공");
 
 			} else {
-				System.out.println("기초대사량 등록 실패");
+
 			}
 		}
 		;
-		autoTargetExcercise(inbody,model);
+		autoTargetExcercise(inbody, model);
 
 	}
 
@@ -263,7 +251,7 @@ public class Inbody extends CommonMethod {
 			in.setExCode("10003");
 			mb.insTargetExcercise(in);
 			in.setMsg("인바디 등록에 성공하셨습니다.");
-			model.addAttribute("msg",in);
+			model.addAttribute("msg", in);
 
 		} else if (height <= 160 && muscle <= 20 && weight <= 60) {
 			System.out.println(22);
@@ -276,7 +264,7 @@ public class Inbody extends CommonMethod {
 			in.setExCode("10003");
 			mb.insTargetExcercise(in);
 			in.setMsg("인바디 등록에 성공하셨습니다.");
-			model.addAttribute("msg",in);
+			model.addAttribute("msg", in);
 
 		} else if (height <= 160 && muscle > 20 && weight >= 60) {
 			System.out.println(33);
@@ -289,7 +277,7 @@ public class Inbody extends CommonMethod {
 			in.setExCode("20002");
 			mb.insTargetExcercise(in);
 			in.setMsg("인바디 등록에 성공하셨습니다.");
-			model.addAttribute("msg",in);
+			model.addAttribute("msg", in);
 
 		} else {
 			System.out.println("160아님");
@@ -306,7 +294,7 @@ public class Inbody extends CommonMethod {
 			in.setExCode("10003");
 			mb.insTargetExcercise(in);
 			in.setMsg("인바디 등록에 성공하셨습니다.");
-			model.addAttribute("msg",in);
+			model.addAttribute("msg", in);
 
 		} else if (height > 160 && height <= 170 && muscle <= 25 && weight <= 70) {
 			System.out.println(55);
@@ -319,7 +307,7 @@ public class Inbody extends CommonMethod {
 			in.setExCode("10003");
 			mb.insTargetExcercise(in);
 			in.setMsg("인바디 등록에 성공하셨습니다.");
-			model.addAttribute("msg",in);
+			model.addAttribute("msg", in);
 
 		} else if (height > 160 && height <= 170 && muscle > 25 && weight >= 70) {
 			System.out.println(66);
@@ -331,7 +319,7 @@ public class Inbody extends CommonMethod {
 			in.setExCode("20002");
 			mb.insTargetExcercise(in);
 			in.setMsg("인바디 등록에 성공하셨습니다.");
-			model.addAttribute("msg",in);
+			model.addAttribute("msg", in);
 
 		} else {
 			System.out.println("170아님");
@@ -347,9 +335,9 @@ public class Inbody extends CommonMethod {
 			in.setExCode("10003");
 			mb.insTargetExcercise(in);
 			in.setMsg("인바디 등록에 성공하셨습니다.");
-			model.addAttribute("msg",in);
-			
-			System.out.println(model.getAttribute(msg)+"ddd");
+			model.addAttribute("msg", in);
+
+			System.out.println(model.getAttribute(msg) + "ddd");
 
 		} else if (height > 170 && muscle > 30 && muscle <= 35 && weight <= 80) {
 			System.out.println(88);
@@ -361,7 +349,7 @@ public class Inbody extends CommonMethod {
 			in.setExCode("10003");
 			mb.insTargetExcercise(in);
 			in.setMsg("인바디 등록에 성공하셨습니다.");
-			model.addAttribute("msg",in);
+			model.addAttribute("msg", in);
 
 		} else if (height > 170 && muscle > 35 && weight >= 80) {
 			System.out.println(99);
@@ -373,17 +361,13 @@ public class Inbody extends CommonMethod {
 			in.setExCode("20002");
 			mb.insTargetExcercise(in);
 			in.setMsg("인바디 등록에 성공하셨습니다.");
-			model.addAttribute("msg",in);
-			
+			model.addAttribute("msg", in);
+
 		} else {
 			in.setMsg("인바디 수치가 잘못되었습니다. 셀 값을 확인해주십시오.");
-			model.addAttribute("msg",in);
+			model.addAttribute("msg", in);
 
 		}
-	
-	System.out.println(model.getAttribute("msg")+"&&&");
-		
-	
 
 	}
 }

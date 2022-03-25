@@ -27,7 +27,7 @@ public class ControllerBon {
 
 	private static final Logger logger = LoggerFactory.getLogger(ControllerBon.class);
 
-	// 오늘작업한 부분
+	//bon
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		return "home";

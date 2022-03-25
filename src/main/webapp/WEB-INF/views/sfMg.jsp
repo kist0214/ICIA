@@ -67,7 +67,6 @@
 }
 </style>
 <title>StaffManament</title>
-<script src="res/js/bon.js"></script>
 <script src="res/js/Dong.js"></script>
 <script src="res/js/resource.js"></script>
 
@@ -178,12 +177,8 @@
 						<i class='bx bx-edit-alt icon' onClick="modSfModal()"></i>
 					</div>
 				</button>
-				<button>
-					<i class='bx bx-edit-alt icon' onClick="openModalIn()"></i>
-				</button>
 			</div>
 		</div>
-
 		<table id="ajax"></table>
 
 
@@ -272,33 +267,7 @@
 			</div>
 		</form>
 
-		<form name="containerIn" action="insInbody" method="post"
-			enctype="multipart/form-data">
-			<div class="containerIn" id="containerIn">
-				<div class="mdialog">
-					<div class="mcontent">
-						<div class="mheader">
-
-							<span class="title"></span><br> <br> <br> <br>
-							<br> <br> <span>회원인바디 엑셀파일 업로드</span><br> <br>
-							<br>
-						</div>
-					</div>
-					<div class="line">
-						<input type="file" name="file" multiple />
-					</div>
-					<div>
-						<br> <input type="button" id="btn" value="인바디 파일 전송"
-							onClick="UploadinbodyFile()" /><br><br>
-							<input type="button" class="mbtn" value="닫기"/>
-					</div>
-					<br> <br>
-					<div id=msg></div>
-					
-				</div>
-
-			</div>
-		</form>
+		
 	</section>
 
 	<script>
