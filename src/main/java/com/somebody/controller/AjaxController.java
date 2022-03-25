@@ -71,16 +71,7 @@ public class AjaxController {
 		this.me.backController("M04",model);
 	}
 
-	@RequestMapping(value = "/getCaList", method = RequestMethod.POST)
-	public void getCaList(Model model, @RequestBody Members me) {
-		this.me.backController("M05", model);
-	}
-
-	@RequestMapping(value = "/addMember", method = RequestMethod.POST)
-	public void addMember(Model model, @RequestBody Members me) {
-		this.me.backController("M06",model);
-	}	
-
+	
 	@RequestMapping(value = "/modMe", method = RequestMethod.POST)
 	public void modMe(Model model, @RequestBody Members me) {
 		this.me.backController("M07", model);
@@ -140,10 +131,10 @@ public class AjaxController {
 		this.lss.backController("L02",ls[0],model.addAttribute("ls", ls[0]));
 		return (List<Lessons>)model.getAttribute("searchLesson");
 	}
-	@RequestMapping(value = "/getLsCaList", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/getLsCaList", method = RequestMethod.POST)
 	public void getLsCaList(Model model, @RequestBody Lessons[] ls) {
 		this.lss.backController("L03",ls[0],model);
-	}
+	}*/
 	@RequestMapping(value = "/insLsPay", method = RequestMethod.POST)
 	public void insLsPay(Model model, @RequestBody Lessons[] ls) {
 		this.lss.backController("L04",ls[0],model);
@@ -232,7 +223,17 @@ public class AjaxController {
 		this.me.backController("M03", model, me[0]);
 		return (List<Members>) model.getAttribute("meList");
 	}
-	
+	@RequestMapping(value = "/getCaList", method = RequestMethod.POST)
+	public List<Members> getCaList(Model model, @RequestBody Members[] me) {
+		this.me.backController("M04", model, me[0]);
+		return (List<Members>) model.getAttribute("caList");
+	}
+	@RequestMapping(value = "/addMember", method = RequestMethod.POST)
+	public List<Members> addMember(Model model, @RequestBody List<Members> me) {
+		model.addAttribute("dataList", me);
+		this.me.backController("M06",model);
+		return (List<Members>) model.getAttribute("ml");
+	}	
 
 
 

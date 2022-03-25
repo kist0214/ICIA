@@ -77,6 +77,7 @@ function getMeList(json){
 		}
 	}
 	ajax.innerHTML=data;
+	YcloseModal();
 }
 
 function clickExpiration(i){
@@ -124,11 +125,69 @@ function searchMeCharTwo(ctcode,sfrank,sfcode){
 }
 
 
+function getCaList(ctcode){
+	let json = [];
+	json.push({ctCode:ctcode});
+	const data = JSON.stringify(json);
+	ajax("ajax/getCaList",data,"addMemberModal");
+}
 
+function addMemberModal(json){
+	
+	document.getElementById("mdtitle").innerText = "회원추가";
+	var data = '<div><span>이름</span><br><span><input type ="text" id = "meName" placeholder="이름을 입력하세요."/></span></div>';
+	data += '<div><span>이메일</span><br><span><input type = "text" id = "emailName"/><span>@<span><select id="juso">';
+	data += '<option value = "return">주소선택</option>'
+	data += '<option value = "daun.net">daun</option>';
+	data += '<option value = "naver.com">naver</option>';
+	data += '<option value = "google.com">GMAIL</option>';
+	data += '<option value = "yahoo.com">yahoo</option>';
+	data += '<option value = "outlook.com">outlook.com</option>';
+	data += '<option value = "nate.com">nate</option>';
+	data += '<option value = "dreamwiz.com">dreamwiz</option>';
+	data += '<option value = "korea.com">korea.com</option></select></div>';
+	for(i=0; i<json.length;i++){
+		
+		if(i==0){
+			data+= '<article><div style = "width:20%;"><span><input type = "checkbox" name = "check" value="'+json[i].caCode+'"/><span><br><span>'+json[i].caName+'</span><br><span><select name="lpQty">';
+			data+= '<option value="'+json[i].lpQty+','+json[i].lpPrice+'">'+json[i].lpQty+(json[i].caName=='일반'?'개월':'수량')+' : '+json[i].lpPrice+'</option>';
+		}else{
+			if(json[i].caName==json[i-1].caName){
+				data+= '<option value="'+json[i].lpQty+','+json[i].lpPrice+'">'+json[i].lpQty+(json[i].caName=='일반'?'개월':'수량')+' : '+json[i].lpPrice+'</option>';
+			}else{
+				data+= '</select></span></div><div style = "width:20%;"><span><input type = "checkbox" name = "check" value="'+json[i].caCode+'"/><span><br><span>'+json[i].caName+'</span><br><span><select name="lpQty">';
+				data+= '<option value="'+json[i].lpQty+','+json[i].lpPrice+'">'+json[i].lpQty+(json[i].caName=='일반'?'개월':'수량')+' : '+json[i].lpPrice+'</option>';
+			}
+			if(i==json.length-1){
+				data+= '</select></div></article>';
+			}
+		}
+	}
+	var iptBtn =document.createElement("input");
+	iptBtn.setAttribute("type","button");
+	iptBtn.setAttribute("value","create");
+	iptBtn.setAttribute("onclick","addMember('"+json[0].ctCode+"')");
+	document.getElementById("mbody").appendChild(iptBtn);
+	document.getElementById("mdbody").innerHTML = data
+	YopenModal();
+}
 
-
-
-
+function addMember(ctcode){
+	var mename = document.getElementById("meName").value;
+	var emailName = document.getElementById("emailName").value;
+	var juso = document.getElementById("juso").value;
+	var email = emailName+"@"+juso;
+	var check = document.getElementsByName("check");
+	var lpPrQty = document.getElementsByName("lpQty");
+	var json = [];
+	for(i=0;i<check.length;i++){
+		if(check[i].checked==true){
+		json.push({ctCode:ctcode,meName:mename,meEmail:email,caCode:check[i].value,lpQty:lpPrQty[i].value.split(',')[0]});
+		}
+	}
+	var data = JSON.stringify(json);
+	ajax("ajax/addMember",data,"getMeList");
+}
 
 
 

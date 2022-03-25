@@ -134,4 +134,21 @@
       select mgctcode as ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode as stCode,lpQty,caCode, meCode from kmasters.MeMgView
       where mgctcode = '${ctCode}' and ${meCode} = '${meName}'
    </select>
+   <select id="getLsCaList" resultType="beans.Lessons" parameterType="beans.Members">
+      select lp.lpctcode as ctCode, lp.lpcacode as caCode, lp.lpQty, lp.lpPrice ,ca.caName from kmasters.lp inner join kmasters.ca on lp.lpcacode = ca.cacode where lp.lpctcode = ${ctCode}
+      order by cacode,lpqty
+   </select>
+   <insert id="insMg" parameterType="beans.Members">
+		insert into kmasters.mg(mgmecode, mgctcode)
+		values((select mecode from kmasters.me where mename = '${meName}' and meemail = '${meEmail}'),'${ctCode}')
+	</insert>
+	<insert id="insMgL0" parameterType="beans.Members">
+		insert into kmasters.mg(mgmecode, mgctcode)
+		values((select mecode from kmasters.me where mename = '${meName}' and meemail = '${meEmail}'),'${ctCode}',add_months(SYSDATE,${lpQty})-SYSDATE)
+	</insert>
+	<insert id="insPa" parameterType="beans.Members">
+		insert into kmasters.pa(palpctcode, palpcacode, palpqty, pamecode, patotal)
+		values('${ctCode}','${caCode}','${lpQty}',(select mecode from kmasters.me where mename = '${meName}' and meemail = '${meEmail}'),
+		(select lpprice from kmasters.lp where lpctcode = '${ctCode}' and lpcacode = '${caCode}' and lpqty = '${lpQty}'))
+	</insert>
 </mapper>

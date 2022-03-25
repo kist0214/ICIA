@@ -27,8 +27,6 @@ public class Member extends CommonMethod{
 	private MapperUone mu;
 	private ModelAndView mav;
 
-	String page = null;
-	Members me;
 	Member(){
 		mav = new ModelAndView();
 	}
@@ -43,11 +41,13 @@ public class Member extends CommonMethod{
 		case "M03":
 			clickExpiration(me, model);
 			break;
+		case "M04":
+			cgetCaList(me, model);
+			break;
 		}
 
 		return mav;
 	}
-
 
 	public void backController(String sCode, Model model) {
 
@@ -124,8 +124,6 @@ public class Member extends CommonMethod{
 
 
 	public ModelAndView backControllerM(String sCode, Model model) {
-		String gs = null;
-		String senddata = null;
 
 		switch (sCode) {
 
@@ -140,6 +138,11 @@ public class Member extends CommonMethod{
 
 	}
 
+	private void cgetCaList(Members me, Model md) {
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		md.addAttribute("caList", this.my.getLsCaList(me));
+		tranend(true);
+	}
 
 	private void clickExpiration(Members me, Model md) {
 		List<Members> meList = new ArrayList<Members>();
@@ -188,15 +191,11 @@ public class Member extends CommonMethod{
 		List<Members> meList = new ArrayList<Members>();
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 
-		if(me.getStCode()==null&&me.getCaCode()==null&&me.getMeCode()==null) {
-			meList = this.my.meList(me);
-		}else if(me.getStCode() != null) {
-			meList = this.my.searchMeList(me);
-		}else if(me.getCaCode()!=null) {
-			meList = this.my.searchMeList2(me);
-		}else if(me.getMeCode()!=null&&me.getMeName()!=null) {
-			meList = this.my.searchMeList3(me);
-		}
+		meList =(me.getStCode()==null&&me.getCaCode()==null&&me.getMeCode()==null)? this.my.meList(me):
+			(me.getStCode() != null)? this.my.searchMeList(me):
+				(me.getCaCode()!=null)? this.my.searchMeList2(me):
+					(me.getMeCode()!=null&&me.getMeName()!=null) ? this.my.searchMeList3(me): this.my.meList(me);
+
 		for(int i=0;i<meList.size();i++) {
 			int stocks=0;
 			for(int j=0;j<this.my.remecode().size();j++) {
@@ -207,9 +206,9 @@ public class Member extends CommonMethod{
 					}
 				}
 			}
-			
-				meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
-			
+
+			meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
+
 		}
 		md.addAttribute("meList", meList);
 		tranend(true);
@@ -227,85 +226,114 @@ public class Member extends CommonMethod{
 	}
 
 
-public void meDetail(Model model) {
+	public void meDetail(Model model) {
 
-}
+	}
 
-public void getCaList(Model model) {
+	public void getCaList(Model model) {
 
-}
+	}
 
-public void addMember(Model model) {
+	public void addMember(Model md) {
+		List<Members> ml = new ArrayList<Members>();
+		ml = (List<Members>) md.getAttribute("dataList");
+		boolean tran = false;
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		if(this.convertToBoolean((ml.get(0).getCaCode()=="L0")?this.my.insMgL0(ml.get(0)):
+			this.my.insMg(ml.get(0)))){
+			for(Members ml2:ml) {
+				if(tran=this.convertToBoolean(this.my.insPa(ml2))) {
+				}
+			}
+		}
+		if(tran) {
+			ml = this.my.meList(ml.get(0));
+			for(int i=0;i<ml.size();i++) {
+				int stocks=0;
+				for(int j=0;j<this.my.remecode().size();j++) {
+					if(ml.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())) {
+						if(ml.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
+							stocks = Integer.parseInt(this.my.Count(ml.get(i)).getLpStocks());
+							ml.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
+						}
+					}
+				}
+				ml.get(i).setLpStocks((ml.get(i).getLpQty()-stocks)+"");
+			}
+			tranend(tran);
+			md.addAttribute("ml", ml);
+		}
+		tranend(tran);
+	}
 
-}
+	public void modMe(Model model) {
 
-public void modMe(Model model) {
-
-}
-
-
-public void insTaState(Model model) {
-
-}
-
-public void meHealthMg(Model model) {
-
-}
-
-public void meFoodMg(Model model) {
-
-}
-
-public void meLessonMg(Model model) {
-	String page = "/meLessonMg";
-	this.mav.setViewName(page);
-
-}
-
-public void getLessonList(Model model) {
-
-}
-
-public void searchLsMg(Model model) {
-
-}
-
-public void insMeLesson(Model model) {
-
-}
-
-public void delMeLesson(Model model) {
-
-}
-
-public void meConfig(Model model) {
-	this.mav.setViewName("meConfig");
+	}
 
 
-}
+	public void insTaState(Model model) {
+
+	}
+
+	public void meHealthMg(Model model) {
+
+	}
+
+	public void meFoodMg(Model model) {
+
+	}
+
+	public void meLessonMg(Model model) {
+		String page = "/meLessonMg";
+		this.mav.setViewName(page);
+
+	}
+
+	public void getLessonList(Model model) {
+
+	}
+
+	public void searchLsMg(Model model) {
+
+	}
+
+	public void insMeLesson(Model model) {
+
+	}
+
+	public void delMeLesson(Model model) {
+
+	}
+
+	public void meConfig(Model model) {
+		this.mav.setViewName("meConfig");
+
+
+	}
 
 
 
-public ModelAndView modMeMg(Model model) {
-	me = new Members();
-	me = (Members) model.getAttribute("Member");
-	mu.modMeMg(me);
-	return mav;
-}
+	public ModelAndView modMeMg(Model model) {
+		Members me = new Members();
+		me = (Members) model.getAttribute("Member");
+		mu.modMeMg(me);
+		return mav;
+	}
 
-public ModelAndView  delMe(Model model) {
-	mu.delMe(me) ;
-	String page = "/infoLine";
-	this.mav.setViewName(page);
-	return mav;
+	public ModelAndView  delMe(Model model) {
+		Members me = new Members();
+		mu.delMe(me) ;
+		String page = "/infoLine";
+		this.mav.setViewName(page);
+		return mav;
 
-}
+	}
 
-public void infoLine(Model model) {
-	String page = "/infoLine";
-	this.mav.setViewName(page);
+	public void infoLine(Model model) {
+		String page = "/infoLine";
+		this.mav.setViewName(page);
 
-}
+	}
 
 
 

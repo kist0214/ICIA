@@ -15,12 +15,12 @@ public class Lessons {
 
 	private String lsMeCount;
 	private String lsCaCode;
-	private String lsCaName;
-	
+	private String caName;
+	private int lpQty;
 	//수업예약
 	
 	
 	//수업결제
-	private String lpCaCode;
-	private String lpPrice;
+	private String caCode;
+	private int lpPrice;
 }

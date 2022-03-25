@@ -100,7 +100,7 @@
 					<option selected value="1">회원유형</option>
 					<option value='meName'>이름</option>
 					<option value='meNumber'>연락처</option>
-					<option value='M1'>일반</option>
+					<option value='L0'>일반</option>
 					<option value='M2'>만료</option>
 					<option value='L1'>PT</option>
 					<option value='L2'>요가</option>
@@ -127,7 +127,7 @@
 			</div>
 		</div>
 <table id="ajax"></table>
-<div class="mModal" id="mModal">
+<div class="mModal" id="gModal">
 		<div class="memberLog">
 			<div class="mContent">
 				<div class="mheader">

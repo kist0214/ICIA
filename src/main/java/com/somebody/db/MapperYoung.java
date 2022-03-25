@@ -40,4 +40,8 @@ public interface MapperYoung {
 	public List<Members> searchMeList(Members me);
 	public List<Members> searchMeList2(Members me);
 	public List<Members> searchMeList3(Members me);
+	public List<Members> getLsCaList(Members me);
+	public int insMg(Members me);
+	public int insMgL0(Members me);
+	public int insPa(Members me);
 }

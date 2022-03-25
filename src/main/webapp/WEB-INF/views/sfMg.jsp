@@ -67,8 +67,9 @@
 }
 </style>
 <title>StaffManament</title>
-<script type="res/js/bon.js"></script>
-<script src="res/js/Dong.js" src="res/js/resource.js"></script>
+<script src="res/js/bon.js"></script>
+<script src="res/js/Dong.js"></script>
+<script src="res/js/resource.js"></script>
 
 
 
