@@ -90,7 +90,7 @@ public class Staff extends CommonMethod {
 		
 			tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,
 					false);
-			model.addAttribute("searchSfMg", this.md.searchSfMg(sf));
+			model.addAttribute("sfList", this.md.searchSfMg(sf));
 			tranend(true);
 		
 	}

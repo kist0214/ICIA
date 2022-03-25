@@ -56,7 +56,7 @@ function searchSfMg(ctcode){
 
 let json = [];
 
-	json.push({"ctCode":ctcode,"caCode":searchText,"sfName":searchSf});
+	json.push({ctCode:ctcode,caCode:searchText,caName:searchSf});
 	if(searchSf==""){
 		sfMg(ctCode);
 	}else{
@@ -220,12 +220,6 @@ function openModalIn() {
 
 }
 
-function getLsCaList() {
-	
-	let container2 = document.getElementById("container2")[0];
-	container2.style.filter = "alpha(Opacity=50)";
-	container2.style.display = "block";
-}
  function closeModal() {
 		let container = document.getElementById("container");
 		container.style.display = "none";
@@ -450,9 +444,11 @@ function lsList(jsonData) {
 			msg.placeholder="입력해주세요.";}
 }
 
-function searchLesson(ctcode){
+function searchLessond(ctcode){
+	alert(date);
+	
 	alert(ctcode);
-	const searchText1 = document.getElementById("searchLsMenu1");
+	const searchText1 = document.getElementById("date");
 	const searchLs = document.getElementsByClassName("searchLesson")[0].value;
 	alert(searchText1);
 	alert(searchLs);
@@ -464,10 +460,42 @@ function searchLesson(ctcode){
 	}else{
 		const data = JSON.stringify(json);
 		getAjax("ajax/searchLesson", data, "lsList", false);
-	}}
+	}
+   }
 	
-	
-	function makeForm(fname, faction, fmethod){
+function insLsPay() {
+	let ctcode = document.getElementsByName("ctCode")[0].value;
+	let cacode = document.getElementsByName("caCode")[0].value;
+	let qty =  document.getElementsByName("lpQty")[0].value;
+	let price =  document.getElementsByName("lpPrice")[0].value;
+		
+
+	let json = [];
+	json.push({"ctCode": ctcode, "caCode": cacode ,"lpQty" : qty, "lpPrice" : price});
+	const clientData = JSON.stringify(json);
+	getAjax("ajax/insLsPay", clientData, "insLsPay", false);
+
+}
+
+function insLesson() {
+	let ctcode = document.getElementsByName("ctCode")[0].value;
+	let sfcode = document.getElementsByName("sfCode")[0].value;
+	let lsname =  document.getElementsByName("lsName")[0].value;
+	let lsopen =  document.getElementsByName("lsOpen")[0].value;
+	let sfname =  document.getElementsByName("sfName")[0].value;
+	let date =  document.getElementsByName("day")[0].value;
+	let lsmecount =  document.getElementsByName("lsMeCount")[0].value;
+	let lscaname =  document.getElementsByName("lsCaName")[0].value;	
+	let json = [];
+	json.push({"ctCode": ctcode, "sfCode": sfcode , "lsName" : lsname , "lsOpen" : lsopen , "sfName" : sfname , "day" : date, "lsMeCount" : lsmecount, "lsCaName" : lscaname});
+	const clientData = JSON.stringify(json);
+	getAjax("ajax/insLesson", clientData, "lsList", false);
+
+}
+
+
+
+function makeForm(fname, faction, fmethod){
 	const form = document.createElement("form");
 	if(fname != ""){form.setAttribute("name", fname);}
 	form.setAttribute("action", faction);
