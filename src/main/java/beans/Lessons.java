@@ -7,8 +7,10 @@ import lombok.Data;
 
 @Data
 public class Lessons {
+
 	
 	private String meCode;
+
 	private String ctCode;
 	private String ctName;
 	private String sfCode;
@@ -21,9 +23,9 @@ public class Lessons {
 	private String lsCaCode;
 	private String caCode;
 	private String caName;
+	private String lsCaName;
 	private int lpQty;
 	private String lsMeRemain;
 	private int lpPrice;
-	private String lpCaCode;
 
 }

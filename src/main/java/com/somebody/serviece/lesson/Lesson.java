@@ -103,9 +103,9 @@ public class Lesson extends CommonMethod{
 	}
 
 	public void searchLesson(Lessons ls,Model model) {
-
+		
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		model.addAttribute("lsList",  this.md.lsList(ls));
+		model.addAttribute("searchLesson",  this.md.searchLesson(ls));
 		tranend(true);
 
 	}
@@ -116,8 +116,12 @@ public class Lesson extends CommonMethod{
 	}
 
 	public void insLsPay(Lessons ls,Model model) {
-
-
+		boolean tran = false;
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+			if(this.convertToBoolean(this.md.insLsPay(ls))){
+				tran = true;
+			}
+		tranend(tran);
 	}
 
 	public void getMaxLesson(Lessons ls,Model model) {
@@ -126,8 +130,12 @@ public class Lesson extends CommonMethod{
 	}
 
 	public void insLesson(Lessons ls,Model model) {
-
-
+		boolean tran = false;
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		
+			model.addAttribute("lsList", this.md.lsList(ls));
+			tran = true;
+		tranend(tran);
 	}
 
 	public void modLesson(Lessons ls,Model model) {
