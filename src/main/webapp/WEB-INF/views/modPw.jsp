@@ -29,7 +29,7 @@
 	<div class="solid9"></div>
 	<div class="solid10"></div>
 	<div class="health">
-		<img src="image/health.svg">
+		<img src="res/images/health.svg">
 	</div>
 	<table>
 		<tr>

@@ -4,6 +4,7 @@
 
 
 let list;
+let jspIp;
 
 	
 
@@ -128,7 +129,6 @@ function openModal() {
 }
 function openModal1() {
 	let container =  document.getElementById("container1");
-	container.style.filter = "alpha(Opacity=50)";
 	container.style.display = "block";
 }
 
@@ -234,7 +234,10 @@ function meDtInfo1(data){
 	let STCODE = "M1";
 	for (idx = 0; idx< data.length; idx++){
 	message = '<div>';
-	message += '<table>';
+	message += '<div class="lImg">';
+	message += '<img src="res/images/male.svg" class="image"/>'
+	message += '</div>';
+	message += '<table class="fTable">';
 	message += '<tr><td>회원이름</td><td>'+ data[idx].meName +"("+ data[idx].meBirth +"세,"+data[idx].meGender+')'+'</td></tr>';
 	message += '<tr><td>담당트레이너</td><td>'+data[idx].sfName+'</td></tr><br>';
 	message += '<tr><td>이메일</td><td>'+data[idx].meEmail+'</td></tr><br>';
@@ -242,7 +245,7 @@ function meDtInfo1(data){
 	message += '</table>';
 
  	if(STCODE == ("M1")){
-		message += '<table>';
+		message += '<table class="lTable">';
 		message += '<tr><td>결제일</td><td>'+data[idx].paDate+'</td></tr>';
 		message += '<tr><td>락카번호</td><td>'+data[idx].locker+'</td></tr>';
 		message += '<tr><td>결제금액</td><td>'+data[idx].paTotal+'</td></tr>';

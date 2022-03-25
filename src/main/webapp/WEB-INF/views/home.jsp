@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>HOME</title>
 <link rel="stylesheet" type="text/css" href="res/css/home.css" />
-<script  src="res/js/resource.js" src="res/js/bon.js"    ></script>
+<script src="res/js/resource.js" src="res/js/bon.js"></script>
 
 
 
@@ -57,7 +57,7 @@
 }
 </style>
 </head>
-<body onLoad="closeModalb()">
+<body>
 	<div class=circle></div>
 	<div class=circle2></div>
 	<div class=circle3></div>
