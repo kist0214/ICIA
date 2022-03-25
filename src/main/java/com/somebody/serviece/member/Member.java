@@ -20,6 +20,8 @@ import beans.Lessons;
 import beans.Members;
 @Service
 public class Member extends CommonMethod {
+	private static final int Members = 0;
+
 	@Autowired
 	private MapperBon mb;
 	@Autowired
