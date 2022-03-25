@@ -5,10 +5,17 @@ function YopenModal(){
 	container.style.display = "block";
 }
 
+<<<<<<< HEAD
 function YcloseModal(){
 	let container = document.getElementById("gModal");
 	container.style.display = "none";
 }
+=======
+let list;
+ let jsPIp;
+let datalesson;
+
+>>>>>>> master
 	
 
 	
@@ -31,7 +38,133 @@ function meConfig(ctCode){
       document.body.appendChild(form);
       form.submit();
 }
+<<<<<<< HEAD
 
+=======
+function getMeMg(ctcode){
+	let jsondata = [];
+	jsondata.push({"ctCode":ctcode});
+	const clientdata = JSON.stringify(jsondata);
+	whatsend("ajax/meMg","","getedmelist",false,"post");
+
+}
+function getedmelist(dataa){
+	let jsondata = [];
+	jsondata.push({"ctCode":ctcode});
+	const clientdata = JSON.stringify(jsondata);
+	whatsend("ajax/meMg","","getedmelist",false,"post");
+
+}
+	let data22;
+function getedmelist(json){
+	alert(JSON.stringify(json));
+
+	let body = document.getElementById("ajax");
+	
+	if(json.length>0){
+		data22 = json;
+		data = "<tr><td></td><td>이름</td><td>성별</td><td>연령</td><td>핸드폰</td><td>유형</td></tr>";
+		for(i=0;i<json.length;i++){
+			data += "<tr>";
+			data += "<td><input type=\"radio\" name=\"radibut\"/></td>";
+			data += "<td>"+json[i].meName+"</td>";
+			data += "<td>"+json[i].meGender+"</td>";
+			data += "<td>"+json[i].meBirth+"</td>";
+			data += "<td>"+json[i].meNumber+"</td>";
+			data += "<td>"+json[i].mecaName+"</td>";
+			
+			data += "</tr>"
+		}
+	body.innerHTML = data;
+	}else{const msg = document.getElementsByClassName("select")[0];
+			msg.value = "";
+			msg.placeholder="검색어를 확인해 주세요.";}
+}
+
+function writegoodslist(data){
+	data22 = data;
+	const list =  document.getElementById("list");
+	//let message = '<div><span>상품코드</span><span>상품이름</span><span>상품원가</span><span>상품가격</span><span>상품재고</span><span>상품할인률</span><span>판매상태</span><span>사진</span></div>';
+      while(list.hasChildNodes()){
+			list.removeChild(list.lastChild);
+		}
+	for (idx = 0; idx < data22.length; idx++) {
+		
+		let div = document.createElement("div");
+	div.setAttribute("onClick", "showGoodsinModal("+idx+")");
+	
+	let span1=  document.createElement("span");
+	span1.innerText = data[idx].goCode;
+	let span2=  document.createElement("span");
+	span2.innerText = data[idx].goName;
+	let span3=  document.createElement("span");
+	span3.innerText = data[idx].goPrice;
+	let span4=  document.createElement("span");
+	span4.innerText = data[idx].goDiscount;
+	let span5=  document.createElement("span");
+	span5.innerText = data[idx].goImage;
+	div.appendChild(span1);
+	div.appendChild(span2);
+	div.appendChild(span3);   
+	div.appendChild(span4);   
+	div.appendChild(span5);           
+//속성을 포함해서 넣으면 어펜드, 태그부터 넣을거면 innerhtml, 태그안에 텍스트만 넣을거면 innerText
+  list.appendChild(div);
+     }
+}
+
+//모달에서 상세정보보
+function showGoodsinModal(data){
+	
+	let mheader = document.getElementById("mheader");
+	let mbody = document.getElementById("mbody");
+	//커멘드네임 세팅
+	let modalmod2 =  document.getElementsByName("modalmod")[0];
+
+	modalmod2.setAttribute("onClick", "modGoodsInModal("+idx+")");
+	modalmod2.setAttribute("value","상품정보수정요청");
+	//헤더 수정
+	
+	mheader.innerText = data[idx].meName +"  회원이름"+"<br>";
+	//바디정보
+	let body2 = "<table>"+data[idx].meBrith+"<td>나이"+data[idx].meEmail+"</td><td>이메일</td>"+
+		
+	"<td>매입가"+data[idx].meNumber+"</td>"+"<td>판매가"+data[idx].mePw+"</td>"+
+	"<td>재고"+data[idx].locker+"</td>"+"<td>할인률"+data[idx].meGender+"</td>"+"<td>판매상태"+data2[idx].goStatus+"</td></tr>";
+		mbody.innerHTML = body2;
+	openModal();
+}
+
+
+function modGoodsInModal(idx){
+	//폼 수정
+	let form = document.getElementsByName("dynamicFormdata")[0];
+	form.setAttribute("action", "final/modGoodsInModal");
+	form.setAttribute("method", "post");
+	form.setAttribute("enctype", "multipart/form-data");
+	
+	let formdata = new FormData(form);
+	formdata.append("goCode",data2[idx].goCode);
+	formdata.append("goName",data2[idx].goName);
+	formdata.append("goCost",data2[idx].goCost);
+	formdata.append("goPrice",data2[idx].goPrice);
+	formdata.append("goStatus",data2[idx].goStatus);
+	formdata.append("goDiscount",data2[idx].goDiscount);
+	formdata.append("goImage",files.length>0?data2[idx].goCode +"."+ files[0].type.substring(files[0].type.indexOf("/")+1) :data2[idx].goImage);
+		
+		formdata.append("goStock",data2[idx].goStock);
+	
+		
+		ajaxconnection(form.getAttribute("action"),formdata,"udtedGoodsInfo",false);
+		}
+
+function udtedGoodsInfo(data){
+
+	closeModal();
+	writegoodslist(data);
+	
+}
+>>>>>>> master
 
 
 function openModal() {
@@ -322,7 +455,7 @@ function getPublicIp(pip){
 }
 
 
-function logout(stcode,elcode){
+function logOut(stcode,elcode){
 	
 const form = makeForm("", "AccessOut", "post")
 const StCode = makeInputElement("hidden","StCode",stcode,"");
@@ -387,10 +520,82 @@ function ctLogIn(){
 }
 
 
+function modPw(){
+	let email = document.getElementById("email").value;
+	let pw1 = document.getElementById("pw1").value;
+	let pw2 = document.getElementById("pw2").value;
+	
+	if(pw1 != pw2){
+		alert("비밀번호를 확인해주세요.");
+		/*
+		const msg = "비밀번호를 확인해주세요.";
+		document.getElementById("msg").innerText = msg;*/
+	}else{
+		const hidden1 = makeInputElement("hidden","sfEmail",email,"");
+		const hidden2 = makeInputElement("hidden","sfPw",pw2,"");
+		
+	 const form =  makeForm("","modPw","post");
+
+	form.appendChild(hidden1);
+	form.appendChild(hidden2);
+	document.body.appendChild(form);
+	form.submit();
+	
+	}
+}
+
+
+
+function sendEmail(){
+	
+	
+	let email = document.getElementById("email").value;
+	 
+	const hidden = makeInputElement("hidden","sfEmail",email,"");
+	 const form =  makeForm("","sendEmail","post");
+
+	form.appendChild(hidden);
+	document.body.appendChild(form);
+	form.submit();
+	
+	
+	/*
+	let jsondata = [];
+	jsondata.push({sfEmail:email});
+	
+	const clientdata = JSON.stringify(jsondata);
+	alert(clientdata);
+	whatsend("sendEmail",clientdata,"sendmail",false,"post");
+	*/
+}
+
+
+function checkmail(msg){
+	alert(msg);
+	 msg = document.getElementById("msg");
+	
+	msg.innerHTML = msg;
+	
+	
+}
+function ctLogIn(){
+	
+     let  ip = jsPIp;
+	const hidden = makeInputElement("hidden","ahIp",ip,"");
+	let form = document.getElementsByName("dynamicFormdata2")[0];
+	form.appendChild(hidden);
+	form.submit();
+}
+
+
 function searchMeMg(){
 	let ctcode = document.getElementById("caCode");
 	let mecode = document.getElementById("meName");
 	
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 	let jsondata = [];
 	jsondata.push({"caCode":ctcode,"meName": mecode});
 	
@@ -398,6 +603,121 @@ function searchMeMg(){
 	whatsend("ajax/searchMeMg",clientdata,"getselist",false,"post");
 	
 }
+<<<<<<< HEAD
+=======
+function getselist(data){
+
+	data2 = data;
+	const list =  document.getElementById("list");
+	
+      while(list.hasChildNodes()){
+			list.removeChild(list.lastChild);
+		}
+	for (idx = 0; idx < data2.length; idx++) {
+		
+		let div = document.createElement("div");
+	div.setAttribe("onClick", "showGoodsinModal("+idx+")");
+	
+	let span1=  document.createElement("span");
+	span1.innerText = data[idx].meName;
+	let span2=  document.createElement("span");
+	span2.innerText = data[idx].meGender;
+	let span3=  document.createElement("span");
+	span3.innerText = data[idx].meBirth;
+	let span4=  document.createElement("span");
+	span4.innerText = data[idx].meNumber;
+	let span5=  document.createElement("span");
+	span5.innerText = data[idx].meLsName;
+	div.appendChild(span1);
+	div.appendChild(span2);
+	div.appendChild(span3);   
+	div.appendChild(span4);  
+
+	div.appendChild(span5);           
+//속성을 포함해서 넣으면 어펜드, 태그부터 넣을거면 innerhtml, 태그안에 텍스트만 넣을거면 innerText
+  list.appendChild(div);
+
+}
+	
+}
+
+	function getCenterList(mecode){
+	
+		let jsondata = [];
+		
+	/*	
+	let da =  document.getElementById("da").value;
+	let ti =  document.getElementById("ti").value;
+	let ctcode = document.getElementsByName("searchct")[0].value;
+	let cacode = document.getElementsByName("searchca")[0].value;
+	let text = document.getElementsByName("searchbox")[0].value;
+	*/
+	jsondata.push({"meCode":mecode});
+	const clientdata = JSON.stringify(jsondata);
+	whatsend("ajax/getLessonList",clientdata,"getmectlist",false,"post");
+	
+}
+>>>>>>> master
+
+	function getmectlist(json){
+		 let pjson =JSON.parse(json)
+
+		centerdata = json;
+	let body = document.getElementById("category");
+	
+	if(pjson.length>0){
+		data = "<select name='searchct'>"
+		for(i=0;i<pjson.length;i++){
+			data+=	"<option value='"+pjson[i].ctCode+"'>"+pjson[i].ctName+"</option>"
+		}
+		data+= "</select>"
+		
+		data += "<select name='searchca'> "
+			data+=	"<option value='sfName' >트레이너명</option>"
+			data+=	"<option value='lsName'>수업명</option>"
+			data+= "</select>"
+
+	body.innerHTML = data;
+	}else{const msg = document.getElementsByClassName("select")[0];
+			msg.value = "";
+			msg.placeholder="검색어를 확인해 주세요.";
+			}
+}
+
+
+
+	function getctLessonList(){
+	
+		let jsondata = [];
+	let da =  document.getElementById("da").value;
+
+	let ctcode = document.getElementsByName("searchct")[0].value;
+	let cacode =  document.getElementsByName("searchca")[0].value;
+	let text = document.getElementsByClassName("input")[0].value;
+	alert(da );
+	alert(ctcode );
+	alert(cacode  );
+	alert(text );
+	
+	if(da == null){
+	jsondata.push({ctCode: ctcode,caCode:cacode, meBirth: text });
+	}else {
+	jsondata.push({ctCode: ctcode,meCode:da});
+	}
+	
+	const clientdata = JSON.stringify(jsondata);
+	
+	whatsend("ajax/searchLsMg",clientdata,"getsearchctlslist",false,"post");
+	
+}
+
+
+function getsearchctlslist(data){
+	alert(data);
+	
+}
+
+
 
 function getInbodyModal() {
 	let container =  document.getElementById("containerIn");
@@ -421,6 +741,8 @@ function ctLogInModal() {
 	
 }
 
+
+
 function closeModalb() {
 	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
 	let container =  document.getElementById("container");
@@ -440,6 +762,28 @@ function closeModalb() {
 document.body.appendChild(form);
 		form.submit();
 	}
+	
+	
+	function searchLsMg(){
+	let ctcode = document.getElementById("caCode");
+	alert(ctcode);
+	let mecode = document.getElementById("meName");
+	
+
+	let jsondata = [];
+	jsondata.push({"caCode":ctcode,"meName": mecode});
+	
+	const clientdata = JSON.stringify(jsondata);
+	whatsend("ajax/searchLsMg",clientdata,"getselist",false,"post");
+	
+}
+	
+	
+	
+	
+	
+	
+	
 	
 
 function goGoodsPage(qctCode){
@@ -507,6 +851,17 @@ function goSfPage(ctcode){
 	
 	form.submit();
 }	
+function goHome() {
+	const form = makeForm("", "/", "GET")
+      document.body.appendChild(form);
+      form.submit();	
+}
+
+
+
+
+
+
 
 
 

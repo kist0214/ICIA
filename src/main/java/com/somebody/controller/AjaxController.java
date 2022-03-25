@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.somebody.db.MapperUone;
 import com.somebody.serviece.auth.Authenticaion;
@@ -29,7 +30,7 @@ import beans.Staffs;
 @RestController
 @RequestMapping(value ="/ajax",produces = "application/json;charset=UTF-8")
 public class AjaxController {
-	private static final int Members = 0;
+	
 	@Autowired
 	Authenticaion auth;
 	@Autowired
@@ -48,13 +49,13 @@ public class AjaxController {
 	public AjaxController(){}
 	
 	//Bon
-	@RequestMapping(value = "/modPw", method = RequestMethod.POST)
-	public void modPw(Model model, @RequestBody Centers ct) {
-		this.auth.backController("A06", ct);
-	}
+
+	
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/meMg", method = RequestMethod.POST)
 	public List<Members> meMg(Model model, @RequestBody Members[] me) {
+		
 		this.me.backController("M02",model,me[0]);
 		return (List<Members>)model.getAttribute("meList");
 	}
@@ -263,13 +264,22 @@ public class AjaxController {
 	public void meFoodMg(Model model, @ModelAttribute Members me) {
 		this.me.backController("C06", model);
 	}
+
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/getLessonList", method = RequestMethod.POST)
-	public void getLessonList(Model model, @ModelAttribute Members me) {
-		this.me.backController("C08", model);
+	public List<Members> getLessonList(Model model, @RequestBody  Members[] me) {
+		model.addAttribute("melist",me[0]);
+		 this.me.backController("C08", model);
+	System.out.println(((List<Members>) model.getAttribute("mectlist")).size());
+		 return (List<Members>) model.getAttribute("mectlist");
 	}
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/searchLsMg", method = RequestMethod.POST)
-	public void searchLsMg(Model model, @ModelAttribute Members me) {
+	public List<Lessons> searchLsMg(Model model, @RequestBody  Members[] me) {
+		model.addAttribute("mectlist",me[0]);
+		System.out.println(model.addAttribute("mectlist"));
 		this.me.backController("C09", model);
+		return (List<Lessons>)model.getAttribute("mectlslist");
 	}
 	@RequestMapping(value = "/insMeLesson", method = RequestMethod.POST)
 	public void insMeLesson(Model model, @ModelAttribute Members me) {
@@ -288,6 +298,7 @@ public class AjaxController {
 		model.addAttribute("Member", me[0]);
 		this.me.backController("C15", model);
 	}
+
 
 
 

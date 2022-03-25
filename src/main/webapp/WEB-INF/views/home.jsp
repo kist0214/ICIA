@@ -57,7 +57,7 @@
 }
 </style>
 </head>
-<body onLoad="closeModalb()">
+<body onLoad="initPage()">
 	<div class=circle></div>
 	<div class=circle2></div>
 	<div class=circle3></div>
@@ -112,7 +112,7 @@
 					<input type="button" class="mbtn" value="비밀번호변경"
 						onClick="sendEmailForm()" /> <input type="button" class="mbtn"
 						value="센터가입" onClick="goJoinPage()" />
-
+						
 				</div>
 
 			</div>
@@ -133,7 +133,7 @@
 					<div>Center Business number</div>
 					<input type='text' class='id' name='ctCode'
 						placeholder='사업자번호를 입력하세요' /><br> <br>
-					<div>Staff code</div>
+					<div>Code</div>
 					<input type='text' class='id' name='sfId' placeholder='코드를 입력하세요' /><br>
 					<br>
 					<div>Password</div>

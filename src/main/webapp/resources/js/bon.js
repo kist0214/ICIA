@@ -1,3 +1,4 @@
+
 let jsPIp;
 
 	function ajaxFromData(action, data, fn, method) {
@@ -69,7 +70,6 @@ function whatsend(action, data, fn, content,method) {
 	ajax.send(data);
 }
 
-
 function isEmpty(obj) {
 		let check = true;
 		if (obj.value == "") {
@@ -99,7 +99,6 @@ function makeInputElement(type, name, value, placeholder){
 	return input;
 }
 
-
 function logOut(ct,id){
 	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
 	
@@ -114,8 +113,7 @@ function logOut(ct,id){
    
 }
 
-		
-		
+
 
 
 
