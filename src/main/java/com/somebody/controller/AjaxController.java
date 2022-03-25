@@ -20,6 +20,7 @@ import com.somebody.serviece.staff.Staff;
 
 import beans.Centers;
 import beans.Equipments;
+import beans.Inbodys;
 import beans.Lessons;
 import beans.Members;
 import beans.Pays;
@@ -244,16 +245,19 @@ public class AjaxController {
 
 		//UONE
 		
+		@SuppressWarnings("unchecked")
 		@RequestMapping(value = "/meDtInfo", method = RequestMethod.POST)
-		public List<Members> meDtInfo(Model model,@ModelAttribute Members me) {
-			System.out.println(mu.meDtInfo());
-			this.me.backController("C02",model.addAttribute("me",me));
+		public List<Members> meDtInfo(Model model,@RequestBody Members[] me) {
+			System.out.println(me[0].getCtCode()+me[0].getMeCode());
+			this.me.backController("C02",model.addAttribute("send",me[0]));
 			
 			return (List<Members>)model.getAttribute("list");
 		}
 		@RequestMapping(value = "/meInbodyMg", method = RequestMethod.POST)
-		public void meInbodyMg(Model model, @ModelAttribute Members me) {
-			this.me.backController("C03",  model);
+		public List<Inbodys> meInbodyMg(Model model, @RequestBody Inbodys[] in) {
+			System.out.println("123");
+			this.me.backController("C03",  model.addAttribute("send",in[0]));
+			return (List<Inbodys>)model.getAttribute("list");
 		}
 		@RequestMapping(value = "/insTaState", method = RequestMethod.POST)
 		public void insTaState(Model model, @ModelAttribute Members me) {

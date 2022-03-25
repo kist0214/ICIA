@@ -18,6 +18,7 @@ import com.somebody.db.MapperDong;
 import com.somebody.db.MapperUone;
 import com.somebody.db.MapperYoung;
 
+import beans.Inbodys;
 import beans.Members;
 import kr.co.icia.plzec.services.Encryption;
 import kr.co.icia.plzec.services.ProjectUtils;
@@ -156,12 +157,13 @@ public class Member extends CommonMethod{
 	}
 
 	public void meInbodyMg(Model model) {
-
+		model.addAttribute("list",this.mu.meInbodyMg((Inbodys)model.getAttribute("send")));
+		System.out.println(model.getAttribute("list"));
 	}
 
 	public void meDtInfo(Model model) {
-		
-		model.addAttribute("list",this.mu.meDtInfo());
+
+		model.addAttribute("list",this.mu.meDtInfo((Members)model.getAttribute("send")));
 		System.out.println(model.getAttribute("list"));
 
 	}
@@ -175,7 +177,7 @@ public class Member extends CommonMethod{
 	    	  if(this.my.Count(meList.get(i)).getLpStocks() != null) {
 	    		  stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
 	    	  }
-	         meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
+	      //   meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
 	      }
 	      md.addAttribute("meList", meList);
 	      tranend(true);
