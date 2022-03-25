@@ -22,5 +22,9 @@ public class Inbodys {
 	private String ibDaUnit;
 	private String idCount;
 	private String ibDate;
+	private String daUnit;
+	private String daName;
+	
+	
 	
 }
