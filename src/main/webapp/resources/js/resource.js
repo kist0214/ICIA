@@ -1,14 +1,18 @@
-/**
- * 
- */
 
+function YopenModal(){
+	let container = document.getElementById("gModal");
+	container.style.filter = "alpha(Opacity=50)";
+	container.style.display = "block";
+}
 
-let list;
-
+function YcloseModal(){
+	let container = document.getElementById("gModal");
+	container.style.display = "none";
+}
 	
 
 	
-	function meLessonMg(ctCode){
+function meLessonMg(ctCode){
 	
 	const form = makeForm("", "meLessonMg", "POST")
 	//const ctCode = makeInputElement("hidden","ctCode",ctCode,"")
@@ -27,98 +31,7 @@ function meConfig(ctCode){
       document.body.appendChild(form);
       form.submit();
 }
-	
-function getgoodsList(action, stcode){
-	//let jsondata = [];
-	//jsondata.push({"stCode":stcode});
-	//const clientdata = JSON.stringify(jsondata);
-	whatsend(action,"","writegoodslist",false,"post");
 
-}
-let data22;
-function writegoodslist(data){
-	data22 = data;
-	const list =  document.getElementById("list");
-	//let message = '<div><span>상품코드</span><span>상품이름</span><span>상품원가</span><span>상품가격</span><span>상품재고</span><span>상품할인률</span><span>판매상태</span><span>사진</span></div>';
-      while(list.hasChildNodes()){
-			list.removeChild(list.lastChild);
-		}
-	for (idx = 0; idx < data22.length; idx++) {
-		
-		let div = document.createElement("div");
-	div.setAttribute("onClick", "showGoodsinModal("+idx+")");
-	
-	let span1=  document.createElement("span");
-	span1.innerText = data[idx].goCode;
-	let span2=  document.createElement("span");
-	span2.innerText = data[idx].goName;
-	let span3=  document.createElement("span");
-	span3.innerText = data[idx].goPrice;
-	let span4=  document.createElement("span");
-	span4.innerText = data[idx].goDiscount;
-	let span5=  document.createElement("span");
-	span5.innerText = data[idx].goImage;
-	div.appendChild(span1);
-	div.appendChild(span2);
-	div.appendChild(span3);   
-	div.appendChild(span4);   
-	div.appendChild(span5);           
-//속성을 포함해서 넣으면 어펜드, 태그부터 넣을거면 innerhtml, 태그안에 텍스트만 넣을거면 innerText
-  list.appendChild(div);
-     }
-}
-
-//모달에서 상세정보보
-function showGoodsinModal(data){
-	
-	let mheader = document.getElementById("mheader");
-	let mbody = document.getElementById("mbody");
-	//커멘드네임 세팅
-	let modalmod2 =  document.getElementsByName("modalmod")[0];
-
-	modalmod2.setAttribute("onClick", "modGoodsInModal("+idx+")");
-	modalmod2.setAttribute("value","상품정보수정요청");
-	//헤더 수정
-	
-	mheader.innerText = data[idx].meName +"  회원이름"+"<br>";
-	//바디정보
-	let body2 = "<table>"+data[idx].meBrith+"<td>나이"+data[idx].meEmail+"</td><td>이메일</td>"+
-		
-	"<td>매입가"+data[idx].meNumber+"</td>"+"<td>판매가"+data[idx].mePw+"</td>"+
-	"<td>재고"+data[idx].locker+"</td>"+"<td>할인률"+data[idx].meGender+"</td>"+"<td>판매상태"+data2[idx].goStatus+"</td></tr>";
-		mbody.innerHTML = body2;
-	openModal();
-}
-
-
-function modGoodsInModal(idx){
-	//폼 수정
-	let form = document.getElementsByName("dynamicFormdata")[0];
-	form.setAttribute("action", "final/modGoodsInModal");
-	form.setAttribute("method", "post");
-	form.setAttribute("enctype", "multipart/form-data");
-	
-	let formdata = new FormData(form);
-	formdata.append("goCode",data2[idx].goCode);
-	formdata.append("goName",data2[idx].goName);
-	formdata.append("goCost",data2[idx].goCost);
-	formdata.append("goPrice",data2[idx].goPrice);
-	formdata.append("goStatus",data2[idx].goStatus);
-	formdata.append("goDiscount",data2[idx].goDiscount);
-	formdata.append("goImage",files.length>0?data2[idx].goCode +"."+ files[0].type.substring(files[0].type.indexOf("/")+1) :data2[idx].goImage);
-		
-		formdata.append("goStock",data2[idx].goStock);
-	
-		
-		ajaxconnection(form.getAttribute("action"),formdata,"udtedGoodsInfo",false);
-		}
-
-function udtedGoodsInfo(data){
-
-	closeModal();
-	writegoodslist(data);
-	
-}
 
 
 function openModal() {
@@ -179,7 +92,7 @@ function whatsend(action, data, fn, content,method) {
 	ajax.send(data);
 }
 
-function getAjax(action, data, fn, content ,method) {
+function getAjax(action, data, fn) {
    let ajax = new XMLHttpRequest();
 
    ajax.onreadystatechange = function() {
@@ -326,9 +239,7 @@ function checkMePw3(data){
 		}
 		}
 }
-function modMeMg1(){
-	alert("그러게");
-}
+
 function modMeMg(){
 	let form = document.getElementById("profile2");
 	const meEmail = document.getElementById("meEmail").value;
@@ -396,117 +307,6 @@ function getAjaxJsonUsingJquery(action, clientData, fn) {
 			timeout : 10000
 		});
 	}
-	
-function getmemList(list, stcode, elcode){
-
-	let data = "stCode=" + encodeURIComponent(stcode);
-	
-	//getAjaxJson(list, data, "getedmemlist", "post")
-	
-	
-	getAjaxJsonUsingJquery("ajax/MemberList", data, "getedmemlist");
-	
-}
-
-function getedmemlist(data){
-	 message = '<table><tr><td>매장코드</td><td>회원코드</td><td>회원이름</td><td>회원등급</td></tr>';
-      for (idx = 0; idx < data.length; idx++) {
-         message += '<tr><td>' + data[idx].stCode + '</td><td>'
-               + data[idx].cmCode + '</td><td>' + data[idx].cmName
-               + '</td><td>' + data[idx].cmRank + '</td>';
-         message += '</tr>';
-      }
-      message += '</table>';
-      document.getElementById("list").innerHTML = message;
-	
-}
-function getempList(list, stcode, elcode){
-	
-
-	let data = "stCode=" + encodeURIComponent(stcode)+"&elCode="+encodeURIComponent(elcode);
-	
-	whatsend(list, data, "getedemplist", "post")
-}
-function getedemplist(data){
-	
-	message = '<table><tr><td>매장코드</td><td>직원코드</td><td>직원이름</td><td>직원등급</td></tr>';
-      for (idx = 0; idx < data.length; idx++) {
-         message += '<tr><td>' + data[idx].stCode + '</td><td>'
-               + data[idx].elCode + '</td><td>' + data[idx].elName
-               + '</td><td>' + data[idx].lvCode+ '</td>';
-         message += '</tr>';
-      }
-
-      message += '</table>';
-
-
-      document.getElementById("list").innerHTML = message;
-	
-}
-function isEmpty(obj) {
-		let check = true;
-		if (obj.value == "") {
-			check = false;
-		}
-		return check;
-
-	}
-
-
-
-function makeForm(fname, faction, fmethod){
-	const form = document.createElement("form");
-	if(fname != ""){form.setAttribute("name", fname);}
-	form.setAttribute("action", faction);
-	form.setAttribute("method", fmethod);
-	return form;
-}
-
-function makeInputElement(type, name, value, placeholder){
-	const input = document.createElement("input");
-	input.setAttribute("type", type);
-	input.setAttribute("name", name);
-	if(value != ""){input.setAttribute("value", value);}
-	if(placeholder != ""){input.setAttribute("placeholder", placeholder);}
-	
-	return input;
-}
-
-function getmanagepage(stcode,elcode,lvcode){
-	
-	const form = makeForm("", "GETMANAGEMENTPAGE", "get")
-const StCode = makeInputElement("hidden","StCode",stcode,"");
-const ElCode = makeInputElement("hidden","ElCode",elcode,"");    
-const lvCode = makeInputElement("hidden","lvCode",lvcode,"");
-
-form.appendChild(lvCode);
-form.appendChild(StCode);
-form.appendChild(ElCode);
-      
-      document.body.appendChild(form);
-      form.submit();
-	
-	
-}
-function getsalespage(stcode,elcode,lvcode){
-	
-	const form = makeForm("", "GETSALESPAGE", "get")
-const StCode = makeInputElement("hidden","StCode",stcode,"");
-const ElCode = makeInputElement("hidden","ElCode",elcode,"");    
-
-
-
-form.appendChild(StCode);
-form.appendChild(ElCode);
-      
-      document.body.appendChild(form);
-      form.submit();
-	
-
-}
-
-
-
 
 function initPage(){
 	 whatsend("https://api.ipify.org?format=json","","getPublicIp","Get");
@@ -537,11 +337,6 @@ const PublicIp = makeInputElement("hidden","PublicIp",jsPIp,"");
    
 }
 
-
-
-
-
-
 function makeForm(fname, faction, fmethod){
 	const form = document.createElement("form");
 	if(fname != ""){form.setAttribute("name", fname);}
@@ -569,115 +364,6 @@ function isEmpty(obj) {
 		return check;
 
 	}
-	
-	 
-function auth() {
-
-	
-	const hidden = makeInputElement("hidden","publicIp",jsPIp,"");
-	let form = document.getElementsByName("login")[0];
-	form.appendChild(hidden);
-	
-	const userData = [document.getElementsByName("stCode")[0],
-	document.getElementsByName("elCode")[0],
-	document.getElementsByName("elPassword")[0],
-	document.getElementsByName("publicIp")[0]];
-
-
-	
- 	message = ["매장코드없음","직원코드없음","직원비번없음","ip안넘어옴"];
-for(let index = 0; index< userData.length; index++){
-	if(!isEmpty(userData[index])){
-		alert(message[index]);
-
-		return;
-	}
-}
-	
-        form.submit();
-	
-      }
-
-
-function ClickOrderList(srCode){
-		let list = document.getElementById("list");
-		
-		while(list.hasChildNodes()){
-			list.removeChild(list.lastChild);
-		}
-					
-	const day = document.querySelector("#date").value;
-	if(day==""){
-		alert("날짜를 선택해주세요.");
-		return;
-	}
-		let data = "srCode=" + encodeURIComponent(srCode)+"&otDate="+encodeURIComponent(day);
-	//alert(data);
-	whatsend("GetOrderInfo",data, "addOrders");
-	
-		}
-
-
-	
-	
-
-
-	
-
-function addOrders (ordersInfo) {
-
-	let list = document.getElementById("list");	
-	if(Object.keys(ordersInfo).length != 0){
-	for (colIndex= 0; colIndex <Object.keys(ordersInfo).length ; colIndex++) {	
-		
-		orderOne[colIndex] = 
-   		"<span id = 'otDate'>"+ordersInfo[colIndex].otDate+"</span>"+'\u00A0'+
-        "<span id = 'otTime'>"+ ordersInfo[colIndex].otTime+"에"+"</span>"+'\u00A0'+
-      	"<span id = 'meCode'>"+ordersInfo[colIndex].meCode+"</span>"+
-        "<span id = 'meName'>"+ordersInfo[colIndex].meName +"</span>"+'\u00A0'+"*"+'\u00A0'+
-        "<span id = 'otQuantity'>"+ordersInfo[colIndex].otQuantity+"개"+"</span>"+'\u00A0'+
-        "<span id = 'cuName'>"+ordersInfo[colIndex].cuName+"</span>"+"("+'\u00A0'+
-        "<span id = 'cuNumber'>"+ordersInfo[colIndex].cuNumber+"</span>"+") 님이"+
-        "<span id = 'stCode'>" +ordersInfo[colIndex].stCode+"</span>"+'\u00A0'+
-        "<span id = 'stName'>"+ordersInfo[colIndex].stName+"</span>"+"하셨습니다.";
-					
-		let div = document.createElement("div");
-		div.setAttribute("class","oneorder");
-		div.innerHTML = orderOne[colIndex];
-				
-			
-		list.appendChild(div);
-	}
-		}else{
-			alert("해당 날짜의 주문이 없습니다.");
-		}
-			
-}
-
-document.onkeydown = function(e){
-	// 새로고침 Ctrl+R Ctrl+N
-	const k = e.keyCode;
-	//F5
-	if(k == 116 || (e.ctrlKey && k == 82)){
-		refresh('1006','1006');
-		e.preventDefault(); //기존이벤트사용하게방지
-		e.returnValue = ''; //크롬필수로 ㄷ리턴값줘야함
-	}
-	
-}
-
-function refresh(stCode, elCode) {
-	
-	const form = makeForm("", "Refresh", "post");
-	const clientData = [makeInputElement("hidden", "stCode", stCode, ""), makeInputElement("hidden", "elCode", elCode, ""), makeInputElement("hidden", "publicIp", publicIp, "")];
-	
-	for(idx=0; idx<clientData.length;idx++){
-		form.appendChild(clientData[idx]);
-	}		
-
-	document.body.appendChild(form);
-	form.submit();
-}
 
 
 function meLogIn(){
@@ -694,11 +380,7 @@ function ctLogIn(){
 	
 	let form = document.getElementsByName("dynamicFormdata2")[0];
 
-	
 	form.appendChild(hidden);
-	
-	
-	
 	
 	form.submit();
 	
@@ -709,54 +391,11 @@ function searchMeMg(){
 	let ctcode = document.getElementById("caCode");
 	let mecode = document.getElementById("meName");
 	
-
-	
-	
 	let jsondata = [];
 	jsondata.push({"caCode":ctcode,"meName": mecode});
 	
 	const clientdata = JSON.stringify(jsondata);
 	whatsend("ajax/searchMeMg",clientdata,"getselist",false,"post");
-	
-}
-function getselist(data){
-
-	data2 = data;
-	const list =  document.getElementById("list");
-	
-      while(list.hasChildNodes()){
-			list.removeChild(list.lastChild);
-		}
-	for (idx = 0; idx < data2.length; idx++) {
-		
-		let div = document.createElement("div");
-	div.setAttribe("onClick", "showGoodsinModal("+idx+")");
-	
-	let span1=  document.createElement("span");
-	span1.innerText = data[idx].meName;
-	let span2=  document.createElement("span");
-	span2.innerText = data[idx].meGender;
-	let span3=  document.createElement("span");
-	span3.innerText = data[idx].meBirth;
-	let span4=  document.createElement("span");
-	span4.innerText = data[idx].meNumber;
-	let span5=  document.createElement("span");
-	span5.innerText = data[idx].meLsName;
-	div.appendChild(span1);
-	div.appendChild(span2);
-	div.appendChild(span3);   
-	div.appendChild(span4);  
-
-	div.appendChild(span5);           
-//속성을 포함해서 넣으면 어펜드, 태그부터 넣을거면 innerhtml, 태그안에 텍스트만 넣을거면 innerText
-  list.appendChild(div);
-
-}
-	
-}
-
-function getPublicIp(pip){
-	jsPIp = pip.ip;
 	
 }
 

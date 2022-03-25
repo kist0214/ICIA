@@ -98,8 +98,6 @@ public class Staff extends CommonMethod{
 	}
 
 	public void insSf(Staffs sf, Model model) {
-System.out.println(sf.getSfRank());
-		System.out.println(this.md.insSf(sf));
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		if(convertToBoolean(this.md.insSf(sf))) {

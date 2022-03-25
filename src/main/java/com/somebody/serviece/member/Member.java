@@ -1,47 +1,32 @@
 package com.somebody.serviece.member;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.somebody.db.CommonMethod;
 import com.somebody.db.MapperBon;
-import com.somebody.db.MapperDong;
 import com.somebody.db.MapperUone;
 import com.somebody.db.MapperYoung;
 
 import beans.Members;
-import kr.co.icia.plzec.services.Encryption;
-import kr.co.icia.plzec.services.ProjectUtils;
-
 @Service
 public class Member extends CommonMethod{
 	@Autowired
 	private MapperBon mb;
-	@Autowired
-	private MapperDong md;
 	@Autowired
 	private MapperYoung my;
 	@Autowired
 	private MapperUone mu;
 	private ModelAndView mav;
 
-	private DataSourceTransactionManager tx;
-
-	private TransactionStatus txStatus;
-
-	private DefaultTransactionDefinition txdef;
-
-	String page = null;
-	Members me;
 	Member(){
 		mav = new ModelAndView();
 	}
@@ -53,10 +38,17 @@ public class Member extends CommonMethod{
 		case "M02":
 			meMg(me, model);
 			break;
+		case "M03":
+			clickExpiration(me, model);
+			break;
+		case "M04":
+			cgetCaList(me, model);
+			break;
 		}
 
 		return mav;
 	}
+
 	public void backController(String sCode, Model model) {
 
 		switch (sCode) {
@@ -132,8 +124,6 @@ public class Member extends CommonMethod{
 
 
 	public ModelAndView backControllerM(String sCode, Model model) {
-		String gs = null;
-		String senddata = null;
 
 		switch (sCode) {
 
@@ -146,6 +136,37 @@ public class Member extends CommonMethod{
 
 
 
+	}
+
+	private void cgetCaList(Members me, Model md) {
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		md.addAttribute("caList", this.my.getLsCaList(me));
+		tranend(true);
+	}
+
+	private void clickExpiration(Members me, Model md) {
+		List<Members> meList = new ArrayList<Members>();
+		boolean tran=false;
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		if(convertToBoolean(this.my.clickExpiration(me))) {
+			tran = true;
+		}
+
+		meList = this.my.meList(me);
+		for(int i=0;i<meList.size();i++) {
+			int stocks=0;
+			for(int j=0;j<this.my.remecode().size();j++) {
+				if(meList.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())) {
+					if(meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
+						stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
+						meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
+					}
+				}
+			}
+			meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
+		}
+		tranend(tran);
+		md.addAttribute("meList", meList);
 	}
 
 	public void goMePage(Model model,Members me) {
@@ -162,7 +183,6 @@ public class Member extends CommonMethod{
 	public void meDtInfo(Model model) {
 
 		model.addAttribute("list",this.mu.meDtInfo());
-		System.out.println(model.getAttribute("list"));
 
 	}
 
@@ -170,7 +190,12 @@ public class Member extends CommonMethod{
 
 		List<Members> meList = new ArrayList<Members>();
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		meList = this.my.meList(me);
+
+		meList =(me.getStCode()==null&&me.getCaCode()==null&&me.getMeCode()==null)? this.my.meList(me):
+			(me.getStCode() != null)? this.my.searchMeList(me):
+				(me.getCaCode()!=null)? this.my.searchMeList2(me):
+					(me.getMeCode()!=null&&me.getMeName()!=null) ? this.my.searchMeList3(me): this.my.meList(me);
+
 		for(int i=0;i<meList.size();i++) {
 			int stocks=0;
 			for(int j=0;j<this.my.remecode().size();j++) {
@@ -181,15 +206,25 @@ public class Member extends CommonMethod{
 					}
 				}
 			}
+
 			meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
+
 		}
 		md.addAttribute("meList", meList);
 		tranend(true);
+	}
+	public void payCriteria(Members me) {
+		LocalDate now = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formatedNow = now.format(formatter);
+		System.out.println(formatedNow);
+
 	}
 
 	public void searchMeMg(Model model) {
 		model.addAttribute("getmemlist",this.mb.searchMeMg((Members)model.getAttribute("sendmelist")));
 	}
+
 
 	public void meDetail(Model model) {
 
@@ -199,8 +234,36 @@ public class Member extends CommonMethod{
 
 	}
 
-	public void addMember(Model model) {
-
+	public void addMember(Model md) {
+		List<Members> ml = new ArrayList<Members>();
+		ml = (List<Members>) md.getAttribute("dataList");
+		boolean tran = false;
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		if(this.convertToBoolean((ml.get(0).getCaCode()=="L0")?this.my.insMgL0(ml.get(0)):
+			this.my.insMg(ml.get(0)))){
+			for(Members ml2:ml) {
+				if(tran=this.convertToBoolean(this.my.insPa(ml2))) {
+				}
+			}
+		}
+		if(tran) {
+			ml = this.my.meList(ml.get(0));
+			for(int i=0;i<ml.size();i++) {
+				int stocks=0;
+				for(int j=0;j<this.my.remecode().size();j++) {
+					if(ml.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())) {
+						if(ml.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
+							stocks = Integer.parseInt(this.my.Count(ml.get(i)).getLpStocks());
+							ml.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
+						}
+					}
+				}
+				ml.get(i).setLpStocks((ml.get(i).getLpQty()-stocks)+"");
+			}
+			tranend(tran);
+			md.addAttribute("ml", ml);
+		}
+		tranend(tran);
 	}
 
 	public void modMe(Model model) {
@@ -251,15 +314,14 @@ public class Member extends CommonMethod{
 
 
 	public ModelAndView modMeMg(Model model) {
-		me = new Members();
+		Members me = new Members();
 		me = (Members) model.getAttribute("Member");
-		System.out.println(me);
-		System.out.println(((Members) model.getAttribute("Member")).getMeBirth()+":"+me.getMeBirth());
 		mu.modMeMg(me);
 		return mav;
 	}
 
 	public ModelAndView  delMe(Model model) {
+		Members me = new Members();
 		mu.delMe(me) ;
 		String page = "/infoLine";
 		this.mav.setViewName(page);
