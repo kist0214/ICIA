@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 let jsPIp;
 
 	function ajaxFromData(action, data, fn, method) {
@@ -69,17 +69,6 @@ function whatsend(action, data, fn, content,method) {
 	
 	ajax.send(data);
 }
-=======
-
-
-
-
-
-
-let data3;
-
->>>>>>> master
-
 
 function isEmpty(obj) {
 		let check = true;
@@ -110,11 +99,6 @@ function makeInputElement(type, name, value, placeholder){
 	return input;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> master
-
 function logOut(ct,id){
 	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
 	
@@ -129,14 +113,7 @@ function logOut(ct,id){
    
 }
 
-<<<<<<< HEAD
-=======
 
-	
-
->>>>>>> master
-		
-		
 
 
 
