@@ -16,7 +16,9 @@ import com.somebody.db.MapperBon;
 import com.somebody.db.MapperUone;
 import com.somebody.db.MapperYoung;
 
+
 import beans.Lessons;
+import beans.Inbodys;
 import beans.Members;
 @Service
 public class Member extends CommonMethod {
@@ -162,11 +164,11 @@ public class Member extends CommonMethod {
 				if(meList.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())) {
 					if(meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
 						stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
-						meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
+						//meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
 					}
 				}
 			}
-			meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
+			//meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
 		}
 		tranend(tran);
 		md.addAttribute("meList", meList);
@@ -181,18 +183,25 @@ public class Member extends CommonMethod {
 	}
 
 	public void meInbodyMg(Model model) {
-
+		model.addAttribute("list",this.mu.meInbodyMg((Inbodys)model.getAttribute("send")));
+		System.out.println(model.getAttribute("list"));
 	}
 
 	public void meDtInfo(Model model) {
 
-		model.addAttribute("list",this.mu.meDtInfo());
+
+		model.addAttribute("list",this.mu.meDtInfo((Members)model.getAttribute("send")));
+		System.out.println(model.getAttribute("list"));
+
 
 	}
 
 	public void meMg(Members me, Model md) {
-		List<Members> meList = new ArrayList<Members>();
-		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+
+		int stocks=0;
+	      List<Members> meList = new ArrayList<Members>();
+	      tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+
 
 		meList =(me.getStCode()==null&&me.getCaCode()==null&&me.getMeCode()==null)? this.my.meList(me):
 			(me.getStCode() != null)? this.my.searchMeList(me):
@@ -200,17 +209,17 @@ public class Member extends CommonMethod {
 					(me.getMeCode()!=null&&me.getMeName()!=null) ? this.my.searchMeList3(me): this.my.meList(me);
 
 		for(int i=0;i<meList.size();i++) {
-			int stocks=0;
+			//int stocks=0;
 			for(int j=0;j<this.my.remecode().size();j++) {
 				if(meList.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())) {
 					if(meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
 						stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
-						meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
+						//meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
 					}
 				}
 			}
 
-			meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
+			//meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
 
 		}
 		md.addAttribute("meList", meList);
@@ -258,11 +267,11 @@ public class Member extends CommonMethod {
 					if(ml.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())) {
 						if(ml.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
 							stocks = Integer.parseInt(this.my.Count(ml.get(i)).getLpStocks());
-							ml.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
+							//ml.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
 						}
 					}
 				}
-				ml.get(i).setLpStocks((ml.get(i).getLpQty()-stocks)+"");
+				//ml.get(i).setLpStocks((ml.get(i).getLpQty()-stocks)+"");
 			}
 			tranend(tran);
 			md.addAttribute("ml", ml);

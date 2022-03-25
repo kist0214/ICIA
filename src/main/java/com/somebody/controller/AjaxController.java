@@ -22,6 +22,7 @@ import com.somebody.serviece.staff.Staff;
 
 import beans.Centers;
 import beans.Equipments;
+import beans.Inbodys;
 import beans.Lessons;
 import beans.Members;
 import beans.Pays;
@@ -163,66 +164,68 @@ public class AjaxController {
 		
 
 
-
-
-	//UONE
-
-	@RequestMapping(value = "/meDtInfo", method = RequestMethod.POST)
-	public List<Members> meDtInfo(Model model,@ModelAttribute Members me) {
-		this.me.backController("C02",model.addAttribute("me",me));
-
-		return (List<Members>)model.getAttribute("list");
-	}
-	@RequestMapping(value = "/meInbodyMg", method = RequestMethod.POST)
-	public void meInbodyMg(Model model, @ModelAttribute Members me) {
-		this.me.backController("C03",  model);
-	}
-	@RequestMapping(value = "/insTaState", method = RequestMethod.POST)
-	public void insTaState(Model model, @ModelAttribute Members me) {
-		this.me.backController("C04", model);
-	}
-	@RequestMapping(value = "/meHealthMg", method = RequestMethod.POST)
-	public void meHealthMg(Model model, @ModelAttribute Members me) {
-		this.me.backController("C05", model);
-	}
-	@RequestMapping(value = "/meFoodMg", method = RequestMethod.POST)
-	public void meFoodMg(Model model, @ModelAttribute Members me) {
-		this.me.backController("C06", model);
-	}
-
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/getLessonList", method = RequestMethod.POST)
-	public List<Members> getLessonList(Model model, @RequestBody  Members[] me) {
-		model.addAttribute("melist",me[0]);
-		 this.me.backController("C08", model);
-	System.out.println(((List<Members>) model.getAttribute("mectlist")).size());
-		 return (List<Members>) model.getAttribute("mectlist");
-	}
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/searchLsMg", method = RequestMethod.POST)
-	public List<Lessons> searchLsMg(Model model, @RequestBody  Members[] me) {
-		model.addAttribute("mectlist",me[0]);
-		System.out.println(model.addAttribute("mectlist"));
-		this.me.backController("C09", model);
-		return (List<Lessons>)model.getAttribute("mectlslist");
-	}
-	@RequestMapping(value = "/insMeLesson", method = RequestMethod.POST)
-	public void insMeLesson(Model model, @ModelAttribute Members me) {
-		this.me.backController("C10", model);
-	}
-	@RequestMapping(value = "/delMeLesson", method = RequestMethod.POST)
-	public void delMeLesson(Model model, @ModelAttribute Members me) {
-		this.me.backController("C11", model);
-	}
-	@RequestMapping(value = "/checkMePw", method = RequestMethod.POST)
-	public void checkMePw(Model model, @ModelAttribute Members me) {
-		this.auth.backControllerME("C14",model);
-	}
-	@RequestMapping(value = "/modMeMg", method = RequestMethod.POST)
-	public void modMeMg(Model model, @RequestBody Members[] me) {
-		model.addAttribute("Member", me[0]);
-		this.me.backController("C15", model);
-	}
+		//UONE
+		
+		@SuppressWarnings("unchecked")
+		@RequestMapping(value = "/meDtInfo", method = RequestMethod.POST)
+		public List<Members> meDtInfo(Model model,@RequestBody Members[] me) {
+			System.out.println(me[0].getCtCode()+me[0].getMeCode());
+			this.me.backController("C02",model.addAttribute("send",me[0]));
+			
+			return (List<Members>)model.getAttribute("list");
+		}
+		@RequestMapping(value = "/meInbodyMg", method = RequestMethod.POST)
+		public List<Inbodys> meInbodyMg(Model model, @RequestBody Inbodys[] in) {
+			System.out.println("123");
+			this.me.backController("C03",  model.addAttribute("send",in[0]));
+			return (List<Inbodys>)model.getAttribute("list");
+		}
+		@RequestMapping(value = "/insTaState", method = RequestMethod.POST)
+		public void insTaState(Model model, @ModelAttribute Members me) {
+			this.me.backController("C04", model);
+		}
+		@RequestMapping(value = "/meHealthMg", method = RequestMethod.POST)
+		public void meHealthMg(Model model, @ModelAttribute Members me) {
+			this.me.backController("C05", model);
+		}
+		@RequestMapping(value = "/meFoodMg", method = RequestMethod.POST)
+		public void meFoodMg(Model model, @ModelAttribute Members me) {
+			this.me.backController("C06", model);
+		}
+		@SuppressWarnings("unchecked")
+		@RequestMapping(value = "/getLessonList", method = RequestMethod.POST)
+		public List<Members> getLessonList(Model model, @RequestBody  Members[] me) {
+			model.addAttribute("melist",me[0]);
+			 this.me.backController("C08", model);
+		System.out.println(((List<Members>) model.getAttribute("mectlist")).size());
+			 return (List<Members>) model.getAttribute("mectlist");
+		}
+		@SuppressWarnings("unchecked")
+		@RequestMapping(value = "/searchLsMg", method = RequestMethod.POST)
+		public List<Lessons> searchLsMg(Model model, @RequestBody  Members[] me) {
+			model.addAttribute("mectlist",me[0]);
+			System.out.println(model.addAttribute("mectlist"));
+			this.me.backController("C09", model);
+			return (List<Lessons>)model.getAttribute("mectlslist");
+		}
+		
+		@RequestMapping(value = "/insMeLesson", method = RequestMethod.POST)
+		public void insMeLesson(Model model, @ModelAttribute Members me) {
+			this.me.backController("C10", model);
+		}
+		@RequestMapping(value = "/delMeLesson", method = RequestMethod.POST)
+		public void delMeLesson(Model model, @ModelAttribute Members me) {
+			this.me.backController("C11", model);
+		}
+		@RequestMapping(value = "/checkMePw", method = RequestMethod.POST)
+		public void checkMePw(Model model, @ModelAttribute Members me) {
+			this.auth.backControllerME("C14",model);
+		}
+		@RequestMapping(value = "/modMeMg", method = RequestMethod.POST)
+		public void modMeMg(Model model, @RequestBody Members[] me) {
+			model.addAttribute("Member", me[0]);
+			this.me.backController("C15", model);
+		}
 
 
 

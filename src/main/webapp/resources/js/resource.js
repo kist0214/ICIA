@@ -91,7 +91,7 @@ function whatsend(action, data, fn, content,method) {
 		
 			if (ajax.readyState == 4 && ajax.status == 200) {
 		
-			window[fn](ajax.responseText);
+			window[fn](JSON.parse(ajax.responseText));
 		}
 	};
 	
@@ -133,12 +133,17 @@ function getAjax1(action, data, fn, content ,method) {
 
    ajax.open("post", action, true);
    ajax.setRequestHeader("Content-type",
-         "application/x-www-form-urlencoded");
+         "application/json;charset=utf-8");
    ajax.send(data);
 }
 
 function meProfile(){
-	getAjax("ajax/meDtInfo","","modProfileInfo",false,"post");
+	let jsondata = [];
+	const mmeCode = "10001";
+	const cctCode = "1234567890";
+	jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
+	const clientData = JSON.stringify(jsondata);
+	whatsend("ajax/meDtInfo",clientData,"modProfileInfo",false,"post");
 }
 
 
@@ -152,13 +157,20 @@ function modProfileInfo(data){
 }
 }
 
-function meDtInf(){
-	getAjax("ajax/meDtInfo","","meDtInfo1",false,"post");
+function meDtInf(ctCode,meCode){
+	let jsondata = [];
+	const mmeCode = "10001";
+	const cctCode = "1234567890";
+	jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
+	const clientData = JSON.stringify(jsondata);
+	
+	whatsend("ajax/meDtInfo",clientData,"meDtInfo1",false,"post");
 	
 }
 
 function meDtInfo1(data){
 	let STCODE = "M1";
+	alert(data[0].value);
 	for (idx = 0; idx< data.length; idx++){
 	message = '<div>';
 	message += '<table>';
@@ -167,7 +179,6 @@ function meDtInfo1(data){
 	message += '<tr><td>이메일</td><td>'+data[idx].meEmail+'</td></tr><br>';
 	message += '<tr><td>연락처</td><td>'+data[idx].meNumber+'</td></tr>';
 	message += '</table>';
-
  	if(STCODE == ("M1")){
 		message += '<table>';
 		message += '<tr><td>결제일</td><td>'+data[idx].paDate+'</td></tr>';
@@ -181,20 +192,75 @@ function meDtInfo1(data){
       document.getElementById("list").innerHTML = message;
 }
 
+function meInbodyMg(){
+	let jsondata = [];
+	const mmeCode = "10001";
+	const cctCode = "1234567890";
+	jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
+	const clientData = JSON.stringify(jsondata);
+	alert(jsondata[0].ctCode);
+		whatsend("ajax/meInbodyMg",clientData,"meInbodyMg1",false,"post");
+}
+
+function meInbodyMg1(data){
+	alert(data.value);
+	message = '<div>';
+	message += '<table>';
+	message += '<tr><td>'+data[9].daName+'</td><td>'+ data[9].idCount +"&nbsp"+data[9].daUnit+'</td></tr>';
+	message += '<tr><td>'+data[1].daName+'</td><td>'+ data[1].idCount +"&nbsp"+data[1].daUnit+'</td></tr>';
+	message += '<tr><td>'+data[10].daName+'</td><td>'+ data[10].idCount +"&nbsp"+data[10].daUnit+'</td></tr>';
+	message += '</table>'+'<br>';
+ 	
+		message += '<table>';
+		message += '<tr><td>'+data[2].daName+'</td><td>'+ data[2].idCount +"&nbsp"+data[2].daUnit+'</td></tr>';
+		message += '<tr><td>'+data[0].daName+'</td><td>'+ data[0].idCount +"&nbsp"+data[0].daUnit+'</td></tr>';
+		message += '<tr><td>'+data[3].daName+'</td><td>'+ data[3].idCount +"&nbsp"+data[3].daUnit+'</td></tr>';
+		message += '<tr><td>'+data[6].daName+'</td><td>'+ data[6].idCount +"&nbsp"+data[6].daUnit+'</td></tr>';
+		message += '<tr><td>'+data[5].daName+'</td><td>'+ data[5].idCount +"&nbsp"+data[5].daUnit+'</td></tr>';
+		message += '<tr><td>'+data[4].daName+'</td><td>'+ data[4].idCount +"&nbsp"+data[4].daUnit+'</td></tr>';
+		message += '<tr><td>'+data[8].daName+'</td><td>'+ data[8].idCount +"&nbsp"+data[8].daUnit+'</td></tr>';
+		message += '<tr><td>'+data[7].daName+'</td><td>'+ data[7].idCount +"&nbsp"+data[7].daUnit+'</td></tr>';
+		message += '</table>';
+		message += '</div>';
+		
+		message = '<div>';
+		message += '<table>';
+		message += '<tr><td>'+'목표운동량'+'</tr></td>';
+		message += '<tr><td>'+'운동명'+ '&nbsp&nbsp' +'</tr></td>';
+		message += '</table>';
+		message += '</div>';
+	
+      document.getElementById("list").innerHTML = message;
+}
+
 function checkMePw(){
-		getAjax("ajax/meDtInfo","","checkMePw1",false,"post");
+	let jsondata = [];
+	const mmeCode = "10001";
+	const cctCode = "1234567890";
+	jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
+	const clientData = JSON.stringify(jsondata);
+	alert(jsondata[0].ctCode);
+		whatsend("ajax/meDtInfo",clientData,"checkMePw1",false,"post");
 		alert("ss");
 	}
 
 function checkMePw2(){
-		getAjax("ajax/meDtInfo","","checkMePw3",false,"post");
+	let jsondata = [];
+	const mmeCode = "10001";
+	const cctCode = "1234567890";
+	jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
+	const clientData = JSON.stringify(jsondata);
+	alert(jsondata[0].ctCode);
+		whatsend("ajax/meDtInfo",clientData,"checkMePw3",false,"post");
 		alert("ㅇㅇ");
 	}
 
 function checkMePw3(data){
 	const list = document.getElementById("profile");
 	const list2 = document.getElementById("profile2");
+	
 	for(idx = 0; idx< data.length; idx++){
+		alert(data[idx].mePw);
 		if(data[idx].mePw == document.getElementById("mePw1").value){
 			while(list2.hasChildNodes()){
 			list2.removeChild(list2.lastChild);
@@ -248,8 +314,6 @@ function checkMePw3(data){
 			list2.appendChild(input6);
 			closeModal1();
 		}else{
-			alert("1234");
-			alert(data[idx].mePw);
 		}
 		}
 }
