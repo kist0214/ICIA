@@ -16,7 +16,6 @@ public class Staffs extends Pays {
 	private String ahTime;
 	private String ahIp;
 	private String ahType;
-	
 	private String caCode;
 	private String caName;
 }

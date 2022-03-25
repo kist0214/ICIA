@@ -19,6 +19,7 @@ import com.somebody.serviece.member.Member;
 import com.somebody.serviece.pay.Pay;
 import com.somebody.serviece.staff.Staff;
 
+
 import beans.Centers;
 import beans.Equipments;
 import beans.Lessons;
@@ -80,6 +81,7 @@ public class AjaxController {
 	}
 
 	//Dong
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/sfMg")
 	public List<Staffs> sfMg(Model model, @RequestBody Staffs[] sf) {
@@ -136,68 +138,76 @@ public class AjaxController {
 	public void getLsCaList(Model model, @RequestBody Lessons[] ls) {
 		this.lss.backController("L03",ls[0],model);
 	}*/
+
 	@RequestMapping(value = "/insLsPay", method = RequestMethod.POST)
-	public void insLsPay(Model model, @RequestBody Lessons[] ls) {
+	public List<Lessons> insLsPay(Model model, @RequestBody Lessons[] ls) {
 		this.lss.backController("L04",ls[0],model);
+		return (List<Lessons>)model.getAttribute("insLsPay");
 	}
 	@RequestMapping(value = "/getMaxLesson", method = RequestMethod.POST)
 	public void getMaxLesson(Model model, @RequestBody Lessons[] ls) {
 		this.lss.backController("L05",ls[0],model);
 	}
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/insLesson", method = RequestMethod.POST)
-	public void insLesson(Model model, @RequestBody Lessons[] ls) {
+	public List<Lessons> insLesson(Model model, @RequestBody Lessons[] ls) {
 		this.lss.backController("L06",ls[0],model);
+		return (List<Lessons>)model.getAttribute("insLesson");
 	}
 
 
 
 
-	//Yong
-	@RequestMapping(value = "/modLesson", method = RequestMethod.POST)
-	public void modLesson(Model model, @ModelAttribute Lessons[] ls) {
-		this.lss.backController("L09",ls[0], model);
-	}
-	@RequestMapping(value = "/lsMemDetail", method = RequestMethod.POST)
-	public void lsMemDetail(Model model, @ModelAttribute Lessons[] ls) {
-		this.lss.backController("L10",ls[0],model);
-	}
+		
+		
+		
+		//Yong
+		@RequestMapping(value = "/modLesson", method = RequestMethod.POST)
+		public void modLesson(Model model, @ModelAttribute Lessons[] ls) {
+			this.lss.backController("L09",ls[0], model);
+		}
+		@RequestMapping(value = "/lsMemDetail", method = RequestMethod.POST)
+		public void lsMemDetail(Model model, @ModelAttribute Lessons[] ls) {
+			this.lss.backController("L10",ls[0],model);
+		}
+		
+		@RequestMapping(value = "/modLsSuccess", method = RequestMethod.POST)
+		public void modLsSuccess(Model model, @ModelAttribute Lessons[] ls) {
+			this.lss.backController("L11",ls[0],model);
+		}
+		@RequestMapping(value = "/delLesson", method = RequestMethod.POST)
+		public void delLesson(Model model, @ModelAttribute Lessons[] ls) {
+			this.lss.backController("L12",ls[0],model);
+		}
+		@RequestMapping(value = "/goodsMg", method = RequestMethod.POST)
+		public List<Equipments> goodsMg(Model model, @RequestBody Equipments[] eq) {
+			this.eq.backController("G02",eq[0], model);
+			return (List<Equipments>) model.getAttribute("goodsList");
+		}
+		
+		@RequestMapping(value = "/searchGoods", method = RequestMethod.POST)
+		public List<Equipments> searchGoods(Model model, @RequestBody Equipments[] eq) {
+			this.eq.backController("G03",eq[0], model);
+			return (List<Equipments>) model.getAttribute("searchGoods");
+		}
+		@RequestMapping(value = "/getGoCaList", method = RequestMethod.POST)
+		public List<Equipments> getGoCaList(Model model, @RequestBody Equipments[] eq) {
+			this.eq.backController("G06", eq[0],model);
+			return (List<Equipments>) model.getAttribute("getGoCaList");
+		}
+		@RequestMapping(value = "/getGoodsCode", method = RequestMethod.POST)
+		public List<Equipments> getGoodsCode(Model model, @RequestBody Equipments[] eq) {
+			this.eq.backController("G04", eq[0], model);
+			return (List<Equipments>) model.getAttribute("getEqCode");
+		}
+		@RequestMapping(value = "/insGoods", method = RequestMethod.POST)
+		public List<Equipments> insGoods(Model model, @RequestBody Equipments[] eq) {
+			this.eq.backController("G05", eq[0], model);
+			return (List<Equipments>) model.getAttribute("goodsList");
+		}
+		@RequestMapping(value = "/modGoods", method = RequestMethod.POST)
+		public List<Equipments> modGoods(Model model, @RequestBody Equipments[] eq) {
 
-	@RequestMapping(value = "/modLsSuccess", method = RequestMethod.POST)
-	public void modLsSuccess(Model model, @ModelAttribute Lessons[] ls) {
-		this.lss.backController("L11",ls[0],model);
-	}
-	@RequestMapping(value = "/delLesson", method = RequestMethod.POST)
-	public void delLesson(Model model, @ModelAttribute Lessons[] ls) {
-		this.lss.backController("L12",ls[0],model);
-	}
-	@RequestMapping(value = "/goodsMg", method = RequestMethod.POST)
-	public List<Equipments> goodsMg(Model model, @RequestBody Equipments[] eq) {
-		this.eq.backController("G02",eq[0], model);
-		return (List<Equipments>) model.getAttribute("goodsList");
-	}
-
-	@RequestMapping(value = "/searchGoods", method = RequestMethod.POST)
-	public List<Equipments> searchGoods(Model model, @RequestBody Equipments[] eq) {
-		this.eq.backController("G03",eq[0], model);
-		return (List<Equipments>) model.getAttribute("searchGoods");
-	}
-	@RequestMapping(value = "/getGoCaList", method = RequestMethod.POST)
-	public List<Equipments> getGoCaList(Model model, @RequestBody Equipments[] eq) {
-		this.eq.backController("G06", eq[0],model);
-		return (List<Equipments>) model.getAttribute("getGoCaList");
-	}
-	@RequestMapping(value = "/getGoodsCode", method = RequestMethod.POST)
-	public List<Equipments> getGoodsCode(Model model, @RequestBody Equipments[] eq) {
-		this.eq.backController("G04", eq[0], model);
-		return (List<Equipments>) model.getAttribute("getEqCode");
-	}
-	@RequestMapping(value = "/insGoods", method = RequestMethod.POST)
-	public List<Equipments> insGoods(Model model, @RequestBody Equipments[] eq) {
-		this.eq.backController("G05", eq[0], model);
-		return (List<Equipments>) model.getAttribute("goodsList");
-	}
-	@RequestMapping(value = "/modGoods", method = RequestMethod.POST)
-	public List<Equipments> modGoods(Model model, @RequestBody Equipments[] eq) {
 		System.out.println("01. "+eq[0].getCtCode());
 		this.eq.backController("G07", eq[0], model);
 		return (List<Equipments>) model.getAttribute("modGoods");
