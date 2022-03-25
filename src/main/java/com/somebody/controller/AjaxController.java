@@ -269,13 +269,28 @@ public class AjaxController {
 		public void meFoodMg(Model model, @ModelAttribute Members me) {
 			this.me.backController("C06", model);
 		}
+		
+		
+		
+		
+		
+		//ㅇㄷㄹㄷㄹㄷ
+		
+		@SuppressWarnings("unchecked")
 		@RequestMapping(value = "/getLessonList", method = RequestMethod.POST)
-		public void getLessonList(Model model, @ModelAttribute Members me) {
-			this.me.backController("C08", model);
+		public List<Members> getLessonList(Model model, @RequestBody  Members[] me) {
+			model.addAttribute("melist",me[0]);
+			 this.me.backController("C08", model);
+		System.out.println(((List<Members>) model.getAttribute("mectlist")).size());
+			 return (List<Members>) model.getAttribute("mectlist");
 		}
+		@SuppressWarnings("unchecked")
 		@RequestMapping(value = "/searchLsMg", method = RequestMethod.POST)
-		public void searchLsMg(Model model, @ModelAttribute Members me) {
+		public List<Lessons> searchLsMg(Model model, @RequestBody  Members[] me) {
+			model.addAttribute("mectlist",me[0]);
+			System.out.println(model.addAttribute("mectlist"));
 			this.me.backController("C09", model);
+			return (List<Lessons>)model.getAttribute("mectlslist");
 		}
 		@RequestMapping(value = "/insMeLesson", method = RequestMethod.POST)
 		public void insMeLesson(Model model, @ModelAttribute Members me) {

@@ -247,9 +247,11 @@ public class Authenticaion extends CommonMethod {
 	}
 
 	public ModelAndView meLogin(Model model) {
+		System.out.println(enc.encode(((Members) model.getAttribute("send")).getMePw()));
 
 		String pw = mb.meLogin((Members) model.getAttribute("send"));
 		System.out.println(((Members) model.getAttribute("send")).getMePw() + "여기비번");
+		System.out.println(pw);
 
 		this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,
 				false);
@@ -257,30 +259,33 @@ public class Authenticaion extends CommonMethod {
 		try {
 			if ((String) this.pu.getAttribute("meInfo") == null) {
 				System.out.println(11);
+				this.message = "세션끄세요.";
+				this.mav.addObject("meCode",this.message);
 				if (pw != null) {
 					System.out.println(22);
-					if (enc.matches(((Members) model.getAttribute("send")).getMePw(), pw)) {
+					this.message = "비번 안왔어요";
+					this.mav.addObject("meCode",this.message);
+					if (enc.matches(((Members) model.getAttribute("send")).getMePw(),enc.encode(pw))) {
 						System.out.println(33);
 						// 로그인 기록은 센터만
 
-						System.out.println(this.mb.meInfo((Members) model.getAttribute("send")));
-
+					
 						this.mav.addObject("meInfo", this.mb.meInfo((Members) model.getAttribute("send")));
 						tran = true;
 						this.tranend(tran);
 						pu.setAttribute("meInfo", this.mb.meInfo((Members) model.getAttribute("send")));
-						session.setMaxInactiveInterval(30 * 30);
+						session.setMaxInactiveInterval(100 * 100);
 
 						this.mav.setViewName("infoLine");
 
 					} else {
 						this.message = "비밀번호가 일치하지 않습니다.";
-						this.mav.addObject(this.message);
+						this.mav.addObject("meCode",this.message);
 					}
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 

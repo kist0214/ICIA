@@ -7,6 +7,7 @@ import java.util.List;
 
 import beans.Centers;
 import beans.Inbodys;
+import beans.Lessons;
 import beans.Members;
 import beans.Staffs;
 
@@ -29,6 +30,16 @@ public interface MapperBon {
 	public int insInbodyDetail(Inbodys inbody);
 	public List<Inbodys> getMeRecentInbody(Inbodys inbody);
 	public int insTargetExcercise(Inbodys inbody);
+	
+	//예약레슨
+	public List<Members> getRegCenterList(Members me);
+	public List<Lessons> getCtAllLessonList(Members me);
+	public List<Lessons> getCtcaLessonList(Members me);
+	public List<Lessons> getCtdateLessonList(Members me);
+	public int remainLessonCount(Lessons ls);
+	
+
+	
 	
 
 	

@@ -112,7 +112,7 @@
 					<input type="button" class="mbtn" value="비밀번호변경"
 						onClick="sendEmailForm()" /> <input type="button" class="mbtn"
 						value="센터가입" onClick="goJoinPage()" />
-
+						
 				</div>
 
 			</div>

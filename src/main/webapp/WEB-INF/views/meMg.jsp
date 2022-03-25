@@ -109,10 +109,13 @@
 		<div class="etc">
 			<div>
 				<button>
-					<i class='bx bx-user-plus icon'></i><span></span>
+					<i class='bx bx-user-plus icon' onClick="getMaxMe()"></i><span></span>
 				</button>
 				<button>
-					<i class='bx bx-user-x'></i>
+					<i class='bx bx-user-x' onClick="modMeModal()"></i>
+				</button>
+					<button>
+					<i class='bx bx-edit-alt icon' onClick="openModalIn()"></i>
 				</button>
 			</div>
 		</div>

@@ -18,12 +18,13 @@ import com.somebody.db.MapperDong;
 import com.somebody.db.MapperUone;
 import com.somebody.db.MapperYoung;
 
+import beans.Lessons;
 import beans.Members;
 import kr.co.icia.plzec.services.Encryption;
 import kr.co.icia.plzec.services.ProjectUtils;
 
 @Service
-public class Member extends CommonMethod{
+public class Member extends CommonMethod {
 	@Autowired
 	private MapperBon mb;
 	@Autowired
@@ -42,32 +43,40 @@ public class Member extends CommonMethod{
 
 	String page = null;
 	Members me;
-	Member(){
+
+	Member() {
 		mav = new ModelAndView();
 	}
+
 	public ModelAndView backController(String sCode, Model model, Members me) {
-		switch(sCode) {
+		switch (sCode) {
 		case "M01":
-			goMePage(model,me);
+			goMePage(model, me);
 			break;
 		case "M02":
 			meMg(me, model);
 			break;
+
 		}
-		
+
 		return mav;
 	}
+
+
 	public void backController(String sCode, Model model) {
 
 		switch (sCode) {
-		//관리자페이지 접근
-		
+		// 관리자페이지 접근
+		case "C09":
+			searchLsMg(model);
+			break;
+
 		case "M03":
 			searchMeMg(model);
 			break;
 		case "M04":
-			 meDetail(model);
-			 break;
+			meDetail(model);
+			break;
 		case "M05":
 			getCaList(model);
 			break;
@@ -78,8 +87,7 @@ public class Member extends CommonMethod{
 			modMe(model);
 			break;
 
-			
-			//회원페이지 접근
+		// 회원페이지 접근
 		case "C01":
 			infoLine(model);
 			break;
@@ -102,11 +110,9 @@ public class Member extends CommonMethod{
 			meLessonMg(model);
 			break;
 		case "C08":
-			getLessonList(model);
+			getLessonList(model, me);
 			break;
-		case "C09":
-			searchLsMg(model);
-			break;
+
 		case "C10":
 			insMeLesson(model);
 			break;
@@ -116,7 +122,7 @@ public class Member extends CommonMethod{
 		case "C12":
 			meConfig(model);
 			break;
-		
+
 		case "C15":
 			modMeMg(model);
 			break;
@@ -125,34 +131,28 @@ public class Member extends CommonMethod{
 			break;
 
 		}
-		
-		
-		
+
 	}
-	
-	
+
 	public ModelAndView backControllerM(String sCode, Model model) {
 		String gs = null;
 		String senddata = null;
 
 		switch (sCode) {
-	
+
 		case "C17":
 			delMe(model);
 			break;
 
 		}
 		return this.mav;
-		
-		
-		
+
 	}
 
-	public void goMePage(Model model,Members me) {
+	public void goMePage(Model model, Members me) {
 		this.mav.addObject("ctCode", me.getCtCode());
 		mav.setViewName("meMg");
-	
-		
+
 	}
 
 	public void meInbodyMg(Model model) {
@@ -160,30 +160,28 @@ public class Member extends CommonMethod{
 	}
 
 	public void meDtInfo(Model model) {
-		
-		model.addAttribute("list",this.mu.meDtInfo());
+
+		model.addAttribute("list", this.mu.meDtInfo());
 		System.out.println(model.getAttribute("list"));
 
 	}
 
 	public void meMg(Members me, Model md) {
-		int stocks=0;
-	      List<Members> meList = new ArrayList<Members>();
-	      tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-	      meList = this.my.meList(me);
-	      for(int i=0;i<meList.size();i++) {
-	    	  if(this.my.Count(meList.get(i)).getLpStocks() != null) {
-	    		  stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
-	    	  }
-	         meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
-	      }
-	      md.addAttribute("meList", meList);
-	      tranend(true);
-	   }
+		int stocks = 0;
+		List<Members> meList = new ArrayList<Members>();
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		meList = this.my.meList(me);
+		for (int i = 0; i < meList.size(); i++) {
+			if (this.my.Count(meList.get(i)).getLpStocks() != null) {
+				stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
+			}
+			meList.get(i).setLpStocks((meList.get(i).getLpQty() - stocks) + "");
+		}
+		md.addAttribute("meList", meList);
+		tranend(true);
+	}
 
 	public void searchMeMg(Model model) {
-		model.addAttribute("getmemlist",this.mb.searchMeMg((Members)model.getAttribute("sendmelist")));
-		
 
 	}
 
@@ -203,7 +201,6 @@ public class Member extends CommonMethod{
 
 	}
 
-
 	public void insTaState(Model model) {
 
 	}
@@ -222,11 +219,43 @@ public class Member extends CommonMethod{
 
 	}
 
-	public void getLessonList(Model model) {
+	@SuppressWarnings("unchecked")
+	public void getLessonList(Model model, Members me) {
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+
+		if (mb.getRegCenterList((Members) model.getAttribute("melist")) != null) {
+
+			model.addAttribute("mectlist", mb.getRegCenterList((Members) model.getAttribute("melist")));
+
+			tranend(true);
+		} else {
+			System.out.println(222);
+			me.setCaCode("가입된 매장이 없습니다.");
+			model.addAttribute("mectlist", me.getCaCode());
+		}
 
 	}
 
 	public void searchLsMg(Model model) {
+
+		System.out.println(((Members)model.getAttribute("mectlist")).getCtCode() + "****");
+		System.out.println(((Members)model.getAttribute("mectlist")).getMeCode() + "*9**");
+		
+		
+		((Members)model.getAttribute("mectlist")).getMeCode().split("-");
+		System.out.println(((Members)model.getAttribute("mectlist")).getMeCode() + "*8*");
+		
+		
+		
+		// 날짜없으면 텍스트
+		 if(((Members)model.getAttribute("mectlist")) != null) {
+		model.addAttribute("mectlslist",((Members)model.getAttribute("mectlist")).getMeCode() == null?
+				mb.getCtcaLessonList((Members)model.addAttribute("mectlist")) 
+				: mb.getCtdateLessonList((Members)model.addAttribute("mectlist")));
+		} else {
+			me.setCaCode("현재 매장에 수업이 없습니다.");
+			model.addAttribute("mectlslist", me.getCaCode());
+		}
 
 	}
 
@@ -240,23 +269,20 @@ public class Member extends CommonMethod{
 
 	public void meConfig(Model model) {
 		this.mav.setViewName("meConfig");
-		
 
 	}
-
-	
 
 	public ModelAndView modMeMg(Model model) {
 		me = new Members();
 		me = (Members) model.getAttribute("Member");
 		System.out.println(me);
-		System.out.println(((Members) model.getAttribute("Member")).getMeBirth()+":"+me.getMeBirth());
+		System.out.println(((Members) model.getAttribute("Member")).getMeBirth() + ":" + me.getMeBirth());
 		mu.modMeMg(me);
 		return mav;
 	}
 
-	public ModelAndView  delMe(Model model) {
-		mu.delMe(me) ;
+	public ModelAndView delMe(Model model) {
+		mu.delMe(me);
 		String page = "/infoLine";
 		this.mav.setViewName(page);
 		return mav;
@@ -265,10 +291,8 @@ public class Member extends CommonMethod{
 
 	public void infoLine(Model model) {
 		String page = "/infoLine";
-		 this.mav.setViewName(page);
+		this.mav.setViewName(page);
 
 	}
 
-	
-	
 }

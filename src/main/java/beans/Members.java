@@ -15,11 +15,12 @@ public class Members extends Staffs  {
 	private String mePw;
 	private String meCaCode;
 	private String meCaName;
-	private String sfCtCode;
 	private String ctCode;
+	private String ctName;
 	private String lsName;
 	private String caCode;
 	private String caName;
+	
 	
 	//Excercise, locker
 	private String meExCode;
@@ -32,6 +33,13 @@ public class Members extends Staffs  {
 	private String exCode;
 	private String peDate;
 	private String stCode;
+	
+	
+
+	private String sfName;
+
+
+	
 	
 
 }

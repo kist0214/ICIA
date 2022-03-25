@@ -5,6 +5,7 @@
 
 let list;
  let jsPIp;
+let datalesson;
 
 	
 
@@ -853,6 +854,81 @@ function getselist(data){
 	
 }
 
+	function getCenterList(mecode){
+	
+		let jsondata = [];
+		
+	/*	
+	let da =  document.getElementById("da").value;
+	let ti =  document.getElementById("ti").value;
+	let ctcode = document.getElementsByName("searchct")[0].value;
+	let cacode = document.getElementsByName("searchca")[0].value;
+	let text = document.getElementsByName("searchbox")[0].value;
+	*/
+	jsondata.push({"meCode":mecode});
+	const clientdata = JSON.stringify(jsondata);
+	whatsend("ajax/getLessonList",clientdata,"getmectlist",false,"post");
+	
+}
+
+	function getmectlist(json){
+		 let pjson =JSON.parse(json)
+
+		centerdata = json;
+	let body = document.getElementById("category");
+	
+	if(pjson.length>0){
+		data = "<select name='searchct'>"
+		for(i=0;i<pjson.length;i++){
+			data+=	"<option value='"+pjson[i].ctCode+"'>"+pjson[i].ctName+"</option>"
+		}
+		data+= "</select>"
+		
+		data += "<select name='searchca'> "
+			data+=	"<option value='sfName' >트레이너명</option>"
+			data+=	"<option value='lsName'>수업명</option>"
+			data+= "</select>"
+
+	body.innerHTML = data;
+	}else{const msg = document.getElementsByClassName("select")[0];
+			msg.value = "";
+			msg.placeholder="검색어를 확인해 주세요.";
+			}
+}
+
+
+
+	function getctLessonList(){
+	
+		let jsondata = [];
+	let da =  document.getElementById("da").value;
+
+	let ctcode = document.getElementsByName("searchct")[0].value;
+	let cacode =  document.getElementsByName("searchca")[0].value;
+	let text = document.getElementsByClassName("input")[0].value;
+	alert(da );
+	alert(ctcode );
+	alert(cacode  );
+	alert(text );
+	
+	if(da == null){
+	jsondata.push({ctCode: ctcode,caCode:cacode, meBirth: text });
+	}else {
+	jsondata.push({ctCode: ctcode,meCode:da});
+	}
+	
+	const clientdata = JSON.stringify(jsondata);
+	
+	whatsend("ajax/searchLsMg",clientdata,"getsearchctlslist",false,"post");
+	
+}
+
+
+function getsearchctlslist(data){
+	alert(data);
+	
+}
+
 
 
 function getInbodyModal() {
@@ -898,6 +974,28 @@ function closeModalb() {
 document.body.appendChild(form);
 		form.submit();
 	}
+	
+	
+	function searchLsMg(){
+	let ctcode = document.getElementById("caCode");
+	alert(ctcode);
+	let mecode = document.getElementById("meName");
+	
+
+	let jsondata = [];
+	jsondata.push({"caCode":ctcode,"meName": mecode});
+	
+	const clientdata = JSON.stringify(jsondata);
+	whatsend("ajax/searchLsMg",clientdata,"getselist",false,"post");
+	
+}
+	
+	
+	
+	
+	
+	
+	
 	
 
 function goGoodsPage(qctCode){
@@ -970,6 +1068,12 @@ function goHome() {
       document.body.appendChild(form);
       form.submit();	
 }
+
+
+
+
+
+
 
 
 
