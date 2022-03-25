@@ -74,7 +74,7 @@
 
 
 </head>
-<body onLoad="sfMg('ajax/sfMg','${sfInfo.ctCode}')">
+<body onLoad="sfMg('${sfInfo.ctCode}')">
 	<nav class="sidebar close">
 		<header>
 			<div class="image-text">
@@ -158,11 +158,11 @@
 			<div class="nav-search">
 				<select class="select" id="searchMenu">
 					<option disabled selected>직원검색</option>
-					<option>이름</option>
-					<option>직급</option>
-				</select> <span> <input type="text" placeholder="검색" class="searchSf">
+					<option value="sfName">이름</option>
+					<option value="caName">직급</option>
+				</select> <span> <input class="searchSf" type="text" placeholder="검색">
 					<i class='bx bx-search icon'
-					onClick="searchSfMg('ajax/searchSfMg','${sfList}')"></i>
+					onClick="searchSfMg('${sfInfo.ctCode}')"></i>
 				</span>
 			</div>
 
@@ -197,7 +197,7 @@
 							<h4 id=mheader class="mtitle">직원 수정</h4>
 						</div>
 						<div>센터번호</div>
-						<input class="input" type="text" name="sfCtCode"
+						<input class="input" type="text" name="ctCode"
 							readOnly="readOnly" /><br> <br>
 						<div>사원번호</div>
 						<input class="input" type="text" name="sfId" readOnly="readOnly" /><br>
@@ -239,23 +239,22 @@
 						<div class="mheader">
 							<h4 id=mheader class="mtitle">직원 추가</h4>
 						</div>
+						<br>
 						<div>센터번호</div>
-						<input class="input" type="text" name="ctCode" /><br> <br>
+						<input class="input" type="text" name="ctCode" /><br>
 						<div>사원번호</div>
 						<input class="input" type="text" name="sfId" placeholder="Max" /><br>
 						<div>성명</div>
 						<input class="input" type="text" name="sfName"
-							placeholder="이름을 입력하세요." /><br> <br>
+							placeholder="이름을 입력하세요." /><br>
 						<div>연락처</div>
 						<input class="input" type="text" name="sfNumber"
 							pattern="(010)\d{3,4}\d{4}" title="형식 01000000000"><br>
-						<br>
 						<div>비밀번호</div>
 						<input class="input" type="password" name="sfPw" maxlength='15' /><br>
-						<br>
 						<div>이메일</div>
 						<input class="input" type="email" name="sfEmail"
-							placeholder="Email 입력" /><br> <br>
+							placeholder="Email 입력" /><br>
 						<div>직위</div>
 						<select name="sfRank">
 							<option value="직급" selected>직급</option>
@@ -290,15 +289,15 @@
 					</div>
 					<div>
 						<br> <input type="button" id="btn" value="인바디 파일 전송"
-							onClick="UploadinbodyFile()" />
+							onClick="UploadinbodyFile()" /><br><br>
+							<input type="button" class="mbtn" value="닫기"/>
 					</div>
 					<br> <br>
 					<div id=msg></div>
-
+					
 				</div>
 
 			</div>
-
 		</form>
 	</section>
 

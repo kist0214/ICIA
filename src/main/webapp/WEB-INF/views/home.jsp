@@ -57,7 +57,9 @@
 }
 </style>
 </head>
+
 <body onLoad="initPage()">
+
 	<div class=circle></div>
 	<div class=circle2></div>
 	<div class=circle3></div>
