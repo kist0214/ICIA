@@ -44,10 +44,6 @@ public class Authenticaion extends CommonMethod {
 	private MapperYoung my;
 	@Autowired
 	private MapperBon mb;
-	@Autowired
-	private MapperDong md;
-	@Autowired
-	private MapperUone mo;
 
 	private ModelAndView mav;
 	
@@ -192,14 +188,12 @@ public class Authenticaion extends CommonMethod {
 
 		try {
 			if ((String)this.pu.getAttribute("meInfo") == null) {
-				System.out.println(11);
+			
 				if (pw != null) {
-					System.out.println(22);
+				
 				if (enc.matches(((Members)model.getAttribute("send")).getMePw(), pw)) {
-					System.out.println(33);
+			
 					//로그인 기록은 센터만
-					
-					System.out.println(this.mb.meInfo((Members)model.getAttribute("send")));
 				
 					this.mav.addObject("meInfo", this.mb.meInfo((Members)model.getAttribute("send")));
 					tran = true;
@@ -247,7 +241,6 @@ public class Authenticaion extends CommonMethod {
 						
 							sf.setAhType("A1");
 							if(this.convertToBoolean(this.mb.insertAccessHistory(sf))) {
-								System.out.println(this.mav.getViewName());
 								sf = this.mb.sfInfo(sf);
 								this.mav.addObject("sfInfo",sf);
 								this.mav.addObject("ctCode", sf.getCtCode());
@@ -345,7 +338,7 @@ public class Authenticaion extends CommonMethod {
 		ct.setSfPw(this.enc.encode(ct.getSfPw()));
 		if(convertToBoolean(this.my.ctJoin(ct))) {
 			if(convertToBoolean(this.my.firstSfJoin(ct))) {
-				page = "login";
+				page = "redirect:/";
 				tran = true;
 				msg = "가입성공~!";
 			}
@@ -361,7 +354,7 @@ public class Authenticaion extends CommonMethod {
 		this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED,TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 		me.setMePw(this.enc.encode(me.getMePw()));
 		if(convertToBoolean(this.my.meJoin(me))) {
-			page = "login";
+			page = "redirect:/";
 			tran = true;
 			msg = "가입성공~!";
 		}

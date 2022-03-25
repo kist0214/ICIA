@@ -17,9 +17,9 @@ public interface MapperYoung {
 	public List<Equipments> getGoSfList(Equipments eq);
 	public int modGoods(Equipments eq);
 	public int modGoodsMg(Equipments eq);
-	public List<Equipments> getGoodsCodeE1(Equipments eq);
-	public List<Equipments> getGoodsCodeE2(Equipments eq);
-	public List<Equipments> getGoodsCodeE3(Equipments eq);
+	public Equipments getGoodsCodeE1(Equipments eq);
+	public Equipments getGoodsCodeE2(Equipments eq);
+	public Equipments getGoodsCodeE3(Equipments eq);
 	public int inseq(Equipments eq);
 	public int inseg(Equipments eq);
 	//pay
@@ -36,4 +36,12 @@ public interface MapperYoung {
 	public List<Members> meList(Members me);
 	public Pays Count(Members me);
 	public List<Members> remecode();
+	public int clickExpiration(Members me);
+	public List<Members> searchMeList(Members me);
+	public List<Members> searchMeList2(Members me);
+	public List<Members> searchMeList3(Members me);
+	public List<Members> getLsCaList(Members me);
+	public int insMg(Members me);
+	public int insMgL0(Members me);
+	public int insPa(Members me);
 }

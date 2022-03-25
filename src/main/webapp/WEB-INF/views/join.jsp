@@ -4,81 +4,87 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<script src="https://kit.fontawesome.com/64d58efce2.js"
-	crossorigin="anonymous"></script>
+
 <link rel="stylesheet" href="res/css/join.css" />
 <title>MemberJoin & CenterJoin</title>
+<script src="https://kit.fontawesome.com/64d58efce2.js"
+	crossorigin="anonymous"></script>
+<script src="res/js/YJoin.js"></script>
 </head>
-<body>
+<body onload="checkMeEmailNum()" onLoad = "loadPage('${msg}')">
 
 	<div class="container">
 		<div class="forms-container">
 			<div class="signin-signup">
-				<form action="#" class="sign-in-form">
+								<form action="meJoin" class="sign-in-form" name="meJoin" method="post">
 					<h2 class="title">회원가입</h2>
 					<div class="input-field">
-						<i class="fas fa-user"></i> <input type="text" placeholder="멤버코드" />
+						<i class="fas fa-user"></i> <input type="text" name="meCode" value="${maxMeCode.meCode}" placeholder="멤버코드" readonly/>
 					</div>
 					<div class="input-field">
-						<i class="fas fa-user"></i> <input type="text" placeholder="이름"
+						<i class="fas fa-user"></i> <input type="text" name="meName" placeholder="이름" spellCheck="false"
 							maxlength='20' />
 					</div>
 					<div class="input-field">
-						<i class="fas fa-envelope"></i> <input type="email"
+						<i class="fas fa-envelope"></i> <input type="email" name="meEmail" style="text-transform: lowercase;"
 							placeholder="이메일" />
 					</div>
 					<div class="input-field">
-						<i class="fas fa-lock"></i> <input type="password" maxlength='15'
+						<i class="fas fa-lock"></i> <input type="password" name="mePw" maxlength='15'
 							placeholder="비밀번호" />
 					</div>
 					<div class="input-field">
-						<i class="fas fa-lock"></i> <input type="password" maxlength='15'
+						<i class="fas fa-lock"></i> <input type="password" name="mePwCheck" maxlength='15'
 							placeholder="비밀번호확인" />
 					</div>
 					<div class="input-field">
-						<i class="fas fa-user"></i> <input type="text" placeholder="번호"
-							pattern="(010)-\d{3,4}-\d{4}" title="형식 010-0000-0000" />
+						<i class="fas fa-user"></i> <input type="text" name="meNumber" placeholder="번호 '-' 없이 입력해 주세요."
+							pattern="(010)-\d{3,4}-\d{4}" title="형식 01012341234" />
 					</div>
 					<div class="input-field">
-						<i class="fas fa-user"></i> <input type="date" placeholder="생일" />
+						<i class="fas fa-user"></i> <input type="date" name="meBirth" placeholder="생일" />
 					</div>
 					<div class="input-field">
-						<i class="fas fa-user"></i> <input type="text" placeholder="성별" />
+						<i class="fas fa-user"></i> <select name="meGender" >
+							<option value="0">성별</option>
+							<option value="G1">♂</option>
+							<option value="G2">♀</option>
+						</select>
 					</div>
-					<input type="submit" value="Create" class="btn solid" />
+					<input type="button" value="Create" class="btn solid" onclick="creatMeJoin()" />
 					
 				</form>
-				<form action="#" class="sign-up-form">
+				<form action="ctJoin" class="sign-up-form" name = 'ctJoin' method = 'post'>
 					<h2 class="title">센터가입</h2>
 					<div class="input-field">
-						<i class="fas fa-user"></i> <input type="text" placeholder="매장코드" />
+						<i class="fas fa-user"></i> <input type="text" name='ctCode' placeholder="사업자 등록 번호" />
 					</div>
 					<div class="input-field">
-						<i class="fas fa-user"></i> <input type="text" placeholder="매장명" />
+						<i class="fas fa-user"></i> <input type="text" name='ctName' placeholder="매장명" spellCheck="false"/>
 					</div>
 					<div class="input-field">
-						<i class="fas fa-user"></i> <input type="text" placeholder="매장주소" />
+						<i class="fas fa-user"></i> <input type="text" name='ctAddress' placeholder="매장주소" />
 					</div>
 					<div class="input-field">
-						<i class="fas fa-user"></i> <input type="text" placeholder="대표자명" />
+						<i class="fas fa-user"></i> <input type="text" name='sfName' placeholder="대표자명" spellCheck="false"/>
 					</div>
 					<div class="input-field">
-						<i class="fas fa-envelope"></i> <input type="email"
+						<i class="fas fa-envelope"></i> <input type="email" name='sfEmail'
 							placeholder="이메일" />
 					</div>
 					<div class="input-field">
-						<i class="fas fa-lock"></i> <input type="password" maxlength='15'
+						<i class="fas fa-lock"></i> <input type="password" name='sfPw' maxlength='15'
 							placeholder="비밀번호" />
 					</div>
 					<div class="input-field">
-						<i class="fas fa-lock"></i> <input type="password" maxlength='15'
+						<i class="fas fa-lock"></i> <input type="password" name='sfPwCheck' maxlength='15'
 							placeholder="비밀번호확인" />
 					</div>
 					<div class="input-field">
-						<i class="fas fa-user"></i> <input type="text" placeholder="번호"
-							pattern="(010)-\d{3,4}-\d{4}" title="형식 010-0000-0000" />
+						<i class="fas fa-user"></i> <input type="text" name="sfNumber" placeholder="번호 '-' 없이 입력해 주세요."
+							pattern="(010)-\d{3,4}-\d{4}" title="형식 01012341234" />
 					</div>
-					<input type="submit" class="btn" value="Create" />
+					<input type="button" value="Create" class="btn solid" onclick="creatCtJoin()" />
 					
 				</form>
 			</div>
@@ -89,7 +95,7 @@
 				<div class="content">
 					<h3>센터가입하시겠습니까?</h3>
 					<p>센터가입은 ...</p>
-					<button class="btn transparent" id="sign-up-btn">Click
+					<button class="btn transparent" id="sign-up-btn" onclick="checkCtCode()">Click
 						Here!</button>
 				</div>
 				<img src="res/images/help.svg" class="image" alt="" />
@@ -98,7 +104,7 @@
 				<div class="content">
 					<h3>회원가입하시겠습니까?</h3>
 					<p>회원가입은 ...</p>
-					<button class="btn transparent" id="sign-in-btn">Click
+					<button class="btn transparent" id="sign-in-btn" onclick="checkMeEmailNum()">Click
 						Here!</button>
 				</div>
 				<img src="res/images/plan.svg" class="image" alt="" />

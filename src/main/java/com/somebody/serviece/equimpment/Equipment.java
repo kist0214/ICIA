@@ -93,15 +93,14 @@ public class Equipment extends CommonMethod {
 	}
 
 	public void getGoodsCode(Equipments eq, Model md) {
-		List<Equipments> lgce1 =this.my.getGoodsCodeE1(eq);
-		List<Equipments> lgce2 =this.my.getGoodsCodeE2(eq);
-		List<Equipments> lgce3 =this.my.getGoodsCodeE3(eq);
+		Equipments lgce1 =this.my.getGoodsCodeE1(eq);
+		Equipments lgce2 =this.my.getGoodsCodeE2(eq);
+		Equipments lgce3 =this.my.getGoodsCodeE3(eq);
 		List<Equipments> lgc = new ArrayList<>();
-		lgc.addAll(lgce1);
-		lgc.addAll(lgce2);
-		lgc.addAll(lgce3);
+		lgc.add(lgce1);
+		lgc.add(lgce2);
+		lgc.add(lgce3);
 		md.addAttribute("getEqCode",lgc);
-
 
 	}
 

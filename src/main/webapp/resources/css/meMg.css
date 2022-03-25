@@ -444,3 +444,28 @@ table td {
 input[type=checkbox] {
 	zoom: 1.8;
 }
+
+
+.mModal {
+	display: none;
+	background-color: gray;
+	background: rgba(0, 0, 0, 0.4);
+	position: absolute;
+	width: 100%;
+	min-height: 100%;
+	left: 0;
+	top: 0;
+	text-align: center;
+}
+
+.memberLog {
+	border: 2px solid white;
+	border-radius: 25px;
+	background-color: #ffffff;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 90%;
+	height: 450px;
+	transform: translate(-50%, -50%);
+}

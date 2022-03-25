@@ -43,46 +43,40 @@ function a1(list){
 		chData[i]=0;
 	}
 	for(i=0;i<list.length;i++){
-		let allnum='';
-		let num='';
+		var allnum='';
+		var num='';
 		 if(list[i].caCode=='P.T'){
 			num = list[i].paTotal.split(',');
 			for(j=0;j<num.length;j++){
-				alert(j);
 				allnum += num[j];
 			}
 		chData[0]=parseInt(chData[0])+parseInt(allnum)/10000;
 		}else if(list[i].caCode=='요가'){
-				alert(j);
+			
 			num = list[i].paTotal.split(',');
 			for(j=0;j<num.length;j++){
 				allnum += num[j];
 			}
 			chData[1]=parseInt(chData[1])+parseInt(allnum)/10000;
 		}else if(list[i].caCode=='필라테스'){
-				alert(j);
 			num = list[i].paTotal.split(',');
 			for(j=0;j<num.length;j++){
 				allnum += num[j];
 			}
 			chData[2]=parseInt(chData[2])+parseInt(allnum)/10000;
 		}else if(list[i].caCode=='줌바댄스'){
-				alert(j);
 			num = list[i].paTotal.split(',');
 			for(j=0;j<num.length;j++){
 				allnum += num[j];
 			}
 			chData[3]=parseInt(chData[3])+parseInt(allnum)/10000;
 		}else if(list[i].caCode=='일반'){
-				alert(j);
 			num = list[i].paTotal.split(',');
 			for(j=0;j<num.length;j++){
 				allnum += num[j];
 			}
 			chData[4]=parseInt(chData[4])+parseInt(allnum)/10000;
 		}else if(list[i].caCode=='스피닝'){
-				alert(j);
-				alert(list[i].paTotal);
 			num = list[i].paTotal.split(',');
 			for(j=0;j<num.length;j++){
 				allnum += num[j];

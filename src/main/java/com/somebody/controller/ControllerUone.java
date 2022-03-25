@@ -8,12 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.somebody.serviece.auth.Authenticaion;
-import com.somebody.serviece.equimpment.Equipment;
-import com.somebody.serviece.lesson.Lesson;
 import com.somebody.serviece.member.Member;
-import com.somebody.serviece.pay.Pay;
-import com.somebody.serviece.staff.Staff;
 
 import beans.Members;
 

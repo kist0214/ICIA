@@ -7,17 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.somebody.serviece.auth.Authenticaion;
-import com.somebody.serviece.equimpment.Equipment;
-import com.somebody.serviece.lesson.Lesson;
 import com.somebody.serviece.member.Member;
-import com.somebody.serviece.pay.Pay;
-import com.somebody.serviece.staff.Staff;
 
 import beans.Centers;
 import beans.Members;
@@ -74,10 +69,6 @@ public class ControllerBon {
 		this.auth.backController("A06",ct);
 	}
 
-	@RequestMapping(value = "/ctJoin", method = RequestMethod.POST)
-	public void ctJoin(Model model, @ModelAttribute Centers ct) {
-		this.auth.backController("J02",ct);
-	}
 	@RequestMapping(value = "/goMePage", method = RequestMethod.POST)
 	   public ModelAndView goMePage(Model model, @ModelAttribute Members me) {
 	      return this.me.backController("M01", model,me);
