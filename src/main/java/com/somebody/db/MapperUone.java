@@ -7,7 +7,7 @@ import beans.Members;
 
 public interface MapperUone {
 	
-	public List<Members> meDtInfo();
+	public List<Members> meDtInfo(Members members);
 	public int delMe(Members me);
 	public int modMeMg(Members me);
 	public List<Inbodys> meInbodyMg(Inbodys in);

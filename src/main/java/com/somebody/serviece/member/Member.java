@@ -184,8 +184,8 @@ public class Member extends CommonMethod {
 
 	public void meDtInfo(Model model) {
 
-		model.addAttribute("list",this.mu.meDtInfo());
-
+		model.addAttribute("list",this.mu.meDtInfo((Members)model.getAttribute("send")));
+System.out.println(model.getAttribute("list").toString()+"67898789");
 	}
 
 	public void meMg(Members me, Model md) {
@@ -352,8 +352,9 @@ public class Member extends CommonMethod {
 	}
 
 	public ModelAndView  delMe(Model model) {
-		Members me = new Members();
-		mu.delMe(me) ;
+		System.out.println(23);
+		System.out.println((Members)model.getAttribute("send"));
+		mu.delMe((Members)model.getAttribute("send")) ;
 		String page = "/infoLine";
 		this.mav.setViewName(page);
 		return mav;

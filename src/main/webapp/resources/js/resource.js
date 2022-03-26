@@ -143,10 +143,11 @@ function modProfileInfo(data){
 }
 }
 
-function meDtInf(ctCode,meCode){
+
+
+function meDtInf(cctCode,mmeCode){
 	let jsondata = [];
-	const mmeCode = "10001";
-	const cctCode = "1234567890";
+	
 	jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
 	const clientData = JSON.stringify(jsondata);
 	
@@ -219,29 +220,32 @@ function meInbodyMg1(data){
       document.getElementById("list").innerHTML = message;
 }
 
-function checkMePw(){
+function checkMePw(cctcode, mmecode){
 	let jsondata = [];
-	const mmeCode = "10001";
-	const cctCode = "1234567890";
-	jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
+	alert(mmecode);
+
+	jsondata.push({"meCode":mmecode,"ctCode":cctcode});
 	const clientData = JSON.stringify(jsondata);
-	alert(jsondata[0].ctCode);
+	
 		whatsend("ajax/meDtInfo",clientData,"checkMePw1",false,"post");
-		alert("ss");
+	
 	}
 
-function checkMePw2(){
+function checkMePw2(mmecode, cctcode){
 	let jsondata = [];
-	const mmeCode = "10001";
-	const cctCode = "1234567890";
-	jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
+	
+	alert(mmecode);
+	alert(cctcode);
+	
+	jsondata.push({"meCode":'10001',"ctCode":'1234567890'});
 	const clientData = JSON.stringify(jsondata);
-	alert(jsondata[0].ctCode);
+	
 		whatsend("ajax/meDtInfo",clientData,"checkMePw3",false,"post");
-		alert("ㅇㅇ");
+		
 	}
 
 function checkMePw3(data){
+	alert(data);
 	const list = document.getElementById("profile");
 	const list2 = document.getElementById("profile2");
 	
@@ -283,7 +287,7 @@ function checkMePw3(data){
 			input5.setAttribute("id","meNumber")
 			let input6 = document.createElement("input");
 			input6.setAttribute("class","modMeMg");
-			input6.setAttribute("onClick","modMeMg()");
+			input6.setAttribute("onClick","modMeMg("+data[idx].meCode+")");
 			input6.setAttribute("type","button");
 			input6.setAttribute("value","저장");
 			
@@ -304,7 +308,8 @@ function checkMePw3(data){
 		}
 }
 
-function modMeMg(){
+function modMeMg(mmecode){
+
 	let form = document.getElementById("profile2");
 	const meEmail = document.getElementById("meEmail").value;
 	const meGender = document.getElementById("meGender").value;
@@ -312,7 +317,7 @@ function modMeMg(){
 	const meName = document.getElementById("meName").value;
 	const meNumber = document.getElementById("meNumber").value;
 	let jsondata = [];
-	jsondata.push({meEmail:meEmail,meGender:meGender,meBirth:meBirth,meName:meName,meNumber:meNumber});
+	jsondata.push({meCode: mmecode ,meEmail:meEmail,meGender:meGender,meBirth:meBirth,meName:meName,meNumber:meNumber});
 	const clientdata = JSON.stringify(jsondata);
 	alert(clientdata);
 	whatsend("ajax/modMeMg",clientdata,"",false,"post");
@@ -386,20 +391,6 @@ function getPublicIp(pip){
 }
 
 
-function logOut(stcode,elcode){
-	
-const form = makeForm("", "AccessOut", "post")
-const StCode = makeInputElement("hidden","StCode",stcode,"");
-const ElCode = makeInputElement("hidden","ElCode",elcode,"");
-const PublicIp = makeInputElement("hidden","PublicIp",jsPIp,"");
-	form.appendChild(StCode);
-	form.appendChild(ElCode);
-	form.appendChild(PublicIp);
-      
-      document.body.appendChild(form);
-      form.submit();
-   
-}
 
 function makeForm(fname, faction, fmethod){
 	const form = document.createElement("form");

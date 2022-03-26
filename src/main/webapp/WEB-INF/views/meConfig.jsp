@@ -126,7 +126,7 @@ h2 {
 				<div class="mfooter">
 					<input type="password" id="mePw" placeHolder ="password"/><br>
 					<span>**주의**<br>탈퇴 시 개인정보가 파기됩니다.<br>정말 탈퇴하시겠습니까?</span>
-					<input id = "okay" type="button" class="mbtn" name = "fire" value = "확인" onClick="checkMePw()"/>
+					<input id = "okay" type="button" class="mbtn" name = "fire" value = "확인" onClick="checkMePw('${meInfo[0].ctCode}','${meInfo[0].meCode}')"/>
 					<button type="button" class="mbtn" value = "취소" onclick="closeModal()">취소</button>
 					
 				</div>
@@ -150,7 +150,7 @@ h2 {
 				<div class="mfooter">
 					<input type="password" class="modMe" id="mePw1" placeHolder ="password"/><br>
 					<span>비밀번호를 입력해주세요.</span>
-					<input id = "okay" type="button" class="mbtn" name = "CheckMePw1" value = "확인" onClick="checkMePw2()"/>
+					<input id = "okay" type="button" class="mbtn" name = "CheckMePw1" value = "확인" onClick="checkMePw2('${meInfo[0].ctCode}','${meInfo[0].meCode}')"/>
 					<button type="button" class="mbtn" value = "취소" onclick="closeModal1()">취소</button>
 					
 				</div>

@@ -25,7 +25,7 @@
 		<section class = "menuContainer">
 			<article class = "member">
 			<p>
-			<span class="menuTitle" id="meDtInfo" onClick="meDtInf()">프로필</span>
+			<span class="menuTitle" id="meDtInfo" onClick="meDtInf('${meInfo[0].ctCode}','${meInfo[0].meCode}')">프로필</span>
 			</p>
 			<p>
 			<span class="menuTitle" id="meInbodyMg" onClick="meInbodyMg()">인바디</span>
