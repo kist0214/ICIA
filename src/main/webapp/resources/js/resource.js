@@ -386,21 +386,6 @@ function getPublicIp(pip){
 }
 
 
-function logOut(stcode,elcode){
-	
-const form = makeForm("", "AccessOut", "post")
-const StCode = makeInputElement("hidden","StCode",stcode,"");
-const ElCode = makeInputElement("hidden","ElCode",elcode,"");
-const PublicIp = makeInputElement("hidden","PublicIp",jsPIp,"");
-	form.appendChild(StCode);
-	form.appendChild(ElCode);
-	form.appendChild(PublicIp);
-      
-      document.body.appendChild(form);
-      form.submit();
-   
-}
-
 function makeForm(fname, faction, fmethod){
 	const form = document.createElement("form");
 	if(fname != ""){form.setAttribute("name", fname);}
@@ -435,8 +420,6 @@ function meLogIn(){
 
 let mecode = document.getElementsByName("meCode")[0].value;
 let mepw = document.getElementsByName("mePw")[0].value;
-
-
 
 if(mecode != "" || mepw != "" ){
 	let form = document.getElementsByName("dynamicFormdata")[0];
@@ -690,7 +673,7 @@ function ctLogInModal() {
 
 
 function closeModalb() {
-	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
+	// whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
 	let container =  document.getElementById("container");
 	let containerSF =  document.getElementById("containerSF");
 	

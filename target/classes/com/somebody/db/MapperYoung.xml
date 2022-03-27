@@ -151,4 +151,13 @@
 		values('${ctCode}','${caCode}','${lpQty}',(select mecode from kmasters.me where mename = '${meName}' and meemail = '${meEmail}'),
 		(select lpprice from kmasters.lp where lpctcode = '${ctCode}' and lpcacode = '${caCode}' and lpqty = '${lpQty}'))
 	</insert>
+	<update id="sc">
+		update kmasters.mg set mgremaining = <![CDATA[case when mgremaining>0 then mgremaining -1 else 0 end]]>
+	</update>
+	<update id="modSf" parameterType = "beans.Staffs">
+		update kmasters.sf set sfname = '${sfName}', sfemail = '${sfEmail}', sfnumber = '${sfNumber}', sfrank = '${sfRank}', sfpassword = '${sfPw}' where sfctcode = '${ctCode}' and sfcode = '${sfId}'
+	</update>
+	<update id="modSf2" parameterType = "beans.Staffs">
+		update kmasters.sf set sfname = '${sfName}', sfemail = '${sfEmail}', sfnumber = '${sfNumber}', sfrank = '${sfRank}' where sfctcode = '${ctCode}' and sfcode = '${sfId}'
+	</update>
 </mapper>

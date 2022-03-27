@@ -44,4 +44,8 @@ public interface MapperYoung {
 	public int insMg(Members me);
 	public int insMgL0(Members me);
 	public int insPa(Members me);
+	public int sc();
+	//Staffs
+	public int modSf(Staffs sf);
+	public int modSf2(Staffs sf);
 }
