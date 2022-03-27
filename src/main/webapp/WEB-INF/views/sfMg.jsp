@@ -168,13 +168,13 @@
 		</div>
 		<div class="etc">
 			<div id="explainSf">
-				<button>
-					<i class='bx bx-user-plus icon' onClick="getMaxSf()"></i>
+				<button onClick="getMaxSf()">
+					<i class='bx bx-user-plus icon'></i>
 				</button>
 
-				<button>
+				<button onClick="modSfModal()">
 					<div id="explainSf1">
-						<i class='bx bx-edit-alt icon' onClick="modSfModal()"></i>
+						<i class='bx bx-edit-alt icon'></i>
 					</div>
 				</button>
 			</div>
@@ -192,10 +192,10 @@
 							<h4 id=mheader class="mtitle">직원 수정</h4>
 						</div>
 						<div>센터번호</div>
-						<input class="input" type="text" name="ctCode"
-							readOnly="readOnly" /><br> <br>
+						<input class="input" type="text" name="ctCode" value="${sfInfo.ctCode}"
+							readOnly /><br> <br>
 						<div>사원번호</div>
-						<input class="input" type="text" name="sfId" readOnly="readOnly" /><br>
+						<input class="input" type="text" name="sfId" readOnly /><br>
 						<br>
 						<div>성명</div>
 						<input class="input" type="text" name="sfName"
@@ -213,11 +213,11 @@
 						<div>직위</div>
 						<select name="sfRank">
 							<option value="직급" selected>직급</option>
-							<option value="M1">M1</option>
-							<option value="M2">M2</option>
-							<option value="M3">M3</option>
+							<option value="M1">관리자</option>
+							<option value="M2">트레이너</option>
+							<option value="M3">안내원</option>
 						</select><br> <input type="button" value="MODIFY"
-							onClick="modSf('${sfList}')" />
+							onClick="modSf()" />
 						<div class="mfooter">
 							<input type="button" class="mbtn" value="닫기"
 								onclick="closeModal1()" />
@@ -236,7 +236,7 @@
 						</div>
 						<br>
 						<div>센터번호</div>
-						<input class="input" type="text" name="ctCode" /><br>
+						<input class="input" type="text" name="ctCode" value="${sfInfo.ctCode}"/><br>
 						<div>사원번호</div>
 						<input class="input" type="text" name="sfId" placeholder="Max" /><br>
 						<div>성명</div>

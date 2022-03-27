@@ -113,8 +113,16 @@ public class AjaxController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/modSf")
 	public List<Staffs> modSf(Model model, @RequestBody Staffs[] sf) {
-
+System.out.println("1::"+sf[0].getSfPw());
 		this.sfs.backController("S07",sf[0], model);
+
+		return (List<Staffs>)model.getAttribute("modSf");
+	}
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/modSf2")
+	public List<Staffs> modSf2(Model model, @RequestBody Staffs[] sf) {
+
+		this.sfs.backController("S08",sf[0], model);
 
 		return (List<Staffs>)model.getAttribute("modSf");
 	}
@@ -143,7 +151,7 @@ public class AjaxController {
 	@RequestMapping(value = "/insLsPay", method = RequestMethod.POST)
 	public List<Lessons> insLsPay(Model model, @RequestBody Lessons[] ls) {
 		this.lss.backController("L04",ls[0],model);
-		return (List<Lessons>)model.getAttribute("insLsPay");
+		return (List<Lessons>)model.getAttribute("lsList");
 	}
 	@RequestMapping(value = "/getMaxLesson", method = RequestMethod.POST)
 	public void getMaxLesson(Model model, @RequestBody Lessons[] ls) {

@@ -2,39 +2,25 @@ package com.somebody.serviece.staff;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.Model;
 import com.somebody.db.CommonMethod;
-import com.somebody.db.MapperBon;
 import com.somebody.db.MapperDong;
-import com.somebody.db.MapperUone;
 import com.somebody.db.MapperYoung;
 import beans.Staffs;
+import kr.co.icia.plzec.services.Encryption;
 
 @Service
 public class Staff extends CommonMethod {
 	@Autowired
-	private MapperBon mb;
-	@Autowired
 	private MapperDong md;
 	@Autowired
 	private MapperYoung my;
-	@Autowired
-	private MapperUone mu;
 	private ModelAndView mav;
-
 	@Autowired
-	private DataSourceTransactionManager tx;
-
-	private TransactionStatus txStatus;
-
-	private DefaultTransactionDefinition txdef;
-
+	private Encryption enc;
 	String page = null;
 
 	Staff() {
@@ -42,8 +28,6 @@ public class Staff extends CommonMethod {
 	}
 
 	public ModelAndView backController(String sCode, Staffs sf, Model model) {
-		String gs = null;
-		String sendData = null;
 
 		switch (sCode) {
 		case "S00":
@@ -63,6 +47,9 @@ public class Staff extends CommonMethod {
 			break;
 		case "S07":
 			modSf(sf, model);
+			break;
+		case "S08":
+			modSf2(sf, model);
 			break;
 		case "S09":
 			getMeMg(model);
@@ -116,12 +103,27 @@ public class Staff extends CommonMethod {
 	public void modSf(Staffs sf, Model model) {
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		if (convertToBoolean(this.md.modSf(sf))) {
 
+System.out.println("2::"+sf.getSfPw());
+		sf.setSfPw(this.enc.encode(sf.getSfPw()));
+		if (convertToBoolean(this.my.modSf(sf))) {
+
+System.out.println("4::"+sf.getSfPw());
 			model.addAttribute("modSf", this.md.sfList(sf));
 			tran = true;
 		}
 
+System.out.println("3::"+sf.getSfPw());
+		tranend(tran);
+
+	}
+	public void modSf2(Staffs sf, Model model) {
+		boolean tran = false;
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		if (convertToBoolean(this.my.modSf2(sf))) {
+			model.addAttribute("modSf", this.md.sfList(sf));
+			tran = true;
+		}
 		tranend(tran);
 
 	}
