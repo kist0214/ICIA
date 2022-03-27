@@ -427,8 +427,6 @@ function meLogIn(){
 let mecode = document.getElementsByName("meCode")[0].value;
 let mepw = document.getElementsByName("mePw")[0].value;
 
-
-
 if(mecode != "" || mepw != "" ){
 	let form = document.getElementsByName("dynamicFormdata")[0];
 	form.submit();
@@ -681,7 +679,7 @@ function ctLogInModal() {
 
 
 function closeModalb() {
-	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
+	// whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
 	let container =  document.getElementById("container");
 	let containerSF =  document.getElementById("containerSF");
 	

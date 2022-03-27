@@ -79,21 +79,42 @@ function insSf() {
 
 }
 
-function modSf(sfCode) {
-	let ctcode = document.getElementsByName("sfCtCode")[0].value;
+function modSf() {
+	let ctcode = document.getElementsByName("ctCode")[0].value;
 	let id = document.getElementsByName("sfId")[0].value;
-	let name =  document.getElementsByName("sfName")[0].value;
-	let number =  document.getElementsByName("sfNumber")[0].value;
+	let name =  document.getElementsByName("sfName")[0];
+	let number =  document.getElementsByName("sfNumber")[0];
 	let password =  document.getElementsByName("sfPw")[0].value;
-	let email =  document.getElementsByName("sfEmail")[0].value;
-	let rank =  document.getElementsByName("sfRank")[0].value;	
-	
-	
+	let email =  document.getElementsByName("sfEmail")[0];
+	let rank =  document.getElementsByName("sfRank")[0].value;
 	let json = [];
-	json.push({"sfCtCode": ctcode, "sfId": id ,"sfName" : name, "sfNumber" : number , "sfPw" : password , "sfEmail" : email, "sfRank" : rank});
-	const clientData = JSON.stringify(json);
-	getAjax("ajax/modSf", clientData, "sfList", false);
-
+	if(name.value == ""){
+		name = name.placeholder;
+	}else{
+		name = name.value;
+	}
+	if(number.value == ""){
+		number = number.placeholder;
+	}else{
+		number = number.value;
+	}
+	if(email.value == ""){
+		email = email.placeholder;
+	}else{
+		email = email.value;
+	}
+	
+	var clientData;
+	if(password == ""){
+		json.push({ctCode: ctcode, sfId: id ,sfName : name, sfNumber : number , sfEmail : email, sfRank : rank});
+		clientData = JSON.stringify(json);
+		getAjax("ajax/modSf2", clientData, "sfList", false);
+	}else{
+		json.push({ctCode: ctcode, sfId: id ,sfName : name, sfNumber : number , sfPw : password , sfEmail : email, sfRank : rank});
+		clientData = JSON.stringify(json);
+		getAjax("ajax/modSf", clientData, "sfList", false);
+	}
+	closeModal1();
 }
 
 
@@ -149,6 +170,38 @@ function getMaxSf() {
 
 
 function modSfModal() {
+	const sfSelect = document.getElementsByName("radioBtn");
+	const sfId = document.getElementsByName("sfId")[0];
+	const sfName = document.getElementsByName("sfName")[0];
+	const sfNumber = document.getElementsByName("sfNumber")[0];
+	const sfEmail = document.getElementsByName("sfEmail")[0];
+	const sfRank = document.getElementsByName("sfRank")[0];
+	 // 선택된 목록 가져오기
+  	const sfCheck = 'input[name="radioBtn"]:checked';
+  	// 선택된 목록의 갯수 세기
+  	const sfCheckNum = document.querySelectorAll(sfCheck).length;
+	if(sfCheckNum==0){
+		alert("먼저 선택해주세요.");
+		return;
+	}else if(sfCheckNum>1){
+		alert("하나만 선택해주세요.");
+		return;
+	}
+	for(i=0;i<sfSelect.length;i++){
+		if(sfSelect[i].checked==true){
+			sfId.value = sfInfo[i].sfId;
+			sfName.placeholder = sfInfo[i].sfName;
+			sfNumber.placeholder = sfInfo[i].sfNumber;
+			sfEmail.placeholder = sfInfo[i].sfEmail;
+			for(j=0;j<sfRank.length;j++){
+				if(sfRank.options[j].innerText == sfInfo[i].caName){
+					sfRank.options[j].setAttribute('selected', '');
+				}else{
+					sfRank.options[j].removeAttribute('selected');
+				}
+			}
+		}
+	}
 	let container1 = document.getElementById("container1");
 	container1.style.filter = "alpha(Opacity=50)";
 	container1.style.display = "block";
@@ -386,6 +439,7 @@ function lsList(jsonData) {
 	}else{const msg = document.getElementsByClassName("searchLesson")[0]
 			msg.value = "";
 			msg.placeholder="입력해주세요.";}
+	closeModal2();
 }
 
 function searchLessond(ctcode){
@@ -417,7 +471,7 @@ function insLsPay() {
 	let json = [];
 	json.push({"ctCode": ctcode, "caCode": cacode ,"lpQty" : qty, "lpPrice" : price});
 	const clientData = JSON.stringify(json);
-	getAjax("ajax/insLsPay", clientData, "insLsPay", false);
+	getAjax("ajax/insLsPay", clientData, "lsList", false);
 
 }
 

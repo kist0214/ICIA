@@ -184,9 +184,11 @@ function change(){
 	const eqcacode = document.getElementById("mcaCode");
 	
 	for(i=0;i<eqcode.length;i++){
-		eqcacode.options[i].removeAttribute('selected');
 		if(eqcode.options[eqcode.selectedIndex].innerText==eqcacode.options[i].innerText){
 			eqcacode.options[i].setAttribute('selected', '');
+		}else{
+			eqcacode.options[i].removeAttribute('selected');
+			
 		}
 	}
 }
@@ -196,9 +198,10 @@ function change2(){
 	const eqcacode = document.getElementById("mcaCode");
 	
 	for(i=0;i<eqcacode.length;i++){
-		eqcode.options[i].removeAttribute('selected');
 		if(eqcacode.options[eqcacode.selectedIndex].innerText==eqcode.options[i].innerText){
 			eqcode.options[i].setAttribute('selected', '');
+		}else{
+			eqcode.options[i].removeAttribute('selected');
 		}
 	}
 	

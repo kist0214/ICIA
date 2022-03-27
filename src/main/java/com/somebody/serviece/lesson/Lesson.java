@@ -87,11 +87,8 @@ public class Lesson extends CommonMethod{
 	public void goLessonPage(Lessons ls,Model model) {
 	
 		mav.addObject("ctCode", ls.getCtCode());
-		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		
-			tranend(true);
-			mav.setViewName("lessonMg");	
-		}
+		mav.setViewName("lessonMg");	
+	}
 		
 	
 
@@ -119,6 +116,7 @@ public class Lesson extends CommonMethod{
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 			if(this.convertToBoolean(this.md.insLsPay(ls))){
+				model.addAttribute("lsList",this.md.lsList(ls));
 				tran = true;
 			}
 		tranend(tran);

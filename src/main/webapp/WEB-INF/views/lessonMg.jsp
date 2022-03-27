@@ -195,7 +195,7 @@
 					<div class="mcontent">
 						<div class="mheader">수업 가격 설정</div>
 						<div>센터번호</div>
-						<input class="input" type="text" name="ctCode" /><br> <label
+						<input class="input" type="text" name="ctCode" value="${sfInfo.ctCode}" /><br> <label
 							for="lsCa"></label> <select class="select" name="caCode">
 							<option value="수업유형" selected>수업유형</option>
 							<option value="L0">일반</option>
@@ -211,7 +211,7 @@
 						<input class="input" type="text" name="lpPrice"
 							placeholder="가격을 입력하세요." /><br> <br> <input
 							type="button" value="CREATE"
-							onClick="insLsPay('${sfInfo.ctCode}')" />
+							onClick="insLsPay()" />
 						<div class="mfooter">
 							<input type="button" class="mbtn" value="닫기"
 								onclick="closeModal2()" />
