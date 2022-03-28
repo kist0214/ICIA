@@ -195,7 +195,7 @@ body, input, button {
 	width: 100%;
 	min-height: 100vh;
 	display: none;
-	background-color: gray;
+	background-color: lightgray;
 }
 
 .mdialog {

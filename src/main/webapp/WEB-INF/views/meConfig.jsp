@@ -99,7 +99,7 @@
 					<div class="mbody" id="mbody" value="body"></div>
 					<!-- 모달 푸터 -->
 					<div class="mfooter">
-						<span>**주의**<br>탈퇴 시 개인정보가 파기됩니다. 정말 탈퇴하시겠습니까?
+						<span>** 주의 **<br>탈퇴 시 개인정보가 파기됩니다. 정말 탈퇴하시겠습니까?
 						</span> <input type="password" class="fireMe" placeHolder="비밀번호" /><br>
 						<input type="button" class="mbtn" name="fire" value="확인"
 							onClick="checkMePw()" /> <input type="button" class="mbtn"

@@ -74,11 +74,11 @@ public class ControllerBon {
 		this.auth.backController("A06",ct);
 	}
 
-	@RequestMapping(value = "/ctJoin", method = RequestMethod.POST)
+	@RequestMapping(value = "/ctJoin", method = RequestMethod.GET)
 	public void ctJoin(Model model, @ModelAttribute Centers ct) {
 		this.auth.backController("J02",ct);
 	}
-	@RequestMapping(value = "/goMePage", method = RequestMethod.POST)
+	@RequestMapping(value = "/goMePage", method = RequestMethod.GET)
 	   public ModelAndView goMePage(Model model, @ModelAttribute Members me) {
 	      return this.me.backController("M01", model,me);
 	   }

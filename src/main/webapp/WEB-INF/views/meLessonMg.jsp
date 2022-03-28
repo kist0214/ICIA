@@ -9,6 +9,11 @@
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
 	rel='stylesheet'>
 <link rel="stylesheet" href="res/css/meLessonMg.css">
+<link rel="stylesheet"
+	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
 <style>
 </style>
 </head>
@@ -39,8 +44,8 @@
 	</div>
 
 	<div id="middle">
-		<section class="searchMenu">
-			<article class="middle">
+		<div class="search">
+			<section class="search-content">
 				<div class="form-wrap ui-check-date" data-term="5">
 					<input type="datetime-local" />
 				</div>
@@ -52,13 +57,219 @@
 					<option value="none">수업명</option>
 					<option value="lesson">스피닝</option>
 					<option value="lesson">요가</option>
-				</select> <input class="input" type="text" name="searchbox"
-					placeholder="Search" /> <input class="search" type="button"
-					value="찾기" onClick="searchLsMg(Lesson)" />
-			</article>
+				</select> <span><input class="input" type="text" name="searchbox"
+					placeholder="검색" /><i class='bx bx-search icon'
+					onClick="searchLsMg(Lesson)"></i></span>
+			</section>
+		</div>
+	</div>
+	<div id="bottom">
+		<section>
+			<div class="swiper mySwiper container">
+				<div class="swiper-wrapper content">
+
+					<div class="swiper-slide card">
+						<div class="card-content">
+							<div class="image">
+								<img src="res/images/lesson.jpg">
+							</div>
+							<div class="media-icons">
+								<span>2022.03.01</span>
+								<span>월 | 화 | 수</span>
+							</div>
+
+							<div class="name-profession">
+								<span class="name">하체강화훈련</span> <span class="profession">이동명</span>
+							</div>
+
+							<div class="rating">
+								<span>수강인원 : 1/5</span>
+							</div>
+
+							<div class="button">
+								<button class="aboutMe">신청하기</button>
+								<button class="aboutMe">취소하기</button>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide card">
+						<div class="card-content">
+							<div class="image">
+								<img src="res/images/lesson2.jpg">
+							</div>
+							<div class="media-icons">
+								<span>2022.03.02</span>
+								<span>화 | 수 | 금</span>
+							</div>
+
+							<div class="name-profession">
+								<span class="name">근력운동</span> <span class="profession">김한울</span>
+							</div>
+
+							<div class="rating">
+								<span>수강인원 : 3/6</span>
+							</div>
+
+							<div class="button">
+								<button class="aboutMe">신청하기</button>
+								<button class="aboutMe">취소하기</button>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide card">
+						<div class="card-content">
+							<div class="image">
+								<img src="res/images/lesson3.jpeg">
+							</div>
+							<div class="media-icons">
+								<span>2022.03.02</span>
+								<span>화 | 목 | 토</span>
+							</div>
+
+							<div class="name-profession">
+								<span class="name">벤치프레스</span> <span class="profession">이하나</span>
+							</div>
+
+							<div class="rating">
+								<span>수강인원 : 7/10</span>
+							</div>
+
+							<div class="button">
+								<button class="aboutMe">신청하기</button>
+								<button class="aboutMe">취소하기</button>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide card">
+						<div class="card-content">
+							<div class="image">
+								<img src="res/images/noimage.jpg">
+							</div>
+							<div class="media-icons">
+								<span>수업날짜</span>
+								<span>수업일</span>
+							</div>
+
+							<div class="name-profession">
+								<span class="name">수업이름</span> <span class="profession">트레이너명</span>
+							</div>
+
+							<div class="rating">
+								<span>수강인원 : 7/10</span>
+							</div>
+
+							<div class="button">
+								<button class="aboutMe">신청하기</button>
+								<button class="aboutMe">취소하기</button>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide card">
+						<div class="card-content">
+							<div class="image">
+								<img src="res/images/noimage.jpg">
+							</div>
+							<div class="media-icons">
+								<span>수업날짜</span>
+								<span>수업일</span>
+							</div>
+
+							<div class="name-profession">
+								<span class="name">수업이름</span> <span class="profession">트레이너명</span>
+							</div>
+
+							<div class="rating">
+								<span>수강인원 : 7/10</span>
+							</div>
+
+							<div class="button">
+								<button class="aboutMe">신청하기</button>
+								<button class="aboutMe">취소하기</button>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide card">
+						<div class="card-content">
+							<div class="image">
+								<img src="res/images/noimage.jpg">
+							</div>
+							<div class="media-icons">
+								<span>수업날짜</span>
+								<span>수업일</span>
+							</div>
+
+							<div class="name-profession">
+								<span class="name">수업이름</span> <span class="profession">트레이너명</span>
+							</div>
+
+							<div class="rating">
+								<span>수강인원 : 7/10</span>
+							</div>
+
+							<div class="button">
+								<button class="aboutMe">신청하기</button>
+								<button class="aboutMe">취소하기</button>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide card">
+						<div class="card-content">
+							<div class="image">
+								<img src="res/images/noimage.jpg">
+							</div>
+							<div class="media-icons">
+								<span>수업날짜</span>
+								<span>수업일</span>
+							</div>
+
+							<div class="name-profession">
+								<span class="name">수업이름</span> <span class="profession">트레이너명</span>
+							</div>
+
+							<div class="rating">
+								<span>수강인원 : 7/10</span>
+							</div>
+
+							<div class="button">
+								<button class="aboutMe">신청하기</button>
+								<button class="aboutMe">취소하기</button>
+							</div>
+						</div>
+					</div>
+					<div class="swiper-slide card">
+						<div class="card-content">
+							<div class="image">
+								<img src="res/images/noimage.jpg">
+							</div>
+							<div class="media-icons">
+								<span>수업날짜</span>
+								<span>수업일</span>
+							</div>
+
+							<div class="name-profession">
+								<span class="name">수업이름</span> <span class="profession">트레이너명</span>
+							</div>
+
+							<div class="rating">
+								<span>수강인원 : 7/10</span>
+							</div>
+
+							<div class="button">
+								<button class="aboutMe">신청하기</button>
+								<button class="aboutMe">취소하기</button>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-pagination"></div>
+
 		</section>
 	</div>
-	<div id="bottom"></div>
+
 
 
 	<script>
@@ -171,6 +382,27 @@
 		window.onload = function() {
 			selectDateCheck();
 		}
+	</script>
+
+	<!-- Swiper JS -->
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+	<script>
+		var swiper = new Swiper(".mySwiper", {
+			slidesPerView : 3,
+			spaceBetween : 100,
+			slidesPerGroup : 3,
+			loop : true,
+			loopFillGroupWithBlank : true,
+			pagination : {
+				el : ".swiper-pagination",
+				clickable : true,
+			},
+			navigation : {
+				nextEl : ".swiper-button-next",
+				prevEl : ".swiper-button-prev",
+			},
+		});
 	</script>
 
 </body>
