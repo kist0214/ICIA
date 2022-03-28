@@ -152,7 +152,7 @@
 	</nav>
 
 	<section class="home">
-		<div class="text">StaffManagement</div>
+		<div class="text">직원관리</div>
 		<div class="search">
 			<div class="nav-search">
 				<select class="select" id="searchMenu">

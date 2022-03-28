@@ -1,0 +1,271 @@
+@charset "UTF-8";
+
+@import
+	url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500&display=swap')
+	;
+
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap')
+	;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body, input, button {
+	font-family: 'Jua', sans-serif;
+	overflow: hidden;
+}
+
+.firstTop {
+	position: fixed;
+	width: 100%;
+	height: 100px;
+	border-radius: 8px;
+	background-color: white;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	z-index: 49;
+}
+
+.logo {
+	position: absolute;
+	display: flex;
+	top: 7%;
+	left: 5%;
+	width: 200px;
+	height: 80px;
+	cursor: pointer;
+	z-index: 50;
+	font-family: 'Fredoka', sans-serif;
+}
+
+.zero {
+	border-radius: 100px 100px 10px 100px;
+	background-color: #5944ee;
+	width: 23px;
+	height: 23px;
+	margin: 12px 0 15px 10px;
+}
+
+.one {
+	margin-top: 15px;
+	border: none;
+	border-radius: 10px 100px 100px 100px;
+	background-color: #033495;
+	width: 23px;
+	height: 23px;
+	border: none;
+}
+
+.hp {
+	width: 150px;
+	height: 70px;
+	font-size: 30pt;
+	font-weight: 600;
+	color: #033495;
+	margin: 0 0 0 10px;
+}
+
+#plan {
+	color: #b8b8d1;
+	font-weight: 500;
+	font-size: 17pt;
+}
+
+#topMenu {
+	position: absolute;
+	top: 5%;
+	right: 1%;
+	width: 500px;
+	height: 90px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#topMenu input {
+	margin: 0 10px;
+	width: 100px;
+	height: 50px;
+	cursor: pointer;
+	background: none;
+	border: none;
+	font-size: 15pt;
+	border-radius: 10px;
+	transition: all 0.4s;
+	letter-spacing: 2px;
+}
+
+#topMenu input:hover {
+	background-color: #033495;
+	color: white;
+}
+
+#topMenu input:focus {
+	background-color: #033495;
+	color: white;
+}
+
+.middleText {
+	position: absolute;
+	top: 20%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 35pt;
+}
+
+.middleImg {
+	position: absolute;
+	top: 45%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 350px;
+	height: 350px;
+	border-radius: 50%;
+}
+
+.middleImg .image {
+	width: 100%;
+	height: 100%;
+}
+
+.middle {
+	position: absolute;
+	top: 77%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 10px;
+	width: 450px;
+	height: 230px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	font-size: 16pt;
+}
+
+.mod {
+	position: absolute;
+	top: 90%;
+	left: 43%;
+	transform: translate(-50%, -50%);
+	width: 200px;
+	height: 50px;
+	display: flex;
+	border-radius: 10px;
+	justify-content: center;
+	align-items: center;
+}
+
+.mod button, .fire button {
+	width: 100%;
+	height: 100%;
+	border: none;
+	border-radius: 10px;
+	background-color: #a7acd9;
+	color: white;
+	cursor: pointer;
+	font-size: 16pt;
+	transition: all 0.4s;
+	border: none;
+	letter-spacing: 2px;
+}
+
+.mod button:hover, .fire button:hover {
+	background-color: #033495;
+	border: none;
+}
+
+.fire {
+	position: absolute;
+	top: 90%;
+	left: 57%;
+	transform: translate(-50%, -50%);
+	width: 200px;
+	height: 50px;
+	display: flex;
+	border-radius: 10px;
+	justify-content: center;
+	align-items: center;
+}
+
+/*   Modal   */
+.container {
+	width: 100%;
+	min-height: 100vh;
+	display: none;
+	background-color: lightgray;
+}
+
+.mdialog {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 700px;
+	height: 500px;
+	background-color: white;
+	border-radius: 20px;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.mcontent {
+	width: 100%;
+	height: 100%;
+}
+
+.mheader {
+	margin-top: 40px;
+	font-size: 30pt;
+}
+
+.mfooter {
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 70%;
+	height: 60%;
+}
+
+.mfooter span {
+	font-size: 16pt;
+}
+
+.mfooter input {
+	text-align: center;
+}
+
+.modMe, .fireMe {
+	width: 100%;
+	height: 50px;
+	border-color: gray;
+	border-radius: 10px;
+	font-size: 16pt;
+	margin-top: 50px;
+	border: 3px solid #e1e8ec;
+	outline-color: #8d91aa;
+}
+
+.mbtn {
+	margin: 100px 20px 0 20px;
+	font-size: 16pt;
+	cursor: pointer;
+	width: 100px;
+	height: 50px;
+	border-radius: 10px;
+	text-align: center;
+	background-color: #a7acd9;
+	color: white;
+	transition: all 0.4s;
+	border: none;
+}
+
+.mbtn:hover {
+	background-color: #033495;
+}

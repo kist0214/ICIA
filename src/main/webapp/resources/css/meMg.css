@@ -304,9 +304,7 @@ body.dark .switch::before{
     display: flex;
     align-items: center;
     justify-content: center;
-  
 }
-
 
 .home .list, table {
 	padding: 12px 0px;
