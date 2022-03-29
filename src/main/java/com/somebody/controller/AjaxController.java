@@ -298,9 +298,9 @@ System.out.println("1::"+sf[0].getSfPw());
 		@RequestMapping(value = "/searchLsMg", method = RequestMethod.POST)
 		public List<Lessons> searchLsMg(Model model, @RequestBody  Members[] me) {
 			model.addAttribute("mectlist",me[0]);
-			System.out.println(model.addAttribute("mectlist"));
+
 			this.me.backController("C09", model);
-			return (List<Lessons>)model.getAttribute("mectlslist");
+			return (List<Lessons>)model.getAttribute("mectlslista");
 		}
 		
 		@RequestMapping(value = "/insMeLesson", method = RequestMethod.POST)

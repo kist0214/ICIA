@@ -64,6 +64,10 @@ function closeModal() {
 	let container =  document.getElementById("container");
 	container.style.display = "none";
 }
+function closeModalIn() {
+	let container =  document.getElementById("containerIn");
+	container.style.display = "none";
+}
 
 function closeModal1() {
 	let container =  document.getElementById("container1");
@@ -550,22 +554,22 @@ function getselist(data){
 		let div = document.createElement("div");
 	div.setAttribe("onClick", "showGoodsinModal("+idx+")");
 	
-	let span1=  document.createElement("span");
-	span1.innerText = data[idx].meName;
-	let span2=  document.createElement("span");
-	span2.innerText = data[idx].meGender;
-	let span3=  document.createElement("span");
-	span3.innerText = data[idx].meBirth;
-	let span4=  document.createElement("span");
-	span4.innerText = data[idx].meNumber;
-	let span5=  document.createElement("span");
-	span5.innerText = data[idx].meLsName;
-	div.appendChild(span1);
-	div.appendChild(span2);
-	div.appendChild(span3);   
-	div.appendChild(span4);  
+	let div1=  document.createElement("div");
+	div1.innerText = data[idx].meName;
+	let div2=  document.createElement("div");
+	div2.innerText = data[idx].meGender;
+	let div3=  document.createElement("div");
+	div3.innerText = data[idx].meBirth;
+	let div4=  document.createElement("div");
+	div4.innerText = data[idx].meNumber;
+	let div5=  document.createElement("div");
+	div5.innerText = data[idx].meLsName;
+	div.appendChild(div1);
+	div.appendChild(div2);
+	div.appendChild(div3);   
+	div.appendChild(div4);  
 
-	div.appendChild(span5);           
+	div.appendChild(div5);           
   list.appendChild(div);
 
 }
@@ -575,14 +579,7 @@ function getselist(data){
 	function getCenterList(mecode){
 	
 		let jsondata = [];
-		
-	/*	
-	let da =  document.getElementById("da").value;
-	let ti =  document.getElementById("ti").value;
-	let ctcode = document.getElementsByName("searchct")[0].value;
-	let cacode = document.getElementsByName("searchca")[0].value;
-	let text = document.getElementsByName("searchbox")[0].value;
-	*/
+
 	jsondata.push({"meCode":mecode});
 	const clientdata = JSON.stringify(jsondata);
 	whatsend("ajax/getLessonList",clientdata,"getmectlist",false,"post");
@@ -591,7 +588,7 @@ function getselist(data){
 
 
 	function getmectlist(json){
-		 let pjson =JSON.parse(json)
+		 let pjson =json;
 
 		centerdata = json;
 	let body = document.getElementById("category");
@@ -609,7 +606,7 @@ function getselist(data){
 			data+= "</select>"
 
 	body.innerHTML = data;
-	}else{const msg = document.getElementsByClassName("select")[0];
+	}else{const msg = document.getElementsByClassName("input")[0];
 			msg.value = "";
 			msg.placeholder="검색어를 확인해 주세요.";
 			}
@@ -618,33 +615,65 @@ function getselist(data){
 
 
 	function getctLessonList(){
+		let list = document.getElementById("lesson");
+		while(list.hasChildNodes()){
+			list.removeChild(list.lastChild);
+		}
 	
 		let jsondata = [];
-	let da =  document.getElementById("da").value;
+	let da =  document.getElementById("da").value.replace("-","");
+	let daa = da.replace("-","").toString();
+
 
 	let ctcode = document.getElementsByName("searchct")[0].value;
 	let cacode =  document.getElementsByName("searchca")[0].value;
-	let text = document.getElementsByClassName("input")[0].value;
-	alert(da );
-	alert(ctcode );
-	alert(cacode  );
-	alert(text );
-	
-	if(da == null){
+	let text = document.getElementsByClassName("input2")[0].value;
+if(daa != "" &&text != ""){
+	let text = document.getElementsByClassName("input2")[0];
+	text.value = "";
+	text.placeholder= "날짜 or 입력값을 삭제해주세요.";
+}
+	else if(daa == ""){
 	jsondata.push({ctCode: ctcode,caCode:cacode, meBirth: text });
 	}else {
-	jsondata.push({ctCode: ctcode,meCode:da});
+	jsondata.push({ctCode: ctcode,meCode:daa});
 	}
 	
 	const clientdata = JSON.stringify(jsondata);
 	
-	whatsend("ajax/searchLsMg",clientdata,"getsearchctlslist",false,"post");
+	whatsend("ajax/searchLsMg",clientdata,"getlslist",false,"post");
 	
 }
 
 
-function getsearchctlslist(data){
-	alert(data);
+function getlslist(json){
+	let list = document.getElementById("lesson");
+		while(list.hasChildNodes()){
+			list.removeChild(list.lastChild);
+		}
+	
+	let pjson =json;
+
+		centerdata = json;
+	let body = document.getElementById("lesson");
+	
+	if(pjson.length>0){
+		data = "<div>"
+		for(i=0;i<pjson.length;i++){
+			data+= "<div>"+pjson[i].ctName+"</div>"
+			data+= "<div>"+pjson[i].lsOpen+"</div>"
+			data+= "<div>"+pjson[i].lsName+"</div>"
+			data+= "<div>"+pjson[i].sfName+"</div>"
+			data+= "<div>신청인원/ 총 수강인원</div>"
+			data+= "<div>"+pjson[i].lsMeCount+"</div>"
+			data+= "<button>수업신청/취소</button>"
+		}
+		data+= "</div>"
+	body.innerHTML = data;
+	}else{let text = document.getElementsByClassName("input2")[0];
+			text.value = "";
+			text.placeholder="해당매장에 수업이 없습니다.";
+			}
 	
 }
 
@@ -679,7 +708,7 @@ function ctLogInModal() {
 
 
 function closeModalb() {
-	// whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
+	
 	let container =  document.getElementById("container");
 	let containerSF =  document.getElementById("containerSF");
 	

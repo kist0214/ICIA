@@ -13,6 +13,7 @@ import beans.Staffs;
 
 public interface MapperBon {
 	
+
 	//로그인 & 세션
 	public String  sfLogin(Staffs sf);
 	public Staffs  sfInfo(Staffs sf);

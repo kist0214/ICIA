@@ -26,15 +26,18 @@
 
 
 	<div id="middle">
-		<div>${meInfo[0].meName}님환영</div>
+		<span>${meInfo[0].meName}님환영</span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+		
 		<section class="searchMenu">
 			<article class="middle">
+			
 				<div class="form-wrap ui-check-date" data-term="5">
 					<input type="date" id="da" />
 					<p>
 					<span id=category> </span>
 					
-					<span><input type="text" class="input" >
+					<span><input type="text" class="input2" >
 					<input type="button" class="mbtn"  value="검색"
 								onclick="getctLessonList()" />
 								</span>
@@ -47,7 +50,7 @@
 
 
 
-	<div id="bottom"></div>
+	<div id="lesson"></div>
 
 
 
