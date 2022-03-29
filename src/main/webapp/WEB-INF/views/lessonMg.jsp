@@ -151,7 +151,7 @@
 	</nav>
 
 	<section class="home">
-		<div class="text">LessonManament</div>
+		<div class="text">수업관리</div>
 
 
 		<div class="search">

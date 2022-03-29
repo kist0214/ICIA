@@ -45,7 +45,7 @@
 
 
 </head>
-<body onload = "getMeMg('${ctCode}','${sfInfo.sfRank}','${sfInfo.sfId}')">
+<body onload="getMeMg('${ctCode}','${sfInfo.sfRank}','${sfInfo.sfId}')">
 	<nav class="sidebar close">
 		<header>
 			<div class="image-text">
@@ -64,29 +64,28 @@
 		<div class="menu-bar">
 			<div class="menu">
 				<ul class="menu-links">
-					<li class="nav-link"onClick="goMePage('${sfInfo.ctCode}')"><a>
-					<i class='bx bx-user icon'></i> 
-					<span class="text nav-text">회원관리</span>
+					<li class="nav-link" onClick="goMePage('${sfInfo.ctCode}')"><a>
+							<i class='bx bx-user icon'></i> <span class="text nav-text">회원관리</span>
 					</a></li>
 
 					<li class="nav-link" onClick="goSfPage('${sfInfo.ctCode}')"><a>
-					<i class='bx bx-group icon'id="sfMg" ></i> 
-					<span class="text nav-text">직원관리</span>
+							<i class='bx bx-group icon' id="sfMg"></i> <span
+							class="text nav-text">직원관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick="goLessonPage('${sfInfo.ctCode}')"><a> 
-					<i class='bx bx-chalkboard icon' id="lessonMg"></i>
-					<span class="text nav-text">수업관리</span>
+					<li class="nav-link" onClick="goLessonPage('${sfInfo.ctCode}')"><a>
+							<i class='bx bx-chalkboard icon' id="lessonMg"></i> <span
+							class="text nav-text">수업관리</span>
 					</a></li>
 
 					<li class="nav-link" onClick="goGoodsPage('${sfInfo.ctCode}')"><a>
-					<i class='bx bx-wrench icon' id="goodsMg" ></i>
-					<span class="text nav-text">장비관리</span>
+							<i class='bx bx-wrench icon' id="goodsMg"></i> <span
+							class="text nav-text">장비관리</span>
 					</a></li>
 
-					<li class="nav-link" onClick="goPayPage('${sfInfo.ctCode}')"><a> 
-					<i class='bx bx-credit-card icon' id="payMg"></i> 
-					<span class="text nav-text">결제관리</span>
+					<li class="nav-link" onClick="goPayPage('${sfInfo.ctCode}')"><a>
+							<i class='bx bx-credit-card icon' id="payMg"></i> <span
+							class="text nav-text">결제관리</span>
 					</a></li>
 
 
@@ -94,13 +93,15 @@
 			</div>
 
 			<div class="bottom-content">
-				<li class=""><a> <i class='bx bx-id-card icon'></i>
-						<span class="text nav-text"></span> <span class="text nav-text">	<span>${sfInfo.sfName}</span>
-						<span>(${sfInfo.sfRankName})</span></span>
+				<li class=""><a> <i class='bx bx-id-card icon'></i> <span
+						class="text nav-text"></span> <span class="text nav-text">
+							<span>${sfInfo.sfName}</span> <span>(${sfInfo.sfRankName})</span>
+					</span>
 				</a></li>
 
-				<li class=""><a onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')"> <i class='bx bx-log-out icon' ></i>
-						<span class="text nav-text">로그아웃</span>
+				<li class=""><a
+					onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')"> <i
+						class='bx bx-log-out icon'></i> <span class="text nav-text">로그아웃</span>
 				</a></li>
 
 				<li class="mode">
@@ -140,7 +141,6 @@
 				 <i onclick="searchMe('${ctCode}')" class='bx bx-search icon'></i>
 				</span>
 			</div>
-
 		</div>
 		<div class="etc">
 			<div>
@@ -156,6 +156,7 @@
 				</button>
 			</div>
 		</div>
+<<<<<<< HEAD
 <table id="ajax"></table>
 <div class="mModal" id="gModal">
 		<div class="memberLog">
@@ -177,6 +178,7 @@
 				<div class="mdialog">
 					<div class="mcontent">
 						<div class="mheader">
+
 
 							<span class="title"></span><br> <br> <br> <br>
 							<br> <br> <span>회원인바디 엑셀파일 업로드</span><br> <br>
