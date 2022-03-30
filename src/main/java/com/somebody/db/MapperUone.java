@@ -11,5 +11,8 @@ public interface MapperUone {
 	public int delMe(Members me);
 	public int modMeMg(Members me);
 	public List<Inbodys> meInbodyMg(Inbodys in);
-
+	public int insTaState(Inbodys in);
+	public List<Inbodys> findDay(Inbodys in);
+	public List<Inbodys> maxDay(Inbodys in);
+	public List<Inbodys> inbodyChart(Inbodys in);
 }

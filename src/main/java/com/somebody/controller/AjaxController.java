@@ -177,12 +177,33 @@ public class AjaxController {
 		@RequestMapping(value = "/meInbodyMg", method = RequestMethod.POST)
 		public List<Inbodys> meInbodyMg(Model model, @RequestBody Inbodys[] in) {
 			System.out.println("123");
-			this.me.backController("C03",  model.addAttribute("send",in[0]));
+			this.me.backController("C03", model.addAttribute("send",in[0]));
+			
 			return (List<Inbodys>)model.getAttribute("list");
 		}
+		@RequestMapping(value = "/meInbodyMg2", method = RequestMethod.POST)
+		public List<Inbodys> meInbodyMg2(Model model, @RequestBody Inbodys[] in) {
+			System.out.println(in[0].getCtCode());
+			this.me.backController("C00", model.addAttribute("max",in[0]));
+			//this.me.backController("C00", model.addAttribute("find",in[0]));
+			
+			return (List<Inbodys>)model.getAttribute("list");
+		}
+		
+		@RequestMapping(value = "/inbodyChart", method = RequestMethod.POST)
+		public List<Inbodys> inbodyChart(Model model, @RequestBody Inbodys[] in) {
+			this.me.backController("C16", model.addAttribute("chart",in[0]));
+			//this.me.backController("C00", model.addAttribute("find",in[0]));
+			System.out.println("으모아아");
+			return (List<Inbodys>)model.getAttribute("list");
+		}
+		
 		@RequestMapping(value = "/insTaState", method = RequestMethod.POST)
-		public void insTaState(Model model, @ModelAttribute Members me) {
+		public int insTaState(Model model, @RequestBody Inbodys[] in) {
+			model.addAttribute("Inbody",in[0]);
 			this.me.backController("C04", model);
+			return (int)model.getAttribute("a1");
+			
 		}
 		@RequestMapping(value = "/meHealthMg", method = RequestMethod.POST)
 		public void meHealthMg(Model model, @ModelAttribute Members me) {

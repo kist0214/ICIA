@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>H E L P</title>
 <script src="res/js/resource.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 <body onLoad = "infoLine()">
 
@@ -36,6 +37,7 @@
 			<p>
 			<span class="menuTitle" id="meFoodMg" onClick="meFoodMg()">음식추천</span>
 			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </article>
 </section>
 </div>

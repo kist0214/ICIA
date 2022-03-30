@@ -192,19 +192,24 @@ function meDtInfo1(data){
       document.getElementById("list").innerHTML = message;
 }
 
-function meInbodyMg(){
+function meInbodyMg(data){
+	alert(data);
 	let jsondata = [];
-	const mmeCode = "10001";
-	const cctCode = "1234567890";
-	jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
-	const clientData = JSON.stringify(jsondata);
-	alert(jsondata[0].ctCode);
-		whatsend("ajax/meInbodyMg",clientData,"meInbodyMg1",false,"post");
+		const mmeCode = "10001";
+		const cctCode = "1234567890";
+		jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
+		const clientData = JSON.stringify(jsondata);
+		alert(clientData);
+	whatsend("ajax/meInbodyMg2",clientData,"meInbodyMg1",false,"post");
 }
 
+
 function meInbodyMg1(data){
-	alert(data.value);
+	
+	alert("끄앙");
+	
 	message = '<div>';
+	message += '<canvas id="line-chart" width="50" height="20">'+'</canvas>'
 	message += '<table>';
 	message += '<tr><td>'+data[9].daName+'</td><td>'+ data[9].idCount +"&nbsp"+data[9].daUnit+'</td></tr>';
 	message += '<tr><td>'+data[1].daName+'</td><td>'+ data[1].idCount +"&nbsp"+data[1].daUnit+'</td></tr>';
@@ -221,16 +226,125 @@ function meInbodyMg1(data){
 		message += '<tr><td>'+data[8].daName+'</td><td>'+ data[8].idCount +"&nbsp"+data[8].daUnit+'</td></tr>';
 		message += '<tr><td>'+data[7].daName+'</td><td>'+ data[7].idCount +"&nbsp"+data[7].daUnit+'</td></tr>';
 		message += '</table>';
-		message += '</div>';
 		
-		message = '<div>';
+		
+	//	if(meInfo[0].caCode == "L1"){
 		message += '<table>';
-		message += '<tr><td>'+'목표운동량'+'</tr></td>';
-		message += '<tr><td>'+'운동명'+ '&nbsp&nbsp' +'</tr></td>';
+		message += '<tr><td>'+'운동명'+'</td><td>'+ data[0].exName+'</td></tr>';
+		message += '<tr><td>'+'목표운동량'+'</td><td>'+ data[0].taMotion +"&nbsp"+'단위 ('+data[0].exUnit+')'+'</td></tr>';
+		
+		
+		
+		message += '<tr><td>'+'실행일'+'</td><select style="overflow:auto" class="dropdown" id="findDay"">';
+		
+		
+		for (i=0; i<data.length;i++){
+			if(data[i].findDay != null)
+			message += '<option value ='+data[i].findDay+'>'+data[i].findDay+'</option>';
+		}
+		message+= '<input type = "button" value ='+"확인"+' onClick = "findDay()">'
+		
+	//	message += '<option value="date">'+date2+'</option>';
+		
+		message += '</select></tr>';
+		
+		message += '<tr><td>'+'실행상태'+'</td></tr><br><tr><td>'+ data[0].stCode+'</td></tr>';
 		message += '</table>';
 		message += '</div>';
+		
+	//	}
+		
+		document.getElementById("list").innerHTML = message;
+		
+		let input = document.createElement("input");
+		let P1 = 'P1';
+		input.setAttribute("type","button");
+		input.setAttribute("id","Yes");
+		input.setAttribute("value","Y");
+		input.setAttribute("onClick","insTaState('"+data[0].ibDate+','+P1+"')")
+		let input2 = document.createElement("input");
+		let P2 = 'P2';
+		input2.setAttribute("type","button");
+		input2.setAttribute("id","No");
+		input2.setAttribute("value","N");
+		input2.setAttribute("onClick","insTaState('"+data[0].ibDate+','+P2+"')");
+		const list = document.getElementById("list");
+		list.appendChild(input);
+		list.appendChild(input2);
+		
+		let jsondata = [];
 	
-      document.getElementById("list").innerHTML = message;
+	jsondata.push({"meCode":123});
+	const clientData = JSON.stringify(jsondata);
+		whatsend("ajax/inbodyChart",clientData,"inbodyChart",false,"post");
+	//	inbodyChart();
+}
+
+
+function inbodyChart(data){
+	
+	
+	alert(data[1].idCount);
+	alert(data[1].daName);
+	alert(data[1].ibDate);
+	new Chart(document.getElementById("line-chart"), {
+  type: 'line',
+  data: {
+	labels: [data[7].ibDate,data[4].ibDate,data[1].ibDate],
+    datasets: [{ 
+        data: [data[8].idCount,data[4].idCount,data[1].idCount],
+        label: "체중",
+        borderColor: "#3e95cd",
+        fill: false
+      }, { 
+        data: [data[6].idCount,data[3].idCount,data[0].idCount],
+        label: "골격근량",
+        borderColor: "#8e5ea2",
+        fill: false
+      }, { 
+        data: [data[7].idCount,data[5].idCount,data[2].idCount],
+        label: "체지방량",
+        borderColor: "#3cba9f",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: '최근 3개월 인바디 추이'
+    }
+  }
+});
+}
+
+function findDay(){
+	const findDay = document.getElementById("findDay").value;
+	alert(findDay);
+	let jsondata = [];
+	const mmeCode = "10001";
+	const cctCode = "1234567890";
+	jsondata.push({"meCode":mmeCode,"ctCode":cctCode,"ibDate":findDay,"ibDate1":findDay});
+	const clientData = JSON.stringify(jsondata);
+	alert(jsondata[0].ctCode);
+		whatsend("ajax/meInbodyMg",clientData,"meInbodyMg1",false,"post");
+}
+
+function insTaState(data){
+	alert(data.substring(0,14));
+	alert(data.substring(15,17));
+	let data1 = data.substring(0,14);
+	let data2 = data.substring(15,17);
+	
+	let jsondata = [];
+	jsondata.push({ibDate:data1,peStcode:data2});
+	const clientData = JSON.stringify(jsondata);
+	
+	whatsend("ajax/insTaState",clientData,"eee",false,"post");
+}
+function eee(data){
+	
+	meInbodyMg(data);
 }
 
 function checkMePw(){
