@@ -7,7 +7,7 @@
 <title>H E L P</title>
 <script src="res/js/resource.js"></script>
 </head>
-<body onLoad = "infoLine()">
+<body>
 
 <div id = "topMenu">
 	<div class = "menuContainer">

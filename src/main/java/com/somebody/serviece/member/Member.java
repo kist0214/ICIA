@@ -1,7 +1,5 @@
 package com.somebody.serviece.member;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +14,9 @@ import com.somebody.db.MapperBon;
 import com.somebody.db.MapperUone;
 import com.somebody.db.MapperYoung;
 
+import beans.Inbodys;
 import beans.Members;
+import beans.YMemberDt;
 @Service
 public class Member extends CommonMethod {
 	@Autowired
@@ -49,7 +49,12 @@ public class Member extends CommonMethod {
 		case "M04":
 			cgetCaList(me, model);
 			break;
-
+		case "M05":
+			meDetail(model, me);
+			break;
+		case "M07":
+			modMe(model,me);
+			break;
 		}
 
 		return mav;
@@ -68,18 +73,13 @@ public class Member extends CommonMethod {
 		case "M03":
 			searchMeMg(model);
 			break;
-		case "M04":
-			meDetail(model);
-			break;
 		case "M05":
 			getCaList(model);
 			break;
 		case "M06":
 			addMember(model);
 			break;
-		case "M07":
-			modMe(model);
-			break;
+		
 
 
 		case "C01":
@@ -178,8 +178,9 @@ public class Member extends CommonMethod {
 	}
 
 	public void meInbodyMg(Model model) {
-
-	}
+	      model.addAttribute("list",this.mu.meInbodyMg((Inbodys)model.getAttribute("send")));
+	      System.out.println(model.getAttribute("list"));
+	   }
 
 	public void meDtInfo(Model model) {
 
@@ -199,12 +200,14 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 		for(int i=0;i<meList.size();i++) {
 			int stocks=0;
 			for(int j=0;j<this.my.remecode().size();j++) {
-				if(meList.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())) {
-					if(meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
+				if(meList.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())
+						&&meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
 						stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
 						meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
-					}
+						System.out.println(j+", "+meList.get(i).getSfCode()+" : "+this.my.remecode().get(j).getSfCode());
+					
 				}
+				
 			}
 
 			meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
@@ -214,11 +217,7 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 		tranend(true);
 	}
 	public void payCriteria(Members me) {
-		LocalDate now = LocalDate.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		String formatedNow = now.format(formatter);
-		System.out.println(formatedNow);
-
+		
 	}
 
 	public void searchMeMg(Model model) {
@@ -227,8 +226,11 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 	}
 
 
-	public void meDetail(Model model) {
-
+	public void meDetail(Model model, Members me) {
+		List<YMemberDt> md = new ArrayList<YMemberDt>();
+		md.add(this.my.meDtInfo(me));
+		md.addAll(this.my.meInbodyMg(me));
+		model.addAttribute("meDtInfo", md);
 	}
 
 	public void getCaList(Model model) {
@@ -240,8 +242,7 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 		ml = (List<Members>) md.getAttribute("dataList");
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		if(this.convertToBoolean((ml.get(0).getCaCode()=="L0")?this.my.insMgL0(ml.get(0)):
-			this.my.insMg(ml.get(0)))){
+		if(this.convertToBoolean((ml.get(0).getCaCode()=="L0")?this.my.insMgL0(ml.get(0)):this.my.insMg(ml.get(0)))){
 			for(Members ml2:ml) {
 				if(tran=this.convertToBoolean(this.my.insPa(ml2))) {
 				}
@@ -267,12 +268,40 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 		tranend(tran);
 	}
 
-	public void modMe(Model model) {
+	public void modMe(Model md,Members me) {
+		boolean tran = false;
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		if(this.convertToBoolean(this.my.modMe(me))) {
+			tran = true;
+			List<Members> meList = new ArrayList<Members>();
+			
+			meList =this.my.meList(me);
 
+			for(int i=0;i<meList.size();i++) {
+				int stocks=0;
+				for(int j=0;j<this.my.remecode().size();j++) {
+					if(meList.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())
+							&&meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
+							stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
+							meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
+							System.out.println(j+", "+meList.get(i).getSfCode()+" : "+this.my.remecode().get(j).getSfCode());
+						
+					}
+					
+				}
+
+				meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
+
+			}
+			md.addAttribute("meList", meList);
+		}
+		tranend(tran);
 	}
 
 	public void insTaState(Model model) {
-
+		  Inbodys in = new Inbodys();
+	      in = (Inbodys) model.getAttribute("Inbody");
+	      model.addAttribute("a1", mu.insTaState(in));
 	}
 
 	public void meHealthMg(Model model) {
@@ -299,7 +328,6 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 
 			tranend(true);
 		} else {
-			System.out.println(222);
 			me.setCaCode("가입된 매장이 없습니다.");
 			model.addAttribute("mectlist", me.getCaCode());
 		}
@@ -308,24 +336,18 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 
 	public void searchLsMg(Model model) {
 
-		System.out.println(((Members)model.getAttribute("mectlist")).getCtCode() + "****");
-		System.out.println(((Members)model.getAttribute("mectlist")).getMeCode() + "*9**");
-		
-		
+
 		((Members)model.getAttribute("mectlist")).getMeCode().split("-");
 		System.out.println(((Members)model.getAttribute("mectlist")).getMeCode() + "*8*");
 		
-		
-		
-		// 날짜없으면 텍스트
-		 if(((Members)model.getAttribute("mectlist")) != null) {
-		model.addAttribute("mectlslist",((Members)model.getAttribute("mectlist")).getMeCode() == null?
-				mb.getCtcaLessonList((Members)model.addAttribute("mectlist")) 
-				: mb.getCtdateLessonList((Members)model.addAttribute("mectlist")));
+	
+		 if(((Members)model.getAttribute("mectlist")).getMeCode() != "") {
+			 System.out.println(((Members)model.getAttribute("mectlist")).getMeCode());
+				 mb.getCtdateLessonList((Members)model.addAttribute("mectlist"));
 		} else {
-			me.setCaCode("현재 매장에 수업이 없습니다.");
-			model.addAttribute("mectlslist", me.getCaCode());
+			mb.getCtcaLessonList((Members)model.addAttribute("mectlist"));
 		}
+		
 
 	}
 
@@ -345,14 +367,11 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 	public ModelAndView modMeMg(Model model) {
 		Members me = new Members();
 		me = (Members) model.getAttribute("Member");
-		System.out.println(((Members) model.getAttribute("Member")).getMeBirth() + ":" + me.getMeBirth());
 		mu.modMeMg(me);
 		return mav;
 	}
 
 	public ModelAndView  delMe(Model model) {
-		System.out.println(23);
-		System.out.println((Members)model.getAttribute("send"));
 		mu.delMe((Members)model.getAttribute("send")) ;
 		String page = "/infoLine";
 		this.mav.setViewName(page);

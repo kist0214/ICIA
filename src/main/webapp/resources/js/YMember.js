@@ -32,7 +32,8 @@ function getMeList(json){
 	let data = '<tr><td></td><td>이름</td><td>성별</td><td>연령</td><td>전화번호</td><td>유형</td><td>결제횟수/잔여횟수(개월)<td><td><td></tr>';
 	for(i=0;i<json.length;i++){
 		if(sfRanCode[0]=='M1'){
-				if(json[i].lpStocks>0){
+				//if(json[i].lpStocks>0){
+					//alert(json[i].meName+':'+json[i].sfCode);
 					data += '<tr id="meDtList" onClick="meDetail('+i+')"><td><input type=\"radio\" name=\"radibut\"/></td>';
 					data +='<td>'+json[i].meName+'</td>';
 					data +='<td>'+json[i].meGender+'</td>';
@@ -46,16 +47,17 @@ function getMeList(json){
 					}
 					if(json[i].stCode=='M1'){
 						if(json[i].caName=='일반'){
-							data +='<td><input type="button" value="만료" onclick="clickExpiration(\''+i+'\')"/></td></tr>';
+							data +='<td><input type="button" value="만료" onclick="clickExpiration(\''+i+'\')"/></td>';
 						}
 					}else{
 						data +='<td>만료</td>';
 					}
-				
-			}
+					data += '</tr><tbody colspan ="7" name = "dtInfo" style="border : 1px solid #000000;"></tbody>'
+					+'<tbody style="border : 1px solid #000000;" colspan ="7" name = "dtInfo2"></tbody>';
+			//}
 		}else if(sfRanCode[1]==json[i].sfCode){
-				if(json[i].lpStocks>0){
-					data += '<tr id="meDtList" onClick="meDetail('+i+')"><td><input type=\"radio\" name=\"radibut\"/></td>';
+				//if(json[i].lpStocks>0){
+					data += '<tr id="meDtList" name = "meDtList" onClick="meDetail('+i+')"><td><input type=\"radio\" name=\"radibut\"/></td>';
 					data +='<td>'+json[i].meName+'</td>';
 					data +='<td>'+json[i].meGender+'</td>';
 					data +='<td>'+json[i].meBirth+'</td>';
@@ -68,13 +70,14 @@ function getMeList(json){
 					}
 					if(json[i].stCode=='M1'){
 						if(json[i].caName=='일반'){
-							data +='<td><input type="button" value="만료" onclick="clickExpiration(\''+i+'\')"/></td></tr>';
+							data +='<td><input type="button" value="만료" onclick="clickExpiration(\''+i+'\')"/></td>';
 						}
 					}else{
 						data +='<td>만료</td>';
 					}
-				
-			}
+					data += '</tr><tbody colspan ="7" name = "dtInfo" style="border : 1px solid #000000;"></tbody>'
+					+'<tbody style="border : 1px solid #000000;" colspan ="7" name = "dtInfo2"></tbody>';
+			//}
 		}
 	}
 	ajax.innerHTML=data;
@@ -88,8 +91,137 @@ function clickExpiration(i){
 	ajax("ajax/clickExpiration",data,"getMeList");
 }
 
+var idx1;
 function meDetail(i){
-	
+	idx1 = i;
+	var json = [];
+	json.push({ctCode:meList[i].ctCode,meCode:meList[i].meCode});
+	data=JSON.stringify(json);
+	ajax("ajax/meDetail",data,"getMeDtail");	
+}
+
+var meDtMod;
+function getMeDtail(json){
+	meDtMod = json[0];
+	const dtInfo = document.getElementsByName("dtInfo");
+	const dtInfo2 = document.getElementsByName("dtInfo2");
+	for(a=0;a<dtInfo.length;a++){
+		while(dtInfo[a].hasChildNodes()){
+         	dtInfo[a].removeChild(dtInfo[a].lastChild);
+     	}
+		while(dtInfo2[a].hasChildNodes()){
+         	dtInfo2[a].removeChild(dtInfo2[a].lastChild);
+     	}
+		
+	}
+	let data;
+	var data2;
+	const addTr = document.getElementsByName("dtInfo")[idx1];
+	const addTr2 = document.getElementsByName("dtInfo2")[idx1];
+	data = '<tr><td rowspan = "4" colspan = "2">';
+	data += (json[0].meGender=='남')? '<img src="res/images/male.svg" width="60">':'<img src="res/images/female.svg" width="60">' ;
+	data +='</td><td>회원</td><td>'+json[0].meName+'('+json[0].meGender+', '+json[0].meBirth+'세)</td><td>회원유형</td><td>'+json[0].caName+'</td>';
+	data += '<td rowspan = "4" colspan = "2"><button onClick="openModalIn()"><i class="bx bx-edit-alt icon"></i></button>'
+	data += '<button id = "butbut" onClick="modMeDt(\''+json[0].meCode+'\')">수정</button>'
+	data += '</td></tr>'
+	data += '<tr><td>담당 트레이너</td><td>'+json[0].sfName+'</td><td>라카번호</td><td>'+json[0].locker+'</td></tr>';
+	data += '<tr><td>연락처</td><td>'+json[0].meNumber+'</td><td>결제금액</td><td>'+json[0].paTotal+'</td></tr>';
+	data += '<tr><td>이메일</td><td>'+json[0].meEmail+'</td></tr>';
+	if(json.length>1){
+		data2 = '<tr><td rowspan = "3" colspan = "3"><canvas id="inbodyChart" width = "300px" height = "200px"></canvas>';
+		data2 += '</td><td>기초대사량</td><td id="a1"></td>'
+		data2 += '<td colspan = "2">목표량</td></tr>';
+		data2 += '<tr><td>B M I</td><td id="a2"></td><td>운동명<br>목표운동량</td><td>'+json[1].exName+'<br>'+json[1].taMotion+' '+json[1].exUnit+'</td></tr>';
+		data2 += '<tr><td>체지방률</td><td id="a3"></td><td>실행일자<br>실행상태</td><td>'+json[1].ibDate+'<br>'+json[1].stCode+'</td></tr>';
+		addTr2.innerHTML = data2;
+	}
+	addTr.innerHTML = data;
+	if(json.length>1){
+	var raData = {
+		type: 'radar',
+    	data: {
+			labels: [],
+			datasets: [{
+				label: "",
+          		fill: true,
+          		backgroundColor: "rgba(179,181,198,0.2)",
+          		borderColor: "rgba(179,181,198,1)",
+          		pointBorderColor: "#fff",
+          		pointBackgroundColor: "rgba(179,181,198,1)",
+          		data: []
+        	}]
+    	},
+    	options: {
+			responsive: false
+    	}
+	};
+	raData.data.datasets.label='"'+json[1].ibDate+'"';
+	for(i=1;i<json.length;i++){
+		if(json[i].daName=='체중'||json[i].daName=='골격근량'||json[i].daName=='체지방량'){
+			raData.data.labels.push(json[i].daName+'('+json[i].daUnit+')');
+			raData.data.datasets[0].data.push(json[i].idCount);
+		}
+		if(json[i].daName=='기초대사량')document.getElementById("a1").innerText = json[i].idCount +' '+json[i].daUnit;
+		if(json[i].daName=='BMI')document.getElementById("a2").innerText = json[i].idCount +' '+json[i].daUnit;
+		if(json[i].daName=='체지방량'){document.getElementById("a3").innerText = json[i].idCount +' '+json[i].daUnit};
+	}
+new Chart(document.getElementById("inbodyChart"), raData);
+}
+}
+
+function modMeDt(mecode){
+	const butbut = document.getElementById("butbut");
+	butbut.removeAttribute("onClick");
+	butbut.setAttribute("onClick","modMeDtAjax()");
+	butbut.innerText = '저장';
+	document.getElementById("mdtitle").innerText = "회원수정";
+	var data = '<div><span>이름</span><span><input type ="text" id = "meName" placeholder="'+meDtMod.meName+'"/></span></div>';
+	data += '<div><span>연락처</span><span><input <input type="text" id ="meNumber" placeholder="'+meDtMod.meNumber+'" title="형식 01012341234" />'
+	data += '<div><span>이메일</span><span><input type = "text" id = "emailName" placeholder="'+meDtMod.meEmail.split('@')[0]+'"/><span>@<span><select id="juso">';
+	data += '<option value = "return">주소선택</option>'
+	data += '<option value = "daun.net">daun</option>';
+	data += '<option value = "naver.com">naver</option>';
+	data += '<option value = "google.com">GMAIL</option>';
+	data += '<option value = "yahoo.com">yahoo</option>';
+	data += '<option value = "outlook.com">outlook.com</option>';
+	data += '<option value = "nate.com">nate</option>';
+	data += '<option value = "dreamwiz.com">dreamwiz</option>';
+	data += '<option value = "korea.com">korea.com</option></select></div>';
+	data += '<button class="mbtn" onClick = "modMeDtAjax(\''+mecode+'\')">MOD<button>';
+	document.getElementById("mdbody").innerHTML = data;
+	const juso = document.getElementById("juso");
+	for(i=0;i<juso.length;i++){
+		if(juso.options[i].value==meDtMod.meEmail.split('@')[1]){
+			juso.options[i].setAttribute('selected', '');
+		}
+	}
+	YopenModal();
+}
+
+function modMeDtAjax(mecode){
+	let name =  document.getElementById("meName");
+	let number =  document.getElementById("meNumber");
+	let email =  document.getElementById("emailName");
+	let juso =  document.getElementById("juso").value;
+	let json = [];
+	if(name.value == ""){
+		name = name.placeholder;
+	}else{
+		name = name.value;
+	}
+	if(number.value == ""){
+		number = number.placeholder;
+	}else{
+		number = number.value;
+	}
+	if(email.value == ""){
+		email = email.placeholder+'@'+juso;
+	}else{
+		email = email.value+'@'+juso;
+	}
+		json.push({ctCode : meList[0].ctCode, meCode: mecode, meName : name, meNumber : number , meEmail : email});
+		const data = JSON.stringify(json);
+	ajax("ajax/modMe",data,"getMeList");
 }
 
 function searchMe(ctcode){
@@ -98,7 +230,6 @@ function searchMe(ctcode){
 	let json = [];
 	json.push({ctCode:ctcode,meCode:select,meName:searchText});
 	const data = JSON.stringify(json);
-	alert(data);
 	ajax("ajax/meMg",data,"getMeList");
 }
 
@@ -216,7 +347,6 @@ function UploadinbodyFile() {
 		
 		ajax.onreadystatechange = function() {
 			if (ajax.readyState == 4 && ajax.status == 200) {
-			//alert(ajax.responseText);
 			window[fn](JSON.parse(ajax.responseText));
 			
 			

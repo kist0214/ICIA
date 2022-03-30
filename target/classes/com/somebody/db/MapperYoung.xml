@@ -107,32 +107,32 @@
 		values('${ctCode}','10001','${sfPw}','${sfName}','M1','${sfEmail}','${sfNumber}')
 	</insert>
 	<select id="meList" resultType="beans.Members" parameterType="beans.Members">
-      select mgctcode as ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode as stCode,lpQty,caCode, meCode from kmasters.MeMgView
-      where mgctcode = ${ctCode}
+      select ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode as stCode,lpQty,caCode, meCode from kmasters.MeMgView
+      where ctcode = ${ctCode}
    </select>
    <select id="Count" resultType="beans.Pays" parameterType="beans.Members">
-		select clv.ctcode as ctCode, clv.caname as caName, count(rl.mecode) as lpStocks, rl.sfCode
+		select clv.ctcode as ctCode, clv.caname as caName, count(rl.mecode) as lpStocks
 		from kmasters.calpview clv left outer join kmasters.relsview rl on clv.ctcode = rl.ctcode and clv.cacode = rl.cacode
 		where clv.ctCode = '${ctCode}' and rl.meCode = '${meCode}' and clv.caName = '${caName}'
-		group by clv.ctcode, clv.caname, rl.sfcode
+		group by clv.ctcode, clv.caname
    </select>
    <select id="remecode" resultType="beans.Members" parameterType="beans.Members">
-	 select meCode, caCode from kmasters.relsview group by meCode, caCode
+	 select meCode, caCode, sfCode from kmasters.relsview
    </select>
   <update id="clickExpiration">
   	update kmasters.mg set mgstcode='M2' where mgctcode='${ctCode}' and mgmecode='${meCode}'
   </update>
   <select id="searchMeList" resultType="beans.Members" parameterType="beans.Members">
-      select mgctcode as ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode as stCode,lpQty,caCode, meCode from kmasters.MeMgView
-      where mgctcode = '${ctCode}' and mgstcode = '${stCode}'
+      select ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode as stCode,lpQty,caCode, meCode from kmasters.MeMgView
+      where ctcode = '${ctCode}' and mgstcode = '${stCode}'
    </select>
    <select id="searchMeList2" resultType="beans.Members" parameterType="beans.Members">
-      select mgctcode as ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode as stCode,lpQty,caCode, meCode from kmasters.MeMgView
-      where mgctcode = '${ctCode}' and cacode = '${caCode}'
+      select ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode as stCode,lpQty,caCode, meCode from kmasters.MeMgView
+      where ctcode = '${ctCode}' and cacode = '${caCode}'
    </select>
    <select id="searchMeList3" resultType="beans.Members" parameterType="beans.Members">
-      select mgctcode as ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode as stCode,lpQty,caCode, meCode from kmasters.MeMgView
-      where mgctcode = '${ctCode}' and ${meCode} = '${meName}'
+      select ctCode, meName,meGender,meBirth,meNumber,caName,mgstcode as stCode,lpQty,caCode, meCode from kmasters.MeMgView
+      where ctcode = '${ctCode}' and ${meCode} = '${meName}'
    </select>
    <select id="getLsCaList" resultType="beans.Lessons" parameterType="beans.Members">
       select lp.lpctcode as ctCode, lp.lpcacode as caCode, lp.lpQty, lp.lpPrice ,ca.caName from kmasters.lp inner join kmasters.ca on lp.lpcacode = ca.cacode where lp.lpctcode = ${ctCode}
@@ -160,4 +160,48 @@
 	<update id="modSf2" parameterType = "beans.Staffs">
 		update kmasters.sf set sfname = '${sfName}', sfemail = '${sfEmail}', sfnumber = '${sfNumber}', sfrank = '${sfRank}' where sfctcode = '${ctCode}' and sfcode = '${sfId}'
 	</update>
+	<select id = "meDtInfo" resultType = "beans.YMemberDt" parameterType = "beans.Members">
+      	select mmv.mename,
+		mmv.mecode,
+		(select caName from kmasters.ca where ca.cacode = mmv.megender) as meGender,
+		mmv.mebirth,
+		nvl((select sf.sfname from kmasters.sf where sf.sfcode = mgv.sfcode and sf.sfctcode = mgv.ctcode),'미할당') as sfName,
+		mmv.menumber,
+		(select me.meemail from kmasters.me where me.mecode = mmv.mecode) as meEmail,
+		nvl(mmv.caname,'미할당') as caName,
+		nvl(mmv.patotal,0) as paTotal,
+		nvl(eq.eqname,'미할당') as locker
+		from kmasters.memgview2 mmv full outer join kmasters.mglssfVIEW2 mgv
+		on mmv.ctcode = mgv.ctcode and mmv.mecode = mgv.mecode
+		left outer join kmasters.lg on mmv.mecode = lg.lgmecode and mmv.ctcode = lg.lgeqctcode
+		left outer join kmasters.eq on eq.eqctcode = lg.lgeqctcode and eq.eqcode = lg.lgeqcode
+		where mmv.ctcode = '${ctCode}' and mmv.mecode = '${meCode}'
+   </select>
+		
+	<select id = "meInbodyMg" resultType = "beans.YMemberDt" parameterType = "beans.Inbodys">
+SELECT DISTINCT IDCOUNT AS idCount,
+        DAUNIT AS daUnit,
+        DANAME AS daName,
+        SUBSTR(IDIBCODE,6,14) AS ibDate,
+        (SELECT REGEXP_REPLACE(LISTAGG(CAST(EX.EXUNIT AS VARCHAR(50)),',') WITHIN GROUP (ORDER BY EX.EXUNIT),'([^,]+)(,\1)+', '\1' ) FROM KMASTERS.EX WHERE EXCODE = TAEXCODE) AS exUnit,
+        (SELECT REGEXP_REPLACE (LISTAGG(CAST(TA.TAMOTION AS VARCHAR(50)),',') WITHIN GROUP (ORDER BY TA.TAMOTION),'([^,]+)(,\1)+', '\1' ) FROM KMASTERS.TA WHERE SUBSTR(TAIDIBCODE,6,14) =(SELECT SUBSTR(MAX(TAIDIBCODE),6,14) FROM KMASTERS.TA WHERE SUBSTR(TAIDIBCODE,1,5)='${meCode}') AND SUBSTR(TAIDIBCODE,1,5)='${meCode}') AS taMotion,
+        
+        (SELECT REGEXP_REPLACE(LISTAGG(CAST(EX.EXNAME AS VARCHAR(50)),',') WITHIN GROUP (ORDER BY EX.EXNAME),'([^,]+)(,\1)+', '\1' )
+        FROM KMASTERS.EX INNER JOIN KMASTERS.TA ON EX.EXCODE = TA.TAEXCODE
+        WHERE SUBSTR(TAIDIBCODE,6,14) =(SELECT SUBSTR(MAX(TAIDIBCODE),6,14) FROM KMASTERS.TA WHERE SUBSTR(TAIDIBCODE,1,5)='${meCode}') AND SUBSTR(TAIDIBCODE,1,5)='${meCode}'
+        ) AS exName,
+        (SELECT STNAME FROM KMASTERS.ST WHERE ST.STCODE = PE.PESTCODE ) AS stCode
+    
+    
+   FROM KMASTERS.ID INNER JOIN KMASTERS.DA ON ID.IDDACODE = DA.DACODE
+                    INNER JOIN KMASTERS.TA ON  ID.IDIBCODE = TA.TAIDIBCODE
+                    INNER JOIN KMASTERS.EX ON TA.TAEXCODE = EX.EXCODE
+                    INNER JOIN KMASTERS.PE ON EX.EXCODE = PE.PETAEXCODE
+                    INNER JOIN KMASTERS.ST ON PE.PESTCODE = ST.STCODE
+   WHERE SUBSTR(IDIBCODE,6,8) =(SELECT SUBSTR(MAX(TAIDIBCODE),6,8) FROM KMASTERS.TA WHERE SUBSTR(TAIDIBCODE,1,5) = '${meCode}')
+                                         AND SUBSTR(IDIBCODE,1,5) = ${meCode} ORDER BY DANAME
+   </select>
+   <update id="modMe">
+   		update kmasters.me set meName = '${meName}' , meNumber = '${meNumber}', meEmail = '${meEmail}' where meCode = '${meCode}'
+   </update>
 </mapper>

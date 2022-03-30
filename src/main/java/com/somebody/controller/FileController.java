@@ -56,7 +56,7 @@ public class FileController {
 	public   Inbodys insInbody(@RequestParam("file") MultipartFile[] f, @ModelAttribute Inbodys in , Model model) {
 
 		for (MultipartFile e : f) {
-			this.savePath = new File("C:\\REST\\workspace2\\help\\src\\main\\webapp\\resources\\excel",
+			this.savePath = new File("C:\\developer\\help\\src\\main\\webapp\\resources\\excel",
 					e.getOriginalFilename());
 				try {
 					
@@ -76,10 +76,8 @@ public class FileController {
 	public ArrayList<ArrayList<String>> readFilter(String fileName) throws IOException {
 		int rows = 0;
 		int cells = 0;
-		int idx  =0;
 		XSSFRow row = null;
 		XSSFCell cell_filter = null;
-		String  data = null;
 		
 	
 		FileInputStream fis = new FileInputStream(this.savePath.getPath());
