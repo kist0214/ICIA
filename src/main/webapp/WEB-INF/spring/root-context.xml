@@ -23,8 +23,8 @@
 			value="oracle.jdbc.driver.OracleDriver"></property>
 		<property name="jdbcUrl"
 			value="jdbc:oracle:thin:@icia.cxu8ltcsvljy.ap-northeast-2.rds.amazonaws.com:1521:ORCL"></property>
-		<property name="username" value="BON"></property>
-		<property name="password" value="1234"></property>
+		<property name="username" value="kmasters"></property>
+		<property name="password" value="01054202519!"></property>
 	</bean>
 	<!-- 만든 dbcp 사용 (생성자에 접근해야함) -->
 	<bean id="ds" class="com.zaxxer.hikari.HikariDataSource"
