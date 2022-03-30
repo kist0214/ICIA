@@ -75,9 +75,11 @@ public class ControllerBon {
 
 
 
+
 	@RequestMapping(value = "/ctJoin", method = RequestMethod.GET)
 	public void ctJoin(Model model, @ModelAttribute Centers ct) {
 		this.auth.backController("J02", ct);
+
 	}
 
 

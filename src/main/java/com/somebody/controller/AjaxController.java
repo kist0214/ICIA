@@ -141,13 +141,14 @@ System.out.println("1::"+sf[0].getSfPw());
 	@RequestMapping("/searchLesson")
 	public List<Lessons> searchLesson(Model model, @RequestBody Lessons[] ls) {
 		this.lss.backController("L02",ls[0],model.addAttribute("ls", ls[0]));
-		return (List<Lessons>)model.getAttribute("searchLesson");
+		return (List<Lessons>)model.getAttribute("lsList");
 	}
 	/*@RequestMapping(value = "/getLsCaList", method = RequestMethod.POST)
 	public void getLsCaList(Model model, @RequestBody Lessons[] ls) {
 		this.lss.backController("L03",ls[0],model);
 	}*/
-
+	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/insLsPay", method = RequestMethod.POST)
 	public List<Lessons> insLsPay(Model model, @RequestBody Lessons[] ls) {
 		this.lss.backController("L04",ls[0],model);
@@ -161,7 +162,7 @@ System.out.println("1::"+sf[0].getSfPw());
 	@RequestMapping(value = "/insLesson", method = RequestMethod.POST)
 	public List<Lessons> insLesson(Model model, @RequestBody Lessons[] ls) {
 		this.lss.backController("L06",ls[0],model);
-		return (List<Lessons>)model.getAttribute("insLesson");
+		return (List<Lessons>)model.getAttribute("lsList");
 	}
 
 
