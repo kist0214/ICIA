@@ -152,7 +152,7 @@
 				</button>
 			</div>
 		</div>
-<<<<<<< HEAD
+
 <table id="ajax"></table>
 <div class="mModal" id="gModal">
 		<div class="memberLog">
@@ -187,7 +187,7 @@
 					<div>
 						<br> <input type="button" id="btn" value="인바디 파일 전송"
 							onClick="UploadinbodyFile()" /><br><br>
-							<input type="button" class="mbtn" value="닫기"/>
+							<input type="button" class="mbtn" value="닫기" onClick="closeModalIn()"/>
 					</div>
 					<br> <br>
 					<div id=msg></div>

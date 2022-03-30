@@ -7,6 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap')
 	;
 
+
 * {
 	margin: 0;
 	padding: 0;
@@ -118,7 +119,9 @@ body, input, button {
 	height: 15%;
 	text-align: center;
 	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	padding-bottom: 10px;
 }
+
 
 .search {
 	width: 100%;
@@ -184,6 +187,7 @@ select {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	
 }
 
 #bottom section {
@@ -220,7 +224,10 @@ select {
 	padding: 30px;
 	position: relative;
 	z-index: 100;
+	
 }
+
+
 
 section .card .image {
 	height: 140px;

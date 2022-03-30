@@ -303,19 +303,26 @@ System.out.println("1::"+sf[0].getSfPw());
 		@RequestMapping(value = "/searchLsMg", method = RequestMethod.POST)
 		public List<Lessons> searchLsMg(Model model, @RequestBody  Members[] me) {
 			model.addAttribute("mectlist",me[0]);
-			System.out.println(model.addAttribute("mectlist"));
+
 			this.me.backController("C09", model);
-			return (List<Lessons>)model.getAttribute("mectlslist");
+			return (List<Lessons>)model.getAttribute("mectlslista");
+		}
+
+		
+		  @RequestMapping(value = "/insMeLesson", method = RequestMethod.POST) public
+		  Lessons insMeLesson(Model model, @RequestBody Lessons[] ls) {
+		  model.addAttribute("reqlesson",ls[0]);
+		  this.me.backController("C10", model);
+		  return (Lessons)model.getAttribute("sta"); 
+		  }
+		 
+		@RequestMapping(value = "/delMeLesson", method = RequestMethod.POST)
+		public Lessons delMeLesson(Model model, @RequestBody  Lessons[] ls) {
+			model.addAttribute("reqlesson",ls[0]);
+			this.me.backController("C11", model);
+			 return (Lessons)model.getAttribute("sta");
 		}
 		
-		@RequestMapping(value = "/insMeLesson", method = RequestMethod.POST)
-		public void insMeLesson(Model model, @ModelAttribute Members me) {
-			this.me.backController("C10", model);
-		}
-		@RequestMapping(value = "/delMeLesson", method = RequestMethod.POST)
-		public void delMeLesson(Model model, @ModelAttribute Members me) {
-			this.me.backController("C11", model);
-		}
 		@RequestMapping(value = "/checkMePw", method = RequestMethod.POST)
 		public void checkMePw(Model model, @ModelAttribute Members me) {
 			this.auth.backControllerME("C14",model);

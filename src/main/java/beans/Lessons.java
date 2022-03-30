@@ -25,7 +25,9 @@ public class Lessons {
 	private String caName;
 	private String lsCaName;
 	private int lpQty;
-	private String lsMeRemain;
+	private String lsDay;
+	private String lsTime;
+	
 	private int lpPrice;
 	private String lpCaCode;
 
