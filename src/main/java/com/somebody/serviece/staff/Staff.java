@@ -73,16 +73,11 @@ public class Staff extends CommonMethod {
 	}
 
 	public void searchSfMg(Staffs sf, Model model) {
-
-		
-			tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,
-					false);
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,false);
 			model.addAttribute("sfList", this.md.searchSfMg(sf));
 			tranend(true);
 		
 	}
-
-
 
 	public void getMaxSf(Model model) {
 

@@ -13,7 +13,7 @@
 		INSERT INTO KMASTERS.SF (SFCTCODE, SFCODE, SFPASSWORD, SFNAME, SFRANK, SFEMAIL, SFNUMBER) VALUES(#{ctCode} ,(SELECT MAX(SFCODE) AS sfCode FROM KMASTERS.SF), #{sfPw}, #{sfName}, #{sfRank}, #{sfEmail}, #{sfNumber})
 	</insert>
 	<select id="sfList" parameterType = "beans.Staffs" resultType = "beans.Staffs" >
-		SELECT SFCODE AS sfId, SFNAME AS sfName, CANAME AS caName , SFEMAIL AS sfEmail, SFNUMBER AS sfNumber FROM KMASTERS.SF INNER JOIN KMASTERS.CA ON CACODE = SFRANK WHERE SFCTCODE = #{ctCode} ORDER BY SFCODE ASC
+	SELECT SFCODE AS sfId, SFNAME AS sfName, CANAME AS caName , SFEMAIL AS sfEmail, SFNUMBER AS sfNumber FROM KMASTERS.SF INNER JOIN KMASTERS.CA ON CACODE = SFRANK WHERE SFCTCODE = #{ctCode} ORDER BY SFCODE ASC
 	</select>
 	<select id="maxCode" resultType = "beans.Staffs" >
 	SELECT MAX(SFCODE) AS sfCode FROM KMASTERS.SF
@@ -22,19 +22,19 @@
 		UPDATE KMASTERS.SF SET SFCTCODE = #{sfCtCode} WHERE SFCODE = #{sfId} AND SFNAME =#{sfName} AND SFNUMBER =#{sfNumber} AND SFPASSWORD =#{sfPassword} AND SFEMAIL =#{sfEmail} AND SFRANK =#{sfRank} 
 	</update>
 	<select id="goLessonPage" resultType="beans.Lessons">
-		SELECT LSNAME AS lsName, LSOPEN AS lsOpen, LSSFCODE AS sfCode ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS
+		SELECT LSNAME AS lsName, TO_CHAR(LSOPEN,'YYYY-MM-DD HH24:MI:SS') AS lsOpen, LSSFCODE AS sfCode ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS
 	</select>
 	<select id="searchLesson" resultType="beans.Lessons">
-		SELECT LSNAME AS lsName, LSOPEN AS lsOpen, SFNAME AS lsSfName ,LSMECOUNT AS lsMeCount FROM KMASTERS.LSINNER JOIN KMASTERS.SF ON SFCODE = LSSFCODE AND SFCTCODE = LSSFCTCODE WHERE LSSFCTCODE =#{ctCode} AND (LSOPEN =#{lsOpen} OR SFNAME =#{sfName}) ORDER BY LSOPEN ASC
+		SELECT LSNAME AS lsName, TO_CHAR(LSOPEN,'YYYY-MM-DD HH24:MI:SS') AS lsOpen, SFNAME AS sfName ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS INNER JOIN KMASTERS.SF ON SFCODE = LSSFCODE AND SFCTCODE = LSSFCTCODE WHERE LSSFCTCODE =#{ctCode} AND (TO_CHAR(LSOPEN,'YYYY-MM') ='${lsOpen}' OR ${lsName}='${sfName}') ORDER BY LSOPEN ASC
 	</select>
 	<select id="lsList" resultType = "beans.Lessons" parameterType = "beans.Lessons">
-		SELECT LSNAME AS lsName, LSOPEN AS lsOpen, SFNAME AS sfName ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS INNER JOIN KMASTERS.SF ON SFCODE =  LSSFCODE AND SFCTCODE = LSSFCTCODE WHERE LSSFCTCODE  =#{ctCode}
+		SELECT LSNAME AS lsName, TO_CHAR(LSOPEN,'YYYY-MM-DD HH24:MI:SS') AS lsOpen, SFNAME AS sfName ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS INNER JOIN KMASTERS.SF ON SFCODE =  LSSFCODE AND SFCTCODE = LSSFCTCODE WHERE LSSFCTCODE  =#{ctCode}
 	</select>
 	<insert id="insLsPay" parameterType="beans.Lessons">
 		INSERT INTO KMASTERS.LP (LPCTCODE, LPCACODE, LPQTY, LPPRICE) VALUES(#{ctCode},#{caCode},#{lpQty},#{lpPrice})
 	</insert>
 	<insert id="insLesson" parameterType="beans.Lessons">
-		INSERT INTO KMASTERS.LS (LSSFCTCODE, LSSFCODE, LSCODE, LSNAME, LSOPEN, LSPROGRESS, LSMECOUNT, LSCACODE) VALUES(#{ctCode},#{sfCode},#{lsCode},#{lsName},#{lsOpen},#{lsProgress},#{lsMeCount},#{lsCaCode})
+		INSERT INTO KMASTERS.LS (LSSFCTCODE, LSSFCODE, LSCODE, LSNAME, LSOPEN, LSPROGRESS, LSMECOUNT, LSCACODE) VALUES(#{ctCode},#{sfCode},#{lsCode},#{lsName},TO_DATE(#{lsOpen},'YYYY-MM-DD HH24:MI:SS') ,#{lsProgress},#{lsMeCount},#{caCode})
 	</insert>
 	<select id="lessonMg" resultType = "beans.Lessons" parameterType = "beans.Lessons">
 		SELECT LSNAME AS lsName, LSOPEN AS lsOpen, LSSFCODE AS sfCode ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS
