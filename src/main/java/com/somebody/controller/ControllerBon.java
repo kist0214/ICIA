@@ -29,8 +29,9 @@ public class ControllerBon {
 
 	//bon
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
-		return "home";
+	public ModelAndView home(Model model) {
+		return this.auth.backControllerME("A01",model);
+		
 	}
 
 	@RequestMapping(value = "/meLogin", method = RequestMethod.POST)

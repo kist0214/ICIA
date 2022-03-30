@@ -42,7 +42,7 @@
 <script src="res/js/Dong.js"></script> 
 <script src="res/js/bon.js"></script> 
 <script src="res/js/YMember.js"></script> 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
 </head>
 <body onload="getMeMg('${ctCode}','${sfInfo.sfRank}','${sfInfo.sfId}')">
@@ -146,13 +146,9 @@
 			<div>
 				<button onClick="getCaList('${ctCode}')">
 					<i class='bx bx-user-plus icon'></i><span></span>
-
 				</button>
-				<button>
-					<i class='bx bx-user-x' onClick="modMeModal()"></i>
-				</button>
-					<button>
-					<i class='bx bx-edit-alt icon' onClick="openModalIn()"></i>
+				<button onClick="openModalIn()">
+					<i class='bx bx-edit-alt icon'></i>
 				</button>
 			</div>
 		</div>

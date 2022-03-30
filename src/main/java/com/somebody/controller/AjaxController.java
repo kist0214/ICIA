@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.somebody.db.MapperUone;
 import com.somebody.serviece.auth.Authenticaion;
@@ -27,6 +26,7 @@ import beans.Lessons;
 import beans.Members;
 import beans.Pays;
 import beans.Staffs;
+import beans.YMemberDt;
 
 
 @RestController
@@ -69,16 +69,19 @@ public class AjaxController {
 		return (List<Members>)model.getAttribute("getmelist");
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/meDetail", method = RequestMethod.POST)
-	public void meDetail(Model model, @RequestBody Members me) {
-		this.me.backController("M04",model);
+	public List<YMemberDt> meDetail(Model model, @RequestBody Members[] me) {
+		this.me.backController("M05",model, me[0]);
+		return (List<YMemberDt>)model.getAttribute("meDtInfo");
 	}
 
 	
 	@RequestMapping(value = "/modMe", method = RequestMethod.POST)
-	public void modMe(Model model, @RequestBody Members me) {
-		this.me.backController("M07", model);
-
+	public List<Members> modMe(Model model, @RequestBody Members[] me) {
+		this.me.backController("M07", model, me[0]);
+		return (List<Members>)model.getAttribute("meList");
+		
 	}
 
 	//Dong
@@ -270,14 +273,16 @@ System.out.println("1::"+sf[0].getSfPw());
 		}
 		@RequestMapping(value = "/meInbodyMg", method = RequestMethod.POST)
 		public List<Inbodys> meInbodyMg(Model model, @RequestBody Inbodys[] in) {
-			System.out.println("123");
 			this.me.backController("C03",  model.addAttribute("send",in[0]));
 			return (List<Inbodys>)model.getAttribute("list");
 		}
 		@RequestMapping(value = "/insTaState", method = RequestMethod.POST)
-		public void insTaState(Model model, @ModelAttribute Members me) {
-			this.me.backController("C04", model);
-		}
+	      public int insTaState(Model model, @RequestBody Inbodys[] in) {
+	         model.addAttribute("Inbody",in[0]);
+	         this.me.backController("C04", model);
+	         return (int)model.getAttribute("a1");
+	         
+	      }
 		@RequestMapping(value = "/meHealthMg", method = RequestMethod.POST)
 		public void meHealthMg(Model model, @ModelAttribute Members me) {
 			this.me.backController("C05", model);

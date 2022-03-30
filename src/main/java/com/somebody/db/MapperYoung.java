@@ -7,6 +7,7 @@ import beans.Equipments;
 import beans.Members;
 import beans.Pays;
 import beans.Staffs;
+import beans.YMemberDt;
 
 public interface MapperYoung {
 	//Equipments
@@ -45,7 +46,11 @@ public interface MapperYoung {
 	public int insMgL0(Members me);
 	public int insPa(Members me);
 	public int sc();
+	public int modMe(Members me);
+	//public Members reLsSfCode(Members me);
 	//Staffs
 	public int modSf(Staffs sf);
 	public int modSf2(Staffs sf);
+	public YMemberDt meDtInfo(Members me);
+	public List<YMemberDt> meInbodyMg(Members me);
 }

@@ -1,11 +1,7 @@
 package com.somebody.db;
 
-
-
-import java.util.ArrayList;
 import java.util.List;
 
-import beans.Centers;
 import beans.Inbodys;
 import beans.Lessons;
 import beans.Members;

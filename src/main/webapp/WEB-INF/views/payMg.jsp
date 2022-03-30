@@ -14,7 +14,7 @@
 <script src="/res/js/resource.js"> </script>
 <script src="res/js/Dong.js"> </script>
 </head>
-<body onLoad="onLoadPay('${ctCode}')"  onLoad="payChart()">
+<body onLoad="onLoadPay('${ctCode}')">
 	<nav class="sidebar close">
 		<header>
 			<div class="image-text">
@@ -70,8 +70,8 @@
 						</span></span>
 				</a></li>
 
-				<li class=""><a> <i class='bx bx-log-out icon'
-						onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')"></i> <span class="text nav-text" onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')">로그아웃</span>
+				<li class=""><a  onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')"> <i class='bx bx-log-out icon'
+						></i> <span class="text nav-text" onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')">로그아웃</span>
 				</a></li>
 
 				<li class="mode">
@@ -207,9 +207,7 @@ const YYChart=new Chart(YChart,YData);
 function newChart(json){
 	//데이터셋 수 만큼 반복
 	var dataset = YData.data.datasets;
-	var labels = YData.data.labels
 	for(var i=0; i<dataset.length; i++){
-		console.log(dataset);
 		//데이터 갯수 만큼 반복
 		var data = dataset[i].data;
 		for(var j=0 ; j < data.length ; j++){
