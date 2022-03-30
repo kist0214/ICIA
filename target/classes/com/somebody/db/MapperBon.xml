@@ -152,7 +152,7 @@ select lssfctcode as ctCode,ctname, lssfcode as sfCode ,sfname, lscode
 		kmasters.ct on lssfctcode = sfctcode and
 		sfctcode = ctcode
 		where
-		lssfctcode =#{ctCode} and lsopen LIKE #{meCode}%
+		lssfctcode =#{ctCode} and lsopen LIKE '#{meCode}%'
 	</select>
 	<select id="remainLessonCount" parameterType="beans.Lessons"
 		resultType="beans.Lessons">

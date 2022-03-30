@@ -108,6 +108,9 @@ public class Authenticaion extends CommonMethod {
 	public ModelAndView backControllerME(String sCode, Model model) {
 
 		switch (sCode) {
+		case"A01":
+			dGaJaPage(model);
+			break;
 		case "A02":
 			meLogin(model);
 			break;
@@ -123,6 +126,7 @@ public class Authenticaion extends CommonMethod {
 		return this.mav;
 	}
 
+
 	public void backController2(String sCode, Model md) {
 		switch (sCode) {
 		case "C01":
@@ -134,30 +138,45 @@ public class Authenticaion extends CommonMethod {
 			break;
 		}
 	}
+	
+	private void dGaJaPage(Model model) {
+		String page=null;
+		try {
+			if (this.pu.getAttribute("sfInfo") != null && this.pu.getAttribute("meInfo") == null ) {
+				page = "meMg";
+			}else if (this.pu.getAttribute("sfInfo") == null && this.pu.getAttribute("meInfo") != null ) {
+				page = "infoLine";
+			}else if (this.pu.getAttribute("sfInfo") == null && this.pu.getAttribute("meInfo") == null ) {
+				page = "home";
+			}else {
+				System.out.println("어케했누?");
+			}
+			this.mav.setViewName(page);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	private ModelAndView sendEmail(Staffs sf) {
 		String message = "정보가 일치하지 않습니다.";
 		String page = "sendEmailForm";
 		String object = "sfEmail";
-		System.out.println(sf.getSfEmail() + "***");
 		String meadress = this.mb.ismeEmail(sf);
 		String sfadress = this.mb.issfEmail(sf);
 
 		String adress = null;
 
 		if (meadress != null) {
-			System.out.println(11);
 			adress = meadress;
 
 		} else if (sfadress != null) {
-			System.out.println(22);
 			adress = sfadress;
 		} else {
 			mav.addObject(object, message);
 			mav.setViewName(page);
 		}
 
-		System.out.println(sf.getSfEmail());
 		/* Email Info */
 		boolean sended = false;
 
@@ -266,9 +285,8 @@ public class Authenticaion extends CommonMethod {
 				false);
 
 		try {
-			if ((String) this.pu.getAttribute("sfInfo") == null) {
+			if (this.pu.getAttribute("sfInfo") == null) {
 				if (enc.matches(sf.getSfPw(), pw)) {
-
 					sf.setAhType("A1");
 					if (this.convertToBoolean(this.mb.insertAccessHistory(sf))) {
 						sf = this.mb.sfInfo(sf);
@@ -326,9 +344,8 @@ public class Authenticaion extends CommonMethod {
 		try {
 
 			sf.setAhType("A2");
-			if (this.convertToBoolean(this.mb.insertAccessOutHistory(sf))) {
-			} else {
-			}
+			this.convertToBoolean(this.mb.insertAccessOutHistory(sf));
+			
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -355,11 +372,9 @@ public class Authenticaion extends CommonMethod {
 			if (this.convertToBoolean(mb.modPwMe(sf))) {
 				mav.addObject("sfEmail", "회원님 정상적으로 비밀번호가 변경되었습니다.");
 				mav.setViewName(page);
-				System.out.println(11111);
 			} else {
 				mav.addObject("sfEmail", "회원님 업데이트 안됐어여");
 				mav.setViewName(page);
-				System.out.println(5555);
 
 			}
 		} else if (sffpw != null) {
@@ -367,11 +382,9 @@ public class Authenticaion extends CommonMethod {
 			if (this.convertToBoolean(mb.modPwSf(sf))) {
 				mav.addObject("sfEmail", "매장고객님 정상적으로 비밀번호가 변경되었습니다.");
 				mav.setViewName(page);
-				System.out.println(2222);
 			} else {
 				mav.addObject("sfEmail", "매장님 비번변경 안됐어여");
 				mav.setViewName(page);
-				System.out.println(3333);
 			}
 		}
 		return this.mav;

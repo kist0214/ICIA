@@ -72,6 +72,7 @@
 
 
 
+
 </head>
 <body onLoad="sfMg('${sfInfo.ctCode}')">
 	<nav class="sidebar close">
@@ -130,10 +131,10 @@
 							<span>(${sfInfo.sfRankName})</span></span>
 				</a></li>
 
-				<li class=""><a href="#"> <i class='bx bx-log-out icon'
-						onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')"></i> <span
+				<li class=""><a  onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')"> <i class='bx bx-log-out icon'
+						></i> <span
 						class="text nav-text"
-						onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')">로그아웃</span>
+						>로그아웃</span>
 				</a></li>
 
 				<li class="mode">

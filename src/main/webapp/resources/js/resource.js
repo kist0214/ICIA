@@ -6,7 +6,21 @@ let datalesson;
 
 
 	
-
+function logOut(ct,id){
+	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
+	
+	
+	let a = makeInputElement("hidden", "sfId", id);
+	let b = makeInputElement("hidden", "ctCode", ct);
+	var c = makeInputElement("hidden", "ahIp", jsPIp);
+	let form = makeForm("", "logOut", "POST");
+	form.appendChild(a);
+	form.appendChild(b);
+	form.appendChild(c);
+      document.body.appendChild(form);
+	form.submit();
+   
+}
 
 function YopenModal(){
 	let container = document.getElementById("gModal");
@@ -95,9 +109,7 @@ function whatsend(action, data, fn, content,method) {
 			window[fn](JSON.parse(ajax.responseText));
 		}
 	};
-	
 	if(method == "Get"){
-		
 		ajax.open("get", action, true);
 	}else{
 		ajax.open("post", action, true);
@@ -124,11 +136,10 @@ function getAjax1(action, data, fn, content ,method) {
    ajax.send(data);
 }
 
-function meProfile(){
+function meProfile(ctcode,mecode){
 	let jsondata = [];
-	const mmeCode = "10001";
-	const cctCode = "1234567890";
-	jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
+	
+	jsondata.push({"meCode":mecode,"ctCode":ctcode});
 	const clientData = JSON.stringify(jsondata);
 	whatsend("ajax/meDtInfo",clientData,"modProfileInfo",false,"post");
 }
@@ -382,7 +393,7 @@ function getAjaxJsonUsingJquery(action, clientData, fn) {
 	}
 
 function initPage(){
-	 whatsend("https://api.ipify.org?format=json","","getPublicIp","Get");
+	 whatsend("https://api.ipify.org?format=json","","getPublicIp","","Get");
 }
 
 function loadPage(msg){
@@ -595,7 +606,7 @@ function getselist(data){
 
 
 	function getmectlist(json){
-		 let pjson =JSON.parse(json)
+		 let pjson =json;
 
 		centerdata = json;
 	let body = document.getElementById("category");
@@ -799,7 +810,79 @@ function goHome() {
 
 
 
+function meInbodyMg(){
+   let jsondata = [];
+   const mmeCode = "10001";
+   const cctCode = "1234567890";
+   jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
+   const clientData = JSON.stringify(jsondata);
+   alert(jsondata[0].ctCode);
+      whatsend("ajax/meInbodyMg",clientData,"meInbodyMg1",false,"post");
+}
 
+function meInbodyMg1(data){
+   message = '<div>';
+   message += '<table>';
+   message += '<tr><td>'+data[9].daName+'</td><td>'+ data[9].idCount +"&nbsp"+data[9].daUnit+'</td></tr>';
+   message += '<tr><td>'+data[1].daName+'</td><td>'+ data[1].idCount +"&nbsp"+data[1].daUnit+'</td></tr>';
+   message += '<tr><td>'+data[10].daName+'</td><td>'+ data[10].idCount +"&nbsp"+data[10].daUnit+'</td></tr>';
+   message += '</table>'+'<br>';
+    
+      message += '<table>';
+      message += '<tr><td>'+data[2].daName+'</td><td>'+ data[2].idCount +"&nbsp"+data[2].daUnit+'</td></tr>';
+      message += '<tr><td>'+data[0].daName+'</td><td>'+ data[0].idCount +"&nbsp"+data[0].daUnit+'</td></tr>';
+      message += '<tr><td>'+data[3].daName+'</td><td>'+ data[3].idCount +"&nbsp"+data[3].daUnit+'</td></tr>';
+      message += '<tr><td>'+data[6].daName+'</td><td>'+ data[6].idCount +"&nbsp"+data[6].daUnit+'</td></tr>';
+      message += '<tr><td>'+data[5].daName+'</td><td>'+ data[5].idCount +"&nbsp"+data[5].daUnit+'</td></tr>';
+      message += '<tr><td>'+data[4].daName+'</td><td>'+ data[4].idCount +"&nbsp"+data[4].daUnit+'</td></tr>';
+      message += '<tr><td>'+data[8].daName+'</td><td>'+ data[8].idCount +"&nbsp"+data[8].daUnit+'</td></tr>';
+      message += '<tr><td>'+data[7].daName+'</td><td>'+ data[7].idCount +"&nbsp"+data[7].daUnit+'</td></tr>';
+      message += '</table>';
+      
+      message += '<table>';
+      message += '<tr><td>'+'운동명'+'</td><td>'+ data[0].exName+'</td></tr>';
+      message += '<tr><td>'+'목표운동량'+'</td><td>'+ data[0].taMotion +"&nbsp"+'단위 ('+data[0].exUnit+')'+'</td></tr>';
+      message += '<tr><td>'+'실행일'+'</td><td>'+ data[0].ibDate+'</td></tr>';
+      message += '<tr><td>'+'실행상태'+'</td></tr><br><tr><td>'+ data[0].stCode+'</td></tr>';
+      message += '</table>';
+      message += '</div>';
+      
+      
+      document.getElementById("list").innerHTML = message;
+      
+      let input = document.createElement("input");
+      let P1 = 'P1';
+      input.setAttribute("type","button");
+      input.setAttribute("id","Yes");
+      input.setAttribute("value","Y");
+      input.setAttribute("onClick","insTaState('"+data[0].ibDate+','+P1+"')")
+      let input2 = document.createElement("input");
+      let P2 = 'P2';
+      input2.setAttribute("type","button");
+      input2.setAttribute("id","No");
+      input2.setAttribute("value","N");
+      input2.setAttribute("onClick","insTaState('"+data[0].ibDate+','+P2+"')");
+      const list = document.getElementById("list");
+      list.appendChild(input);
+      list.appendChild(input2);
+}
+
+function insTaState(data){
+   alert(data.substring(0,14));
+   alert(data.substring(15,17));
+   let data1 = data.substring(0,14);
+   let data2 = data.substring(15,17);
+   
+   let jsondata = [];
+   jsondata.push({ibDate:data1,peStcode:data2});
+   const clientData = JSON.stringify(jsondata);
+   
+   whatsend("ajax/insTaState",clientData,"eee",false,"post");
+}
+function eee(){
+   
+   meInbodyMg();
+}
 
 
 

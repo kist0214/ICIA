@@ -39,7 +39,8 @@ public class Members extends Staffs  {
 	private String lpStocks;
 	private int LpQty;
 
-
+	private String paDate;
+	private String paTotal;
 	
 	
 
