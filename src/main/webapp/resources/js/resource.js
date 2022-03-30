@@ -56,6 +56,7 @@ function openModal() {
 	container.style.display = "block";
 }
 function openModal1() {
+
 	let container =  document.getElementById("container1");
 	container.style.display = "block";
 }
@@ -63,6 +64,10 @@ function openModal1() {
 
 function closeModal() {
 	let container =  document.getElementById("container");
+	container.style.display = "none";
+}
+function closeModalIn() {
+	let container =  document.getElementById("containerIn");
 	container.style.display = "none";
 }
 
@@ -147,9 +152,10 @@ function modProfileInfo(data){
 
 
 function meDtInf(cctCode,mmeCode){
+	
 	let jsondata = [];
 	
-	jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
+	jsondata.push({"ctCode":cctCode,"meCode":mmeCode});
 	const clientData = JSON.stringify(jsondata);
 	
 	whatsend("ajax/meDtInfo",clientData,"meDtInfo1",false,"post");
@@ -157,8 +163,9 @@ function meDtInf(cctCode,mmeCode){
 }
 
 function meDtInfo1(data){
+
 	let STCODE = "M1";
-	alert(data[0].value);
+
 	for (idx = 0; idx< data.length; idx++){
 	message = '<div>';
 	message += '<div class="lImg">';
@@ -183,13 +190,12 @@ function meDtInfo1(data){
       document.getElementById("list").innerHTML = message;
 }
 
-function meInbodyMg(){
+function meInbodyMg(cctcode,mmecode){
 	let jsondata = [];
-	const mmeCode = "10001";
-	const cctCode = "1234567890";
-	jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
+	
+	jsondata.push({"meCode":mmecode,"ctCode":cctcode});
 	const clientData = JSON.stringify(jsondata);
-	alert(jsondata[0].ctCode);
+
 		whatsend("ajax/meInbodyMg",clientData,"meInbodyMg1",false,"post");
 }
 
@@ -247,6 +253,7 @@ function checkMePw2(mmecode, cctcode){
 		whatsend("ajax/meDtInfo",clientData,"checkMePw3",false,"post");
 		
 	}
+
 
 function checkMePw3(data){
 	alert(data);
@@ -554,39 +561,35 @@ function getselist(data){
 		let div = document.createElement("div");
 	div.setAttribe("onClick", "showGoodsinModal("+idx+")");
 	
-	let span1=  document.createElement("span");
-	span1.innerText = data[idx].meName;
-	let span2=  document.createElement("span");
-	span2.innerText = data[idx].meGender;
-	let span3=  document.createElement("span");
-	span3.innerText = data[idx].meBirth;
-	let span4=  document.createElement("span");
-	span4.innerText = data[idx].meNumber;
-	let span5=  document.createElement("span");
-	span5.innerText = data[idx].meLsName;
-	div.appendChild(span1);
-	div.appendChild(span2);
-	div.appendChild(span3);   
-	div.appendChild(span4);  
+	let div1=  document.createElement("div");
+	div1.innerText = data[idx].meName;
+	let div2=  document.createElement("div");
+	div2.innerText = data[idx].meGender;
+	let div3=  document.createElement("div");
+	div3.innerText = data[idx].meBirth;
+	let div4=  document.createElement("div");
+	div4.innerText = data[idx].meNumber;
+	let div5=  document.createElement("div");
+	div5.innerText = data[idx].meLsName;
+	div.appendChild(div1);
+	div.appendChild(div2);
+	div.appendChild(div3);   
+	div.appendChild(div4);  
 
-	div.appendChild(span5);           
+	div.appendChild(div5);           
   list.appendChild(div);
 
 }
 	
 }
 
+let meall;
 	function getCenterList(mecode){
+		
+		meall = mecode;
 	
 		let jsondata = [];
-		
-	/*	
-	let da =  document.getElementById("da").value;
-	let ti =  document.getElementById("ti").value;
-	let ctcode = document.getElementsByName("searchct")[0].value;
-	let cacode = document.getElementsByName("searchca")[0].value;
-	let text = document.getElementsByName("searchbox")[0].value;
-	*/
+
 	jsondata.push({"meCode":mecode});
 	const clientdata = JSON.stringify(jsondata);
 	whatsend("ajax/getLessonList",clientdata,"getmectlist",false,"post");
@@ -595,25 +598,27 @@ function getselist(data){
 
 
 	function getmectlist(json){
-		 let pjson =JSON.parse(json)
+		 let pjson =json;
 
 		centerdata = json;
 	let body = document.getElementById("category");
 	
 	if(pjson.length>0){
-		data = "<select name='searchct'>"
+		data = "<br><br>"
+		data+= "<select name='searchct'>"
 		for(i=0;i<pjson.length;i++){
 			data+=	"<option value='"+pjson[i].ctCode+"'>"+pjson[i].ctName+"</option>"
 		}
 		data+= "</select>"
-		
 		data += "<select name='searchca'> "
 			data+=	"<option value='sfName' >트레이너명</option>"
 			data+=	"<option value='lsName'>수업명</option>"
 			data+= "</select>"
+			
+			
 
 	body.innerHTML = data;
-	}else{const msg = document.getElementsByClassName("select")[0];
+	}else{const msg = document.getElementsByClassName("input")[0];
 			msg.value = "";
 			msg.placeholder="검색어를 확인해 주세요.";
 			}
@@ -622,37 +627,191 @@ function getselist(data){
 
 
 	function getctLessonList(){
+		let list = document.getElementById("bottom");
+		while(list.hasChildNodes()){
+			list.removeChild(list.lastChild);
+		}
 	
 		let jsondata = [];
-	let da =  document.getElementById("da").value;
+	let da =  document.getElementById("da").value.replace("-","");
+	let daa = da.replace("-","").toString();
+
 
 	let ctcode = document.getElementsByName("searchct")[0].value;
 	let cacode =  document.getElementsByName("searchca")[0].value;
-	let text = document.getElementsByClassName("input")[0].value;
-	alert(da );
-	alert(ctcode );
-	alert(cacode  );
-	alert(text );
-	
-	if(da == null){
+	let text = document.getElementsByClassName("input2")[0].value;
+if(daa != "" &&text != ""){
+	let text = document.getElementsByClassName("input2")[0];
+	text.value = "";
+	text.placeholder= "날짜 or 입력값을 삭제해주세요.";
+}
+	else if(daa == ""){
 	jsondata.push({ctCode: ctcode,caCode:cacode, meBirth: text });
 	}else {
-	jsondata.push({ctCode: ctcode,meCode:da});
+	jsondata.push({ctCode: ctcode,meCode:daa});
 	}
 	
 	const clientdata = JSON.stringify(jsondata);
 	
-	whatsend("ajax/searchLsMg",clientdata,"getsearchctlslist",false,"post");
+	whatsend("ajax/searchLsMg",clientdata,"getlslist",false,"post");
 	
 }
 
+let pjson;
+function getlslist(json){
 
-function getsearchctlslist(data){
-	alert(data);
+	let list = document.getElementById("bottom");
+		while(list.hasChildNodes()){
+			list.removeChild(list.lastChild);
+		}
+	pjson =json;
+	if(pjson.length>0){
+	data = "<section >"
+		data += "<div class='swiper mySwiper container'>"
+			data += "<div class='swiper-wrapper content'>"	
+			
+		for(i=0;i<pjson.length;i++){
+	data += "<div class='swiper-slide card'>"
+	
+		data += "<div class='card-content'>"
+		data += "<div class='image'>"
+		data +=  "<img src='res/images/lesson.jpg'>"
+		data += "</div>"
+		data += "<div class='media-icons'>"
+		data += "<span>개강일:  "+pjson[i].lsOpen.substr(0,10)+"일 "+pjson[i].lsOpen.substr(11)+"시</span>"
+		data += "<span>개강시간:  "+pjson[i].lsTime.substr(0,2)+"시  " +pjson[i].lsTime.substr(2,2)+"분</span>"
+		data += "<span>수업 진행시간: "+pjson[i].lsTime.substr(4)+"분</span>"
+		data += "<span>수업 진행요일: "
+
+		if(pjson[i].lsDay.charAt(0)==1){
+		data +=	"월/"
+		} if(pjson[i].lsDay.charAt(1)==1){
+			data +=	"화/"
+		} if(pjson[i].lsDay.charAt(2)==1){
+			data +=	"수/"
+		} if(pjson[i].lsDay.charAt(3)==1){
+			data +=	"목/"
+		} if(pjson[i].lsDay.charAt(4)==1){
+			data +=	"금/"
+		}if(pjson[i].lsDay.charAt(5)==1){
+			data +=	"토/"
+		} if(pjson[i].lsDay.charAt(6)==1){
+			data +=	"일"
+		}
+
+		
+		data +="</span>"
+		data += "</div>"
+		data += "<div class='name-profession'>"
+		data += "<span class='name'>수업명:  "+pjson[i].lsName+"</span>"
+		data += "<span class='profession'>트레이너이름:  "+pjson[i].sfName+"</span>"
+		data += "</div>"
+		data += "<div class='rating'>"
+		if(pjson[i].lpPrice-pjson[i].lpQty> 0){
+		data += "<span>남은 자리수:  "+(pjson[i].lpPrice-pjson[i].lpQty)+"명</span>  "
+		}else{
+		data += "<span>남은 자리수:  "+0+"명</span>"
+		}
+		data += "<span>&nbsp총수업인원수:  "+pjson[i].lpPrice+"   명</span>"
+		data += "</div>"
+		data += "<div class='button'>"
+		data += "<button class='aboutMe' onclick='insMeLesson("+i+")'>신청하기</button>"
+		data += "<span  id = 'msg'></span>"
+		data += "<button class='aboutMe' onclick='delMeLesson("+i+")'>취소하기</button>"
+		data += "</div>"
+		data += "</div>"
+		data += "</div>"
+
+		}
+		data += "</div>"
+		data += "</div>"
+		
+		data+= "<div class='swiper-button-next'></div>"	
+			data+= "<div class='swiper-button-prev'></div>"
+		data+= "<div class='swiper-pagination'></div>"
+		data+= "</div>"
+		data+= "</section>"
+		
+		
+		list.innerHTML = data;
+		
+	}else{let text = document.getElementsByClassName("input2")[0];
+			text.value = "";
+			text.placeholder="해당매장에 수업이 없습니다.";
+			}
 	
 }
+	/*
+function meFoodMg(){
+
+	let butn = document.getElementById("butn");
+		while(butn.hasChildNodes()){
+			butn.removeChild(butn.lastChild);
+		}
+ 
+		let m = makeInputElement("button","minus","","");
+		let p =makeInputElement("button","plus","","");
+		let e =makeInputElement("button","equals","","");
+		
+		butn.appendChild(m);
+		butn.appendChild(p);
+		butn.appendChild(e);
+	
+		document.body.appendChild(butn);
+		
+		
+	let recentib = '1234567';
+	
+	/*json.push({ibCode:recentib});
+	
+	const data = JSON.stringify(json);
+	
+	whatsend("ajax/meFoodMg", data, "restate",false,"post");
+}
+*/
 
 
+function insMeLesson(i){
+	
+	if(pjson[i].lpQty >=pjson[i].lpPrice){
+		const msg = document.getElementById("msg");
+		msg.innerText = "남은자리가 없습니다.";
+	}else{
+
+	let json =[];
+	json.push({ctCode:pjson[i].ctCode,sfCode:pjson[i].sfCode,lsCode:pjson[i].lsCode,meCode:meall,lsProgress:pjson[i].lsProgress});
+	
+	const data = JSON.stringify(json);
+	
+	whatsend("ajax/insMeLesson", data, "restate",false,"post");
+	}
+}
+
+function delMeLesson(i){
+	let json =[];
+	json.push({ctCode:pjson[i].ctCode,sfCode:pjson[i].sfCode,lsCode:pjson[i].lsCode,meCode:meall,lsProgress:pjson[i].lsProgress});
+	
+	const data = JSON.stringify(json);
+	
+	whatsend("ajax/delMeLesson", data, "restateDel",false,"post");
+}
+
+function restate(data) {
+		const msg = document.getElementById("msg");
+	if(data.ctCode != ""){
+	msg.innerText = data.ctCode;
+		getctLessonList();
+	}}
+	
+	function restateDel(data) {
+		const msg = document.getElementById("msg");
+	if(data.ctCode != ""){
+	msg.innerText = "수업등록이 취소되었습니다.";
+		getctLessonList();
+	}else{
+	msg.innerText = "취소할 수 없습니다.";
+	}
+	}
 
 function getInbodyModal() {
 	let container =  document.getElementById("containerIn");
@@ -683,7 +842,7 @@ function ctLogInModal() {
 
 
 function closeModalb() {
-	// whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
+	
 	let container =  document.getElementById("container");
 	let containerSF =  document.getElementById("containerSF");
 	
@@ -796,6 +955,22 @@ function goHome() {
       document.body.appendChild(form);
       form.submit();	
 }
+
+
+function logOut(ct,id){
+ whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
+	
+	
+	let a = makeInputElement("hidden", "sfId", id);
+	let b = makeInputElement("hidden", "ctCode", ct);
+	let form = makeForm("", "logOut", "POST");
+	form.appendChild(a);
+	form.appendChild(b);
+      document.body.appendChild(form);
+	form.submit();
+   
+}
+		
 
 
 

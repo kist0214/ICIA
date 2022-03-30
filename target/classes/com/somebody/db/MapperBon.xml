@@ -50,11 +50,16 @@
 	<!-- 세션 -->
 	<select id="meInfo" parameterType="beans.Members"
 		resultType="beans.Members">
-		SELECT CTCODE, CTNAME,MECODE, MENAME, MEGENDER ,palpcacode as caCode, caname from
+		SELECT CTCODE, CTNAME,MECODE, MENAME, MEGENDER ,palpcacode
+		as caCode, caname from
 		kmasters.pa
-		INNER JOIN KMASTERS.CT ON ctCODE = palpCTCODE 
-        INNER JOIN KMASTERS.ca ON caCODE= palpcacode 
-		INNER JOIN KMASTERS.ME ON paMECODE= MECODE WHERE MECODE= #{meCode} and  caCODE= palpcacode ORDER BY ctcode asc
+		INNER JOIN KMASTERS.CT ON ctCODE =
+		palpCTCODE
+		INNER JOIN KMASTERS.ca ON caCODE= palpcacode
+		INNER JOIN
+		KMASTERS.ME ON paMECODE= MECODE WHERE MECODE= #{meCode} and
+		caCODE=
+		palpcacode ORDER BY ctcode asc
 	</select>
 	<select id="sfInfo" parameterType="beans.Staffs"
 		resultType="beans.Staffs">
@@ -103,63 +108,58 @@
 
 	<select id="getRegCenterList" parameterType="beans.Members"
 		resultType="beans.Members">
- select ctcode, ctname
+		select ctcode, ctname
 		from kmasters.pa
-        inner join
-		kmasters.ct on palpctcode = ctcode
-		where pamecode = #{meCode} group by ctcode, ctname
-	</select>
-	<select id="getCtAllLessonList" parameterType="beans.Members"
-		resultType="beans.Lessons">
-		
-select lssfctcode as ctCode,ctname, lssfcode as sfCode ,sfname, lscode
-		,lsname,lsopen,lsprogress,lsmecount
-		from kmasters.ls
-        inner join
-		kmasters.sf on lssfctcode = sfctcode and
-		lssfcode = sfcode
-        inner join
-		kmasters.ct on lssfctcode = sfctcode and
-		lssfcode = sfcode
-		where
-		lssfctcode = #{ctCode} or lssfctcode = #{ctCode} or lssfctcode = #{ctCode} and #{caCode} = #{meBirth}
-	</select>
-	
-	
-		<select id="getCtcaLessonList" parameterType="beans.Members"
-		resultType="beans.Lessons">
-	select lssfctcode as ctCode,ctname, lssfcode as sfCode ,sfname, lscode
-		,lsname,lsopen,lsprogress,lsmecount
-		from kmasters.ls
-        inner join
-		kmasters.sf on lssfctcode = sfctcode and
-		lssfcode = sfcode and sfname = #{meBirth}
-        inner join
-		kmasters.ct on lssfctcode = sfctcode and
-		sfctcode = ctcode
-		where
-		lssfctcode =#{ctCode} and #{caCode} = #{meBirth}
-	</select>
-		<select id="getCtdateLessonList" parameterType="beans.Members"
-		resultType="beans.Lessons">
-		select lssfctcode as ctCode,ctname, lssfcode as sfCode ,sfname, lscode
-		,lsname,lsopen,lsprogress,lsmecount
-		from kmasters.ls
-        inner join
-		kmasters.sf on lssfctcode = sfctcode and
-		lssfcode = sfcode
-        inner join
-		kmasters.ct on lssfctcode = sfctcode and
-		sfctcode = ctcode
-		where
-		lssfctcode =#{ctCode} and lsopen LIKE #{meCode}%
-	</select>
-	<select id="remainLessonCount" parameterType="beans.Lessons"
-		resultType="beans.Lessons">
-		select count(relscode) as meRemain as  from kmasters.re where relsctcode = #{ctCode}
-		 and relssfcode  =#{sfCode} and relscode = #{lsCode}
+		inner join
+		kmasters.ct
+		on palpctcode = ctcode
+		where pamecode = #{meCode} group by ctcode,
+		ctname
 	</select>
 
+
+	<select id="getCtcaLessonList" parameterType="beans.Members"
+		resultType="beans.Lessons">
+		   select lssfctcode as ctCode,ctname, lssfcode as sfCode
+		,sfname, lscode
+		,lsname,lsopen,substr(lsprogress,1,7)as lsDay ,substr(lsprogress,8)as lsTime,lsProgress ,lsmecount as lpPrice
+		from kmasters.ls
+		inner join
+		kmasters.sf on lssfctcode = sfctcode and
+		lssfcode = sfcode
+		inner join
+		kmasters.ct on lssfctcode = sfctcode and
+		sfctcode = ctcode
+		where
+		lssfctcode =#{ctCode} and sfname = #{meBirth} or lssfctcode =#{ctCode} and lsname = #{meBirth}
+	</select>
+	<select id="getCtdateLessonList" parameterType="beans.Members"
+		resultType="beans.Lessons">
+		  select lssfctcode as ctCode,ctname, lssfcode as sfCode
+		,sfname, lscode
+		,lsname,lsopen,substr(lsprogress,1,7)as lsDay ,substr(lsprogress,8)as lsTime, lsProgress,lsmecount as lpPrice
+		from kmasters.ls
+		inner join
+		kmasters.sf on lssfctcode = sfctcode and
+		lssfcode = sfcode
+		inner join
+		kmasters.ct on lssfctcode = ctcode
+		where substr(lsopen,1,8) = to_date(#{meCode},'YYYYMMDD')
+		 </select>
+	<select id="remainLessonCount" parameterType="beans.Lessons"
+		resultType="int">
+		 select COUNT(*) from kmasters.re where RELSCTCODE = #{ctCode} AND RELSSFCODE =#{sfCode} AND RELSCODE = #{lsCode}  AND RESTCODE = 'R2'
+	</select>
+	
+	<insert id="insMeLesson" parameterType="beans.Lessons" >
+		INSERT INTO
+		kmasters.RE (relsctcode,relssfcode,relscode,remecode,reprogress,redate,restcode)
+		VALUES(#{ctCode},#{sfCode},#{lsCode},#{meCode},#{lsProgress},DEFAULT,'R2')
+	</insert>
+
+	<update id="delMeLesson" parameterType ="beans.Lessons">
+		UPDATE KMASTERS.re SET RESTCODE = 'R1' WHERE relsctcode = #{ctCode} and relssfcode = #{sfCode} and relscode = #{lsCode} and remecode = #{meCode}
+	</update>
 
 </mapper>
 
