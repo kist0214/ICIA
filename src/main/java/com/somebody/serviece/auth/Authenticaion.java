@@ -278,7 +278,7 @@ public class Authenticaion extends CommonMethod {
 
 	public ModelAndView ctLogin(Staffs sf) {
 
-		// System.out.println(enc.encode(sf.getSfPw()));
+		 System.out.println(enc.encode(sf.getSfPw()));
 		String pw = this.mb.sfLogin(sf);
 
 		this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,

@@ -7,6 +7,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap')
 	;
 
+
+#butn{
+	padding-top:900px;
+	padding-left: 500px;
+	width: 500px;
+	height: 600px;
+}
 * {
 	margin: 0;
 	padding: 0;

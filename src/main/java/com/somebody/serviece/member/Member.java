@@ -15,10 +15,13 @@ import com.somebody.db.MapperUone;
 import com.somebody.db.MapperYoung;
 
 import beans.Inbodys;
+import beans.Lessons;
 import beans.Members;
 import beans.YMemberDt;
+
 @Service
 public class Member extends CommonMethod {
+
 	@Autowired
 	private MapperBon mb;
 	@Autowired
@@ -53,14 +56,12 @@ public class Member extends CommonMethod {
 			meDetail(model, me);
 			break;
 		case "M07":
-			modMe(model,me);
+			modMe(model, me);
 			break;
 		}
 
 		return mav;
 	}
-
-
 
 	public void backController(String sCode, Model model) {
 
@@ -79,8 +80,6 @@ public class Member extends CommonMethod {
 		case "M06":
 			addMember(model);
 			break;
-		
-
 
 		case "C01":
 			infoLine(model);
@@ -120,7 +119,6 @@ public class Member extends CommonMethod {
 		case "C15":
 			modMeMg(model);
 			break;
-		
 
 		}
 
@@ -146,24 +144,24 @@ public class Member extends CommonMethod {
 
 	private void clickExpiration(Members me, Model md) {
 		List<Members> meList = new ArrayList<Members>();
-		boolean tran=false;
+		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		if(convertToBoolean(this.my.clickExpiration(me))) {
+		if (convertToBoolean(this.my.clickExpiration(me))) {
 			tran = true;
 		}
 
 		meList = this.my.meList(me);
-		for(int i=0;i<meList.size();i++) {
-			int stocks=0;
-			for(int j=0;j<this.my.remecode().size();j++) {
-				if(meList.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())) {
-					if(meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
+		for (int i = 0; i < meList.size(); i++) {
+			int stocks = 0;
+			for (int j = 0; j < this.my.remecode().size(); j++) {
+				if (meList.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())) {
+					if (meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
 						stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
 						meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
 					}
 				}
 			}
-			meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
+			meList.get(i).setLpStocks((meList.get(i).getLpQty() - stocks) + "");
 		}
 		tranend(tran);
 		md.addAttribute("meList", meList);
@@ -174,63 +172,66 @@ public class Member extends CommonMethod {
 		this.mav.addObject("ctCode", me.getCtCode());
 		mav.setViewName("meMg");
 
-
 	}
 
 	public void meInbodyMg(Model model) {
-	      model.addAttribute("list",this.mu.meInbodyMg((Inbodys)model.getAttribute("send")));
-	      System.out.println(model.getAttribute("list"));
-	   }
+		model.addAttribute("list", this.mu.meInbodyMg((Inbodys) model.getAttribute("send")));
+		System.out.println(model.getAttribute("list"));
+	}
 
 	public void meDtInfo(Model model) {
 
-		model.addAttribute("list",this.mu.meDtInfo((Members)model.getAttribute("send")));
-System.out.println(model.getAttribute("list").toString()+"67898789");
+		model.addAttribute("list", this.mu.meDtInfo((Members) model.getAttribute("send")));
+		System.out.println(model.getAttribute("list").toString() + "67898789");
 	}
 
 	public void meMg(Members me, Model md) {
 		List<Members> meList = new ArrayList<Members>();
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 
-		meList =(me.getStCode()==null&&me.getCaCode()==null&&me.getMeCode()==null)? this.my.meList(me):
-			(me.getStCode() != null)? this.my.searchMeList(me):
-				(me.getCaCode()!=null)? this.my.searchMeList2(me):
-					(me.getMeCode()!=null&&me.getMeName()!=null) ? this.my.searchMeList3(me): this.my.meList(me);
+		meList = (me.getStCode() == null && me.getCaCode() == null && me.getMeCode() == null) ? this.my.meList(me)
+				: (me.getStCode() != null) ? this.my.searchMeList(me)
+						: (me.getCaCode() != null) ? this.my.searchMeList2(me)
+								: (me.getMeCode() != null && me.getMeName() != null) ? this.my.searchMeList3(me)
+										: this.my.meList(me);
 
-		for(int i=0;i<meList.size();i++) {
-			int stocks=0;
-			for(int j=0;j<this.my.remecode().size();j++) {
-				if(meList.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())
-						&&meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
-						stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
-						meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
-						System.out.println(j+", "+meList.get(i).getSfCode()+" : "+this.my.remecode().get(j).getSfCode());
-					
+		for (int i = 0; i < meList.size(); i++) {
+			int stocks = 0;
+			for (int j = 0; j < this.my.remecode().size(); j++) {
+				if (meList.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())
+						&& meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
+
+					stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
+					meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
+					System.out.println(
+							j + ", " + meList.get(i).getSfCode() + " : " + this.my.remecode().get(j).getSfCode());
+
 				}
-				
+
 			}
 
-			meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
+			meList.get(i).setLpStocks((meList.get(i).getLpQty() - stocks) + "");
 
 		}
 		md.addAttribute("meList", meList);
 		tranend(true);
 	}
+
 	public void payCriteria(Members me) {
-		
+
 	}
 
 	public void searchMeMg(Model model) {
-		//model.addAttribute("getmemlist",this.mb.searchMeMg((Members)model.getAttribute("sendmelist")));
+		// model.addAttribute("getmemlist",this.mb.searchMeMg((Members)model.getAttribute("sendmelist")));
 
 	}
-
 
 	public void meDetail(Model model, Members me) {
 		List<YMemberDt> md = new ArrayList<YMemberDt>();
 		md.add(this.my.meDtInfo(me));
 		md.addAll(this.my.meInbodyMg(me));
 		model.addAttribute("meDtInfo", md);
+
 	}
 
 	public void getCaList(Model model) {
@@ -242,25 +243,28 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 		ml = (List<Members>) md.getAttribute("dataList");
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		if(this.convertToBoolean((ml.get(0).getCaCode()=="L0")?this.my.insMgL0(ml.get(0)):this.my.insMg(ml.get(0)))){
-			for(Members ml2:ml) {
-				if(tran=this.convertToBoolean(this.my.insPa(ml2))) {
+
+		if (this.convertToBoolean(
+				(ml.get(0).getCaCode() == "L0") ? this.my.insMgL0(ml.get(0)) : this.my.insMg(ml.get(0)))) {
+			for (Members ml2 : ml) {
+				if (tran = this.convertToBoolean(this.my.insPa(ml2))) {
+
 				}
 			}
 		}
-		if(tran) {
+		if (tran) {
 			ml = this.my.meList(ml.get(0));
-			for(int i=0;i<ml.size();i++) {
-				int stocks=0;
-				for(int j=0;j<this.my.remecode().size();j++) {
-					if(ml.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())) {
-						if(ml.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
+			for (int i = 0; i < ml.size(); i++) {
+				int stocks = 0;
+				for (int j = 0; j < this.my.remecode().size(); j++) {
+					if (ml.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())) {
+						if (ml.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
 							stocks = Integer.parseInt(this.my.Count(ml.get(i)).getLpStocks());
 							ml.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
 						}
 					}
 				}
-				ml.get(i).setLpStocks((ml.get(i).getLpQty()-stocks)+"");
+				ml.get(i).setLpStocks((ml.get(i).getLpQty() - stocks) + "");
 			}
 			tranend(tran);
 			md.addAttribute("ml", ml);
@@ -268,29 +272,30 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 		tranend(tran);
 	}
 
-	public void modMe(Model md,Members me) {
+	public void modMe(Model md, Members me) {
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		if(this.convertToBoolean(this.my.modMe(me))) {
+		if (this.convertToBoolean(this.my.modMe(me))) {
 			tran = true;
 			List<Members> meList = new ArrayList<Members>();
-			
-			meList =this.my.meList(me);
 
-			for(int i=0;i<meList.size();i++) {
-				int stocks=0;
-				for(int j=0;j<this.my.remecode().size();j++) {
-					if(meList.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())
-							&&meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
-							stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
-							meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
-							System.out.println(j+", "+meList.get(i).getSfCode()+" : "+this.my.remecode().get(j).getSfCode());
-						
+			meList = this.my.meList(me);
+
+			for (int i = 0; i < meList.size(); i++) {
+				int stocks = 0;
+				for (int j = 0; j < this.my.remecode().size(); j++) {
+					if (meList.get(i).getMeCode().equals(this.my.remecode().get(j).getMeCode())
+							&& meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
+						stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
+						meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
+						System.out.println(
+								j + ", " + meList.get(i).getSfCode() + " : " + this.my.remecode().get(j).getSfCode());
+
 					}
-					
+
 				}
 
-				meList.get(i).setLpStocks((meList.get(i).getLpQty()-stocks)+"");
+				meList.get(i).setLpStocks((meList.get(i).getLpQty() - stocks) + "");
 
 			}
 			md.addAttribute("meList", meList);
@@ -299,9 +304,9 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 	}
 
 	public void insTaState(Model model) {
-		  Inbodys in = new Inbodys();
-	      in = (Inbodys) model.getAttribute("Inbody");
-	      model.addAttribute("a1", mu.insTaState(in));
+		Inbodys in = new Inbodys();
+		in = (Inbodys) model.getAttribute("Inbody");
+		model.addAttribute("a1", mu.insTaState(in));
 	}
 
 	public void meHealthMg(Model model) {
@@ -323,11 +328,11 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 
 		if (mb.getRegCenterList((Members) model.getAttribute("melist")) != null) {
-
 			model.addAttribute("mectlist", mb.getRegCenterList((Members) model.getAttribute("melist")));
 
 			tranend(true);
 		} else {
+
 			me.setCaCode("가입된 매장이 없습니다.");
 			model.addAttribute("mectlist", me.getCaCode());
 		}
@@ -335,34 +340,60 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 	}
 
 	public void searchLsMg(Model model) {
+		List<Lessons> le = new ArrayList<Lessons>();
+		Members ee = ((Members) model.getAttribute("mectlist"));
+		boolean tran = false;
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 
+		if (ee.getMeCode() == null) {
 
-		((Members)model.getAttribute("mectlist")).getMeCode().split("-");
-		System.out.println(((Members)model.getAttribute("mectlist")).getMeCode() + "*8*");
-		
-	
-		 if(((Members)model.getAttribute("mectlist")).getMeCode() != "") {
-			 System.out.println(((Members)model.getAttribute("mectlist")).getMeCode());
-				 mb.getCtdateLessonList((Members)model.addAttribute("mectlist"));
+			le = (List<Lessons>) mb.getCtcaLessonList(ee);
+
 		} else {
-			mb.getCtcaLessonList((Members)model.addAttribute("mectlist"));
+			le = (List<Lessons>) mb.getCtdateLessonList(ee);
+
 		}
-		
+
+		for (int i = 0; i < le.size(); i++) {
+			// System.out.println(le.get(i));
+			le.get(i).setLpQty(mb.remainLessonCount(le.get(i)));
+
+		}
+
+		model.addAttribute("mectlslista", le);
+
+		tranend(true);
 
 	}
 
 	public void insMeLesson(Model model) {
 
+		Lessons ls = (Lessons) model.getAttribute("reqlesson");
+		boolean tran = false;
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		if (this.convertToBoolean(mb.insMeLesson(ls))) {
+			ls.setCtCode("등록이 완료되었습니다.");
+			model.addAttribute("sta", ls);
+			tranend(true);
+		}
 	}
 
 	public void delMeLesson(Model model) {
+		Lessons ls = (Lessons) model.getAttribute("reqlesson");
+		boolean tran = false;
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		System.out.println(ls);
+		if (this.convertToBoolean(mb.delMeLesson(ls))) {
+			ls.setCtCode("취소가 완료되었습니다.");
+			model.addAttribute("sta", ls);
+			tranend(true);
+		}
 
 	}
 
 	public void meConfig(Model model) {
 		this.mav.setViewName("meConfig");
 	}
-
 
 	public ModelAndView modMeMg(Model model) {
 		Members me = new Members();
@@ -371,8 +402,9 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 		return mav;
 	}
 
-	public ModelAndView  delMe(Model model) {
-		mu.delMe((Members)model.getAttribute("send")) ;
+	public ModelAndView delMe(Model model) {
+		mu.delMe((Members) model.getAttribute("send"));
+
 		String page = "/infoLine";
 		this.mav.setViewName(page);
 		return mav;
@@ -384,6 +416,5 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 		this.mav.setViewName(page);
 
 	}
-
 
 }

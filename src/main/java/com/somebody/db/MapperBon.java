@@ -9,6 +9,7 @@ import beans.Staffs;
 
 public interface MapperBon {
 	
+
 	//로그인 & 세션
 	public String  sfLogin(Staffs sf);
 	public Staffs  sfInfo(Staffs sf);
@@ -32,7 +33,9 @@ public interface MapperBon {
 	public List<Lessons> getCtAllLessonList(Members me);
 	public List<Lessons> getCtcaLessonList(Members me);
 	public List<Lessons> getCtdateLessonList(Members me);
-	public int remainLessonCount(Lessons ls);
+	public int remainLessonCount(Lessons lessons );
+	public int insMeLesson(Lessons ls);
+	public int delMeLesson(Lessons ls);
 	
 
 	
