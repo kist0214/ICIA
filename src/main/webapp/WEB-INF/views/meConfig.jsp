@@ -50,12 +50,14 @@
 	<div class="middle">
 		<div id="profile" class="profile">
 			<form id="profile2">
-				<span>이름 : </span><span id="meName" class="profile">${meName }</span><br>
-				<span>성별 : </span><span id="meGender" class="profile"> 성별 :
+				<span>이름 : </span>
+				<span id="meName" class="profile">${meName }</span><br>
+				<span>성별 : </span>
+				<span id="meGender" class="profile">
 					${meGender }</span><br> <span>나이 : </span><span id="meBirth"
 					class="profile">${meBirth }</span><br> <span>연락처 : </span><span
 					id="meNumber" class="profile">${meNumber }</span><br> <span>이메일
-					: </span><span id="meEmail" class="profile">이메일: ${meEmail }</span><br>
+					: </span><span id="meEmail" class="profile"> ${meEmail }</span><br>
 
 
 			</form>

@@ -3,8 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.somebody.db.MapperBon">
-
-	<!-- 로그인 -->
+<!-- 로그인 -->
 	<insert id="insertAccessHistory" parameterType="beans.Staffs">
 		INSERT INTO
 		kmasters.AH(AHSFCTCODE,AHsfCODE,AHTIME, AHIP, AHTYPE)
@@ -130,46 +129,6 @@ select lssfctcode as ctCode,ctname, lssfcode as sfCode ,sfname, lscode
 		lssfctcode = #{ctCode} or lssfctcode = #{ctCode} or lssfctcode = #{ctCode} and #{caCode} = #{meBirth}
 	</select>
 	
-	
-		<select id="getCtcaLessonList" parameterType="beans.Members"
-		resultType="beans.Lessons">
-	select lssfctcode as ctCode,ctname, lssfcode as sfCode ,sfname, lscode
-		,lsname,lsopen,lsprogress,lsmecount
-		from kmasters.ls
-        inner join
-		kmasters.sf on lssfctcode = sfctcode and
-		lssfcode = sfcode and sfname = #{meBirth}
-        inner join
-		kmasters.ct on lssfctcode = sfctcode and
-		sfctcode = ctcode
-		where
-		lssfctcode =#{ctCode} and #{caCode} = #{meBirth}
-	</select>
-		<select id="getCtdateLessonList" parameterType="beans.Members"
-		resultType="beans.Lessons">
-		select lssfctcode as ctCode,ctname, lssfcode as sfCode ,sfname, lscode
-		,lsname,lsopen,lsprogress,lsmecount
-		from kmasters.ls
-        inner join
-		kmasters.sf on lssfctcode = sfctcode and
-		lssfcode = sfcode
-        inner join
-		kmasters.ct on lssfctcode = sfctcode and
-		sfctcode = ctcode
-		where
-		lssfctcode =#{ctCode} and lsopen LIKE '#{meCode}%'
-	</select>
-	<select id="remainLessonCount" parameterType="beans.Lessons"
-		resultType="beans.Lessons">
-		select count(relscode) as meRemain as  from kmasters.re where relsctcode = #{ctCode}
-		 and relssfcode  =#{sfCode} and relscode = #{lsCode}
-		inner join
-		kmasters.ct
-		on palpctcode = ctcode
-		where pamecode = #{meCode} group by ctcode,
-		ctname
-	</select>
-
 
 	<select id="getCtcaLessonList" parameterType="beans.Members"
 		resultType="beans.Lessons">

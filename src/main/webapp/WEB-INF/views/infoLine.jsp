@@ -11,7 +11,6 @@
 	rel='stylesheet'>
 <link rel="stylesheet" href="res/css/infoLine.css">
 </head>
-<<<<<<< HEAD
 <body onLoad="">
 	<div class="firstTop">
 		<div class="logo">
@@ -24,14 +23,10 @@
 				<div id="plan">Health Plan</div>
 			</div>
 		</div>
-	
 		<div id="topMenu">
-			<span>${meInfo[0].meName}님 안녕하세요.</span>
-			
+		<span>${meInfo[0].meName}님 안녕하세요.</span>
 			<section>
-		
 				<article class="topmenu">
-					
 					<input type="button" id="meLessonMg" value="수업관리"
 						onClick="meLessonMg()" /> <input type="button" id="meConfig"
 						value="환경설정" onClick="meConfig()"></input> <input type="button"
@@ -39,22 +34,28 @@
 				</article>
 			</section>
 		</div>
-=======
-<body>
-
-<div id = "topMenu">
-	<div class = "menuContainer">
-	<section class = "menuContainer">
-	<article class="topmenu">
-	<input type="button" id="meConfig" value = "환경설정" onClick="meConfig()"></input>
-	<input type="button" id="meLessonMg" value = "레슨" onClick="meLessonMg()"/>
-	<input type = "button" id="logOut" value ="로그아웃"onClick="logOut()"></input>
-	</article>
-	</section>
->>>>>>> yong
 	</div>
 
-
+<div id = "middleMenu">
+	<div class = "menuContainer">
+		<section class = "menuContainer">
+			<article class = "member">
+			<p>
+			<span class="menuTitle" id="meDtInfo" onClick="meDtInf('${meInfo[0].ctCode}','${meInfo[0].meCode}')">프로필</span>
+			</p>
+			<p>
+			<span class="menuTitle" id="meInbodyMg" onClick="meInbodyMg()">인바디</span>
+			</p>
+			<p>
+			<span class="menuTitle" id="psInBodyMg" onClick="psInBodyMg()">운동추천</span>
+			</p>
+			<p>
+			<span class="menuTitle" id="meFoodMg" onClick="meFoodMg()">음식추천</span>
+			</p>
+</article>
+</section>
+</div>
+</div>
 
 
 	<div class="circle"></div>
@@ -74,27 +75,27 @@
 		<section>
 			<article class="member">
 				<p>
-					<input type="button" value="프로필" class="menuTitle" id="meDtInfo" onClick="meDtInf('${meInfo[0].ctCode}','${meInfo[0].meCode}')">
+					<input type="button" value="프로필" onClick="meDtInf('${meInfo[0].ctCode}','${meInfo[0].meCode}')">
 				</p>
 				<p>
-					<input type="button" value="인바디" class="menuTitle" id="meInbodyMg" onClick="meInbodyMg('${meInfo[0].ctCode}','${meInfo[0].meCode}')">
+					<input type="button" value="인바디" onClick="meInbodyMg('${meInfo[0].ctCode}','${meInfo[0].meCode}')">
 				</p>
 				<p>
-					<input type="button" value="운동추천" class="menuTitle" id="psInBodyMg" onClick="psInBodyMg()">
+					<input type="button" value="운동추천" onClick="psInBodyMg()">
 				</p>
 				<p>
-					<input type="button" value="음식추천"  class="menuTitle" id="meFoodMg" onClick="meFoodMg()">
+					<input type="button" value="음식추천" onClick="meFoodMg()">
 				</p>
 			</article>
 		</section>
-		
 	</div>
-	<div id="butn">
-		</div>
+
+
 	<div id="bottom">
 		<div id="list">${list }</div>
-		</div>
-		<div class="low">
+	</div>
+
+	<div class="low">
 		<div class="low-text">
 			<div class="low-logo">Help : Health Plan</div>
 			<div class="low-middle">
@@ -105,10 +106,7 @@
 			<div class="low-copyright">&copy; 2022 Somebody All rights
 				reserved.</div>
 		</div>
-
-	
 	</div>
-
 
 	
 
