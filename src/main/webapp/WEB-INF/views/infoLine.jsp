@@ -6,10 +6,14 @@
 <meta charset="UTF-8">
 <title>H E L P</title>
 <script src="res/js/resource.js"></script>
+<<<<<<< HEAD
 <!----===== Boxicons CSS ===== -->
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
 	rel='stylesheet'>
 <link rel="stylesheet" href="res/css/infoLine.css">
+=======
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+>>>>>>> u0325
 </head>
 <body onLoad="">
 	<div class="firstTop">
@@ -52,6 +56,7 @@
 			<p>
 			<span class="menuTitle" id="meFoodMg" onClick="meFoodMg()">음식추천</span>
 			</p>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </article>
 </section>
 </div>

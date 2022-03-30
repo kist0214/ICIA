@@ -81,6 +81,9 @@ public class Member extends CommonMethod {
 			modMe(model);
 			break;
 
+		case "C00":
+			meInbodyMg2(model);
+			break;
 
 		case "C01":
 			infoLine(model);
@@ -121,7 +124,9 @@ public class Member extends CommonMethod {
 			modMeMg(model);
 			break;
 		
-
+		case "C16":
+			inbodyChart(model);
+			break;
 		}
 
 	}
@@ -178,7 +183,34 @@ public class Member extends CommonMethod {
 	}
 
 	public void meInbodyMg(Model model) {
+<<<<<<< HEAD
 
+=======
+		List<Inbodys> list = new ArrayList<Inbodys>();
+		list.addAll(this.mu.meInbodyMg((Inbodys)model.getAttribute("send")));
+		list.addAll(this.mu.findDay((Inbodys)model.getAttribute("send")));
+		model.addAttribute("list",list);
+		System.out.println(model.getAttribute("list"));
+>>>>>>> u0325
+	}
+	
+	public void meInbodyMg2(Model model) {
+		System.out.println("끄아앙");
+		List<Inbodys> list = new ArrayList<Inbodys>();
+		list.addAll(this.mu.maxDay((Inbodys)model.getAttribute("max")));
+		list.addAll(this.mu.findDay((Inbodys)model.getAttribute("max")));
+		
+		
+		model.addAttribute("list",list);
+		
+		System.out.println("0000");
+	}
+	
+	public void inbodyChart(Model model) {
+		List<Inbodys> list = new ArrayList<Inbodys>();
+		list.addAll(this.mu.inbodyChart((Inbodys)model.getAttribute("chart")));
+		model.addAttribute("list",list);
+		System.out.println("우오앙");
 	}
 
 	public void meDtInfo(Model model) {
@@ -272,7 +304,9 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 	}
 
 	public void insTaState(Model model) {
-
+		Inbodys in = new Inbodys();
+		in = (Inbodys) model.getAttribute("Inbody");
+		model.addAttribute("a1",mu.insTaState(in));
 	}
 
 	public void meHealthMg(Model model) {
