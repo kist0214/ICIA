@@ -20,6 +20,7 @@ public interface MapperDong {
 	public List<Lessons> insLsForm(Lessons ls);
 	public List<Lessons> searchLesson(Lessons ls);
 	public List<Lessons> lessonMg(Lessons ls);
-	public List<Lessons> insLesson(Lessons ls);
+	public int insLesson(Lessons ls);
 	public int insLsPay(Lessons ls);
+	public Lessons getMaxLesson(Lessons ls);
 }
