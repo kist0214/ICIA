@@ -83,15 +83,11 @@ public class ControllerBon {
 		return this.auth.backControllerCT("A06", sf);
 	}
 
-
-
-
 	@RequestMapping(value = "/ctJoin", method = RequestMethod.GET)
 	public void ctJoin(Model model, @ModelAttribute Centers ct) {
 		this.auth.backController("J02", ct);
 
 	}
-
 
 	@RequestMapping(value = "/goMePage", method = RequestMethod.POST)
 	public ModelAndView goMePage(Model model, @ModelAttribute Members me) {
