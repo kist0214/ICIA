@@ -80,6 +80,10 @@ public class Member extends CommonMethod {
 		case "M06":
 			addMember(model);
 			break;
+		
+		case "C00":
+			meInbodyMg2(model);
+			break;
 
 		case "C01":
 			infoLine(model);
@@ -115,11 +119,12 @@ public class Member extends CommonMethod {
 		case "C12":
 			meConfig(model);
 			break;
-
 		case "C15":
 			modMeMg(model);
 			break;
-
+		case "C16":
+			inbodyChart(model);
+			break;
 		}
 
 	}
@@ -175,8 +180,24 @@ public class Member extends CommonMethod {
 	}
 
 	public void meInbodyMg(Model model) {
-		model.addAttribute("list", this.mu.meInbodyMg((Inbodys) model.getAttribute("send")));
+		List<Inbodys> list = new ArrayList<Inbodys>();
+		list.addAll(this.mu.meInbodyMg((Inbodys)model.getAttribute("send")));
+		list.addAll(this.mu.findDay((Inbodys)model.getAttribute("send")));
+		model.addAttribute("list",list);
 		System.out.println(model.getAttribute("list"));
+	}
+	
+	public void meInbodyMg2(Model model) {
+		List<Inbodys> list = new ArrayList<Inbodys>();
+		list.addAll(this.mu.maxDay((Inbodys)model.getAttribute("max")));
+		list.addAll(this.mu.findDay((Inbodys)model.getAttribute("max")));
+		model.addAttribute("list",list);
+	}
+	
+	public void inbodyChart(Model model) {
+		List<Inbodys> list = new ArrayList<Inbodys>();
+		list.addAll(this.mu.inbodyChart((Inbodys)model.getAttribute("chart")));
+		model.addAttribute("list",list);
 	}
 
 	public void meDtInfo(Model model) {
@@ -306,7 +327,7 @@ public class Member extends CommonMethod {
 	public void insTaState(Model model) {
 		Inbodys in = new Inbodys();
 		in = (Inbodys) model.getAttribute("Inbody");
-		model.addAttribute("a1", mu.insTaState(in));
+		model.addAttribute("a1",mu.insTaState(in));
 	}
 
 	public void meHealthMg(Model model) {
