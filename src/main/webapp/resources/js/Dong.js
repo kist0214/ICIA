@@ -338,6 +338,7 @@ function lsList(jsonData) {
 			msg.value = "";
 			msg.placeholder="입력해주세요.";}
 	closeModal2();
+	
 }
 
 function searchLesson(ctcode){
@@ -371,6 +372,7 @@ function insLsPay() {
 	getAjax("ajax/insLsPay", clientData, "lsList", false);
 	
 	closeModal2();
+	
 }
 
 function insLesson(ctcode) {
@@ -387,9 +389,10 @@ function insLesson(ctcode) {
 	let json = [];
 	json.push({"ctCode": ctcode, "sfCode": sfcode , "sfName" : sfname , "lsCode" : lscode ,  "caCode" : cacode, "lsName" : lsname , "lsOpen" : lsopen , "lsProgress":lsprogress, "lsMeCount" : lsmecount});
 	const clientData = JSON.stringify(json);
-	
+
 	getAjax("ajax/insLesson", clientData, "lsList", false);
 	closeModal3();
+	 
 }
 
 
