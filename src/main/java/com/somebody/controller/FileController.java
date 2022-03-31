@@ -53,8 +53,17 @@ public class FileController {
 
 	@RequestMapping(value = "/insInbody", method = RequestMethod.POST)
 	@ResponseBody 
-	public   Inbodys insInbody(@RequestParam("file") MultipartFile[] f, @ModelAttribute Inbodys in , Model model) {
+	public   Inbodys insInbody(@RequestParam("file") MultipartFile[] f, Model model) {
 
+		for(MultipartFile e: f) {
+			File tosaveFile = new File(e.getOriginalFilename());
+			try {
+				e.transferTo(tosaveFile);
+			} catch (IllegalStateException | IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
 		for (MultipartFile e : f) {
 			this.savePath = new File("C:\\REST\\workspace2\\help\\src\\main\\webapp\\resources\\excel",
 					e.getOriginalFilename());
@@ -140,7 +149,7 @@ public class FileController {
 		}
 		fis.close();	//파일 읽기 종료
 	
-		
+	
 		
 
 		return filters;//리스트 반환

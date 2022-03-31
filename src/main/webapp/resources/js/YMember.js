@@ -328,15 +328,10 @@ function closeModalIn() {
 
 }
 
-function UploadinbodyFile() {
-		 const form = document.getElementsByName("containerIn")[0];
-		form.submit();
-	}
-	
+
 	
 	function UploadinbodyFile() {
 		 const form = document.getElementsByName("containerIn")[0];
-
 				 let data = new FormData(form);
 				 ajaxFromData("insInbody",data,"ajaxCallback","POST");
 	}
@@ -363,6 +358,7 @@ function UploadinbodyFile() {
 	}
 	
 	function ajaxCallback(msg){
+	alert(msg);
 	
 		let ms = document.getElementById("msg");
 		ms.innerText = msg.msg;
