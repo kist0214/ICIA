@@ -153,7 +153,6 @@ public class Authenticaion extends CommonMethod {
 			}
 			this.mav.setViewName(page);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -180,7 +179,7 @@ public class Authenticaion extends CommonMethod {
 		/* Email Info */
 		boolean sended = false;
 
-		String contents = "아룡하세요 somebody 플랫폼 입니다. 비밀번호를 수정하려면 링크를 클릭하여 페이지로 이동하여 주세요옹";
+		String contents = "안녕하세요. somebody 플랫폼 입니다. 비밀번호를 수정하려면 링크를 클릭하여 페이지로 이동하여 주세요.";
 		String aftersendmsg = "<a href='http://localhost/modPwPage'>비밀번호 변경 요청</a>";
 		String sender = "zmffhqj7144@naver.com";
 
@@ -250,8 +249,6 @@ public class Authenticaion extends CommonMethod {
 		this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,
 				false);
 		try {
-
-
 				if(pw != null) {
 				if (enc.matches(((Members) model.getAttribute("send")).getMePw(), enc.encode(pw))) {
 					System.out.println(23);
@@ -314,7 +311,8 @@ public class Authenticaion extends CommonMethod {
 				}
 
 			} else {
-				System.out.println("세션있ㅇ어서 안됨");
+				System.out.println("세션있어서 로그인 안됨");
+				pu.removeAttribute("sfInfo");//세션제거
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
