@@ -14,7 +14,7 @@
 </head>
 
 
-<body onLoad="meProfile()">
+<body  onLoad="getCenterListInbody('${meInfo[0].meCode}')">
 	<div class="firstTop">
 		<div class="logo">
 			<div class="zero">
@@ -27,6 +27,8 @@
 			</div>
 		</div>
 		<div id="topMenu">
+		<span>${meInfo[0].meName}님 안녕하세요.</span>
+		<span id="center"></span>
 			<section>
 				<article class="topmenu">
 					<input type="button" id="meLessonMg" value="수업관리"

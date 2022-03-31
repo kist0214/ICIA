@@ -18,6 +18,7 @@ import beans.Inbodys;
 import beans.Lessons;
 import beans.Members;
 import beans.YMemberDt;
+import kr.co.icia.plzec.services.Encryption;
 
 @Service
 public class Member extends CommonMethod {
@@ -29,6 +30,8 @@ public class Member extends CommonMethod {
 	@Autowired
 	private MapperUone mu;
 	private ModelAndView mav;
+	@Autowired
+	private Encryption enc;
 
 	String page = null;
 	Members me;
@@ -417,11 +420,12 @@ public class Member extends CommonMethod {
 		this.mav.setViewName("meConfig");
 	}
 
-	public ModelAndView modMeMg(Model model) {
+	public void modMeMg(Model model) {
 		Members me = new Members();
 		me = (Members) model.getAttribute("Member");
 		mu.modMeMg(me);
-		return mav;
+		model.addAttribute("mod",enc.matches(me.getMePw(),mu.meDtInfo(me).get(0).getMePw()));
+		System.out.println(model.getAttribute("mod").toString());
 	}
 
 	public ModelAndView delMe(Model model) {

@@ -245,6 +245,7 @@ public class Authenticaion extends CommonMethod {
 	public ModelAndView meLogin(Model model) {
 
 		String pw = mb.meLogin((Members) model.getAttribute("send"));
+		System.out.println(pw);
 
 		this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,
 				false);
@@ -253,6 +254,7 @@ public class Authenticaion extends CommonMethod {
 
 				if(pw != null) {
 				if (enc.matches(((Members) model.getAttribute("send")).getMePw(), enc.encode(pw))) {
+					System.out.println(23);
 					this.mav.addObject("meInfo", this.mb.meInfo((Members) model.getAttribute("send")));
 					tran = true;
 					this.tranend(tran);

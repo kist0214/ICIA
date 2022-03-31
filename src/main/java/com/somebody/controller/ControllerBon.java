@@ -1,5 +1,7 @@
 package com.somebody.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,18 @@ public class ControllerBon {
 	Member me;
 	ModelAndView mav;
 
+	@Autowired
+	HttpSession session;
+	
+
 	private static final Logger logger = LoggerFactory.getLogger(ControllerBon.class);
 
 	//bon
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(Model model) {
+		//System.out.println((session.getId()));
+		
 		return this.auth.backControllerME("A01",model);
 		
 	}
