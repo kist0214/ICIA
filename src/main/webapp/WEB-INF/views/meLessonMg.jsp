@@ -7,6 +7,15 @@
 <title>meLessonMg</title>
 <script src="res/js/resource.js"></script>
 
+
+<link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
+	rel='stylesheet'>
+<link rel="stylesheet" href="res/css/meLessonMg.css">
+<link rel="stylesheet"
+	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
 <!-- Swiper JS -->
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -43,16 +52,6 @@
 
 		});
 	</script>
-<link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
-	rel='stylesheet'>
-<link rel="stylesheet" href="res/css/meLessonMg.css">
-<link rel="stylesheet"
-	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
-<style>
-</style>
 </head>
 <body onLoad="getCenterList('${meInfo[0].meCode}')">
 	<div class="firstTop">
@@ -110,7 +109,7 @@
 		
 
 
-<!--
+
 		<section>
 			<div class="swiper mySwiper container">
 				<div class="swiper-wrapper content">
@@ -288,8 +287,7 @@
 			<div class="swiper-pagination"></div>
 </div>
 		</section>
-	
-  -->
+
 
 
 
