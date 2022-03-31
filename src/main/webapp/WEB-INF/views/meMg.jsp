@@ -45,7 +45,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
 </head>
-<body onload="getMeMg('${ctCode}','${sfInfo.sfRank}','${sfInfo.sfId}')">
+<body  onload="getMeMg('${ctCode}','${sfInfo.sfRank}','${sfInfo.sfId}')"  >
 	<nav class="sidebar close">
 		<header>
 			<div class="image-text">

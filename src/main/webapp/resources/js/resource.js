@@ -55,6 +55,7 @@ function meConfig(ctCode){
 }
 
 function getMeMg(ctcode){
+	
 	let jsondata = [];
 	jsondata.push({"ctCode":ctcode});
 	const clientdata = JSON.stringify(jsondata);
@@ -143,12 +144,13 @@ function getAjax1(action, data, fn, content ,method) {
    ajax.send(data);
 }
 
-function meProfile(ctcode,mecode){
+function meProfile(mecode){
 	let jsondata = [];
-	
-	jsondata.push({"meCode":mecode,"ctCode":ctcode});
+	let cctcode = document.getElementsByName("searchct")[0].value;
+	jsondata.push({"meCode":mecode,"ctCode":cctcode});
 	const clientData = JSON.stringify(jsondata);
 	whatsend("ajax/meDtInfo",clientData,"modProfileInfo",false,"post");
+	
 }
 
 
@@ -287,7 +289,7 @@ function meInbodyMg1(data){
 
 
 function inbodyChart(data){
-	alert(data);
+
 	new Chart(document.getElementById("line-chart"), {
   type: 'line',
   data: {
@@ -703,22 +705,16 @@ function getselist(data){
 
 let meall;
 	function getCenterList(mecode){
-		
 		meall = mecode;
-	
 		let jsondata = [];
-
 	jsondata.push({"meCode":mecode});
 	const clientdata = JSON.stringify(jsondata);
 	whatsend("ajax/getLessonList",clientdata,"getmectlist",false,"post");
 	
 }
 	function getCenterListInbody(mecode){
-		
 		meall = mecode;
-	
 		let jsondata = [];
-
 	jsondata.push({"meCode":mecode});
 	const clientdata = JSON.stringify(jsondata);
 	whatsend("ajax/getLessonList",clientdata,"getmectlistin",false,"post");
@@ -726,7 +722,6 @@ let meall;
 }
 
 function getmectlistin(json){
-
 		 let pjson =json;
 
 		centerdata = json;
@@ -742,6 +737,7 @@ function getmectlistin(json){
 
 	body.innerHTML = data;
 	}
+	meProfile(meall);
 }
 	function getmectlist(json){
 		 let pjson =json;
@@ -877,7 +873,7 @@ function getlslist(json){
 		data+= "<div class='swiper-pagination'></div>"
 		data+= "</div>"
 		data+= "</section>"
-		
+		data+= "</div>"
 		
 		list.innerHTML = data;
 		

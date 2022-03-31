@@ -347,9 +347,10 @@ System.out.println("1::"+sf[0].getSfPw());
 			this.auth.backControllerME("C14",model);
 		}
 		@RequestMapping(value = "/modMeMg", method = RequestMethod.POST)
-		public void modMeMg(Model model, @RequestBody Members[] me) {
+		public Members modMeMg(Model model, @RequestBody Members[] me) {
 			model.addAttribute("Member", me[0]);
 			this.me.backController("C15", model);
+			return (Members)model.getAttribute("mod");
 		}
 
 
