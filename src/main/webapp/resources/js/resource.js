@@ -80,7 +80,7 @@ function closeModal() {
 	let container =  document.getElementById("container");
 	let containerSF =  document.getElementById("containerSF");
 	container.style.display = "none";
-	containerSF.style.display = "none";
+	//containerSF.style.display = "none";
 }
 function closeModalIn() {
 	let container =  document.getElementById("containerIn");
@@ -164,17 +164,15 @@ function modProfileInfo(data){
 
 
 
-function meDtInf(cctCode,mmeCode){
-	
+function meDtInf(mmeCode){
+	let cctcode = document.getElementsByName("searchct")[0].value;
 	let jsondata = [];
-	
-	jsondata.push({"ctCode":cctCode,"meCode":mmeCode});
+	jsondata.push({"ctCode":cctcode,"meCode":mmeCode});
 	const clientData = JSON.stringify(jsondata);
-	
 	whatsend("ajax/meDtInfo",clientData,"meDtInfo1",false,"post");
 	
 }
-
+let message;
 function meDtInfo1(data){
 
 	let STCODE = "M1";
@@ -203,22 +201,18 @@ function meDtInfo1(data){
       document.getElementById("list").innerHTML = message;
 }
 
-function meInbodyMg(data){
-	alert(data);
+function meInbodyMg(mmeCode){
+	let cctcode = document.getElementsByName("searchct")[0].value;
+	
 	let jsondata = [];
-		const mmeCode = "10001";
-		const cctCode = "1234567890";
-		jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
+		jsondata.push({"meCode":mmeCode,"ctCode":cctcode});
 		const clientData = JSON.stringify(jsondata);
-		alert(clientData);
 	whatsend("ajax/meInbodyMg2",clientData,"meInbodyMg1",false,"post");
 }
 
 
 function meInbodyMg1(data){
-	
-	alert("끄앙");
-	
+
 	message = '<div>';
 	message += '<canvas id="line-chart" width="50" height="20">'+'</canvas>'
 	message += '<table>';
@@ -293,11 +287,7 @@ function meInbodyMg1(data){
 
 
 function inbodyChart(data){
-	
-	
-	alert(data[1].idCount);
-	alert(data[1].daName);
-	alert(data[1].ibDate);
+	alert(data);
 	new Chart(document.getElementById("line-chart"), {
   type: 'line',
   data: {
@@ -723,8 +713,36 @@ let meall;
 	whatsend("ajax/getLessonList",clientdata,"getmectlist",false,"post");
 	
 }
+	function getCenterListInbody(mecode){
+		
+		meall = mecode;
+	
+		let jsondata = [];
 
+	jsondata.push({"meCode":mecode});
+	const clientdata = JSON.stringify(jsondata);
+	whatsend("ajax/getLessonList",clientdata,"getmectlistin",false,"post");
+	
+}
 
+function getmectlistin(json){
+
+		 let pjson =json;
+
+		centerdata = json;
+	let body = document.getElementById("center");
+	
+	if(pjson.length>0){
+		data = "<br><br>"
+		data+= "<select name='searchct'>"
+		for(i=0;i<pjson.length;i++){
+			data+=	"<option value='"+pjson[i].ctCode+"'>"+pjson[i].ctName+"</option>"
+		}
+		data+= "</select>"
+
+	body.innerHTML = data;
+	}
+}
 	function getmectlist(json){
 		 let pjson =json;
 
@@ -1100,63 +1118,6 @@ function logOut(ct,id){
 		
 
 
-
-function meInbodyMg(){
-   let jsondata = [];
-   const mmeCode = "10001";
-   const cctCode = "1234567890";
-   jsondata.push({"meCode":mmeCode,"ctCode":cctCode});
-   const clientData = JSON.stringify(jsondata);
-   alert(jsondata[0].ctCode);
-      whatsend("ajax/meInbodyMg",clientData,"meInbodyMg1",false,"post");
-}
-
-function meInbodyMg1(data){
-   message = '<div>';
-   message += '<table>';
-   message += '<tr><td>'+data[9].daName+'</td><td>'+ data[9].idCount +"&nbsp"+data[9].daUnit+'</td></tr>';
-   message += '<tr><td>'+data[1].daName+'</td><td>'+ data[1].idCount +"&nbsp"+data[1].daUnit+'</td></tr>';
-   message += '<tr><td>'+data[10].daName+'</td><td>'+ data[10].idCount +"&nbsp"+data[10].daUnit+'</td></tr>';
-   message += '</table>'+'<br>';
-    
-      message += '<table>';
-      message += '<tr><td>'+data[2].daName+'</td><td>'+ data[2].idCount +"&nbsp"+data[2].daUnit+'</td></tr>';
-      message += '<tr><td>'+data[0].daName+'</td><td>'+ data[0].idCount +"&nbsp"+data[0].daUnit+'</td></tr>';
-      message += '<tr><td>'+data[3].daName+'</td><td>'+ data[3].idCount +"&nbsp"+data[3].daUnit+'</td></tr>';
-      message += '<tr><td>'+data[6].daName+'</td><td>'+ data[6].idCount +"&nbsp"+data[6].daUnit+'</td></tr>';
-      message += '<tr><td>'+data[5].daName+'</td><td>'+ data[5].idCount +"&nbsp"+data[5].daUnit+'</td></tr>';
-      message += '<tr><td>'+data[4].daName+'</td><td>'+ data[4].idCount +"&nbsp"+data[4].daUnit+'</td></tr>';
-      message += '<tr><td>'+data[8].daName+'</td><td>'+ data[8].idCount +"&nbsp"+data[8].daUnit+'</td></tr>';
-      message += '<tr><td>'+data[7].daName+'</td><td>'+ data[7].idCount +"&nbsp"+data[7].daUnit+'</td></tr>';
-      message += '</table>';
-      
-      message += '<table>';
-      message += '<tr><td>'+'운동명'+'</td><td>'+ data[0].exName+'</td></tr>';
-      message += '<tr><td>'+'목표운동량'+'</td><td>'+ data[0].taMotion +"&nbsp"+'단위 ('+data[0].exUnit+')'+'</td></tr>';
-      message += '<tr><td>'+'실행일'+'</td><td>'+ data[0].ibDate+'</td></tr>';
-      message += '<tr><td>'+'실행상태'+'</td></tr><br><tr><td>'+ data[0].stCode+'</td></tr>';
-      message += '</table>';
-      message += '</div>';
-      
-      
-      document.getElementById("list").innerHTML = message;
-      
-      let input = document.createElement("input");
-      let P1 = 'P1';
-      input.setAttribute("type","button");
-      input.setAttribute("id","Yes");
-      input.setAttribute("value","Y");
-      input.setAttribute("onClick","insTaState('"+data[0].ibDate+','+P1+"')")
-      let input2 = document.createElement("input");
-      let P2 = 'P2';
-      input2.setAttribute("type","button");
-      input2.setAttribute("id","No");
-      input2.setAttribute("value","N");
-      input2.setAttribute("onClick","insTaState('"+data[0].ibDate+','+P2+"')");
-      const list = document.getElementById("list");
-      list.appendChild(input);
-      list.appendChild(input2);
-}
 
 function insTaState(data){
    alert(data.substring(0,14));

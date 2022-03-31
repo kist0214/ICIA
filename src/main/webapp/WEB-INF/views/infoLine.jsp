@@ -6,16 +6,13 @@
 <meta charset="UTF-8">
 <title>H E L P</title>
 <script src="res/js/resource.js"></script>
-<<<<<<< HEAD
 <!----===== Boxicons CSS ===== -->
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
 	rel='stylesheet'>
 <link rel="stylesheet" href="res/css/infoLine.css">
-=======
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
->>>>>>> u0325
 </head>
-<body onLoad="">
+<body onLoad="getCenterListInbody('${meInfo[0].meCode}')">
 	<div class="firstTop">
 		<div class="logo">
 			<div class="zero">
@@ -28,7 +25,10 @@
 			</div>
 		</div>
 		<div id="topMenu">
+		
 		<span>${meInfo[0].meName}님 안녕하세요.</span>
+		<span id="center"></span>
+		
 			<section>
 				<article class="topmenu">
 					<input type="button" id="meLessonMg" value="수업관리"
@@ -40,27 +40,6 @@
 		</div>
 	</div>
 
-<div id = "middleMenu">
-	<div class = "menuContainer">
-		<section class = "menuContainer">
-			<article class = "member">
-			<p>
-			<span class="menuTitle" id="meDtInfo" onClick="meDtInf('${meInfo[0].ctCode}','${meInfo[0].meCode}')">프로필</span>
-			</p>
-			<p>
-			<span class="menuTitle" id="meInbodyMg" onClick="meInbodyMg()">인바디</span>
-			</p>
-			<p>
-			<span class="menuTitle" id="psInBodyMg" onClick="psInBodyMg()">운동추천</span>
-			</p>
-			<p>
-			<span class="menuTitle" id="meFoodMg" onClick="meFoodMg()">음식추천</span>
-			</p>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-</article>
-</section>
-</div>
-</div>
 
 
 	<div class="circle"></div>
@@ -80,10 +59,10 @@
 		<section>
 			<article class="member">
 				<p>
-					<input type="button" value="프로필" onClick="meDtInf('${meInfo[0].ctCode}','${meInfo[0].meCode}')">
+					<input type="button" value="프로필" onClick="meDtInf('${meInfo[0].meCode}')">
 				</p>
 				<p>
-					<input type="button" value="인바디" onClick="meInbodyMg('${meInfo[0].ctCode}','${meInfo[0].meCode}')">
+					<input type="button" value="인바디" onClick="meInbodyMg('${meInfo[0].meCode}')">
 				</p>
 				<p>
 					<input type="button" value="운동추천" onClick="psInBodyMg()">

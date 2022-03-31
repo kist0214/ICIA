@@ -292,7 +292,6 @@ System.out.println("1::"+sf[0].getSfPw());
 		public List<Inbodys> inbodyChart(Model model, @RequestBody Inbodys[] in) {
 			this.me.backController("C16", model.addAttribute("chart",in[0]));
 			//this.me.backController("C00", model.addAttribute("find",in[0]));
-			System.out.println("으모아아");
 			return (List<Inbodys>)model.getAttribute("list");
 		}
 		
@@ -318,6 +317,7 @@ System.out.println("1::"+sf[0].getSfPw());
 		System.out.println(((List<Members>) model.getAttribute("mectlist")).size());
 			 return (List<Members>) model.getAttribute("mectlist");
 		}
+	
 		@SuppressWarnings("unchecked")
 		@RequestMapping(value = "/searchLsMg", method = RequestMethod.POST)
 		public List<Lessons> searchLsMg(Model model, @RequestBody  Members[] me) {

@@ -116,11 +116,10 @@
 
 			</div>
 		</div>
-
 	</nav>
 
 	<section class="home">
-		<div class="text">MemberManagement</div>
+		<div class="text">회원관리</div>
 		<div class="search">
 			<div class="nav-search">
 				<select class="select" id='select' onchange="searchMeCharTwo('${ctCode}','${sfInfo.sfRank}','${sfInfo.sfId}')">

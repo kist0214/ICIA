@@ -184,7 +184,7 @@ public class Member extends CommonMethod {
 		list.addAll(this.mu.meInbodyMg((Inbodys)model.getAttribute("send")));
 		list.addAll(this.mu.findDay((Inbodys)model.getAttribute("send")));
 		model.addAttribute("list",list);
-		System.out.println(model.getAttribute("list"));
+	
 	}
 	
 	public void meInbodyMg2(Model model) {
@@ -198,12 +198,13 @@ public class Member extends CommonMethod {
 		List<Inbodys> list = new ArrayList<Inbodys>();
 		list.addAll(this.mu.inbodyChart((Inbodys)model.getAttribute("chart")));
 		model.addAttribute("list",list);
+		
 	}
 
 	public void meDtInfo(Model model) {
 
 		model.addAttribute("list", this.mu.meDtInfo((Members) model.getAttribute("send")));
-		System.out.println(model.getAttribute("list").toString() + "67898789");
+		
 	}
 
 	public void meMg(Members me, Model md) {
