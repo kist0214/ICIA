@@ -102,7 +102,8 @@ public class Lesson extends CommonMethod{
 	public void searchLesson(Lessons ls,Model model) {
 		
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		model.addAttribute("searchLesson",  this.md.searchLesson(ls));
+		System.out.println(ls.getSfName());
+		model.addAttribute("lsList",  this.md.searchLesson(ls));
 		tranend(true);
 
 	}
@@ -123,19 +124,28 @@ public class Lesson extends CommonMethod{
 	}
 
 	public void getMaxLesson(Lessons ls,Model model) {
-
+		model.addAttribute("maxLesson",this.md.getMaxLesson(ls));
 
 	}
 
 	public void insLesson(Lessons ls,Model model) {
+	String f  = ls.getLsOpen().replace("-","");
+	String de  = f.replace("T","");
+	String der  = de.replace(":","");
+	
+	
+		ls.setLsOpen(der);
+		System.out.println(ls.getLsOpen());
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+			if(this.convertToBoolean(this.md.insLesson(ls))){
+				model.addAttribute("lsList",this.md.lsList(ls));
+				tran = true;
 		
-			model.addAttribute("lsList", this.md.lsList(ls));
-			tran = true;
+			}
 		tranend(tran);
 	}
-
+	
 	public void modLesson(Lessons ls,Model model) {
 
 
