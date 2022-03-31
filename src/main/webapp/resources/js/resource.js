@@ -35,13 +35,13 @@ function YcloseModal(){
 
 	
 function meLessonMg(ctCode){
-	
+
 	const form = makeForm("", "meLessonMg", "POST")
 	//const ctCode = makeInputElement("hidden","ctCode",ctCode,"")
 
 	//form.appendChild(ctCode);
-      document.body.appendChild(form);
-      form.submit();
+    document.body.appendChild(form);
+    form.submit();
 }
 
 function meConfig(ctCode){
@@ -78,7 +78,9 @@ function openModal1() {
 
 function closeModal() {
 	let container =  document.getElementById("container");
+	let containerSF =  document.getElementById("containerSF");
 	container.style.display = "none";
+	containerSF.style.display = "none";
 }
 function closeModalIn() {
 	let container =  document.getElementById("containerIn");
@@ -846,7 +848,6 @@ function ctLogInModal() {
 	let container =  document.getElementById("containerSF");
 	container.style.filter = "alpha(Opacity=50)";
 	container.style.display = "block";
-	
 	
 }
 
