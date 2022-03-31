@@ -202,7 +202,8 @@ select {
 	background: #fff;
 	border-radius: 20px;
 	margin: 20px 0;
-	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;}
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
 
 .card::before {
 	content: "";
