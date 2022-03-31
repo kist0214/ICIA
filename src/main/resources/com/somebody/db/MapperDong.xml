@@ -39,5 +39,9 @@
 	<select id="lessonMg" resultType = "beans.Lessons" parameterType = "beans.Lessons">
 		SELECT LSNAME AS lsName, LSOPEN AS lsOpen, LSSFCODE AS sfCode ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS
 	</select>
+	<select id="getMaxLesson" resultType = "beans.Lessons" parameterType = "beans.Lessons">
+	select nvl(max(lscode) +1,10001) as lsCode
+from kmasters.ls right outer join dual on lssfctcode = '${ctCode}' and lssfcode = '${sfCode}'
+	</select>
 </mapper>
 

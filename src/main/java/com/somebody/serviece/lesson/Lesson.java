@@ -124,7 +124,7 @@ public class Lesson extends CommonMethod{
 	}
 
 	public void getMaxLesson(Lessons ls,Model model) {
-
+		model.addAttribute("maxLesson",this.md.getMaxLesson(ls));
 
 	}
 

@@ -155,8 +155,9 @@ System.out.println("1::"+sf[0].getSfPw());
 		return (List<Lessons>)model.getAttribute("lsList");
 	}
 	@RequestMapping(value = "/getMaxLesson", method = RequestMethod.POST)
-	public void getMaxLesson(Model model, @RequestBody Lessons[] ls) {
+	public Lessons getMaxLesson(Model model, @RequestBody Lessons[] ls) {
 		this.lss.backController("L05",ls[0],model);
+		return (Lessons)model.getAttribute("maxLesson"); 
 	}
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/insLesson", method = RequestMethod.POST)

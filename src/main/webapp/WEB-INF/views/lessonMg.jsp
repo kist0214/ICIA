@@ -124,7 +124,7 @@
 			</div>
 
 			<div class="bottom-content">
-				<li class=""><a href="#"> <i class='bx bx-id-card icon'></i>
+				<li class=""><a> <i class='bx bx-id-card icon'></i>
 						<span class="text nav-text"></span><span class="text nav-text">
 							<span>${sfInfo.sfName}</span> <span>(${sfInfo.sfRankName})</span>
 					</span> <span class="text nav-text"></span>
@@ -177,7 +177,7 @@
 				<button onClick="getLsCaList(this)">
 					<i class='bx bx-calendar-star icon'></i>
 				</button>
-				<button onClick="getMaxLesson(this)">
+				<button onClick="getMaxLesson('${sfInfo.ctCode}','${sfInfo.sfId}')">
 					<i class='bx bx-calendar-plus icon'></i>
 				</button>
 				<button>
@@ -193,12 +193,12 @@
 			<div class="container2" id="container2">
 				<div class="mdialog">
 					<div class="mcontent">
-						<div class="mheader">수업 가격 설정</div>
+						<br><br><div class="mheader">수업 가격 설정</div><br>
 						<div>센터번호</div>
 						<input class="input" type="text" name="ctCode"
-							value="${sfInfo.ctCode}" /><br> <label for="lsCa"></label>
+							value="${sfInfo.ctCode}" /><br> <label for="lsCa"></label><br>
+							<div>수업 유형</div>
 						<select class="select" name="caCode2">
-							<option value="수업유형" selected>수업유형</option>
 							<option value="L0">일반</option>
 							<option value="L1">PT</option>
 							<option value="L2">요가</option>
@@ -207,7 +207,7 @@
 							<option value="L5">스피닝</option>
 						</select><br> <br>
 						<div>수량 | 개월</div>
-						<input class="input" type="text" name="lpQty" /><br> <br>
+						<input class="input" type="text" name="lpQty" placeholder="수량 | 개월을 입력하세요."/><br> <br>
 						<div>가격</div>
 						<input class="input" type="text" name="lpPrice"
 							placeholder="가격을 입력하세요." /><br> <br> <input
@@ -215,6 +215,7 @@
 						<div class="mfooter">
 							<input type="button" class="mbtn" value="닫기"
 								onclick="closeModal2()" />
+								
 						</div>
 					</div>
 				</div>
@@ -230,14 +231,13 @@
 							<h4 id=mheader class="mtitle">수업 추가</h4>
 							<br>
 						</div>
-						<div>센터번호</div>
-						<input class="input" type="text" name="ctCode" value="${sfInfo.ctCode}"/><br>
 						<div>사원번호</div>
-						<input class="input" type="text" name="sfCode"/><br>
+						<input class="input" type="text" name="sfCode" value="${sfInfo.sfId}"/><br>
 						<div>트레이너명</div>
-						<input class="input" type="text" name="sfName" placeholder="트레이너명을 입력하세요." /><br>
+						<input class="input" type="text" name="sfName" value="${sfInfo.sfName}" /><br>
 						<div>수업번호</div>
-						<input class="input" type="text" name="lsCode" /><br>
+						<input class="input" type="text" name="lsCode"/><br>
+						<div>수업 유형</div>
 						<select class="select" name="caCode">
 							<option value="L0">일반</option>
 							<option value="L1">PT</option>

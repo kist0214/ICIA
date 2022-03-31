@@ -52,7 +52,7 @@ function searchSfMg(ctcode){
 	const searchSf = document.getElementsByClassName("searchSf")[0].value;
 
 let json = [];
-	alert(searchText);
+	
 	json.push({ctCode:ctcode,caCode:searchText,caName:searchSf});
 	if(searchSf==""){
 		sfMg(ctCode);
@@ -252,7 +252,16 @@ function getLsCaList() {
 	container2.style.display = "block";
 }
 
-function getMaxLesson() {
+function getMaxLesson(ctcode,sfcode) {
+	var json = []
+	json.push({ctCode:ctcode,sfCode:sfcode});
+	const data = JSON.stringify(json);
+	getAjax("ajax/getMaxLesson",data,"getMaxLesson2",false);
+}
+function getMaxLesson2(json) {
+	const lscode = document.getElementsByName("lsCode")[0];
+	lscode.setAttribute("value",json.lsCode);
+	lscode.setAttribute("readOnly",true);
 	let container3 = document.getElementById("container3");
 	container3.style.filter = "alpha(Opacity=50)";
 	container3.style.display = "block";
@@ -364,8 +373,7 @@ function insLsPay() {
 	closeModal2();
 }
 
-function insLesson() {
-	let ctcode = document.getElementsByName("ctCode")[0].value;
+function insLesson(ctcode) {
 	let sfcode = document.getElementsByName("sfCode")[0].value;
 	let sfname =  document.getElementsByName("sfName")[0].value;
 	let lscode =  document.getElementsByName("lsCode")[0].value;
@@ -379,11 +387,10 @@ function insLesson() {
 	let json = [];
 	json.push({"ctCode": ctcode, "sfCode": sfcode , "sfName" : sfname , "lsCode" : lscode ,  "caCode" : cacode, "lsName" : lsname , "lsOpen" : lsopen , "lsProgress":lsprogress, "lsMeCount" : lsmecount});
 	const clientData = JSON.stringify(json);
-	alert(clientData);
+	
 	getAjax("ajax/insLesson", clientData, "lsList", false);
 	closeModal3();
 }
-
 
 
 function makeForm(fname, faction, fmethod){

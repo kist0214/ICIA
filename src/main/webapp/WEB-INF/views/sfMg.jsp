@@ -238,24 +238,24 @@
 						<div>센터번호</div>
 						<input class="input" type="text" name="ctCode" value="${sfInfo.ctCode}"/><br>
 						<div>사원번호</div>
-						<input class="input" type="text" name="sfId" placeholder="Max" /><br>
+						<input class="input" type="text" name="sfId" value="${sfInfo.sfId}" /><br>
 						<div>성명</div>
 						<input class="input" type="text" name="sfName"
 							placeholder="이름을 입력하세요." /><br>
 						<div>연락처</div>
 						<input class="input" type="text" name="sfNumber"
-							pattern="(010)\d{3,4}\d{4}" title="형식 01000000000"><br>
+							pattern="(010)\d{3,4}\d{4}" title="형식 01000000000" placeholder="연락처를 입력하세요."><br>
 						<div>비밀번호</div>
-						<input class="input" type="password" name="sfPw" maxlength='15' /><br>
+						<input class="input" type="password" name="sfPw" maxlength='15' placeholder="비밀번호를 입력하세요."/><br>
 						<div>이메일</div>
 						<input class="input" type="email" name="sfEmail"
 							placeholder="Email 입력" /><br>
 						<div>직위</div>
 						<select name="sfRank">
 							<option value="직급" selected>직급</option>
-							<option value="M1">M1</option>
-							<option value="M2">M2</option>
-							<option value="M3">M3</option>
+							<option value="M1">관리자</option>
+							<option value="M2">트레이너</option>
+							<option value="M3">안내원</option>
 						</select><br> <input type="button" value="CREATE"
 							onClick="insSf('${sfInfo.ctCode}')" />
 						<div class="mfooter">
