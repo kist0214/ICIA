@@ -1,5 +1,7 @@
 package com.somebody.serviece.lesson;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
@@ -16,21 +18,16 @@ import com.somebody.db.MapperYoung;
 
 import beans.Equipments;
 import beans.Lessons;
-import kr.co.icia.plzec.services.Encryption;
-import kr.co.icia.plzec.services.ProjectUtils;
+import beans.LsMeDts;
 
 @Service
 public class Lesson extends CommonMethod{
 	@Autowired
-	private MapperBon mb;
-	@Autowired
 	private MapperDong md;
 	@Autowired
 	private MapperYoung my;
-	@Autowired
-	private MapperUone mu;
 	private ModelAndView mav;
-	
+
 	@Autowired
 	private DataSourceTransactionManager tx;
 
@@ -41,20 +38,20 @@ public class Lesson extends CommonMethod{
 	String page = null;
 	public Lesson() {
 		mav = new ModelAndView();
- }
+	}
 
-	
-	
-	
+
+
+
 	public ModelAndView backController(String sCode, Lessons ls, Model model) {
-	
+
 		switch (sCode) {
 		case "L00":
 			goLessonPage(ls, model);
-			 break;
+			break;
 		case "L01":
 			lessonMg(ls, model);
-			 break;
+			break;
 		case "L02":
 			searchLesson(ls,model);
 			break;
@@ -73,15 +70,7 @@ public class Lesson extends CommonMethod{
 		case "L07":
 			modLesson(ls,model);
 			break;
-		case "L08":
-			lsMemDetail(ls,model);
-			break;
-		case "L09":
-			modLsSuccess(ls,model);
-			break;
-		case "L10":
-			delLesson(ls,model);
-			break;
+		
 		case "L11":
 			getSfCode(ls,model);
 			break;
@@ -98,12 +87,12 @@ public class Lesson extends CommonMethod{
 
 
 	public void goLessonPage(Lessons ls,Model model) {
-	
+
 		mav.addObject("ctCode", ls.getCtCode());
 		mav.setViewName("lessonMg");	
 	}
-		
-	
+
+
 
 	public void lessonMg(Lessons ls,Model model) {
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
@@ -113,7 +102,7 @@ public class Lesson extends CommonMethod{
 	}
 
 	public void searchLesson(Lessons ls,Model model) {
-		
+
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		System.out.println(ls.getSfName());
 		model.addAttribute("lsList",  this.md.searchLesson(ls));
@@ -129,10 +118,10 @@ public class Lesson extends CommonMethod{
 	public void insLsPay(Lessons ls,Model model) {
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-			if(this.convertToBoolean(this.md.insLsPay(ls))){
-				model.addAttribute("lsList",this.md.lsList(ls));
-				tran = true;
-			}
+		if(this.convertToBoolean(this.md.insLsPay(ls))){
+			model.addAttribute("lsList",this.md.lsList(ls));
+			tran = true;
+		}
 		tranend(tran);
 	}
 
@@ -142,23 +131,23 @@ public class Lesson extends CommonMethod{
 	}
 
 	public void insLesson(Lessons ls,Model model) {
-	String f  = ls.getLsOpen().replace("-","");
-	String de  = f.replace("T","");
-	String der  = de.replace(":","");
-	
-	
+		String f  = ls.getLsOpen().replace("-","");
+		String de  = f.replace("T","");
+		String der  = de.replace(":","");
+
+
 		ls.setLsOpen(der);
 		System.out.println(ls.getLsOpen());
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-			if(this.convertToBoolean(this.md.insLesson(ls))){
-				model.addAttribute("lsList",this.md.lsList(ls));
-				tran = true;
-		
-			}
+		if(this.convertToBoolean(this.md.insLesson(ls))){
+			model.addAttribute("lsList",this.md.lsList(ls));
+			tran = true;
+
+		}
 		tranend(tran);
 	}
-	
+
 	public void modLesson(Lessons ls,Model model) {
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
@@ -171,16 +160,69 @@ public class Lesson extends CommonMethod{
 
 	}
 
-	public void lsMemDetail(Lessons ls,Model model) {
-
-
+	public void lsMemDetail(LsMeDts ls,Model md) {
+		md.addAttribute("lsMeDt", this.my.lsMemDetail(ls));
 	}
-	public void modLsSuccess(Lessons ls,Model model) {
-		
+
+	public void modLsSuccess(LsMeDts lm,Model md) {
+		boolean tran = false;
+		lm.setStCode("R2");
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+
+		if(this.convertToBoolean(this.my.modLsSuccess(lm))) {
+			md.addAttribute("lsMeDt", this.my.lsMemDetail(lm));
+			tran = true;
+		}
+
+		tranend(tran);
 	}
-	public void delLesson(Lessons ls,Model model) {
+
+	public void delLesson(List<Lessons> ls,Model model) {
+		boolean tran = false;
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		for(Lessons lss:ls) {
+			if(this.convertToBoolean(this.my.delLs(lss))) {
+				model.addAttribute("lsList", this.md.lsList(lss));
+				tran = true;
+			}
+		}
+		tranend(tran);
+	}
 
 
+	private void modLsCancel(LsMeDts lm, Model md) {
+		boolean tran = false;
+		lm.setStCode("R3");
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+
+		if(this.convertToBoolean(this.my.modLsSuccess(lm))) {
+			md.addAttribute("lsMeDt", this.my.lsMemDetail(lm));
+			tran = true;
+		}
+
+		tranend(tran);
 	}
-	
+	public void backController(String sCode, List<Lessons> ls, Model md) {
+
+		switch (sCode) {
+		case "L1":
+			delLesson(ls,md);
+			break;
+		}
+	}
+	public void backController2(String sCode, LsMeDts lm, Model model) {
+		switch (sCode) {
+		case "L01":
+			modLsSuccess(lm,model);
+			break;
+		case "L02":
+			lsMemDetail(lm,model);
+			break;
+		case "L03":
+			modLsCancel(lm,model);
+			break;
+		}
+	}
+
+
 }

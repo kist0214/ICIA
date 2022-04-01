@@ -27,7 +27,7 @@ function sfList(json) {
 	
 	for (i=0; i<json.length;i++) {
 		
-		datad += '<tr><td><input type="checkbox" name="radioBtn"/></td>'
+		datad += '<tr><td><input type="checkbox" name="radioBtn" onclick="checkOnlyOne(this)"/></td>'
 		datad += '<td>' + json[i].sfId + '</td>' 
 		datad += '<td>' + json[i].sfName 
 		datad += '</td><td>' + json[i].caName 
@@ -300,6 +300,7 @@ function selectRecord(sfCode){
 
 /* Lesson */
 
+let ctcode1;
 function goLessonPage(ctcode) {
 	const form = makeForm("goLesson", "goLessonPage", "POST");
 	const ctCode = makeInputElement("hidden", "ctCode", ctcode, "");
@@ -313,6 +314,7 @@ function goLessonPage(ctcode) {
 
 function lessonMg(ctCode) {
 
+	ctcode1=ctCode;
 closeModal3();
 
 	let jsonData = [];
@@ -333,17 +335,18 @@ function lsList(jsonData) {
 
 	if(jsonData.length>0){
 	lsInfo = jsonData;
-	datat = '<tr><td></td><td>수업명</td><td>개강일</td><td>트레이너명</td><td>수강인원</td></tr>';	
-	
+	datat = '<tr><td></td><td colspan="2">수업명</td><td colspan="2">개강일</td><td>트레이너명</td><td>수강인원</td></tr>';	
+	var idx = 0;
 	for (i=0; i<jsonData.length;i++) {
-		
-		datat += '<tr><td><input type="checkbox" name="radioBtn"/></td>'
-		datat += '<td>' + jsonData[i].lsName + '</td>' 
-		datat += '<td>' + jsonData[i].lsOpen 
-		datat += '</td><td>' + jsonData[i].sfName  
-		datat += '</td><td>' + jsonData[i].lsMeCount + '</td>';
-		datat += '</tr>';
-
+		if(jsonData[i].lsCode != '10000'&&jsonData[i].stCode != "D2"){
+			datat += '<tr onclick = "leMeDt(\''+jsonData[i].lsCode+'\',\''+ctcode1+'\',\''+idx+'\')"><td><input type="checkbox" name="radioBtn"  onclick="checkOnlyOne(this)"/></td>'
+			datat += '<td colspan="2">' + jsonData[i].lsName + '</td>' 
+			datat += '<td colspan="2">' + jsonData[i].lsOpen 
+			datat += '</td><td>' + jsonData[i].sfName  
+			datat += '</td><td>' + jsonData[i].lsMeCount + '</td>';
+			datat += '</tr><tbody name = "ajax2"></tbody>';
+			idx++;
+		}
 	}
 	body.innerHTML = datat;
 	}else{const msg = document.getElementsByClassName("lsSearchBtn")[0]
@@ -426,8 +429,7 @@ function makeInputElement(type, name, value, placeholder){
 	return input;
 }
 
-let ctcode1;
-function modLsModal(sfcode,ctcode){
+function modLsModal(sfcode){
 	const lsSelect = document.getElementsByName("radioBtn");
 	const lsCheck = 'input[name="radioBtn"]:checked';
   	// 선택된 목록의 갯수 세기
@@ -439,10 +441,6 @@ function modLsModal(sfcode,ctcode){
 		alert("하나만 선택해주세요.");
 		return;
 	}
-	if(ctcode!=undefined){
-		ctcode1=ctcode;
-	}
-	alert(sfcode+':'+ctcode+':'+ctcode1);
 	if(sfcode==""){
 		var json = [];
 		json.push({ctCode:ctcode});
@@ -458,16 +456,11 @@ function modLsModal(sfcode,ctcode){
 			data = '<div><span>수업명</span><br><span><input type ="text" id = "lsName" value="'+lsInfo[i].lsName+'" readOnly /></span></div>';
 			data += '<div><span>개강일</span><br><span><input type ="date" id = "lsDate" value = "'+lsInfo[i].lsOpen.substr(0,10)+'"/></span></div>';
 			data += '<div><span>수업시간</span><br><span><input type ="time" id = "lsTime" value = "'+lsInfo[i].lsOpen.substr(11,5)+'"/></span></div>';
-			data += '<div><span>트레이너명</span><br><span><select id = "sfName">';
 			for(j=0;j<sfcode.length;j++){
 				if(sfcode[j].sfName==lsInfo[i].sfName){
-					data += '<option value="'+sfcode[j].sfCode+'" selected>'+sfcode[j].sfName+'</option>';
 					sfCodeData = sfcode[j].sfCode;
-				}else{
-					data += '<option value="'+sfcode[j].sfCode+'">'+sfcode[j].sfName+'</option>';
 				}
 			}
-			data += '</select></span></div>';
 			data += '<div><span>수업 날짜</span><br><div style="border:1px;"><span>월<input type ="checkbox" name = "lsDate111"/></span><span>화<input type ="checkbox" name = "lsDate111"/></span><span>수<input type ="checkbox" name = "lsDate111"/></span><span>목<input type ="checkbox" name = "lsDate111"/></span><span>금<input type ="checkbox" name = "lsDate111"/></span><span>토<input type ="checkbox" name = "lsDate111"/></span><span>일<input type ="checkbox" name = "lsDate111"/></span></div></div>';
 			data += '<div><span>수강인원</span><br><span><input type ="number" id = "lsMeCount" value = "'+lsInfo[i].lsMeCount+'" min="1" max="10"/></span></div>';
 			data += '<div><span>진행시간</span><br><span><input type="number" value = "0" step="30" min="0" max="180" id="min"/>분</span></div>';
@@ -480,24 +473,29 @@ function modLsModal(sfcode,ctcode){
 }
 
 
+function delLs(ctcode){
+		var json = [];
+	const lsSelect = document.getElementsByName("radioBtn");
+	for(i=0;i<lsSelect.length;i++){
+		if(lsSelect[i].checked==true){
+			json.push({ctCode:ctcode,lsCode:lsInfo[i].lsCode});
+		}
+	}
+		const data=JSON.stringify(json);
+		getAjax("ajax/delLesson", data, "lsList", false);
+}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function checkOnlyOne(element) {
+  
+  const checkboxes 
+      = document.getElementsByName("radioBtn");
+  
+  checkboxes.forEach((cb) => {
+    cb.checked = false;
+  })
+  
+  element.checked = true;
+}
