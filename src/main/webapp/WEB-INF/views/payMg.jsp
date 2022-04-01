@@ -4,11 +4,39 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <!----======== CSS ======== -->
 <link rel="stylesheet" href="res/css/PayMg.css">
 <!----===== Boxicons CSS ===== -->
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+<style>
+
+.search{
+position: absolute;
+min-height: 220px;
+
+}
+#bar-chart {
+	margin-left:100px;
+	position: absolute;
+	width: 300px;
+	min-height: 30px;
+	left: 0;
+	top: 0;
+	text-align: center;
+	
+}
+#bar-chart2 {
+
+margin-left:200px;
+	position: absolute;
+	width: 300px;
+	top: 0;
+	text-align: center;
+}
+#searchDate{
+margin-left:500px;
+}
+</style>
 <title>PayManagement</title>
 <script src="/res/js/Ypay.js"> </script>
 <script src="/res/js/resource.js"> </script>
@@ -91,7 +119,7 @@
 
 
 	<section class="home">
-		<div class="text">PayManagement</div>
+		<div class="text">급여관리</div>
 
 		<div id="infoPa">
 			<div class="search">
@@ -101,9 +129,9 @@
 					<div class="side">
 						<script
 							src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-						<canvas id="bar-chart" width="300" height="230"></canvas>
-						
-						<canvas id="bar-chart2" width="300" height="230"></canvas>
+						<canvas id="bar-chart" width="300" height="200"></canvas>
+					 &nbsp;
+						<canvas id="bar-chart2" width="300" height="200"></canvas>
 					</div>
 					<form>
 						<input id="searchDate" type="month" /> <input type="button"

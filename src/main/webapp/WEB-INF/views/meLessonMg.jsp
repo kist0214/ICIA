@@ -40,6 +40,7 @@
 		
 		<div id="topMenu">
 		<input type = "hidden" value='${meInfo[0].meCode}' />
+	
 		<span>${meInfo[0].meName}님 안녕하세요.</span>
 			<div class="menuContainer">
 				<section class="menuContainer">
