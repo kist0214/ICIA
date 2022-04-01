@@ -165,8 +165,6 @@
 			</div>
 		</div>
 	</div>
-	</div>
-<table id="ajax"></table>
 
 	
 	<form name="containerIn" action="insInbody" method="post"

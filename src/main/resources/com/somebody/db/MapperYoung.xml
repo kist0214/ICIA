@@ -111,11 +111,13 @@
       where ctcode = ${ctCode}
    </select>
    <select id="Count" resultType="beans.Pays" parameterType="beans.Members">
-		select clv.ctcode as ctCode, clv.caname as caName, count(rl.mecode) as lpStocks
+		select nvl(lpStocks,0) as lpStocks from(
+		select clv.ctcode as ctCode, clv.caname as caName, count(rl.mecode) as lpStocks, rl.stCode
 		from kmasters.calpview clv left outer join kmasters.relsview rl on clv.ctcode = rl.ctcode and clv.cacode = rl.cacode
 		where clv.ctCode = '${ctCode}' and rl.meCode = '${meCode}' and clv.caName = '${caName}'
-		group by clv.ctcode, clv.caname
-   </select>
+		group by clv.ctcode, clv.caname, rl.stCode)clv
+        right outer join dual on clv.stCode = 'R2'
+	</select>
    <select id="remecode" resultType="beans.Members" parameterType="beans.Members">
 	 select meCode, caCode, sfCode from kmasters.relsview
    </select>
@@ -208,7 +210,29 @@ SELECT DISTINCT IDCOUNT AS idCount,
 	 select max(sfcode) +1 as sfCode from kmasters.sf where sfctcode = '${ctCode}'
    </select>
    <update id="modLs" parameterType="beans.Lessons">
-   		update kmasters.ls set lsopen=to_date('${lsOpen}','yyyy-mm-dd hh24:mi:ss'), lsprogress= '${lsProgress}', lsMeCount = '${lsMeCount}', lssfcode = '${sfCode}'
+   		update kmasters.ls set lsopen=to_date('${lsOpen}','yyyy-mm-dd hh24:mi:ss'), lsprogress= '${lsProgress}', lsMeCount = '${lsMeCount}'
 		where lssfctcode = '${ctCode}' and lsName = '${lsName}' and lssfcode = '${sfName}'
    </update>
+	<update id="delLs" parameterType = "beans.Lessons">
+	update kmasters.ls set lsstcode='D2'
+		where lssfctcode = '${ctCode}' and lsCode = '${lsCode}'
+	</update>
+	<select id="lsMemDetail" parameterType = "beans.LsMeDts" resultType="beans.LsMeDts">
+		SELECT rere.meName, rere.meCode, rere.meGender, rere.meBirth, rere.meNumber, rere.ctCode, rere.relscode as lsCode, rere.reDate, re.restCode as stCode
+		FROM (select mv.mename as meName,
+		mv.mecode,
+		(select ca.caname from kmasters.ca where ca.cacode = mv.megender) as meGender,
+		mv.meBirth,
+		mv.meNumber,
+		re.relsctcode as ctCode,
+		re.relscode,
+		MAX(re.redate) as reDate
+		from kmasters.re inner join kmasters.memgview mv on re.relsctcode = mv.ctcode and re.remecode = mv.mecode
+		group by mv.mename, mv.meBirth, mv.meNumber, re.relsctcode, re.relscode, meGender, re.relsctcode, mv.mecode) rere
+		inner join kmasters.re on re.relsctcode = rere.ctcode and re.relscode = rere.relscode and re.remecode = rere.mecode and re.reDate = rere.reDate
+		where rere.ctCode='${ctCode}' and rere.relscode = '${lsCode}'
+	</select>
+	<update id="modLsSuccess" parameterType = "beans.LsMeDts" >
+		update kmasters.re set restcode = '${stCode}' where relsctcode = '${ctCode}' and relscode = '${lsCode}' and remecode = '${meCode}'
+	</update>
 </mapper>

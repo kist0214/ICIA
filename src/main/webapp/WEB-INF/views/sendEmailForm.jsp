@@ -64,7 +64,7 @@
 		</tr>
 	</table>
 
-	<div class="logo">
+	<div class="logo" onclick ="home()">
 		<div class="zero">
 			<br>
 			<div class="one"></div>

@@ -1,8 +1,17 @@
-/**
- * 
- */
 
-   
+function home(){
+	let form = makeForm("", "/", "GET");
+      document.body.appendChild(form);
+	form.submit();
+}
+function makeForm(fname, faction, fmethod){
+	const form = document.createElement("form");
+	if(fname != ""){form.setAttribute("name", fname);}
+	form.setAttribute("action", faction);
+	form.setAttribute("method", fmethod);
+	return form;
+}
+
 let checkdata;
 
 function creatMeJoin(){

@@ -183,7 +183,7 @@
 				<button onClick="modLsModal('','${sfInfo.ctCode}')">
 					<i class='bx bx-calendar-edit icon'></i>
 				</button>
-				<button>
+				<button onClick="delLs('${sfInfo.ctCode}')">
 					<i class='bx bx-calendar-minus icon'></i>
 				</button>
 			</div>
