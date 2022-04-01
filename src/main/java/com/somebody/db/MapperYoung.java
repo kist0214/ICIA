@@ -4,6 +4,7 @@ import java.util.List;
 
 import beans.Centers;
 import beans.Equipments;
+import beans.Lessons;
 import beans.Members;
 import beans.Pays;
 import beans.Staffs;
@@ -47,10 +48,12 @@ public interface MapperYoung {
 	public int insPa(Members me);
 	public int sc();
 	public int modMe(Members me);
-	//public Members reLsSfCode(Members me);
+	public YMemberDt meDtInfo(Members me);
+	public List<YMemberDt> meInbodyMg(Members me);
 	//Staffs
 	public int modSf(Staffs sf);
 	public int modSf2(Staffs sf);
-	public YMemberDt meDtInfo(Members me);
-	public List<YMemberDt> meInbodyMg(Members me);
+	public Staffs getMaxSf(Staffs sf);
+	//Lessons
+	public int modLs(Lessons ls);
 }

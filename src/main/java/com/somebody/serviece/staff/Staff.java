@@ -40,7 +40,7 @@ public class Staff extends CommonMethod {
 			searchSfMg(sf, model);
 			break;
 		case "S03":
-			getMaxSf(model);
+			getMaxSf(model, sf);
 			break;
 		case "S04":
 			insSf(sf, model);
@@ -79,8 +79,11 @@ public class Staff extends CommonMethod {
 		
 	}
 
-	public void getMaxSf(Model model) {
 
+
+
+	public void getMaxSf(Model md,Staffs sf) {
+		md.addAttribute("maxSf",this.my.getMaxSf(sf));
 	}
 
 	public void insSf(Staffs sf, Model model) {

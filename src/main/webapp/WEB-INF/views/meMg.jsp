@@ -151,9 +151,8 @@
 				</button>
 			</div>
 		</div>
-
 <table id="ajax"></table>
-<div class="mModal" id="gModal">
+<div class="mModal" id="gModal">s
 		<div class="memberLog">
 			<div class="mContent">
 				<div class="mheader">
@@ -166,6 +165,9 @@
 			</div>
 		</div>
 	</div>
+	</div>
+<table id="ajax"></table>
+
 	
 	<form name="containerIn" action="insInbody" method="post"
 			enctype="multipart/form-data">

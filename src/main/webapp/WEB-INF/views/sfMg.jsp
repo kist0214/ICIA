@@ -169,7 +169,7 @@
 		</div>
 		<div class="etc">
 			<div id="explainSf">
-				<button onClick="getMaxSf()">
+				<button onClick="getMaxSf('${sfInfo.ctCode}')">
 					<i class='bx bx-user-plus icon'></i>
 				</button>
 
@@ -236,8 +236,6 @@
 							<h4 id=mheader class="mtitle">직원 추가</h4>
 						</div>
 						<br>
-						<div>센터번호</div>
-						<input class="input" type="text" name="ctCode" value="${sfInfo.ctCode}"/><br>
 						<div>사원번호</div>
 						<input class="input" type="text" name="sfId" value="${sfInfo.sfId}" /><br>
 						<div>성명</div>
@@ -248,9 +246,9 @@
 							pattern="(010)\d{3,4}\d{4}" title="형식 01000000000" placeholder="연락처를 입력하세요."><br>
 						<div>비밀번호</div>
 						<input class="input" type="password" name="sfPw" maxlength='15' placeholder="비밀번호를 입력하세요."/><br>
+
 						<div>이메일</div>
-						<input class="input" type="email" name="sfEmail"
-							placeholder="Email 입력" /><br>
+						<input class="input" type="email" name="sfEmail" placeholder="Email 입력" /><br>
 						<div>직위</div>
 						<select name="sfRank">
 							<option value="직급" selected>직급</option>

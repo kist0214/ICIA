@@ -14,6 +14,7 @@ import com.somebody.db.MapperDong;
 import com.somebody.db.MapperUone;
 import com.somebody.db.MapperYoung;
 
+import beans.Equipments;
 import beans.Lessons;
 import kr.co.icia.plzec.services.Encryption;
 import kr.co.icia.plzec.services.ProjectUtils;
@@ -81,9 +82,21 @@ public class Lesson extends CommonMethod{
 		case "L10":
 			delLesson(ls,model);
 			break;
+		case "L11":
+			getSfCode(ls,model);
+			break;
 		}
 		return mav;
 	}
+	private void getSfCode(Lessons ls, Model md) {
+		Equipments eq = new Equipments();
+		eq.setCtCode(ls.getCtCode());
+		md.addAttribute("sfCode", this.my.getGoSfList(eq));
+	}
+
+
+
+
 	public void goLessonPage(Lessons ls,Model model) {
 	
 		mav.addObject("ctCode", ls.getCtCode());
@@ -147,7 +160,14 @@ public class Lesson extends CommonMethod{
 	}
 	
 	public void modLesson(Lessons ls,Model model) {
-
+		boolean tran = false;
+		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		System.out.println(ls);
+		if(this.convertToBoolean(this.my.modLs(ls))) {
+			model.addAttribute("lsList", this.md.lsList(ls));
+			tran = true;
+		}
+		tranend(tran);
 
 	}
 
@@ -156,8 +176,7 @@ public class Lesson extends CommonMethod{
 
 	}
 	public void modLsSuccess(Lessons ls,Model model) {
-
-
+		
 	}
 	public void delLesson(Lessons ls,Model model) {
 

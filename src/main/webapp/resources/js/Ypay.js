@@ -18,8 +18,13 @@ function ajax(action, data, fn) {
 function onLoadPay(ctcode){
 	const date = document.getElementById("searchDate");
 	date.value = new Date().toISOString().substring(0, 7);
+	const a1 = date.value.split('-');
+	var date2='';
+	for(i=0;i<a1.length;i++){
+		date2+=a1[i];
+	}
 	json = [];
-	json.push({ctCode:ctcode,paDate:date.value});
+	json.push({ctCode:ctcode,paDate:date2});
 	const data = JSON.stringify(json);
 	ajax("ajax/onLoadPay",data,"payList");
 }
@@ -92,8 +97,13 @@ function a1(list){
 
 function searchPay(ctcode){
 	const date = document.getElementById("searchDate");
+	const a1 = date.value.split('-');
+	var date2='';
+	for(i=0;i<a1.length;i++){
+		date2+=a1[i];
+	}
 	json = [];
-	json.push({ctCode:ctcode,paDate:date.value});
+	json.push({ctCode:ctcode,paDate:date2});
 	const data = JSON.stringify(json);
 	ajax("ajax/onLoadPay",data,"payList");
 }

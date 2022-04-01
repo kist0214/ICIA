@@ -83,7 +83,7 @@ public class Member extends CommonMethod {
 		case "M06":
 			addMember(model);
 			break;
-		
+
 		case "C00":
 			meInbodyMg2(model);
 			break;
@@ -184,30 +184,29 @@ public class Member extends CommonMethod {
 
 	public void meInbodyMg(Model model) {
 		List<Inbodys> list = new ArrayList<Inbodys>();
-		list.addAll(this.mu.meInbodyMg((Inbodys)model.getAttribute("send")));
-		list.addAll(this.mu.findDay((Inbodys)model.getAttribute("send")));
-		model.addAttribute("list",list);
-	
+		list.addAll(this.mu.meInbodyMg((Inbodys) model.getAttribute("send")));
+		list.addAll(this.mu.findDay((Inbodys) model.getAttribute("send")));
+		model.addAttribute("list", list);
+
 	}
-	
+
 	public void meInbodyMg2(Model model) {
 		List<Inbodys> list = new ArrayList<Inbodys>();
-		list.addAll(this.mu.maxDay((Inbodys)model.getAttribute("max")));
-		list.addAll(this.mu.findDay((Inbodys)model.getAttribute("max")));
-		model.addAttribute("list",list);
+		list.addAll(this.mu.maxDay((Inbodys) model.getAttribute("max")));
+		list.addAll(this.mu.findDay((Inbodys) model.getAttribute("max")));
+		model.addAttribute("list", list);
 	}
-	
+
 	public void inbodyChart(Model model) {
 		List<Inbodys> list = new ArrayList<Inbodys>();
-		list.addAll(this.mu.inbodyChart((Inbodys)model.getAttribute("chart")));
-		model.addAttribute("list",list);
-		
+		list.addAll(this.mu.inbodyChart((Inbodys) model.getAttribute("chart")));
+		model.addAttribute("list", list);
+
 	}
 
 	public void meDtInfo(Model model) {
-
 		model.addAttribute("list", this.mu.meDtInfo((Members) model.getAttribute("send")));
-		
+
 	}
 
 	public void meMg(Members me, Model md) {
@@ -232,11 +231,8 @@ public class Member extends CommonMethod {
 							j + ", " + meList.get(i).getSfCode() + " : " + this.my.remecode().get(j).getSfCode());
 
 				}
-
 			}
-
 			meList.get(i).setLpStocks((meList.get(i).getLpQty() - stocks) + "");
-
 		}
 		md.addAttribute("meList", meList);
 		tranend(true);
@@ -313,8 +309,6 @@ public class Member extends CommonMethod {
 							&& meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
 						stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
 						meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
-						System.out.println(
-								j + ", " + meList.get(i).getSfCode() + " : " + this.my.remecode().get(j).getSfCode());
 
 					}
 
@@ -331,7 +325,7 @@ public class Member extends CommonMethod {
 	public void insTaState(Model model) {
 		Inbodys in = new Inbodys();
 		in = (Inbodys) model.getAttribute("Inbody");
-		model.addAttribute("a1",mu.insTaState(in));
+		model.addAttribute("a1", mu.insTaState(in));
 	}
 
 	public void meHealthMg(Model model) {
@@ -369,26 +363,17 @@ public class Member extends CommonMethod {
 		Members ee = ((Members) model.getAttribute("mectlist"));
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-
 		if (ee.getMeCode() == null) {
-
 			le = (List<Lessons>) mb.getCtcaLessonList(ee);
-
 		} else {
 			le = (List<Lessons>) mb.getCtdateLessonList(ee);
-
 		}
-
 		for (int i = 0; i < le.size(); i++) {
 			// System.out.println(le.get(i));
 			le.get(i).setLpQty(mb.remainLessonCount(le.get(i)));
-
 		}
-
 		model.addAttribute("mectlslista", le);
-
 		tranend(true);
-
 	}
 
 	public void insMeLesson(Model model) {
@@ -424,7 +409,7 @@ public class Member extends CommonMethod {
 		Members me = new Members();
 		me = (Members) model.getAttribute("Member");
 		mu.modMeMg(me);
-		model.addAttribute("mod",enc.matches(me.getMePw(),mu.meDtInfo(me).get(0).getMePw()));
+		model.addAttribute("mod", enc.matches(me.getMePw(), mu.meDtInfo(me).get(0).getMePw()));
 		System.out.println(model.getAttribute("mod").toString());
 	}
 
