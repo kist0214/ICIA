@@ -180,7 +180,7 @@
 				<button onClick="getMaxLesson(this)">
 					<i class='bx bx-calendar-plus icon'></i>
 				</button>
-				<button>
+				<button onClick="modLsModal('','${sfInfo.ctCode}')">
 					<i class='bx bx-calendar-edit icon'></i>
 				</button>
 				<button>
@@ -272,9 +272,21 @@
 				</div>
 			</div>
 		</form>
-
+<div class="mModal" id="gModal">
+		<div class="memberLog">
+			<div class="mContent">
+				<div class="mheader">
+					<h4 class="mtitle" id="mdtitle"></h4>
+				</div>
+				<div class="mbody" id="mdbody"></div>
+				<div class="mbody" id="mbody">
+					<input type="button" class="mbtn" onclick="YcloseModal()" value="닫기" />
+				</div>
+			</div>
+		</div>
+	</div>
 		<table id="list"></table>
-
+	
 	</section>
 
 	<script>

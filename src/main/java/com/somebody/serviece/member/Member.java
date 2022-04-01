@@ -179,13 +179,11 @@ public class Member extends CommonMethod {
 
 	public void meInbodyMg(Model model) {
 	      model.addAttribute("list",this.mu.meInbodyMg((Inbodys)model.getAttribute("send")));
-	      System.out.println(model.getAttribute("list"));
 	   }
 
 	public void meDtInfo(Model model) {
 
 		model.addAttribute("list",this.mu.meDtInfo((Members)model.getAttribute("send")));
-System.out.println(model.getAttribute("list").toString()+"67898789");
 	}
 
 	public void meMg(Members me, Model md) {
@@ -204,8 +202,6 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 						&&meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
 						stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
 						meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
-						System.out.println(j+", "+meList.get(i).getSfCode()+" : "+this.my.remecode().get(j).getSfCode());
-					
 				}
 				
 			}
@@ -284,8 +280,6 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 							&&meList.get(i).getCaCode().equals(this.my.remecode().get(j).getCaCode())) {
 							stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
 							meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
-							System.out.println(j+", "+meList.get(i).getSfCode()+" : "+this.my.remecode().get(j).getSfCode());
-						
 					}
 					
 				}
@@ -338,11 +332,9 @@ System.out.println(model.getAttribute("list").toString()+"67898789");
 
 
 		((Members)model.getAttribute("mectlist")).getMeCode().split("-");
-		System.out.println(((Members)model.getAttribute("mectlist")).getMeCode() + "*8*");
 		
 	
 		 if(((Members)model.getAttribute("mectlist")).getMeCode() != "") {
-			 System.out.println(((Members)model.getAttribute("mectlist")).getMeCode());
 				 mb.getCtdateLessonList((Members)model.addAttribute("mectlist"));
 		} else {
 			mb.getCtcaLessonList((Members)model.addAttribute("mectlist"));

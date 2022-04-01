@@ -63,8 +63,11 @@ let json = [];
 }
 
 
-function insSf() {
-	let ctcode = document.getElementsByName("ctCode")[1].value;
+function insSf(ctcode) {
+	if(ctcode==""){
+		alert('다시 로그인 해주세요.');
+		return;
+	}
 	let id = document.getElementsByName("sfId")[1].value;
 	let name =  document.getElementsByName("sfName")[1].value;
 	let number =  document.getElementsByName("sfNumber")[1].value;
@@ -162,11 +165,21 @@ function getAjaxData(action, data) {
 /* Modal Dialog */
 
 
-function getMaxSf() {
+function getMaxSf(ctcode) {
+	var json=[];
+	json.push({ctCode:ctcode});
+	const data=JSON.stringify(json);
+	getAjax("ajax/getMaxSf",data,"getMaxSf2",false);
+}
+
+function getMaxSf2(data) {
+	const sfcode = document.getElementsByName("sfId")[1];
+	sfcode.setAttribute("value",data.sfCode);
+	sfcode.setAttribute("readOnly",true);
 		let container = document.getElementById("container");
 		container.style.filter = "alpha(Opacity=50)";
 		container.style.display = "block";
-	}
+}
 
 
 function modSfModal() {
@@ -414,9 +427,8 @@ function selectDateCheck() {
 				}
 	
 let lsInfo;
-	let datat;
 function lsList(jsonData) {
-	datat = jsonData;
+	let datat;
 	
 	
 	let body = document.getElementById("list");
@@ -440,6 +452,7 @@ function lsList(jsonData) {
 			msg.value = "";
 			msg.placeholder="입력해주세요.";}
 	closeModal2();
+	YcloseModal();
 }
 
 function searchLessond(ctcode){
@@ -510,3 +523,79 @@ function makeInputElement(type, name, value, placeholder){
 	
 	return input;
 }
+
+let ctcode1;
+function modLsModal(sfcode,ctcode){
+	const lsSelect = document.getElementsByName("radioBtn");
+	const lsCheck = 'input[name="radioBtn"]:checked';
+  	// 선택된 목록의 갯수 세기
+  	const lsCheckNum = document.querySelectorAll(lsCheck).length;
+	if(lsCheckNum==0){
+		alert("먼저 선택해주세요.");
+		return;
+	}else if(lsCheckNum>1){
+		alert("하나만 선택해주세요.");
+		return;
+	}
+	if(ctcode!=undefined){
+		ctcode1=ctcode;
+	}
+	alert(sfcode+':'+ctcode+':'+ctcode1);
+	if(sfcode==""){
+		var json = [];
+		json.push({ctCode:ctcode});
+		const clData=JSON.stringify(json);
+		getAjax("ajax/getSfCode", clData, "modLsModal", false);
+	}
+	var data;
+	var sfCodeData;
+	
+	document.getElementById("mdtitle").innerText = "수업수정";
+	for(i=0;i<lsSelect.length;i++){
+		if(lsSelect[i].checked==true){
+			data = '<div><span>수업명</span><br><span><input type ="text" id = "lsName" value="'+lsInfo[i].lsName+'" readOnly /></span></div>';
+			data += '<div><span>개강일</span><br><span><input type ="date" id = "lsDate" value = "'+lsInfo[i].lsOpen.substr(0,10)+'"/></span></div>';
+			data += '<div><span>수업시간</span><br><span><input type ="time" id = "lsTime" value = "'+lsInfo[i].lsOpen.substr(11,5)+'"/></span></div>';
+			data += '<div><span>트레이너명</span><br><span><select id = "sfName">';
+			for(j=0;j<sfcode.length;j++){
+				if(sfcode[j].sfName==lsInfo[i].sfName){
+					data += '<option value="'+sfcode[j].sfCode+'" selected>'+sfcode[j].sfName+'</option>';
+					sfCodeData = sfcode[j].sfCode;
+				}else{
+					data += '<option value="'+sfcode[j].sfCode+'">'+sfcode[j].sfName+'</option>';
+				}
+			}
+			data += '</select></span></div>';
+			data += '<div><span>수업 날짜</span><br><div style="border:1px;"><span>월<input type ="checkbox" name = "lsDate111"/></span><span>화<input type ="checkbox" name = "lsDate111"/></span><span>수<input type ="checkbox" name = "lsDate111"/></span><span>목<input type ="checkbox" name = "lsDate111"/></span><span>금<input type ="checkbox" name = "lsDate111"/></span><span>토<input type ="checkbox" name = "lsDate111"/></span><span>일<input type ="checkbox" name = "lsDate111"/></span></div></div>';
+			data += '<div><span>수강인원</span><br><span><input type ="number" id = "lsMeCount" value = "'+lsInfo[i].lsMeCount+'" min="1" max="10"/></span></div>';
+			data += '<div><span>진행시간</span><br><span><input type="number" value = "0" step="30" min="0" max="180" id="min"/>분</span></div>';
+		}
+	}
+	
+	data += '<button onclick = "modLsAjax(\''+ctcode1+'\',\''+sfCodeData+'\')">MOD</button>';
+	document.getElementById("mdbody").innerHTML = data;
+	YopenModal();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -10,8 +10,8 @@
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
 	rel='stylesheet'>
 <link rel="stylesheet" href="res/css/infoLine.css">
+<script src="res/js/YInfoLine.js"></script>
 </head>
-<<<<<<< HEAD
 <body onLoad="">
 	<div class="firstTop">
 		<div class="logo">
@@ -34,19 +34,8 @@
 				</article>
 			</section>
 		</div>
-=======
-<body>
 
-<div id = "topMenu">
-	<div class = "menuContainer">
-	<section class = "menuContainer">
-	<article class="topmenu">
-	<input type="button" id="meConfig" value = "환경설정" onClick="meConfig()"></input>
-	<input type="button" id="meLessonMg" value = "레슨" onClick="meLessonMg()"/>
-	<input type = "button" id="logOut" value ="로그아웃"onClick="logOut()"></input>
-	</article>
-	</section>
->>>>>>> yong
+
 	</div>
 
 <div>밑부터 한영이가 디자인</div>
@@ -103,9 +92,7 @@
 			</article>
 		</section>
 	</div>
-
-
-	<div id="bottom">
+	<div id="bottom" style="text-align: center;">
 		<div id="list">${list }</div>
 	</div>
 

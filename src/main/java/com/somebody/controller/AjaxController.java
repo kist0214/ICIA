@@ -102,8 +102,9 @@ public class AjaxController {
 		return (List<Staffs>)model.getAttribute("sfList");
 	}
 	@RequestMapping(value = "/getMaxSf", method = RequestMethod.POST)
-	public void getMaxSf(Model model, @RequestBody Staffs[] sf) {
+	public Staffs getMaxSf(Model model, @RequestBody Staffs[] sf) {
 		this.sfs.backController("S03", sf[0], model);
+		return (Staffs)model.getAttribute("maxSf");
 	}
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/insSf")
@@ -116,7 +117,6 @@ public class AjaxController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/modSf")
 	public List<Staffs> modSf(Model model, @RequestBody Staffs[] sf) {
-System.out.println("1::"+sf[0].getSfPw());
 		this.sfs.backController("S07",sf[0], model);
 
 		return (List<Staffs>)model.getAttribute("modSf");
@@ -171,9 +171,11 @@ System.out.println("1::"+sf[0].getSfPw());
 
 
 	//Yong
+		@SuppressWarnings("unchecked")
 		@RequestMapping(value = "/modLesson", method = RequestMethod.POST)
-		public void modLesson(Model model, @ModelAttribute Lessons[] ls) {
-			this.lss.backController("L09",ls[0], model);
+		public List<Lessons> modLesson(Model model, @RequestBody Lessons[] ls) {
+			this.lss.backController("L07",ls[0], model);
+			return (List<Lessons>)model.getAttribute("lsList");
 		}
 		@RequestMapping(value = "/lsMemDetail", method = RequestMethod.POST)
 		public void lsMemDetail(Model model, @ModelAttribute Lessons[] ls) {
@@ -253,7 +255,11 @@ System.out.println("1::"+sf[0].getSfPw());
 			this.me.backController("M06",model);
 			return (List<Members>) model.getAttribute("ml");
 		}	
-
+		@RequestMapping(value = "/getSfCode", method = RequestMethod.POST)
+		public List<Equipments> getSfCode(Model model, @RequestBody Lessons[] ls) {
+			this.lss.backController("L11", ls[0] ,model);
+			return (List<Equipments>) model.getAttribute("sfCode");
+		}
 
 
 

@@ -67,18 +67,18 @@
 	<select id="payList" parameterType="beans.Pays"
 		resultType="beans.Pays">
 		select ctCode, caCode, lpQty, meName, paDate, paTotal from
-		kmasters.PayView where ctCode='${ctCode}' and paDate = '${paDate}'
+		kmasters.PayView where ctCode='${ctCode}' and substr(paDate,0,6) = '${paDate}'
 	</select>
 	<select id="payGraph" parameterType="beans.Pays" resultType="beans.Pays">
 	<![CDATA[
-		select nvl(sum(to_number(patotal,'999999999')),0)/10000 as paTotal, substr(padate,0,7) as paDate
+		select nvl(sum(to_number(patotal,'999999999')),0)/10000 as paTotal, substr(paDate,0,6) as paDate
 		from kmasters.payView
-		where (substr(padate,0,7)= to_char(sysdate,'yyyy-mm')
-		or substr(padate,0,7)= to_char(add_months(sysdate,-1),'yyyy-mm')
-		or substr(padate,0,7)= to_char(add_months(sysdate,-2),'yyyy-mm'))
+		where (substr(paDate,0,6)= to_char(sysdate,'yyyymm')
+		or substr(paDate,0,6)= to_char(add_months(sysdate,-1),'yyyymm')
+		or substr(paDate,0,6)= to_char(add_months(sysdate,-2),'yyyymm'))
        ]]>
 		and	ctcode =${ctCode}
-		group by substr(padate,0,7) order by substr(padate,0,7)
+		group by substr(paDate,0,6) order by substr(paDate,0,6)
 	
 	</select>
 	<select id="checkMeEmailNum" resultType="beans.Members">
@@ -203,5 +203,12 @@ SELECT DISTINCT IDCOUNT AS idCount,
    </select>
    <update id="modMe">
    		update kmasters.me set meName = '${meName}' , meNumber = '${meNumber}', meEmail = '${meEmail}' where meCode = '${meCode}'
+   </update>
+    <select id="getMaxSf" resultType="beans.Members" parameterType="beans.Members">
+	 select max(sfcode) +1 as sfCode from kmasters.sf where sfctcode = '${ctCode}'
+   </select>
+   <update id="modLs" parameterType="beans.Lessons">
+   		update kmasters.ls set lsopen=to_date('${lsOpen}','yyyy-mm-dd hh24:mi:ss'), lsprogress= '${lsProgress}', lsMeCount = '${lsMeCount}', lssfcode = '${sfCode}'
+		where lssfctcode = '${ctCode}' and lsName = '${lsName}' and lssfcode = '${sfName}'
    </update>
 </mapper>
