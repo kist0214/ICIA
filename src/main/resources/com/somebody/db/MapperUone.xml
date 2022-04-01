@@ -3,10 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace = "com.somebody.db.MapperUone">
-   <insert id = "is" parameterType = "beans.Centers">
-      insert into kmasters.ct (CTCODE,CTNAME,CTADDRESS,CTCEO,CTNUMBER) values(#{ctCode},'1','1','1','1') 
-   </insert>
-   
+    
    <select id = "meDtInfo" resultType = "beans.Members" parameterType = "beans.Members">
       SELECT  DISTINCT ME.MENAME AS meName,
         (SELECT NVL(TRUNC(MONTHS_BETWEEN(SYSDATE, TO_DATE(SUBSTR(TO_CHAR(MEBIRTH,'YYYY'),1,4),'YYYY'))/12), 0)+1 FROM KMASTERS.ME WHERE MECODE = #{meCode}) AS meBirth,
@@ -105,6 +102,5 @@
     and (DACODE = 10001 or DACODE = 10002 or DACODE = 10003)
     ORDER BY SUBSTR(IDIBCODE,6,8) DESC
    </select>
-
 	
 </mapper>

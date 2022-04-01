@@ -151,8 +151,7 @@
 				</button>
 			</div>
 		</div>
-<table id="ajax"></table>
-<div class="mModal" id="gModal">s
+<div class="mModal" id="gModal">
 		<div class="memberLog">
 			<div class="mContent">
 				<div class="mheader">

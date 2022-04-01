@@ -150,14 +150,11 @@ function meProfile(mecode){
 	jsondata.push({"meCode":mecode,"ctCode":cctcode});
 	const clientData = JSON.stringify(jsondata);
 	whatsend("ajax/meDtInfo",clientData,"modProfileInfo",false,"post");
-	
 }
 
 
 function modProfileInfo(data){
-
 	for (idx = 0; idx< data.length; idx++){
-
 	document.getElementById("meEmail").innerHTML = data[idx].meEmail;
 	document.getElementById("meBirth").innerHTML = data[idx].meBirth;
 	document.getElementById("meName").innerHTML = data[idx].meName;
@@ -169,19 +166,22 @@ function modProfileInfo(data){
 
 
 function meDtInf(mmeCode){
-	let cctcode = document.getElementsByName("searchct")[0].value;
+
 	let jsondata = [];
-	jsondata.push({"ctCode":cctcode,"meCode":mmeCode});
+	let cctCode = document.getElementsByName("searchct")[0].value;
+	alert(cctCode);
+	jsondata.push({"ctCode":cctCode,"meCode":mmeCode});
 	const clientData = JSON.stringify(jsondata);
+	
 	whatsend("ajax/meDtInfo",clientData,"meDtInfo1",false,"post");
 	
 }
-let message;
+
 function meDtInfo1(data){
 
 	let STCODE = "M1";
 
-	for (idx = 0; idx< data.length; idx++){
+	for (idx = 0; idx< 1; idx++){
 	message = '<div>';
 	message += '<div class="lImg">';
 	message += '<img src="res/images/male.svg" class="image"/>'
@@ -205,18 +205,29 @@ function meDtInfo1(data){
       document.getElementById("list").innerHTML = message;
 }
 
-function meInbodyMg(mmeCode){
+function meInbodyMg(mmecode){
+	
+	let jsondata = [];
+		let cctcode = document.getElementsByName("searchct")[0].value;
+		jsondata.push({"meCode":mmecode,"ctCode":cctcode});
+		const clientData = JSON.stringify(jsondata);
+	
+	whatsend("ajax/meInbodyMg2",clientData,"meInbodyMg1",false,"post");
+}
+
+
+function meInbodyMg(mmecode){
+
 	let cctcode = document.getElementsByName("searchct")[0].value;
 	
 	let jsondata = [];
-		jsondata.push({"meCode":mmeCode,"ctCode":cctcode});
+		jsondata.push({"meCode":mmecode,"ctCode":cctcode});
 		const clientData = JSON.stringify(jsondata);
 	whatsend("ajax/meInbodyMg2",clientData,"meInbodyMg1",false,"post");
 }
 
 
 function meInbodyMg1(data){
-alert(data.length);
 
 	message = '<div>';
 	message += '<canvas id="line-chart" width="50" height="20">'+'</canvas>'
@@ -637,7 +648,7 @@ function sendEmail(){
 
 
 function checkmail(msg){
-	alert(msg);
+	
 	 msg = document.getElementById("msg");
 	
 	msg.innerHTML = msg;
@@ -729,7 +740,7 @@ function getmectlistin(json){
 
 	body.innerHTML = data;
 	}
-	meProfile(meall);
+	
 }
 	function getmectlist(json){
 		 let pjson =json;

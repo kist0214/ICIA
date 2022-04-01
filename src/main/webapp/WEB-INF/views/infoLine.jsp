@@ -27,7 +27,7 @@
 			</div>
 		</div>
 		<div id="topMenu">
-		
+			<input type = "hidden" id = "caCode" value ='${meInfo[0].caCode}' />
 		<span>${meInfo[0].meName}님 안녕하세요.</span>
 		<span id="center"></span>
 		
@@ -76,7 +76,7 @@
 		</section>
 	</div>
 	<div id="bottom" style="text-align: center;">
-		<div id="list">${list }</div>
+		<div id="list" >${list }</div>
 	</div>
 
 	<div class="low">

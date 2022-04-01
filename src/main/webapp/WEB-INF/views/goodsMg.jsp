@@ -96,7 +96,7 @@
 	</nav>
 
 	<section class="home">
-		<div class="text">GoodsManagement</div>
+		<div class="text">상품관리</div>
 
 		<div id="infoGo">
 			<div class="search">
