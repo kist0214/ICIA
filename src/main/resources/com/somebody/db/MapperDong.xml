@@ -21,7 +21,7 @@
 		SELECT LSNAME AS lsName, TO_CHAR(LSOPEN,'YYYY-MM-DD HH24:MI:SS') AS lsOpen, SFNAME AS sfName ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS INNER JOIN KMASTERS.SF ON SFCODE = LSSFCODE AND SFCTCODE = LSSFCTCODE WHERE LSSFCTCODE =#{ctCode} AND (TO_CHAR(LSOPEN,'YYYY-MM') ='${lsOpen}' OR ${lsName}='${sfName}') ORDER BY LSOPEN ASC
 	</select>
 	<select id="lsList" resultType = "beans.Lessons" parameterType = "beans.Lessons">
-		SELECT LSNAME AS lsName, TO_CHAR(LSOPEN,'YYYY-MM-DD HH24:MI:SS') AS lsOpen, SFNAME AS sfName ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS INNER JOIN KMASTERS.SF ON SFCODE =  LSSFCODE AND SFCTCODE = LSSFCTCODE WHERE LSSFCTCODE  =#{ctCode}
+		SELECT LSNAME AS lsName, TO_CHAR(LSOPEN,'YYYY-MM-DD HH24:MI:SS') AS lsOpen, SFNAME AS sfName ,LSMECOUNT AS lsMeCount, ls.lsCode as lsCode, ls.lsstcode as stCode FROM KMASTERS.LS INNER JOIN KMASTERS.SF ON SFCODE =  LSSFCODE AND SFCTCODE = LSSFCTCODE WHERE LSSFCTCODE  =#{ctCode}
 	</select>
 	<insert id="insLsPay" parameterType="beans.Lessons">
 		INSERT INTO KMASTERS.LP (LPCTCODE, LPCACODE, LPQTY, LPPRICE) VALUES(#{ctCode},#{caCode},#{lpQty},#{lpPrice})
@@ -33,8 +33,8 @@
 		SELECT LSNAME AS lsName, LSOPEN AS lsOpen, LSSFCODE AS sfCode ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS
 	</select>
 	<select id="getMaxLesson" resultType = "beans.Lessons" parameterType = "beans.Lessons">
-	select nvl(max(lscode) +1,10001) as lsCode
-from kmasters.ls right outer join dual on lssfctcode = '${ctCode}' and lssfcode = '${sfCode}'
+		select nvl(max(lscode) +1,10001) as lsCode
+		from kmasters.ls right outer join dual on lssfctcode = '${ctCode}' and lssfcode = '${sfCode}'
 	</select>
 </mapper>
 

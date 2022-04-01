@@ -23,7 +23,7 @@ public class Lessons {
 	private int lpQty;
 	private String lsDay;
 	private String lsTime;
-	
+	private String stCode;
 	private int lpPrice;
 	private String lpCaCode;
 

@@ -23,6 +23,7 @@ import beans.Centers;
 import beans.Equipments;
 import beans.Inbodys;
 import beans.Lessons;
+import beans.LsMeDts;
 import beans.Members;
 import beans.Pays;
 import beans.Staffs;
@@ -179,18 +180,30 @@ public class AjaxController {
 			this.lss.backController("L07",ls[0], model);
 			return (List<Lessons>)model.getAttribute("lsList");
 		}
+		@SuppressWarnings("unchecked")
 		@RequestMapping(value = "/lsMemDetail", method = RequestMethod.POST)
-		public void lsMemDetail(Model model, @ModelAttribute Lessons[] ls) {
-			this.lss.backController("L10",ls[0],model);
+		public List<LsMeDts> lsMemDetail(Model model, @RequestBody LsMeDts[] ls) {
+			this.lss.backController2("L02",ls[0],model);
+			return (List<LsMeDts>)model.getAttribute("lsMeDt");
 		}
 
+		@SuppressWarnings("unchecked")
 		@RequestMapping(value = "/modLsSuccess", method = RequestMethod.POST)
-		public void modLsSuccess(Model model, @ModelAttribute Lessons[] ls) {
-			this.lss.backController("L11",ls[0],model);
+		public List<LsMeDts> modLsSuccess(Model model, @RequestBody LsMeDts[] lm) {
+			this.lss.backController2("L01",lm[0],model);
+			return (List<LsMeDts>)model.getAttribute("lsMeDt");
 		}
+		@SuppressWarnings("unchecked")
+		@RequestMapping(value = "/modLsCancel", method = RequestMethod.POST)
+		public List<LsMeDts> modLsCancel(Model model, @RequestBody LsMeDts[] lm) {
+			this.lss.backController2("L03",lm[0],model);
+			return (List<LsMeDts>)model.getAttribute("lsMeDt");
+		}
+		@SuppressWarnings("unchecked")
 		@RequestMapping(value = "/delLesson", method = RequestMethod.POST)
-		public void delLesson(Model model, @ModelAttribute Lessons[] ls) {
-			this.lss.backController("L12",ls[0],model);
+		public List<Lessons> delLesson(Model model, @RequestBody List<Lessons> ls) {
+			this.lss.backController("L1",ls,model);
+			return (List<Lessons>)model.getAttribute("lsList");
 		}
 		@RequestMapping(value = "/goodsMg", method = RequestMethod.POST)
 		public List<Equipments> goodsMg(Model model, @RequestBody Equipments[] eq) {

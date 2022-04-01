@@ -111,7 +111,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="logo">
+	<div class="logo" onClick="home()">
 		<div class="zero">
 			<br>
 			<div class="one"></div>

@@ -5,6 +5,7 @@ import java.util.List;
 import beans.Centers;
 import beans.Equipments;
 import beans.Lessons;
+import beans.LsMeDts;
 import beans.Members;
 import beans.Pays;
 import beans.Staffs;
@@ -56,4 +57,8 @@ public interface MapperYoung {
 	public Staffs getMaxSf(Staffs sf);
 	//Lessons
 	public int modLs(Lessons ls);
+	public int updRe(Lessons lss);
+	public int delLs(Lessons lss);
+	public List<LsMeDts> lsMemDetail(LsMeDts ls);
+	public int modLsSuccess(LsMeDts ls);
 }

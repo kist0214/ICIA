@@ -4,7 +4,6 @@ let list;
  let jsPIp;
 let datalesson;
 
-
 	
 function logOut(ct,id){
 	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
@@ -188,7 +187,11 @@ function meDtInfo1(data){
 	message += '</div>';
 	message += '<table class="fTable">';
 	message += '<tr><td>회원이름</td><td>'+ data[idx].meName +"("+ data[idx].meBirth +"세,"+data[idx].meGender+')'+'</td></tr>';
-	message += '<tr><td>담당트레이너</td><td>'+data[idx].sfName+'</td></tr><br>';
+	if(data[idx].sfName == null){
+		message += '<tr><td>담당트레이너</td><td>할당안됨</td></tr><br>';
+	}else{
+		message += '<tr><td>담당트레이너</td><td>'+data[idx].sfName+'</td></tr><br>';
+	}
 	message += '<tr><td>이메일</td><td>'+data[idx].meEmail+'</td></tr><br>';
 	message += '<tr><td>연락처</td><td>'+data[idx].meNumber+'</td></tr>';
 	message += '</table>';
@@ -522,8 +525,11 @@ function getPublicIp(pip){
 	jsPIp = pip.ip;
 }
 
-
-
+function home(){
+	let form = makeForm("", "/", "GET");
+      document.body.appendChild(form);
+	form.submit();
+}
 function makeForm(fname, faction, fmethod){
 	const form = document.createElement("form");
 	if(fname != ""){form.setAttribute("name", fname);}
@@ -729,7 +735,7 @@ function getmectlistin(json){
 
 	body.innerHTML = data;
 	}
-	meProfile(meall);
+	
 }
 	function getmectlist(json){
 		 let pjson =json;
