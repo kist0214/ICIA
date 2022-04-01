@@ -184,6 +184,7 @@ public class Member extends CommonMethod {
 
 	public void meInbodyMg(Model model) {
 		List<Inbodys> list = new ArrayList<Inbodys>();
+		System.out.println((Inbodys)model.getAttribute("send"));
 		list.addAll(this.mu.meInbodyMg((Inbodys) model.getAttribute("send")));
 		list.addAll(this.mu.findDay((Inbodys) model.getAttribute("send")));
 		model.addAttribute("list", list);
@@ -192,10 +193,14 @@ public class Member extends CommonMethod {
 
 	public void meInbodyMg2(Model model) {
 		List<Inbodys> list = new ArrayList<Inbodys>();
+		System.out.println((Inbodys) model.getAttribute("max"));
 		list.addAll(this.mu.maxDay((Inbodys) model.getAttribute("max")));
 		list.addAll(this.mu.findDay((Inbodys) model.getAttribute("max")));
 		model.addAttribute("list", list);
-	}
+		
+		for(Inbodys e : list) {
+		System.out.println(e+"*");
+	}}
 
 	public void inbodyChart(Model model) {
 		List<Inbodys> list = new ArrayList<Inbodys>();
@@ -206,6 +211,7 @@ public class Member extends CommonMethod {
 
 	public void meDtInfo(Model model) {
 		model.addAttribute("list", this.mu.meDtInfo((Members) model.getAttribute("send")));
+		System.out.println(model.getAttribute("list").toString()+"4567");
 
 	}
 
