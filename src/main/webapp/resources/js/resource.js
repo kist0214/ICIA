@@ -155,7 +155,9 @@ function meProfile(mecode){
 
 
 function modProfileInfo(data){
+
 	for (idx = 0; idx< data.length; idx++){
+
 	document.getElementById("meEmail").innerHTML = data[idx].meEmail;
 	document.getElementById("meBirth").innerHTML = data[idx].meBirth;
 	document.getElementById("meName").innerHTML = data[idx].meName;
@@ -214,6 +216,7 @@ function meInbodyMg(mmeCode){
 
 
 function meInbodyMg1(data){
+alert(data.length);
 
 	message = '<div>';
 	message += '<canvas id="line-chart" width="50" height="20">'+'</canvas>'
@@ -323,19 +326,18 @@ function inbodyChart(data){
 
 function findDay(){
 	const findDay = document.getElementById("findDay").value;
-	alert(findDay);
+	
 	let jsondata = [];
 	const mmeCode = "10001";
 	const cctCode = "1234567890";
 	jsondata.push({"meCode":mmeCode,"ctCode":cctCode,"ibDate":findDay,"ibDate1":findDay});
 	const clientData = JSON.stringify(jsondata);
-	alert(jsondata[0].ctCode);
+	
 		whatsend("ajax/meInbodyMg",clientData,"meInbodyMg1",false,"post");
 }
 
 function insTaState(data){
-	alert(data.substring(0,14));
-	alert(data.substring(15,17));
+	
 	let data1 = data.substring(0,14);
 	let data2 = data.substring(15,17);
 	
@@ -352,7 +354,7 @@ function eee(data){
 
 function checkMePw(cctcode, mmecode){
 	let jsondata = [];
-	alert(mmecode);
+	
 
 	jsondata.push({"meCode":mmecode,"ctCode":cctcode});
 	const clientData = JSON.stringify(jsondata);
@@ -364,8 +366,7 @@ function checkMePw(cctcode, mmecode){
 function checkMePw2(mmecode, cctcode){
 	let jsondata = [];
 	
-	alert(mmecode);
-	alert(cctcode);
+
 	
 	jsondata.push({"meCode":'10001',"ctCode":'1234567890'});
 	const clientData = JSON.stringify(jsondata);
@@ -376,12 +377,12 @@ function checkMePw2(mmecode, cctcode){
 
 
 function checkMePw3(data){
-	alert(data);
+
 	const list = document.getElementById("profile");
 	const list2 = document.getElementById("profile2");
 	
 	for(idx = 0; idx< data.length; idx++){
-		alert(data[idx].mePw);
+	
 		if(data[idx].mePw == document.getElementById("mePw1").value){
 			while(list2.hasChildNodes()){
 			list2.removeChild(list2.lastChild);
@@ -450,7 +451,7 @@ function modMeMg(mmecode){
 	let jsondata = [];
 	jsondata.push({meCode: mmecode ,meEmail:meEmail,meGender:meGender,meBirth:meBirth,meName:meName,meNumber:meNumber});
 	const clientdata = JSON.stringify(jsondata);
-	alert(clientdata);
+	
 	whatsend("ajax/modMeMg",clientdata,"",false,"post");
 }
 
@@ -631,16 +632,7 @@ function sendEmail(){
 	form.appendChild(hidden);
 	document.body.appendChild(form);
 	form.submit();
-	
-	
-	/*
-	let jsondata = [];
-	jsondata.push({sfEmail:email});
-	
-	const clientdata = JSON.stringify(jsondata);
-	alert(clientdata);
-	whatsend("sendEmail",clientdata,"sendmail",false,"post");
-	*/
+
 }
 
 
@@ -849,7 +841,7 @@ function getlslist(json){
 		data += "<span class='profession'>트레이너이름:  "+pjson[i].sfName+"</span>"
 		data += "</div>"
 		data += "<div class='rating'>"
-		if(pjson[i].lpPrice-pjson[i].lpQty> 0){
+		if((pjson[i].lpPrice-pjson[i].lpQty)>0 ){
 		data += "<span>남은 자리수:  "+(pjson[i].lpPrice-pjson[i].lpQty)+"명</span>  "
 		}else{
 		data += "<span>남은 자리수:  "+0+"명</span>"
@@ -875,14 +867,46 @@ function getlslist(json){
 		data+= "</section>"
 		data+= "</div>"
 		
-		list.innerHTML = data;
 		
+		list.innerHTML = data;
+					var swiper = new Swiper(".mySwiper", {
+
+			slidesPerView : 2,
+
+			spaceBetween : 30,
+
+			slidesPerGroup : 2,
+
+			loop : true,
+
+			loopFillGroupWithBlank : true,
+
+			pagination : {
+
+				el : ".swiper-pagination",
+
+				clickable : true,
+
+			},
+
+			navigation : {
+
+				nextEl : ".swiper-button-next",
+
+				prevEl : ".swiper-button-prev",
+
+			},
+
+		});
+	
 	}else{let text = document.getElementsByClassName("input2")[0];
 			text.value = "";
 			text.placeholder="해당매장에 수업이 없습니다.";
 			}
+
 	
 }
+
 	/*
 function meFoodMg(){
 
@@ -1005,7 +1029,7 @@ document.body.appendChild(form);
 	
 	function searchLsMg(){
 	let ctcode = document.getElementById("caCode");
-	alert(ctcode);
+
 	let mecode = document.getElementById("meName");
 	
 
@@ -1116,8 +1140,7 @@ function logOut(ct,id){
 
 
 function insTaState(data){
-   alert(data.substring(0,14));
-   alert(data.substring(15,17));
+  
    let data1 = data.substring(0,14);
    let data2 = data.substring(15,17);
    

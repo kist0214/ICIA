@@ -22,40 +22,12 @@
 
 
 	<script>
-		var swiper = new Swiper(".mySwiper", {
-
-			slidesPerView : 3,
-
-			spaceBetween : 30,
-
-			slidesPerGroup : 3,
-
-			loop : true,
-
-			loopFillGroupWithBlank : true,
-
-			pagination : {
-
-				el : ".swiper-pagination",
-
-				clickable : true,
-
-			},
-
-			navigation : {
-
-				nextEl : ".swiper-button-next",
-
-				prevEl : ".swiper-button-prev",
-
-			},
-
-		});
+		
 	</script>
 </head>
 <body onLoad="getCenterList('${meInfo[0].meCode}')">
 	<div class="firstTop">
-		<div class="logo">
+		<div class="logo" >
 			<div class="zero">
 				<br>
 				<div class="one"></div>
@@ -86,7 +58,6 @@
 
 	<div id="middle">
 
-
 		<section class="searchMenu">
 			<article class="middle">
 				<div class="form-wrap ui-check-date" data-term="5">
@@ -104,11 +75,10 @@
 	
 	<div id="bottom" >
 	<img src='res/images/health.svg'>
-	
 		</div>
 		
 
-
+<!-- 
 
 		<section>
 			<div class="swiper mySwiper container">
@@ -287,6 +257,7 @@
 			<div class="swiper-pagination"></div>
 </div>
 		</section>
+		 -->
 
 
 
