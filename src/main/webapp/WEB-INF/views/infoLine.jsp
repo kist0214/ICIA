@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>H E L P</title>
 <script src="res/js/resource.js"></script>
+<script src="res/js/YInfoLine.js"></script>
 <!----===== Boxicons CSS ===== -->
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
 	rel='stylesheet'>
@@ -13,6 +14,7 @@
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 <body onLoad="getCenterListInbody('${meInfo[0].meCode}')">
+
 	<div class="firstTop">
 		<div class="logo">
 			<div class="zero">
@@ -73,9 +75,7 @@
 			</article>
 		</section>
 	</div>
-
-
-	<div id="bottom">
+	<div id="bottom" style="text-align: center;">
 		<div id="list">${list }</div>
 	</div>
 

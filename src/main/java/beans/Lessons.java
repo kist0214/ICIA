@@ -1,8 +1,5 @@
 package beans;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import lombok.Data;
 
 @Data
@@ -10,7 +7,6 @@ public class Lessons {
 
 	
 	private String meCode;
-
 	private String ctCode;
 	private String ctName;
 	private String sfCode;
