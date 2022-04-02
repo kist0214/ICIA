@@ -74,10 +74,10 @@ function insSf(ctcode) {
 	let number =  document.getElementsByName("sfNumber")[1].value;
 	let password =  document.getElementsByName("sfPw")[1].value;
 	let email =  document.getElementsByName("sfEmail")[1].value;
-	let caname =  document.getElementsByName("caName")[1].value;	
-
+	let rank =  document.getElementsByName("sfRank")[1].value;
 	let json = [];
-	json.push({"ctCode": ctcode, "sfId": id ,"sfName" : name, "sfNumber" : number , "sfPw" : password , "sfEmail" : email, "caName" : caname});
+	
+	json.push({"ctCode": ctcode, "sfId": id ,"sfName" : name, "sfNumber" : number , "sfPw" : password , "sfEmail" : email, "sfRank" : rank});
 	const clientData = JSON.stringify(json);
 	getAjax("ajax/insSf", clientData, "sfList", false);
 
@@ -484,7 +484,7 @@ function delLs(ctcode){
 	}
 		const data=JSON.stringify(json);
 		
-		alert(data);
+		
 		getAjax("ajax/delLesson", data, "lsList", false);
 }
 

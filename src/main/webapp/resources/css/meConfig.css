@@ -300,7 +300,6 @@ body, input, button {
 	width: 110%;
 	background-color :none;
 	height: 25px;
-	display: grid;
 	padding: 0 0.4rem;
 	border-radius : 8px;
 	border : 0.5px soloid gray;
