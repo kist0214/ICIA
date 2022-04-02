@@ -118,7 +118,7 @@ body, input, button {
 .middleImg {
 	position: absolute;
 	top: 45%;
-	left: 50%;
+	left: 51.5%;
 	transform: translate(-50%, -50%);
 	width: 350px;
 	height: 350px;
@@ -126,19 +126,19 @@ body, input, button {
 }
 
 .middleImg .image {
-	width: 100%;
-	height: 100%;
+	width: 85%;
+	height: 85%;
 	position: absolute;
 }
 
 .middle {
 	position: absolute;
-	top: 77%;
+	top: 74%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	border-radius: 10px;
 	width: 450px;
-	height: 230px;
+	height: 200px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -271,4 +271,78 @@ body, input, button {
 
 .mbtn:hover {
 	background-color: #033495;
+}
+
+#meEmail {
+	max-width: 450px;
+	width: 110%;
+	background-color :none;
+	height: 25px;
+	display: grid;
+	padding: 0 0.4rem;
+	border-radius : 8px;
+	border : 0.5px soloid gray;
+}
+
+#meGender {
+	max-width: 450px;
+	width: 110%;
+	background-color :none;
+	height: 25px;
+	display: grid;
+	padding: 0 0.4rem;
+	border-radius : 8px;
+	border : 0.5px soloid gray;
+}
+
+#meBirth {
+	max-width: 450px;
+	width: 110%;
+	background-color :none;
+	height: 25px;
+	display: grid;
+	padding: 0 0.4rem;
+	border-radius : 8px;
+	border : 0.5px soloid gray;
+}
+
+#meName {
+	max-width: 450px;
+	width: 110%;
+	background-color :none;
+	height: 25px;
+	display: grid;
+	padding: 0 0.4rem;
+	border-radius : 8px;
+	border : 0.5px soloid gray;
+}
+
+#meNumber {
+	max-width: 450px;
+	width: 110%;
+	background-color :none;
+	height: 25px;
+	display: grid;
+	padding: 0 0.4rem;
+	border-radius : 8px;
+	border : 0.5px soloid gray;
+}
+
+.modMeMg {
+	max-width: 450px;
+	width: 110%;
+	background-color :none;
+	height: 25px;
+	display: grid;
+	padding: 0 0.4rem;
+	border-radius : 8px;
+	border : 0.5px soloid gray;
+}
+
+#profile2 {
+	max-width : 450px; 
+}
+
+#bottom.modal{
+	margin : 10%;
 }
