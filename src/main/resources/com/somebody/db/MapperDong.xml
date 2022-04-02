@@ -21,7 +21,7 @@
 		SELECT LSNAME AS lsName, TO_CHAR(LSOPEN,'YYYY-MM-DD HH24:MI:SS') AS lsOpen, SFNAME AS sfName ,LSMECOUNT AS lsMeCount FROM KMASTERS.LS INNER JOIN KMASTERS.SF ON SFCODE = LSSFCODE AND SFCTCODE = LSSFCTCODE WHERE LSSFCTCODE =#{ctCode} AND (TO_CHAR(LSOPEN,'YYYY-MM') ='${lsOpen}' OR ${lsName}='${sfName}') ORDER BY LSOPEN ASC
 	</select>
 	<select id="lsList" resultType = "beans.Lessons" parameterType = "beans.Lessons">
-		SELECT LSNAME AS lsName, TO_CHAR(LSOPEN,'YYYY-MM-DD HH24:MI:SS') AS lsOpen, SFNAME AS sfName ,LSMECOUNT AS lsMeCount, ls.lsCode as lsCode, ls.lsstcode as stCode FROM KMASTERS.LS INNER JOIN KMASTERS.SF ON SFCODE =  LSSFCODE AND SFCTCODE = LSSFCTCODE WHERE LSSFCTCODE  =#{ctCode}
+		SELECT LSNAME AS lsName, TO_CHAR(LSOPEN,'YYYY-MM-DD HH24:MI:SS') AS lsOpen, SFNAME AS sfName ,LSMECOUNT AS lsMeCount, ls.lsCode as lsCode, ls.lsstcode as stCode FROM KMASTERS.LS INNER JOIN KMASTERS.SF ON SFCODE =  LSSFCODE AND SFCTCODE = LSSFCTCODE WHERE LSSFCTCODE  =#{ctCode} and lsstcode = 'D1'
 	</select>
 	<insert id="insLsPay" parameterType="beans.Lessons">
 		INSERT INTO KMASTERS.LP (LPCTCODE, LPCACODE, LPQTY, LPPRICE) VALUES(#{ctCode},#{caCode},#{lpQty},#{lpPrice})

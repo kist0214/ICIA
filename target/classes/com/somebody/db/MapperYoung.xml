@@ -21,7 +21,7 @@
 	</select>
 	<select id="getGoSfList" resultType="beans.Equipments">
 		select sfcode as sfCode ,
-		sfname as sfName from kmasters.sf where sfctcode = ${ctCode}
+		sfname as sfName from kmasters.sf where sfctcode = '${ctCode}'
 	</select>
 	<select id="getGoStList" resultType="beans.Equipments">
 		select stcode as stCode ,
@@ -210,8 +210,8 @@ SELECT DISTINCT IDCOUNT AS idCount,
 	 select max(sfcode) +1 as sfCode from kmasters.sf where sfctcode = '${ctCode}'
    </select>
    <update id="modLs" parameterType="beans.Lessons">
-   		update kmasters.ls set lsopen=to_date('${lsOpen}','yyyy-mm-dd hh24:mi:ss'), lsprogress= '${lsProgress}', lsMeCount = '${lsMeCount}'
-		where lssfctcode = '${ctCode}' and lsName = '${lsName}' and lssfcode = '${sfName}'
+   		update kmasters.ls set lsopen = to_date(#{lsOpen},'yyyy-mm-dd hh24:mi:ss'), lsprogress= #{lsProgress}, lsMeCount = #{lsMeCount}
+		where lssfctcode = #{ctCode} and lsName = #{lsName}
    </update>
 	<update id="delLs" parameterType = "beans.Lessons">
 	update kmasters.ls set lsstcode='D2'

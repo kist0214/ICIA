@@ -52,9 +52,9 @@ function meConfig(ctCode){
       document.body.appendChild(form);
       form.submit();
 }
-
+let ctcode;
 function getMeMg(ctcode){
-	
+	ctt = ctcode;
 	let jsondata = [];
 	jsondata.push({"ctCode":ctcode});
 	const clientdata = JSON.stringify(jsondata);
@@ -145,7 +145,7 @@ function getAjax1(action, data, fn, content ,method) {
 
 function meProfile(mecode){
 	let jsondata = [];
-	let cctcode = document.getElementsByName("searchct")[0].value;
+	let cctcode = document.getElementById("searchct")[0].value;
 	jsondata.push({"meCode":mecode,"ctCode":cctcode});
 	const clientData = JSON.stringify(jsondata);
 	whatsend("ajax/meDtInfo",clientData,"modProfileInfo",false,"post");
@@ -153,13 +153,15 @@ function meProfile(mecode){
 
 
 function modProfileInfo(data){
+	if(document.getElementById("meEmail")!=null){
 	for (idx = 0; idx< data.length; idx++){
 	document.getElementById("meEmail").innerHTML = data[idx].meEmail;
 	document.getElementById("meBirth").innerHTML = data[idx].meBirth;
 	document.getElementById("meName").innerHTML = data[idx].meName;
 	document.getElementById("meGender").innerHTML = data[idx].meGender;
 	document.getElementById("meNumber").innerHTML = data[idx].meNumber;
-}
+	}
+}else{}
 }
 
 
@@ -219,7 +221,7 @@ function meInbodyMg(mmecode){
 }
 
 
-function meInbodyMg(mmecode){
+/*function meInbodyMg(mmecode){
 
 	let cctcode = document.getElementsByName("searchct")[0].value;
 	
@@ -227,10 +229,11 @@ function meInbodyMg(mmecode){
 		jsondata.push({"meCode":mmecode,"ctCode":cctcode});
 		const clientData = JSON.stringify(jsondata);
 	whatsend("ajax/meInbodyMg2",clientData,"meInbodyMg1",false,"post");
-}
+}*/
 
 
 function meInbodyMg1(data){
+
 
 	message = '<div>';
 	message += '<canvas id="line-chart" width="50" height="20">'+'</canvas>'
@@ -266,7 +269,8 @@ function meInbodyMg1(data){
 			if(data[i].findDay != null)
 			message += '<option value ='+data[i].findDay+'>'+data[i].findDay+'</option>';
 		}
-		message+= '<input type = "button" value ='+"확인"+' onClick = "findDay()">'
+		
+		message+= '<input type = "button" value ='+"확인"+' onClick = "findDay('+data[12].meCode+')">'
 		
 	//	message += '<option value="date">'+date2+'</option>';
 		
@@ -285,20 +289,21 @@ function meInbodyMg1(data){
 		input.setAttribute("type","button");
 		input.setAttribute("id","Yes");
 		input.setAttribute("value","Y");
-		input.setAttribute("onClick","insTaState('"+data[0].ibDate+','+P1+"')")
+		input.setAttribute("onClick","insTaState('"+data[0].ibDate+','+P1+','+data[12].meCode+"')")
 		let input2 = document.createElement("input");
 		let P2 = 'P2';
+		
 		input2.setAttribute("type","button");
 		input2.setAttribute("id","No");
 		input2.setAttribute("value","N");
-		input2.setAttribute("onClick","insTaState('"+data[0].ibDate+','+P2+"')");
+		input2.setAttribute("onClick","insTaState('"+data[0].ibDate+','+P2+','+data[12].meCode+"')");
 		const list = document.getElementById("list");
 		list.appendChild(input);
 		list.appendChild(input2);
 		
 		let jsondata = [];
 	
-	jsondata.push({"meCode":123});
+	jsondata.push({"meCode":data[12].meCode});
 	const clientData = JSON.stringify(jsondata);
 		whatsend("ajax/inbodyChart",clientData,"inbodyChart",false,"post");
 	//	inbodyChart();
@@ -312,7 +317,7 @@ function inbodyChart(data){
   data: {
 	labels: [data[7].ibDate,data[4].ibDate,data[1].ibDate],
     datasets: [{ 
-        data: [data[8].idCount,data[4].idCount,data[1].idCount],
+        data: [data[7].idCount,data[4].idCount,data[1].idCount],
         label: "체중",
         borderColor: "#3e95cd",
         fill: false
@@ -322,7 +327,7 @@ function inbodyChart(data){
         borderColor: "#8e5ea2",
         fill: false
       }, { 
-        data: [data[7].idCount,data[5].idCount,data[2].idCount],
+        data: [data[8].idCount,data[5].idCount,data[2].idCount],
         label: "체지방량",
         borderColor: "#3cba9f",
         fill: false
@@ -338,12 +343,14 @@ function inbodyChart(data){
 });
 }
 
-function findDay(){
+function findDay(mmeCode){
 	const findDay = document.getElementById("findDay").value;
-	
+	let cctCode = document.getElementsByName("searchct")[0].value;
+	alert(cctCode);
+	alert(findDay);
 	let jsondata = [];
-	const mmeCode = "10001";
-	const cctCode = "1234567890";
+	/*const mmeCode = "10001";
+	const cctCode = "1234567890";*/
 	jsondata.push({"meCode":mmeCode,"ctCode":cctCode,"ibDate":findDay,"ibDate1":findDay});
 	const clientData = JSON.stringify(jsondata);
 	
@@ -361,9 +368,8 @@ function insTaState(data){
 	
 	whatsend("ajax/insTaState",clientData,"eee",false,"post");
 }
-function eee(data){
-	
-	meInbodyMg(data);
+function eee(){
+	meInbodyMg(meall);
 }
 
 function checkMePw(cctcode, mmecode){
@@ -723,6 +729,7 @@ let meall;
 }
 	function getCenterListInbody(mecode){
 		meall = mecode;
+		alert(meall);
 		let jsondata = [];
 	jsondata.push({"meCode":mecode});
 	const clientdata = JSON.stringify(jsondata);
@@ -732,19 +739,21 @@ let meall;
 
 function getmectlistin(json){
 		 let pjson =json;
+	alert(json[0].ctCode);
 
 		centerdata = json;
 	let body = document.getElementById("center");
 	
 	if(pjson.length>0){
 		data = "<br><br>"
-		data+= "<select name='searchct'>"
+		data+= "<select id = 'searchct' name='searchct'>"
 		for(i=0;i<pjson.length;i++){
 			data+=	"<option value='"+pjson[i].ctCode+"'>"+pjson[i].ctName+"</option>"
 		}
 		data+= "</select>"
 
 	body.innerHTML = data;
+	meProfile(json[0].meCode);
 	}
 	
 }
@@ -1156,21 +1165,6 @@ function logOut(ct,id){
 
 
 
-function insTaState(data){
-  
-   let data1 = data.substring(0,14);
-   let data2 = data.substring(15,17);
-   
-   let jsondata = [];
-   jsondata.push({ibDate:data1,peStcode:data2});
-   const clientData = JSON.stringify(jsondata);
-   
-   whatsend("ajax/insTaState",clientData,"eee",false,"post");
-}
-function eee(){
-   
-   meInbodyMg();
-}
 
 
 
