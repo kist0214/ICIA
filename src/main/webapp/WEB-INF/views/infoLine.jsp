@@ -33,10 +33,11 @@
 		
 			<section>
 				<article class="topmenu">
-					<input type="button" id="meLessonMg" value="수업관리"
-						onClick="meLessonMg()" /> <input type="button" id="meConfig"
-						value="환경설정" onClick="meConfig()"></input> <input type="button"
-						id="logOut" value="로그아웃" onClick="logOut()"></input>
+				
+					<input type="button" id="meLessonMg" value="수업관리" onClick="meLessonMg()" />
+					<input type="button" id="meConfig" value="환경설정" onClick="meConfig()"></input>
+					<input type="button" id="logOut" value="로그아웃" onClick="logOut()"></input>
+	
 				</article>
 			</section>
 		</div>

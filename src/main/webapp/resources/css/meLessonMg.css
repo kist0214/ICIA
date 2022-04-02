@@ -329,3 +329,42 @@ section .card .image img {
 	opacity: 1;
 	color: #7d2ae8;
 }
+
+#da {
+	width: 150px;
+	height: 50px;
+	font-size: 16pt;
+	border : 0.5px solid gray;
+	border-radius: 10px;
+	text-align: center;
+	font-family: 'Jua', sans-serif;
+	font-weight: 400;
+	outline: none;
+}
+
+.input2 {
+	width: 150px;
+	height: 50px;
+	font-size: 16pt;
+	border : 0.5px solid gray;
+	border-radius: 10px;
+	text-align: center;
+	font-family: 'Jua', sans-serif;
+	font-weight: 400;
+	outline: none;
+}
+
+.mbtn {
+	width: 150px;
+	height: 50px;
+	font-size: 16pt;
+	border-radius: 10px;
+	text-align: center;
+	font-family: 'Jua', sans-serif;
+	font-weight: 400;
+	outline: none;
+	color: white;
+	background-color : #7d2ae8;
+	border : none;
+}
+

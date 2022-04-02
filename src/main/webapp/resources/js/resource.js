@@ -269,8 +269,9 @@ function meInbodyMg1(data){
 			if(data[i].findDay != null)
 			message += '<option value ='+data[i].findDay+'>'+data[i].findDay+'</option>';
 		}
-		
+
 		message+= '<input type = "button" value ='+"확인"+' onClick = "findDay('+data[12].meCode+')">'
+
 		
 	//	message += '<option value="date">'+date2+'</option>';
 		
@@ -745,8 +746,10 @@ function getmectlistin(json){
 	let body = document.getElementById("center");
 	
 	if(pjson.length>0){
-		data = "<br><br>"
-		data+= "<select id = 'searchct' name='searchct'>"
+
+		data = ""
+		data+= "<select name='searchct'>"
+
 		for(i=0;i<pjson.length;i++){
 			data+=	"<option value='"+pjson[i].ctCode+"'>"+pjson[i].ctName+"</option>"
 		}

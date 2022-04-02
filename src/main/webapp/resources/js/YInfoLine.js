@@ -1,10 +1,10 @@
 function psInBodyMg(){
 	const list = document.getElementById("bottom");
-	var data = '<div><input type="button" value="전신" onClick="allbody()">';
-	data += '<input type="button" value="등" onClick="back()">';
-	data += '<input type="button" value="가슴" onClick="chicken()">';
-	data += '<input type="button" value="팔" onClick="arm()">';
-	data += '<input type="button" value="복근" onClick="sixpack()"></div>';
+	var data = '<div class=\"exInput\"><input type="button" value="전신" onClick="allbody()"></div>';
+	data += '<div class=\"exInput\"><input type="button" value="등" onClick="back()"></div>';
+	data += '<div class=\"exInput\"><input type="button" value="가슴" onClick="chicken()"></div>';
+	data += '<div class=\"exInput\"><input type="button" value="팔" onClick="arm()"></div>';
+	data += '<div class=\"exInput\"><input type="button" value="복근" onClick="sixpack()"></div>';
 	data += '<div id = "list"></div>';
 	list.innerHTML = data;
 }
