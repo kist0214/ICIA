@@ -27,7 +27,7 @@ function goodsList(json){
 	let data;
 	if(json.length>0){
 		goodsInfo = json;
-		data = "<tr><td></td><td>장비코드</td><td>장비명</td><td>분류</td><td>담당자</td><td>관리일자</td><td>상태</td></tr>";
+		data = "<thead><tr><td></td><td>장비코드</td><td>장비명</td><td>분류</td><td>담당자</td><td>관리일자</td><td>상태</td></tr></thead>";
 		for(i=0;i<json.length;i++){
 			data += "<tr>";
 			data += "<td><input type=\"radio\" name=\"radibut\"/></td>";
@@ -69,12 +69,12 @@ function getCaCode(ctcode){
 	
 	document.getElementById("mdtitle").innerText = "장 비 수 정";
 	let data = "<div><span>장비코드</span><br><span id=\"meqCode\">"+goodsInfo[idx].eqCode+"</span></div>";
-	data += "<div><span>장비명</span><br><input type=\"text\" id=\"meqName\"value=\""+goodsInfo[idx].eqName+"\" placeholder=\"장비명을 입력해 주세요.\"/></div>";
-	data += "<div><span>담당자</span><br><select id = \"msfCode\"></select></div>";
-	data += "<div><span>관리일자<span><input id=\"egDate\" type=\"date\"/></div>";
-	data += "<div><span>분류</span><br><select id=\"mcaCode\"></select></div>";
-	data += "<div><span>상태</span><br><select id = \"mstCode\"></select></div>";
-	data += "<input type=\"button\" value=\"modify\" onclick=\"modGoods('"+ctcode+"')\"/>";
+	data += "<div class=\"input\"><i class=\"bx bx-user icon\"></i><input type=\"text\" id=\"meqName\"value=\""+goodsInfo[idx].eqName+"\" placeholder=\"장비명을 입력해 주세요.\"/></div>";
+	data += "<div><select id = \"msfCode\"></select></div>";
+	data += "<div class=\"input\"><i class=\"bx bx-time-five\"></i><input id=\"egDate\" type=\"date\"/></div>";
+	data += "<div><select id=\"mcaCode\"></select></div><br>";
+	data += "<div><select id = \"mstCode\"></select></div>";
+	data += "<input class=\"btn\" type=\"button\" value=\"modify\" onclick=\"modGoods('"+ctcode+"')\"/>";
 	document.getElementById("mdbody").innerHTML=data;
 	let json=[];
 	json.push({ctCode:ctcode});
@@ -127,18 +127,17 @@ ajaxconnection("ajax/modGoods", data, "goodsList", true);
 
 function getGoodsCode(ctcode){
 	document.getElementById("mdtitle").innerText = "장 비 추 가";
-	let data = "<div><span>장비코드</span><br><select id=\"meqCode\" onchange=\"change()\"></select></div>";
-	data += "<div><span>장비명</span><br><input type=\"text\" id=\"meqName\"value=\"\" placeholder=\"장비명을 입력해 주세요.\"/></div>";
-	data += "<div><span>담당자</span><br>";
+	let data = "<div><select id=\"meqCode\" onchange=\"change()\"></select></div>";
+	data += "<div class=\"input\"><i class=\"bx bx-user icon\"></i><input  type=\"text\" id=\"meqName\"value=\"\" placeholder=\"장비명을 입력해 주세요.\"/></div>";
+	data += "<div>";
 	data += "<select id = \"msfCode\"></select></div>";
-	data += "<div><span>관리일자<span><input id=\"egDate\" type=\"date\"/></div>";
-	data += "<div><span>분류</span><br>";
+	data += "<div class=\"input\"><i class=\"bx bx-time-five\"></i><input  id=\"egDate\" type=\"date\"/></div>";
+	data += "<div>";
 	data += "<select id=\"mcaCode\"onchange=\"change2()\">";
-	
-	data += "</select></div>";
-	data += "<div><span>상태</span><br>";
+	data += "</select></div><br>";
+	data += "<div>";
 	data += "<select id = \"mstCode\"></select></div>";
-	data += "<input type=\"button\" value=\"CREATE\" onclick=\"insGoods('"+ctcode+"')\"/>";
+	data += "<input class=\"btn\" type=\"button\" value=\"CREATE\" onclick=\"insGoods('"+ctcode+"')\"/>";
 	document.getElementById("mdbody").innerHTML=data;
 	let json=[];
 	json.push({ctCode:ctcode});

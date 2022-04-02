@@ -9,7 +9,8 @@
 <!----===== Boxicons CSS ===== -->
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
 	rel='stylesheet'>
-
+<script src="https://kit.fontawesome.com/64d58efce2.js"
+	crossorigin="anonymous"></script>
 <title>GoodsManament</title>
 <script src="res/js/resource.js"></script>
 <script src="res/js/bon.js"></script>
@@ -132,13 +133,14 @@
 	
 	<div class="gModal" id="gModal">
 		<div class="goodsLog">
+		<input type="button" class="mbtn" onclick="YcloseModal()" value="X" />
 			<div class="gcontent">
 				<div class="gheader">
 					<h4 class="mtitle" id="mdtitle"></h4>
 				</div>
 				<div class="mbody" id="mdbody"></div>
 				<div class="mbody" id="mbody">
-					<input type="button" class="mbtn" onclick="YcloseModal()" value="닫기" />
+					
 				</div>
 			</div>
 		</div>

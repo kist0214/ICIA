@@ -167,7 +167,7 @@ input.email:focus {
 	font-size: 20pt;
 }
 
-.pw {
+#pw1 {
 	position: absolute;
 	top: 50%;
 	left: 11%;
@@ -178,6 +178,20 @@ input.email:focus {
 	border: 3px solid #e1e8ec;
 	outline-color: #8d91aa;
 	font-size: 17pt;
+}
+
+#pw2 {
+	position: absolute;
+	top: 50%;
+	left: 11%;
+	width: 700px;
+	height: 70px;
+	border-radius: 30px;
+	padding-left: 60px;
+	border: 3px solid #e1e8ec;
+	outline-color: #8d91aa;
+	font-size: 17pt;
+	margin-top: 90px;
 }
 
 input.pw:hover {
@@ -197,12 +211,22 @@ input.pw:focus {
 	font-size: 20pt;
 }
 
+.pwIcon2 {
+	position: absolute;
+	top: 62%;
+	left: 13%;
+	width: 30px;
+	height: 30px;
+	font-size: 20pt;
+}
+
 .modPw {
 	position: absolute;
-	bottom: 27%;
+	bottom: 18%;
 	left: 0;
 	right: 0;
 	margin: auto;
+	margin-bottom: 30px;
 	width: 300px;
 	height: 70px;
 	border-radius: 30px;

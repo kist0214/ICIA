@@ -4,13 +4,18 @@
 <html></html>
 <head>
 <meta charset="UTF-8">
+<script src="res/js/resource.js"> </script>
+<script src="res/js/bon.js"> </script>
+<script src="res/js/Dong.js"> </script>
+<script src="res/js/YLesson.js"> </script>
+<title>LessonManament</title>
 <!----======== CSS ======== -->
 <link rel="stylesheet" href="res/css/lessonMg.css">
 <!----===== Boxicons CSS ===== -->
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
 	rel='stylesheet'>
-
-
+<script src="https://kit.fontawesome.com/64d58efce2.js"
+	crossorigin="anonymous"></script>
 <style>
 .container2 {
 	display: none;
@@ -61,19 +66,27 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 70%;
-	height: 750px;
+	width: 40%;
+	height: 600px;
+	transform: translate(-50%, -50%);
+	font-size: 17pt;
+	font-weight: 700;
+}
+
+.mdialog1 {
+	border: 2px solid white;
+	border-radius: 25px;
+	background-color: #ffffff;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 40%;
+	height: 860px;
 	transform: translate(-50%, -50%);
 	font-size: 17pt;
 	font-weight: 700;
 }
 </style>
-
-<title>LessonManament</title>
-<script src="res/js/resource.js"> </script>
-<script src="res/js/bon.js"> </script>
-<script src="res/js/Dong.js"> </script>
-<script src="res/js/YLesson.js"> </script>
 </head>
 <body onLoad="lessonMg('${sfInfo.ctCode}')">
 	<nav class="sidebar close">
@@ -124,9 +137,9 @@
 			</div>
 
 			<div class="bottom-content">
-				<li class=""><a> <i class='bx bx-id-card icon'></i>
-						<span class="text nav-text"></span><span class="text nav-text">
-							<span>${sfInfo.sfName}</span> <span>(${sfInfo.sfRankName})</span>
+				<li class=""><a> <i class='bx bx-id-card icon'></i> <span
+						class="text nav-text"></span><span class="text nav-text"> <span>${sfInfo.sfName}</span>
+							<span>(${sfInfo.sfRankName})</span>
 					</span> <span class="text nav-text"></span>
 				</a></li>
 
@@ -192,30 +205,32 @@
 		<form name='dynamicFormData'>
 			<div class="container2" id="container2">
 				<div class="mdialog">
+					<input type="button" class="mbtn" value="X" onclick="closeModal2()" />
 					<div class="mcontent">
-						<br><br><div class="mheader">수업 가격 설정</div><br>
-						<div>센터번호</div>
-						<input class="input" type="text" name="ctCode"
-							value="${sfInfo.ctCode}" /><br> <label for="lsCa"></label><br>
-							<div>수업 유형</div>
-						<select class="select" name="caCode2">
-							<option value="L0">일반</option>
-							<option value="L1">PT</option>
-							<option value="L2">요가</option>
-							<option value="L3">필라테스</option>
-							<option value="L4">줌바댄스</option>
-							<option value="L5">스피닝</option>
-						</select><br> <br>
-						<div>수량 | 개월</div>
-						<input class="input" type="text" name="lpQty" placeholder="수량 | 개월을 입력하세요."/><br> <br>
-						<div>가격</div>
-						<input class="input" type="text" name="lpPrice"
-							placeholder="가격을 입력하세요." /><br> <br> <input
-							type="button" value="CREATE" onClick="insLsPay()" />
-						<div class="mfooter">
-							<input type="button" class="mbtn" value="닫기"
-								onclick="closeModal2()" />
-								
+						<div class="mheader">수업 가격 설정</div>
+						<br>
+						<div class="input">
+							<i class='bx bx-store-alt'></i><input type="text" name="ctCode" value="${sfInfo.ctCode}" />
+						</div>
+						<div class="input">
+							<i class='bx bx-pencil'></i><input type="text" name="lpQty" placeholder="수량 | 개월을 입력하세요." />
+						</div>
+						<div class="input">
+							<i class='bx bx-money-withdraw' ></i><input type="text" name="lpPrice" placeholder="가격을 입력하세요." />
+						</div>
+							
+							<select name="caCode2">
+								<option value="수업유형" selected disabled>수업유형</option>
+								<option value="L0">일반</option>
+								<option value="L1">PT</option>
+								<option value="L2">요가</option>
+								<option value="L3">필라테스</option>
+								<option value="L4">줌바댄스</option>
+								<option value="L5">스피닝</option>
+							</select>
+						
+						<div>
+							<input class="btn" type="button" value="CREATE" onClick="insLsPay()" />
 						</div>
 					</div>
 				</div>
@@ -224,20 +239,35 @@
 
 		<form name='dynamicFormData'>
 			<div class="container3" id="container3">
-				<div class="mdialog">
+				<div class="mdialog1">
+				<input type="button" class="mbtn" value="X" onclick="closeModal3()" />
 					<div class="mcontent">
 						<div class="mheader">
-							<br>
 							<h4 id=mheader class="mtitle">수업 추가</h4>
-							<br>
 						</div>
-						<div>사원번호</div>
-						<input class="input" type="text" name="sfCode" value="${sfInfo.sfId}"/><br>
-						<div>트레이너명</div>
-						<input class="input" type="text" name="sfName" value="${sfInfo.sfName}" /><br>
-						<div>수업번호</div>
-						<input class="input" type="text" name="lsCode"/><br>
-						<div>수업 유형</div>
+						<div class="input">
+							<i class='bx bx-store-alt'></i><input  type="text" name="sfCode" value="${sfInfo.sfId}" />
+						</div>
+						<div class="input">
+							<i class="bx bx-user"></i><input  type="text" name="sfName" value="${sfInfo.sfName}" />
+						</div>
+						<div class="input">
+							<i class="bx bx-user"></i><input  type="text" name="lsCode" />
+						</div>
+						
+						<div class="input">
+							<i class='bx bx-book-open'></i><input  type="text" name="lsName" placeholder="수업명을 입력하세요." />
+						</div>
+						
+						<div class="input" data-term="5">
+							<i class='bx bx-time-five' ></i><input type="datetime-local" name="lsOpen" />
+						</div>
+						<div class="input">
+							<i class='bx bx-time-five' ></i><input type="text" name="lsProgress" placeholder="00000000000000" />
+						</div>
+						<div class="input">
+							<i class='bx bx-user-plus'></i><input  type="text" name="lsMeCount" placeholder="인원 수를 입력하세요." />
+						</div>
 						<select class="select" name="caCode">
 							<option value="L0">일반</option>
 							<option value="L1">PT</option>
@@ -245,23 +275,10 @@
 							<option value="L3">필라테스</option>
 							<option value="L4">줌바댄스</option>
 							<option value="L5">스피닝</option>
-						</select><br>
-						<div>수업명</div>
-						<input class="input" type="text" name="lsName"
-							placeholder="수업명을 입력하세요." /><br>
-						<div>개강일</div>
-						<div class="form-wrap ui-check-date" data-term="5">
-							<input type="datetime-local" name="lsOpen" />
-						</div>
-						<div>수업 진행</div>
-						<input type= "text" name="lsProgress" placeholder="00000000000000"/>
-						<div>수강 인원</div>
-						<input class="input" type="text" name="lsMeCount" placeholder="인원 수를 입력하세요." /><br> 
-							
+						</select>
 						<div class="mfooter">
-							<input type="button" value="CREATE"
-								onClick="insLesson('${sfInfo.ctCode}')" /> <input type="button"
-								class="mbtn" value="닫기" onclick="closeModal3()" />
+							<input class="btn" type="button" value="CREATE"	onClick="insLesson('${sfInfo.ctCode}')" />
+								
 						</div>
 					</div>
 				</div>

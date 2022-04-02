@@ -235,6 +235,7 @@ input.log:hover {
 	height: 70px;
 	cursor: pointer;
 	font-size: 17pt;
+	font-weight: 700;
 	background-color: white;
 	border: none;
 	border-radius: 20px;
