@@ -8,7 +8,7 @@
 	SELECT  SFCODE AS sfId, SFNAME AS sfName, CANAME AS caName, SFEMAIL AS sfEmail, SFNUMBER AS sfNumber FROM KMASTERS.SF INNER JOIN KMASTERS.CA ON CACODE = SFRANK WHERE SFCTCODE =#{ctCode} AND ${caCode} = #{caName} ORDER BY SFCODE ASC
 	</select>
 	<insert id="insSf" parameterType = "beans.Staffs">
-		INSERT INTO KMASTERS.SF (SFCTCODE, SFCODE, SFPASSWORD, SFNAME, SFRANK, SFEMAIL, SFNUMBER) VALUES(#{ctCode} ,(SELECT MAX(SFCODE) AS sfCode FROM KMASTERS.SF), #{sfPw}, #{sfName}, #{sfRank}, #{sfEmail}, #{sfNumber})
+		INSERT INTO KMASTERS.SF (SFCTCODE, SFCODE, SFPASSWORD, SFNAME, SFRANK, SFEMAIL, SFNUMBER) VALUES(#{ctCode} ,#{sfId}, #{sfPw}, #{sfName}, #{sfRank}, #{sfEmail}, #{sfNumber})
 	</insert>
 	<select id="sfList" parameterType = "beans.Staffs" resultType = "beans.Staffs" >
 	SELECT SFCODE AS sfId, SFNAME AS sfName, CANAME AS caName , SFEMAIL AS sfEmail, SFNUMBER AS sfNumber FROM KMASTERS.SF INNER JOIN KMASTERS.CA ON CACODE = SFRANK WHERE SFCTCODE = #{ctCode} ORDER BY SFCODE ASC
