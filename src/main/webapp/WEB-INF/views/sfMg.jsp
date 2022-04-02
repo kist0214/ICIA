@@ -10,68 +10,11 @@
 <!----===== Boxicons CSS ===== -->
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
 	rel='stylesheet'>
-<style>
-.containerIn {
-	background-color: gray;
-	background: rgba(0, 0, 0, 0.4);
-	position: absolute;
-	width: 100%;
-	min-height: 100%;
-	left: 0;
-	top: 0;
-	text-align: center;
-	font-size: 17pt;
-	font-weight: 700;
-}
-
-.container {
-	display: none;
-	background-color: gray;
-	background: rgba(0, 0, 0, 0.4);
-	position: absolute;
-	width: 100%;
-	min-height: 100%;
-	left: 0;
-	top: 0;
-	text-align: center;
-	font-size: 17pt;
-	font-weight: 700;
-}
-
-.container1 {
-	display: none;
-	background-color: gray;
-	background: rgba(0, 0, 0, 0.4);
-	position: absolute;
-	width: 100%;
-	min-height: 100%;
-	left: 0;
-	top: 0;
-	text-align: center;
-	font-size: 17pt;
-	font-weight: 700;
-}
-
-.mdialog {
-	border: 2px solid white;
-	border-radius: 25px;
-	background-color: #ffffff;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: 70%;
-	height: 750px;
-	transform: translate(-50%, -50%);
-	font-size: 17pt;
-	font-weight: 700;
-}
-</style>
-<title>StaffManament</title>
+<script src="https://kit.fontawesome.com/64d58efce2.js"
+	crossorigin="anonymous"></script>
 <script src="res/js/Dong.js"></script>
 <script src="res/js/resource.js"></script>
-
-
-
+<title>StaffManament</title>
 
 </head>
 <body onLoad="sfMg('${sfInfo.ctCode}')">
@@ -125,16 +68,13 @@
 
 			<div class="bottom-content">
 				<li class=""><a href="#"> <i class='bx bx-id-card icon'></i>
-
-
 						<span class="text nav-text"> <span>${sfInfo.sfName}</span>
 							<span>(${sfInfo.sfRankName})</span></span>
 				</a></li>
 
-				<li class=""><a  onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')"> <i class='bx bx-log-out icon'
-						></i> <span
-						class="text nav-text"
-						>로그아웃</span>
+				<li class=""><a
+					onClick="logOut('${sfInfo.ctCode}','${sfInfo.sfId}')"> <i
+						class='bx bx-log-out icon'></i> <span class="text nav-text">로그아웃</span>
 				</a></li>
 
 				<li class="mode">
@@ -188,40 +128,43 @@
 		<form name='dynamicFormData1'>
 			<div class="container1" id="container1">
 				<div class="mdialog">
+					<input type="button" class="mbtn" value="X" onclick="closeModal1()" />
 					<div class="mcontent">
 						<div class="mheader">
 							<h4 id=mheader class="mtitle">직원 수정</h4>
 						</div>
-						<div>센터번호</div>
-						<input class="input" type="text" name="ctCode" value="${sfInfo.ctCode}"
-							readOnly /><br> <br>
-						<div>사원번호</div>
-						<input class="input" type="text" name="sfId" readOnly /><br>
-						<br>
-						<div>성명</div>
-						<input class="input" type="text" name="sfName"
-							placeholder="이름을 입력하세요." /><br> <br>
-						<div>연락처</div>
-						<input class="input" type="text" name="sfNumber"
-							pattern="(010)\d{3,4}\d{4}" title="형식 01000000000"><br>
-						<br>
-						<div>비밀번호</div>
-						<input class="input" type="password" name="sfPw" maxlength='15' /><br>
-						<br>
-						<div>이메일</div>
-						<input class="input" type="email" name="sfEmail"
-							placeholder="Email 입력" /><br> <br>
-						<div>직위</div>
+						<div class="input">
+							<i class='bx bx-store-alt'></i> <input type="text" name="ctCode"
+								value="${sfInfo.ctCode}" readOnly />
+						</div>
+						<div class="input">
+							<i class="bx bx-user"></i> <input type="text" name="sfId"
+								readOnly />
+						</div>
+						<div class="input">
+							<i class="bx bx-user"></i> <input type="text" name="sfName"
+								placeholder="이름을 입력하세요." />
+						</div>
+						<div class="input">
+							<i class='bx bx-envelope'></i> <input type="email" name="sfEmail"
+								placeholder="Email 입력" />
+						</div>
+						<div class="input">
+							<i class='bx bx-phone'></i> <input type="text" name="sfNumber"
+								pattern="(010)\d{3,4}\d{4}" title="형식 01000000000">
+						</div>
+						<div class="input">
+							<i class='bx bx-lock-alt'></i> <input type="password" name="sfPw"
+								placeholder="비밀번호를 입력하세요." maxlength='15' />
+						</div>
 						<select name="sfRank">
-							<option value="직급" selected>직급</option>
+							<option value="직급" selected disabled>직급</option>
 							<option value="M1">관리자</option>
 							<option value="M2">트레이너</option>
 							<option value="M3">안내원</option>
-						</select><br> <input type="button" value="MODIFY"
-							onClick="modSf()" />
-						<div class="mfooter">
-							<input type="button" class="mbtn" value="닫기"
-								onclick="closeModal1()" />
+						</select>
+						<div>
+							<input type="button" class="btn" value="MODIFY" onClick="modSf()" />
 						</div>
 					</div>
 				</div>
@@ -231,42 +174,55 @@
 		<form name='dynamicFormData'>
 			<div class="container" id="container">
 				<div class="mdialog">
+					<input type="button" class="mbtn" value="X" onclick="closeModal()" />
 					<div class="mcontent">
 						<div class="mheader">
 							<h4 id=mheader class="mtitle">직원 추가</h4>
 						</div>
-						<br>
-						<div>사원번호</div>
-						<input class="input" type="text" name="sfId" value="${sfInfo.sfId}" /><br>
-						<div>성명</div>
-						<input class="input" type="text" name="sfName"
-							placeholder="이름을 입력하세요." /><br>
-						<div>연락처</div>
-						<input class="input" type="text" name="sfNumber"
-							pattern="(010)\d{3,4}\d{4}" title="형식 01000000000" placeholder="연락처를 입력하세요."><br>
-						<div>비밀번호</div>
-						<input class="input" type="password" name="sfPw" maxlength='15' placeholder="비밀번호를 입력하세요."/><br>
 
-						<div>이메일</div>
-						<input class="input" type="email" name="sfEmail" placeholder="Email 입력" /><br>
-						<div>직위</div>
-						<select name="sfRank">
-							<option value="직급" selected>직급</option>
-							<option value="M1">관리자</option>
-							<option value="M2">트레이너</option>
-							<option value="M3">안내원</option>
-						</select><br> <input type="button" value="CREATE"
-							onClick="insSf('${sfInfo.ctCode}')" />
-						<div class="mfooter">
-							<input type="button" class="mbtn" value="닫기"
-								onclick="closeModal()" />
+						<div>
+							<div class="input">
+								<i class='bx bx-store-alt'></i> <input type="text" name="ctCode"
+									value="${sfInfo.ctCode}" />
+							</div>
+							<div class="input">
+								<i class="bx bx-user"></i> <input type="text" name="sfId"
+									value="${sfInfo.sfId}" />
+							</div>
+							<div class="input">
+								<i class="bx bx-user"></i> <input type="text" name="sfName"
+									placeholder="이름을 입력하세요." />
+							</div>
+							<div class="input">
+								<i class='bx bx-envelope'></i> <input type="email"
+									name="sfEmail" placeholder="Email 입력" />
+							</div>
+							<div class="input">
+								<i class='bx bx-phone'></i> <input type="text" name="sfNumber"
+									pattern="(010)\d{3,4}\d{4}" title="형식 01000000000"
+									placeholder="연락처를 입력하세요.">
+							</div>
+							<div class="input">
+								<i class='bx bx-lock-alt'></i> <input type="password"
+									name="sfPw" maxlength='15' placeholder="비밀번호를 입력하세요." />
+							</div>
+							<select name="sfRank">
+								<option value="직급" selected disabled>직급</option>
+								<option value="M1">관리자</option>
+								<option value="M2">트레이너</option>
+								<option value="M3">안내원</option>
+							</select>
+							<div>
+								<input type="button" class="btn" value="CREATE"
+									onClick="insSf('${sfInfo.ctCode}')" />
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</form>
 
-		
+
 	</section>
 
 	<script>

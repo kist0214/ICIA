@@ -23,17 +23,18 @@ function sfList(json) {
 	
 	if(json.length>0){
 	sfInfo = json;
-	datad = '<table><tr><td></td><td>사원번호</td><td>직원명</td><td>직원등급</td><td>이메일</td><td>전화번호</td></tr>';	
+	datad = '<table><thead><tr><td></td><td>사원번호</td><td>직원명</td><td>직원등급</td><td>이메일</td><td>전화번호</td></tr></thead>';	
 	
 	for (i=0; i<json.length;i++) {
 		
-		datad += '<tr><td><input type="checkbox" name="radioBtn" onclick="checkOnlyOne(this)"/></td>'
+
+		datad += '<tbody><tr><td><input type="radio" name="radioBtn"  onclick="checkOnlyOne(this)"/></td>'
 		datad += '<td>' + json[i].sfId + '</td>' 
 		datad += '<td>' + json[i].sfName 
 		datad += '</td><td>' + json[i].caName 
 		datad += '</td><td>' + json[i].sfEmail  
 		datad += '</td><td>' + json[i].sfNumber + '</td>';
-		datad += '</tr>';
+		datad += '</tr></tbody>';
 
 	}
 	datad += '</table>';
@@ -335,18 +336,18 @@ function lsList(jsonData) {
 
 	if(jsonData.length>0){
 	lsInfo = jsonData;
-	datat = '<tr><td></td><td colspan="2">수업명</td><td colspan="2">개강일</td><td>트레이너명</td><td>수강인원</td></tr>';	
-	var idx = 0;
+
+	datat = '<thead><tr><td></td><td>수업명</td><td>개강일</td><td>트레이너명</td><td>수강인원</td></tr></thead>';	
+	
 	for (i=0; i<jsonData.length;i++) {
-		if(jsonData[i].lsCode != '10000'&&jsonData[i].stCode != "D2"){
-			datat += '<tr onclick = "leMeDt(\''+jsonData[i].lsCode+'\',\''+ctcode1+'\',\''+idx+'\')"><td><input type="checkbox" name="radioBtn"  onclick="checkOnlyOne(this)"/></td>'
-			datat += '<td colspan="2">' + jsonData[i].lsName + '</td>' 
-			datat += '<td colspan="2">' + jsonData[i].lsOpen 
-			datat += '</td><td>' + jsonData[i].sfName  
-			datat += '</td><td>' + jsonData[i].lsMeCount + '</td>';
-			datat += '</tr><tbody name = "ajax2"></tbody>';
-			idx++;
-		}
+		
+		datat += '<tbody><tr><td><input type="radio" name="radioBtn"/></td>'
+		datat += '<td>' + jsonData[i].lsName + '</td>' 
+		datat += '<td>' + jsonData[i].lsOpen 
+		datat += '</td><td>' + jsonData[i].sfName  
+		datat += '</td><td>' + jsonData[i].lsMeCount + '</td>';
+		datat += '</tr></tbody>';
+
 	}
 	body.innerHTML = datat;
 	}else{const msg = document.getElementsByClassName("lsSearchBtn")[0]

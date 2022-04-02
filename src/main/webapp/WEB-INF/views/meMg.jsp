@@ -10,6 +10,15 @@
 <!----===== Boxicons CSS ===== -->
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css'
 	rel='stylesheet'>
+<script src="https://kit.fontawesome.com/64d58efce2.js"
+	crossorigin="anonymous"></script>
+<script src="res/js/resource.js"></script>
+<script src="res/js/Dong.js"></script>
+<script src="res/js/bon.js"></script>
+<script src="res/js/YMember.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<title>MemberManagement</title>
 <style>
 .containerIn {
 	background-color: gray;
@@ -23,6 +32,7 @@
 	font-size: 17pt;
 	font-weight: 700;
 }
+
 .mdialog {
 	border: 2px solid white;
 	border-radius: 25px;
@@ -37,21 +47,13 @@
 	font-weight: 700;
 }
 </style>
-<title>MemberManagement</title>
-<script src="res/js/resource.js"></script> 
-<script src="res/js/Dong.js"></script> 
-<script src="res/js/bon.js"></script> 
-<script src="res/js/YMember.js"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
 </head>
-<body  onload="getMeMg('${ctCode}','${sfInfo.sfRank}','${sfInfo.sfId}')"  >
+<body onload="getMeMg('${ctCode}','${sfInfo.sfRank}','${sfInfo.sfId}')">
 	<nav class="sidebar close">
 		<header>
 			<div class="image-text">
-				<span class="image"> <!--<img src="logo.png" alt="">-->
-				</span>
-
+				<span class="image"> <!--<img src="res/images/circleImg.png">--></span>
 				<div class="text logo-text" onClick="goMePage('${sfInfo.ctCode}')">
 					<span class="name">HELP</span> <span class="profession">Health
 						Plan </span>
@@ -122,7 +124,8 @@
 		<div class="text">회원관리</div>
 		<div class="search">
 			<div class="nav-search">
-				<select class="select" id='select' onchange="searchMeCharTwo('${ctCode}','${sfInfo.sfRank}','${sfInfo.sfId}')">
+				<select class="select" id='select'
+					onchange="searchMeCharTwo('${ctCode}','${sfInfo.sfRank}','${sfInfo.sfId}')">
 					<option selected value="1">회원유형</option>
 					<option value='meName'>이름</option>
 					<option value='meNumber'>연락처</option>
@@ -133,11 +136,9 @@
 					<option value='L3'>필라테스</option>
 					<option value='L4'>줌바댄스</option>
 					<option value='L5'>스피닝</option>
-					
-				</select>
-				<span>
-				 <input type="text" id='searchText'placeholder="검색">
-				 <i onclick="searchMe('${ctCode}')" class='bx bx-search icon'></i>
+
+				</select> <span> <input type="text" id='searchText' placeholder="검색">
+					<i onclick="searchMe('${ctCode}')" class='bx bx-search icon'></i>
 				</span>
 			</div>
 		</div>
@@ -151,25 +152,30 @@
 				</button>
 			</div>
 		</div>
-<div class="mModal" id="gModal">
-		<div class="memberLog">
-			<div class="mContent">
-				<div class="mheader">
-					<h4 class="mtitle" id="mdtitle"></h4>
-				</div>
-				<div class="mbody" id="mdbody"></div>
-				<div class="mbody" id="mbody">
-					<input type="button" class="mbtn" onclick="YcloseModal()" value="닫기" />
+
+
+		<table id="ajax"></table>
+		<div class="mModal" id="gModal">
+			<div class="memberLog">
+				<input type="button" class="mbtn" onclick="YcloseModal()" value="X" />
+				<div class="mContent">
+
+					<div class="mheader">
+						<h4 class="mtitle" id="mdtitle"></h4>
+
+					</div>
+					<div class="mbody" id="mdbody"></div>
+					<div class="mbody" id="mbody"></div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	
-	<form name="containerIn" action="insInbody" method="post"
+		<form name="containerIn" action="insInbody" method="post"
 			enctype="multipart/form-data">
 			<div class="containerIn" id="containerIn">
 				<div class="mdialog">
+					<input type="button" class="mbtn" value="X"
+						onClick="closeModalIn()" />
 					<div class="mcontent">
 						<div class="mheader">
 
@@ -183,13 +189,13 @@
 						<input type="file" name="file" multiple />
 					</div>
 					<div>
-						<br> <input type="button" id="btn" value="인바디 파일 전송"
-							onClick="UploadinbodyFile()" /><br><br>
-							<input type="button" class="mbtn" value="닫기" onClick="closeModalIn()"/>
+						<input type="button" id="btn" value="인바디 파일 전송"
+							onClick="UploadinbodyFile()" /><br>
+
 					</div>
 					<br> <br>
 					<div id=msg></div>
-					
+
 				</div>
 
 			</div>

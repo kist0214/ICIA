@@ -29,7 +29,7 @@ let meList;
 function getMeList(json){
 	meList=json;
 	const ajax = document.getElementById("ajax");
-	let data = '<tr><td></td><td>이름</td><td>성별</td><td>연령</td><td>전화번호</td><td>유형</td><td>결제횟수/잔여횟수(개월)<td><td><td></tr>';
+	let data = '<thead><tr><td></td><td>이름</td><td>성별</td><td>연령</td><td>전화번호</td><td>유형</td><td>결제횟수/잔여횟수(개월)<td><td><td></tr></thead>';
 	for(i=0;i<json.length;i++){
 		if(sfRanCode[0]=='M1'){
 				//if(json[i].lpStocks>0){
@@ -175,9 +175,9 @@ function modMeDt(mecode){
 	butbut.setAttribute("onClick","modMeDtAjax()");
 	butbut.innerText = '저장';
 	document.getElementById("mdtitle").innerText = "회원수정";
-	var data = '<div><span>이름</span><span><input type ="text" id = "meName" placeholder="'+meDtMod.meName+'"/></span></div>';
-	data += '<div><span>연락처</span><span><input <input type="text" id ="meNumber" placeholder="'+meDtMod.meNumber+'" title="형식 01012341234" />'
-	data += '<div><span>이메일</span><span><input type = "text" id = "emailName" placeholder="'+meDtMod.meEmail.split('@')[0]+'"/><span>@<span><select id="juso">';
+	var data = '<div class=\"input\"><i class=\"bx bx-user icon\"></i><input type ="text" id = "meName" placeholder="'+meDtMod.meName+'"/></div>';
+	data += '<div class=\"input\"><i class=\"bx bx-phone\"></i><input type="text" id ="meNumber" placeholder="'+meDtMod.meNumber+'" title="형식 01012341234" /></div>';
+	data += '<div class=\"input\"><i class=\"bx bx-envelope icon\"></i><input type = "email" id = "emailName" placeholder="'+meDtMod.meEmail.split('@')[0]+'"/></div>';/*<span>@<span><select id="juso">';
 	data += '<option value = "return">주소선택</option>'
 	data += '<option value = "daun.net">daun</option>';
 	data += '<option value = "naver.com">naver</option>';
@@ -186,15 +186,15 @@ function modMeDt(mecode){
 	data += '<option value = "outlook.com">outlook.com</option>';
 	data += '<option value = "nate.com">nate</option>';
 	data += '<option value = "dreamwiz.com">dreamwiz</option>';
-	data += '<option value = "korea.com">korea.com</option></select></div>';
-	data += '<button class="mbtn" onClick = "modMeDtAjax(\''+mecode+'\')">MOD<button>';
+	data += '<option value = "korea.com">korea.com</option></select>*/'</div>';
+	data += '<div><button class=\"btn\" onClick = "modMeDtAjax(\''+mecode+'\')">MOD<button></div>';
 	document.getElementById("mdbody").innerHTML = data;
 	const juso = document.getElementById("juso");
-	for(i=0;i<juso.length;i++){
+	/*for(i=0;i<juso.length;i++){
 		if(juso.options[i].value==meDtMod.meEmail.split('@')[1]){
 			juso.options[i].setAttribute('selected', '');
 		}
-	}
+	}*/
 	YopenModal();
 }
 
@@ -267,28 +267,28 @@ function getCaList(ctcode){
 function addMemberModal(json){
 	
 	document.getElementById("mdtitle").innerText = "회원추가";
-	var data = '<div><span>이름</span><br><span><input type ="text" id = "meName" placeholder="이름을 입력하세요."/></span></div>';
-	data += '<div><span>이메일</span><br><span><input type = "text" id = "emailName"/><span>@<span><select id="juso">';
+	var data = '<div class= "mhead"><span><i class="bx bx-user icon"></i><input type ="text" id = "meName" placeholder="이름을 입력해주세요."/></span><span><i class="bx bx-envelope icon"></i><input type = "email" id = "emailName" placeholder = "이메일을 입력해주세요."/></span></div>';
+	/*data += '<div class = "abc"><span>@<span><select id="juso">';
 	data += '<option value = "return">주소선택</option>'
-	data += '<option value = "daun.net">daun</option>';
-	data += '<option value = "naver.com">naver</option>';
-	data += '<option value = "google.com">GMAIL</option>';
-	data += '<option value = "yahoo.com">yahoo</option>';
+	data += '<option value = "daum.net">daum.net</option>';
+	data += '<option value = "naver.com">naver.com</option>';
+	data += '<option value = "google.com">gmail.com</option>';
+	data += '<option value = "yahoo.com">yahoo.com</option>';
 	data += '<option value = "outlook.com">outlook.com</option>';
-	data += '<option value = "nate.com">nate</option>';
-	data += '<option value = "dreamwiz.com">dreamwiz</option>';
-	data += '<option value = "korea.com">korea.com</option></select></div>';
+	data += '<option value = "nate.com">nate.com</option>';
+	data += '<option value = "dreamwiz.com">dreamwiz.com</option>';
+	data += '<option value = "korea.com">korea.com</option></select></div>';*/
 	for(i=0; i<json.length;i++){
 		
 		if(i==0){
-			data+= '<article><div style = "width:20%;"><span><input type = "checkbox" name = "check" value="'+json[i].caCode+'"/><span><br><span>'+json[i].caName+'</span><br><span><select name="lpQty">';
-			data+= '<option value="'+json[i].lpQty+','+json[i].lpPrice+'">'+json[i].lpQty+(json[i].caName=='일반'?'개월':'수량')+' : '+json[i].lpPrice+'</option>';
+			data+= '<article><div><span><input type = "checkbox" name = "check" value="'+json[i].caCode+'"/><br><span class = "checkText"><span>'+json[i].caName+'</span><br><span><br><select name="lpQty">';
+			data+= '<option value="'+json[i].lpQty+','+json[i].lpPrice+'">'+json[i].lpQty+(json[i].caName=='일반'?'개월':'회')+' : '+json[i].lpPrice+'</option>';
 		}else{
 			if(json[i].caName==json[i-1].caName){
-				data+= '<option value="'+json[i].lpQty+','+json[i].lpPrice+'">'+json[i].lpQty+(json[i].caName=='일반'?'개월':'수량')+' : '+json[i].lpPrice+'</option>';
+				data+= '<option value="'+json[i].lpQty+','+json[i].lpPrice+'">'+json[i].lpQty+(json[i].caName=='일반'?'개월':'회')+' : '+json[i].lpPrice+'</option>';
 			}else{
-				data+= '</select></span></div><div style = "width:20%;"><span><input type = "checkbox" name = "check" value="'+json[i].caCode+'"/><span><br><span>'+json[i].caName+'</span><br><span><select name="lpQty">';
-				data+= '<option value="'+json[i].lpQty+','+json[i].lpPrice+'">'+json[i].lpQty+(json[i].caName=='일반'?'개월':'수량')+' : '+json[i].lpPrice+'</option>';
+				data+= '</select></span></div><div><span><input type = "checkbox" name = "check" value="'+json[i].caCode+'"/><br><span class = "checkText"><span>'+json[i].caName+'</span><br><span><br><select name="lpQty">';
+				data+= '<option value="'+json[i].lpQty+','+json[i].lpPrice+'">'+json[i].lpQty+(json[i].caName=='일반'?'개월':'회')+' : '+json[i].lpPrice+'</option>';
 			}
 			if(i==json.length-1){
 				data+= '</select></div></article>';

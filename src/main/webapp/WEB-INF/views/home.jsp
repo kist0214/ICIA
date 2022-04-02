@@ -13,7 +13,7 @@
 </head>
 
 
-<body  onLoad="initPage()">
+<body onLoad="initPage()">
 
 	<div class=circle></div>
 	<div class=circle2></div>
@@ -64,7 +64,7 @@
 					</div>
 				</div>
 
-			 <div id = "list">${list} </div> 
+				<div id="list">${list}</div>
 				<div class="mfooter">
 					<input type="button" class="mbtn" value="계정만들기"
 						onClick="goJoinPage()" /> <input type="button" class="mbtn"
@@ -97,7 +97,7 @@
 								onClick="ctLogIn()" />
 						</div>
 					</div>
-					<div id = "list">${list} </div> 
+					<div id="list">${list}</div>
 					<div class="mfooter">
 						<input type="button" class="mbtn" value="계정만들기"
 							onClick="goJoinPage()" /> <input type="button" class="mbtn"

@@ -43,11 +43,11 @@
 		</tr>
 		<tr>
 			<td><input class="pw" id = "pw1" type="text" placeholder="비밀번호" /></td>
-			<td class="pwIcon"><i class="fi fi-rr-envelope"></i></td>
+			<td class="pwIcon"><i class="fi fi-rr-lock"></i></td>
 		</tr>
 		<tr>
-			<td><input class="pw2" id = "pw2"  type="password" placeholder="비밀번호 확인" /></td>
-			<td class="pwIcon"><i class="fi fi-rr-lock"></i></td>
+			<td><input class="pw" id = "pw2"  type="password" placeholder="비밀번호 확인" /></td>
+			<td class="pwIcon2"><i class="fi fi-rr-lock"></i></td>
 		</tr>
 		<tr>
 			<td><input class="modPw" type="button" value="Modify Password"
