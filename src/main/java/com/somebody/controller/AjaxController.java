@@ -294,13 +294,14 @@ public class AjaxController {
 		}
 		@RequestMapping(value = "/meInbodyMg", method = RequestMethod.POST)
 		public List<Inbodys> meInbodyMg(Model model, @RequestBody Inbodys[] in) {
-
+			System.out.println(in[0].getMeCode());
 			this.me.backController("C03", model.addAttribute("send",in[0]));
 			return (List<Inbodys>)model.getAttribute("list");
 		}
 		@RequestMapping(value = "/meInbodyMg2", method = RequestMethod.POST)
 		public List<Inbodys> meInbodyMg2(Model model, @RequestBody Inbodys[] in) {
 			System.out.println(in[0].getCtCode());
+			System.out.println(in[0].getMeCode());
 			this.me.backController("C00", model.addAttribute("max",in[0]));
 			//this.me.backController("C00", model.addAttribute("find",in[0]));
 			

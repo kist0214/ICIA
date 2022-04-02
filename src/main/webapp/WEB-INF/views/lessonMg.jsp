@@ -193,7 +193,7 @@
 				<button onClick="getMaxLesson('${sfInfo.ctCode}','${sfInfo.sfId}')">
 					<i class='bx bx-calendar-plus icon'></i>
 				</button>
-				<button onClick="modLsModal('','${sfInfo.ctCode}')">
+				<button onClick="modLsModal('${sfInfo.ctCode}','${sfInfo.sfId}')">
 					<i class='bx bx-calendar-edit icon'></i>
 				</button>
 				<button onClick="delLs('${sfInfo.ctCode}')">

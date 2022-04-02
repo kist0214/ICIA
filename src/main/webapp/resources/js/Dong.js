@@ -430,7 +430,7 @@ function makeInputElement(type, name, value, placeholder){
 	return input;
 }
 
-function modLsModal(sfcode){
+function modLsModal(ctcode,sfcode){
 	const lsSelect = document.getElementsByName("radioBtn");
 	const lsCheck = 'input[name="radioBtn"]:checked';
   	// 선택된 목록의 갯수 세기
@@ -483,6 +483,8 @@ function delLs(ctcode){
 		}
 	}
 		const data=JSON.stringify(json);
+		
+		alert(data);
 		getAjax("ajax/delLesson", data, "lsList", false);
 }
 

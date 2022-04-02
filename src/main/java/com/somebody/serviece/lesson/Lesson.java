@@ -151,9 +151,10 @@ public class Lesson extends CommonMethod{
 	public void modLesson(Lessons ls,Model model) {
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		System.out.println(ls);
+		
 		if(this.convertToBoolean(this.my.modLs(ls))) {
 			model.addAttribute("lsList", this.md.lsList(ls));
+			System.out.println("4567"+model.getAttribute("lsList"));
 			tran = true;
 		}
 		tranend(tran);
@@ -181,12 +182,16 @@ public class Lesson extends CommonMethod{
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		for(Lessons lss:ls) {
-			if(this.convertToBoolean(this.my.delLs(lss))) {
+			System.out.println(lss);
+			System.out.println(this.my.delLs(lss));
+			/*if(this.convertToBoolean(this.my.delLs(lss))) {
 				model.addAttribute("lsList", this.md.lsList(lss));
+				*/
 				tran = true;
 			}
-		}
+		//}
 		tranend(tran);
+		
 	}
 
 

@@ -20,10 +20,12 @@ function modLsAjax(ctcode,sfcode){
 	let lsMeCount =  document.getElementById("lsMeCount");
 	let min =  document.getElementById("min");
 	let lsDate112='';
+	alert(lsTime.value.split(':').length);
 	for(i=0;i<lsTime.value.split(':').length;i++){
 		lsDate112+=lsTime.value.split(':')[i];
 	}
 	var lsProgress='';
+	alert(lsDate111.length);
 	for(i=0;i<lsDate111.length;i++){
 		if(lsDate111[i].checked == true){
 			lsProgress+='1';
@@ -45,6 +47,7 @@ function modLsAjax(ctcode,sfcode){
 	json.push({sfName:sfcode,ctCode:ctcode,lsName:name.value,lsOpen:lsDate.value+" "+lsTime.value+':00',
 	lsProgress:lsProgress+lsDate112+min2,lsMeCount:lsMeCount.value});
 	const data = JSON.stringify(json);
+	alert(data);
 	ajax("ajax/modLesson",data,"lsList");
 }
 var idx;

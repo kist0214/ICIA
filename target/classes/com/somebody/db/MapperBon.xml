@@ -107,11 +107,11 @@
 
 	<select id="getRegCenterList" parameterType="beans.Members"
 		resultType="beans.Members">
-		select ctcode, ctname
+		select ctcode as ctCode, ctname AS ctName , pamecode AS meCode
 		from kmasters.pa
         inner join
 		kmasters.ct on palpctcode = ctcode
-		where pamecode = #{meCode} group by ctcode, ctname
+		where pamecode = #{meCode} group by ctcode, ctname,pamecode
 	</select>
 	<select id="getCtAllLessonList" parameterType="beans.Members"
 		resultType="beans.Lessons">
