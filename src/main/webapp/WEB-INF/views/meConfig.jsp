@@ -14,7 +14,7 @@
 </head>
 
 
-<body  onLoad="getCenterListInbody('${meInfo[0].meCode}')">
+<body>
 	<div class="firstTop">
 		<div class="logo">
 			<div class="zero">
@@ -52,16 +52,11 @@
 	<div class="middle">
 		<div id="profile" class="profile">
 			<form id="profile2">
-				<span>이름 : </span>
-				<span id="meName" class="profile">${meName }</span><br>
-				<span>성별 : </span>
-				<span id="meGender" class="profile">
-					${meGender }</span><br> <span>나이 : </span><span id="meBirth"
-					class="profile">${meBirth }</span><br> <span>연락처 : </span><span
-					id="meNumber" class="profile">${meNumber }</span><br> <span>이메일
-					: </span><span id="meEmail" class="profile"> ${meEmail }</span><br>
-
-
+				<span id="meName" class="profile">${meName }이름 : </span>
+				<span id="meGender" class="profile">${meGender }성별 : </span>
+				<span id="meBirth"	class="profile">${meBirth }나이 : </span>
+				<span id="meNumber" class="profile">${meNumber }연락처 : </span>
+				<span id="meEmail" class="profile"> ${meEmail }이메일 : </span>
 			</form>
 		</div>
 	</div>
