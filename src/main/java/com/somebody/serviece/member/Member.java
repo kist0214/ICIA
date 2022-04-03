@@ -411,21 +411,20 @@ public class Member extends CommonMethod {
 		this.mav.setViewName("meConfig");
 	}
 
-	public void modMeMg(Model model) {
+	
+	public ModelAndView modMeMg(Model model) {
 		Members me = new Members();
 		me = (Members) model.getAttribute("Member");
 		mu.modMeMg(me);
-		model.addAttribute("mod", enc.matches(me.getMePw(), mu.meDtInfo(me).get(0).getMePw()));
-		System.out.println(model.getAttribute("mod").toString());
+		return mav;
 	}
 
-	public ModelAndView delMe(Model model) {
-		mu.delMe((Members) model.getAttribute("send"));
-
-		String page = "/infoLine";
-		this.mav.setViewName(page);
-		return mav;
-
+	public void  delMe(Model model) {
+		Members me = new Members();
+		me = (Members)model.getAttribute("del");
+		mu.delMe(me);
+//		String page = "/infoLine";
+//		this.mav.setViewName(page);
 	}
 
 	public void infoLine(Model model) {
