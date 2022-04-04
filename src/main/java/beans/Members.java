@@ -4,7 +4,7 @@ package beans;
 import lombok.Data;
 
 @Data
-public class Members extends Staffs  {
+public class Members  {
 	private String meCode;
 	private String meName;
 	private String meBirth;

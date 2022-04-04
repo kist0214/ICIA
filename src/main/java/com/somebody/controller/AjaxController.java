@@ -367,12 +367,11 @@ public class AjaxController {
 			this.auth.backControllerME("C14",model);
 		}
 		@RequestMapping(value = "/modMeMg", method = RequestMethod.POST)
-		public Members modMeMg(Model model, @RequestBody Members[] me) {
+		public void modMeMg(Model model, @RequestBody Members[] me) {
 			model.addAttribute("Member", me[0]);
+			
 			this.me.backController("C15", model);
-			return (Members)model.getAttribute("mod");
 		}
-
 
 
 
