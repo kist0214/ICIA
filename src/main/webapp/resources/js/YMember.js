@@ -47,7 +47,7 @@ function getMeList(json){
 					}
 					if(json[i].stCode=='M1'){
 						if(json[i].caName=='일반'){
-							data +='<td><input type="button" value="만료" onclick="clickExpiration(\''+i+'\')"/></td>';
+							data +='<td><input type="button" value="X" onclick="clickExpiration(\''+i+'\')"/></td>';
 						}
 					}else{
 						data +='<td>만료</td>';
@@ -70,7 +70,7 @@ function getMeList(json){
 					}
 					if(json[i].stCode=='M1'){
 						if(json[i].caName=='일반'){
-							data +='<td><input type="button" value="만료" onclick="clickExpiration(\''+i+'\')"/></td>';
+							data +='<td><input type="button" value="X" onclick="clickExpiration(\''+i+'\')"/></td>';
 						}
 					}else{
 						data +='<td>만료</td>';
@@ -121,7 +121,7 @@ function getMeDtail(json){
 	data = '<tr><td rowspan = "4" colspan = "2">';
 	data += (json[0].meGender=='남')? '<img src="res/images/male.svg" width="60">':'<img src="res/images/female.svg" width="60">' ;
 	data +='</td><td>회원</td><td>'+json[0].meName+'('+json[0].meGender+', '+json[0].meBirth+'세)</td><td>회원유형</td><td>'+json[0].caName+'</td>';
-	data += '<td rowspan = "4" colspan = "2"><button onClick="openModalIn()"><i class="bx bx-edit-alt icon"></i></button>'
+	data += '<td rowspan = "4" colspan = "2">'
 	data += '<button id = "butbut" onClick="modMeDt(\''+json[0].meCode+'\')">수정</button>'
 	data += '</td></tr>'
 	data += '<tr><td>담당 트레이너</td><td>'+json[0].sfName+'</td><td>라카번호</td><td>'+json[0].locker+'</td></tr>';
