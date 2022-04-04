@@ -3,17 +3,12 @@ package com.somebody.serviece.lesson;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.ui.Model;
 import com.somebody.db.CommonMethod;
-import com.somebody.db.MapperBon;
 import com.somebody.db.MapperDong;
-import com.somebody.db.MapperUone;
 import com.somebody.db.MapperYoung;
 
 import beans.Equipments;
@@ -27,13 +22,6 @@ public class Lesson extends CommonMethod{
 	@Autowired
 	private MapperYoung my;
 	private ModelAndView mav;
-
-	@Autowired
-	private DataSourceTransactionManager tx;
-
-	private TransactionStatus txStatus;
-
-	private DefaultTransactionDefinition txdef;
 
 	String page = null;
 	public Lesson() {
@@ -104,7 +92,6 @@ public class Lesson extends CommonMethod{
 	public void searchLesson(Lessons ls,Model model) {
 
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		System.out.println(ls.getSfName());
 		model.addAttribute("lsList",  this.md.searchLesson(ls));
 		tranend(true);
 
@@ -137,7 +124,6 @@ public class Lesson extends CommonMethod{
 
 
 		ls.setLsOpen(der);
-		System.out.println(ls.getLsOpen());
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		if(this.convertToBoolean(this.md.insLesson(ls))){
@@ -154,7 +140,6 @@ public class Lesson extends CommonMethod{
 		
 		if(this.convertToBoolean(this.my.modLs(ls))) {
 			model.addAttribute("lsList", this.md.lsList(ls));
-			System.out.println("4567"+model.getAttribute("lsList"));
 			tran = true;
 		}
 		tranend(tran);
@@ -182,14 +167,12 @@ public class Lesson extends CommonMethod{
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		for(Lessons lss:ls) {
-			System.out.println(lss);
-			System.out.println(this.my.delLs(lss));
-			/*if(this.convertToBoolean(this.my.delLs(lss))) {
+			if(this.convertToBoolean(this.my.delLs(lss))) {
 				model.addAttribute("lsList", this.md.lsList(lss));
-				*/
+				
 				tran = true;
 			}
-		//}
+		}
 		tranend(tran);
 		
 	}

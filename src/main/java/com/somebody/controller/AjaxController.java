@@ -233,7 +233,6 @@ public class AjaxController {
 		}
 		@RequestMapping(value = "/modGoods", method = RequestMethod.POST)
 		public List<Equipments> modGoods(Model model, @RequestBody Equipments[] eq) {
-			System.out.println("01. "+eq[0].getCtCode());
 			this.eq.backController("G07", eq[0], model);
 			return (List<Equipments>) model.getAttribute("modGoods");
 		}
@@ -287,21 +286,17 @@ public class AjaxController {
 		@SuppressWarnings("unchecked")
 		@RequestMapping(value = "/meDtInfo", method = RequestMethod.POST)
 		public List<Members> meDtInfo(Model model,@RequestBody Members[] me) {
-			System.out.println(me[0].getCtCode()+me[0].getMeCode());
 			this.me.backController("C02",model.addAttribute("send",me[0]));
 			
 			return (List<Members>)model.getAttribute("list");
 		}
 		@RequestMapping(value = "/meInbodyMg", method = RequestMethod.POST)
 		public List<Inbodys> meInbodyMg(Model model, @RequestBody Inbodys[] in) {
-			System.out.println(in[0].getMeCode());
 			this.me.backController("C03", model.addAttribute("send",in[0]));
 			return (List<Inbodys>)model.getAttribute("list");
 		}
 		@RequestMapping(value = "/meInbodyMg2", method = RequestMethod.POST)
 		public List<Inbodys> meInbodyMg2(Model model, @RequestBody Inbodys[] in) {
-			System.out.println(in[0].getCtCode());
-			System.out.println(in[0].getMeCode());
 			this.me.backController("C00", model.addAttribute("max",in[0]));
 			//this.me.backController("C00", model.addAttribute("find",in[0]));
 			
@@ -334,7 +329,6 @@ public class AjaxController {
 		public List<Members> getLessonList(Model model, @RequestBody  Members[] me) {
 			model.addAttribute("melist",me[0]);
 			 this.me.backController("C08", model);
-		System.out.println(((List<Members>) model.getAttribute("mectlist")).size());
 			 return (List<Members>) model.getAttribute("mectlist");
 		}
 	

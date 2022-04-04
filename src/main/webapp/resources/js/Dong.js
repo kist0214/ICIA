@@ -175,7 +175,7 @@ function getMaxSf(ctcode) {
 
 function getMaxSf2(data) {
 	const sfcode = document.getElementsByName("sfId")[1];
-	sfcode.setAttribute("value",data.sfCode);
+	sfcode.setAttribute("value",data.sfId);
 	sfcode.setAttribute("readOnly",true);
 		let container = document.getElementById("container");
 		container.style.filter = "alpha(Opacity=50)";

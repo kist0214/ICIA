@@ -32,8 +32,6 @@ function getMeList(json){
 	let data = '<thead><tr><td></td><td>이름</td><td>성별</td><td>연령</td><td>전화번호</td><td>유형</td><td>결제횟수/잔여횟수(개월)<td><td><td></tr></thead>';
 	for(i=0;i<json.length;i++){
 		if(sfRanCode[0]=='M1'){
-				//if(json[i].lpStocks>0){
-					//alert(json[i].meName+':'+json[i].sfCode);
 					data += '<tr id="meDtList" onClick="meDetail('+i+')"><td><input type=\"radio\" name=\"radibut\"/></td>';
 					data +='<td>'+json[i].meName+'</td>';
 					data +='<td>'+json[i].meGender+'</td>';
@@ -54,9 +52,8 @@ function getMeList(json){
 					}
 					data += '</tr><tbody colspan ="7" name = "dtInfo" style="border : 1px solid #000000;"></tbody>'
 					+'<tbody style="border : 1px solid #000000;" colspan ="7" name = "dtInfo2"></tbody>';
-			//}
+		
 		}else if(sfRanCode[1]==json[i].sfCode){
-				//if(json[i].lpStocks>0){
 					data += '<tr id="meDtList" name = "meDtList" onClick="meDetail('+i+')"><td><input type=\"radio\" name=\"radibut\"/></td>';
 					data +='<td>'+json[i].meName+'</td>';
 					data +='<td>'+json[i].meGender+'</td>';
@@ -77,7 +74,7 @@ function getMeList(json){
 					}
 					data += '</tr><tbody colspan ="7" name = "dtInfo" style="border : 1px solid #000000;"></tbody>'
 					+'<tbody style="border : 1px solid #000000;" colspan ="7" name = "dtInfo2"></tbody>';
-			//}
+		
 		}
 	}
 	ajax.innerHTML=data;

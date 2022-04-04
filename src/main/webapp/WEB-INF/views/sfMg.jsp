@@ -67,7 +67,7 @@
 			</div>
 
 			<div class="bottom-content">
-				<li class=""><a href="#"> <i class='bx bx-id-card icon'></i>
+				<li class=""><a> <i class='bx bx-id-card icon'></i>
 						<span class="text nav-text"> <span>${sfInfo.sfName}</span>
 							<span>(${sfInfo.sfRankName})</span></span>
 				</a></li>
