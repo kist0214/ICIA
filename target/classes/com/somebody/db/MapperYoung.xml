@@ -203,11 +203,11 @@ SELECT DISTINCT IDCOUNT AS idCount,
    WHERE SUBSTR(IDIBCODE,6,8) =(SELECT SUBSTR(MAX(TAIDIBCODE),6,8) FROM KMASTERS.TA WHERE SUBSTR(TAIDIBCODE,1,5) = '${meCode}')
                                          AND SUBSTR(IDIBCODE,1,5) = ${meCode} ORDER BY DANAME
    </select>
-   <update id="modMe">
+   <update id="modMe"  parameterType="beans.Members">
    		update kmasters.me set meName = '${meName}' , meNumber = '${meNumber}', meEmail = '${meEmail}' where meCode = '${meCode}'
    </update>
-    <select id="getMaxSf" resultType="beans.Members" parameterType="beans.Members">
-	 select max(sfcode) +1 as sfCode from kmasters.sf where sfctcode = '${ctCode}'
+    <select id="getMaxSf" resultType="beans.Staffs" parameterType="beans.Staffs">
+	 select max(sfcode) +1 as sfId from kmasters.sf where sfctcode = '${ctCode}'
    </select>
    <update id="modLs" parameterType="beans.Lessons">
    		update kmasters.ls set lsopen = to_date(#{lsOpen},'yyyy-mm-dd hh24:mi:ss'), lsprogress= #{lsProgress}, lsMeCount = #{lsMeCount}

@@ -4,14 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.somebody.serviece.member.Member;
 
-import beans.Inbodys;
 import beans.Members;
 
 @Controller 
@@ -34,9 +32,9 @@ public class ControllerUone {
 		this.me.backController("C12", model);
 	}
 	@RequestMapping(value = "/delMe", method = RequestMethod.POST)
-	public void delMe(Model model, @RequestBody Members me[]) {
-		model.addAttribute("del", me[0]);
-		this.me.backControllerM("C17", model);
+	public ModelAndView delMe(Model model, @ModelAttribute Members me) {
+		model.addAttribute("del", me);
+		return this.me.backControllerM("C17", model);
 	}
 	
 }

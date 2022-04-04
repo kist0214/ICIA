@@ -32,8 +32,6 @@ function getMeList(json){
 	let data = '<thead><tr><td></td><td>이름</td><td>성별</td><td>연령</td><td>전화번호</td><td>유형</td><td>결제횟수/잔여횟수(개월)<td><td><td></tr></thead>';
 	for(i=0;i<json.length;i++){
 		if(sfRanCode[0]=='M1'){
-				//if(json[i].lpStocks>0){
-					//alert(json[i].meName+':'+json[i].sfCode);
 					data += '<tr id="meDtList" onClick="meDetail('+i+')"><td><input type=\"radio\" name=\"radibut\"/></td>';
 					data +='<td>'+json[i].meName+'</td>';
 					data +='<td>'+json[i].meGender+'</td>';
@@ -47,16 +45,15 @@ function getMeList(json){
 					}
 					if(json[i].stCode=='M1'){
 						if(json[i].caName=='일반'){
-							data +='<td><input type="button" value="만료" onclick="clickExpiration(\''+i+'\')"/></td>';
+							data +='<td><input type="button" value="X" onclick="clickExpiration(\''+i+'\')"/></td>';
 						}
 					}else{
 						data +='<td>만료</td>';
 					}
 					data += '</tr><tbody colspan ="7" name = "dtInfo" style="border : 1px solid #000000;"></tbody>'
 					+'<tbody style="border : 1px solid #000000;" colspan ="7" name = "dtInfo2"></tbody>';
-			//}
+		
 		}else if(sfRanCode[1]==json[i].sfCode){
-				//if(json[i].lpStocks>0){
 					data += '<tr id="meDtList" name = "meDtList" onClick="meDetail('+i+')"><td><input type=\"radio\" name=\"radibut\"/></td>';
 					data +='<td>'+json[i].meName+'</td>';
 					data +='<td>'+json[i].meGender+'</td>';
@@ -70,14 +67,14 @@ function getMeList(json){
 					}
 					if(json[i].stCode=='M1'){
 						if(json[i].caName=='일반'){
-							data +='<td><input type="button" value="만료" onclick="clickExpiration(\''+i+'\')"/></td>';
+							data +='<td><input type="button" value="X" onclick="clickExpiration(\''+i+'\')"/></td>';
 						}
 					}else{
 						data +='<td>만료</td>';
 					}
 					data += '</tr><tbody colspan ="7" name = "dtInfo" style="border : 1px solid #000000;"></tbody>'
 					+'<tbody style="border : 1px solid #000000;" colspan ="7" name = "dtInfo2"></tbody>';
-			//}
+		
 		}
 	}
 	ajax.innerHTML=data;
@@ -121,7 +118,7 @@ function getMeDtail(json){
 	data = '<tr><td rowspan = "4" colspan = "2">';
 	data += (json[0].meGender=='남')? '<img src="res/images/male.svg" width="60">':'<img src="res/images/female.svg" width="60">' ;
 	data +='</td><td>회원</td><td>'+json[0].meName+'('+json[0].meGender+', '+json[0].meBirth+'세)</td><td>회원유형</td><td>'+json[0].caName+'</td>';
-	data += '<td rowspan = "4" colspan = "2"><button onClick="openModalIn()"><i class="bx bx-edit-alt icon"></i></button>'
+	data += '<td rowspan = "4" colspan = "2">'
 	data += '<button id = "butbut" onClick="modMeDt(\''+json[0].meCode+'\')">수정</button>'
 	data += '</td></tr>'
 	data += '<tr><td>담당 트레이너</td><td>'+json[0].sfName+'</td><td>라카번호</td><td>'+json[0].locker+'</td></tr>';

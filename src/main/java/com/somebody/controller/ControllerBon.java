@@ -18,6 +18,7 @@ import com.somebody.serviece.member.Member;
 import beans.Centers;
 import beans.Members;
 import beans.Staffs;
+import kr.co.icia.plzec.services.ProjectUtils;
 
 @Controller
 public class ControllerBon {
@@ -26,7 +27,8 @@ public class ControllerBon {
 	@Autowired
 	Member me;
 	ModelAndView mav;
-
+	@Autowired
+	ProjectUtils pu;
 	@Autowired
 	HttpSession session;
 	
@@ -37,7 +39,6 @@ public class ControllerBon {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(Model model) {
-		//System.out.println((session.getId()));
 		
 		return this.auth.backControllerME("A01",model);
 		
@@ -56,11 +57,16 @@ public class ControllerBon {
 
 	@RequestMapping(value = "/logOut", method = RequestMethod.POST)
 	public String logOut(Model model, @ModelAttribute Staffs sf) {
-		if (sf.getSfId() != null) {
-			this.auth.backControllerCT("A04", sf);
-		} else {
-			Members me = new Members();
-			this.auth.backControllerME("A04", model.addAttribute("send", me));
+		try {
+			if (pu.getAttribute("sfInfo") != null) {
+				this.auth.backControllerCT("A04", sf);
+			} else {
+				Members me = new Members();
+				this.auth.backControllerME("A04", model);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return "home";
 	}

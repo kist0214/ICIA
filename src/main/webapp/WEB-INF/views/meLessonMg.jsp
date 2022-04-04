@@ -27,7 +27,7 @@
 </head>
 <body onLoad="getCenterList('${meInfo[0].meCode}')">
 	<div class="firstTop">
-		<div class="logo" >
+		<div class="logo" onClick = "goHome()">
 			<div class="zero">
 				<br>
 				<div class="one"></div>

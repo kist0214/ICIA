@@ -19,6 +19,7 @@ import beans.Lessons;
 import beans.Members;
 import beans.YMemberDt;
 import kr.co.icia.plzec.services.Encryption;
+import kr.co.icia.plzec.services.ProjectUtils;
 
 @Service
 public class Member extends CommonMethod {
@@ -31,7 +32,7 @@ public class Member extends CommonMethod {
 	private MapperUone mu;
 	private ModelAndView mav;
 	@Autowired
-	private Encryption enc;
+	private ProjectUtils pu;
 
 	String page = null;
 	Members me;
@@ -184,7 +185,6 @@ public class Member extends CommonMethod {
 
 	public void meInbodyMg(Model model) {
 		List<Inbodys> list = new ArrayList<Inbodys>();
-		System.out.println((Inbodys)model.getAttribute("send"));
 		list.addAll(this.mu.meInbodyMg((Inbodys) model.getAttribute("send")));
 		list.addAll(this.mu.findDay((Inbodys) model.getAttribute("send")));
 		model.addAttribute("list", list);
@@ -193,14 +193,10 @@ public class Member extends CommonMethod {
 
 	public void meInbodyMg2(Model model) {
 		List<Inbodys> list = new ArrayList<Inbodys>();
-		System.out.println((Inbodys) model.getAttribute("max"));
 		list.addAll(this.mu.maxDay((Inbodys) model.getAttribute("max")));
 		list.addAll(this.mu.findDay((Inbodys) model.getAttribute("max")));
 		model.addAttribute("list", list);
-		
-		for(Inbodys e : list) {
-		System.out.println(e+"*");
-	}}
+	}
 
 	public void inbodyChart(Model model) {
 		List<Inbodys> list = new ArrayList<Inbodys>();
@@ -211,7 +207,6 @@ public class Member extends CommonMethod {
 
 	public void meDtInfo(Model model) {
 		model.addAttribute("list", this.mu.meDtInfo((Members) model.getAttribute("send")));
-		System.out.println(model.getAttribute("list").toString()+"4567");
 
 	}
 
@@ -233,9 +228,6 @@ public class Member extends CommonMethod {
 
 					stocks = Integer.parseInt(this.my.Count(meList.get(i)).getLpStocks());
 					meList.get(i).setSfCode(this.my.remecode().get(j).getSfCode());
-					System.out.println(
-							j + ", " + meList.get(i).getSfCode() + " : " + this.my.remecode().get(j).getSfCode());
-
 				}
 			}
 			meList.get(i).setLpStocks((meList.get(i).getLpQty() - stocks) + "");
@@ -375,7 +367,6 @@ public class Member extends CommonMethod {
 			le = (List<Lessons>) mb.getCtdateLessonList(ee);
 		}
 		for (int i = 0; i < le.size(); i++) {
-			// System.out.println(le.get(i));
 			le.get(i).setLpQty(mb.remainLessonCount(le.get(i)));
 		}
 		model.addAttribute("mectlslista", le);
@@ -398,7 +389,6 @@ public class Member extends CommonMethod {
 		Lessons ls = (Lessons) model.getAttribute("reqlesson");
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		System.out.println(ls);
 		if (this.convertToBoolean(mb.delMeLesson(ls))) {
 			ls.setCtCode("취소가 완료되었습니다.");
 			model.addAttribute("sta", ls);
@@ -423,8 +413,16 @@ public class Member extends CommonMethod {
 		Members me = new Members();
 		me = (Members)model.getAttribute("del");
 		mu.delMe(me);
-//		String page = "/infoLine";
-//		this.mav.setViewName(page);
+
+		try {
+			this.mav.getModel().clear();
+			pu.removeAttribute("meInfo");
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		this.mav.setViewName("redirect:/");
 	}
 
 	public void infoLine(Model model) {

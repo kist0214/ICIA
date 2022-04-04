@@ -1,8 +1,6 @@
 package com.somebody.serviece.member;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -19,25 +17,13 @@ import com.somebody.db.MapperUone;
 import com.somebody.db.MapperYoung;
 
 import beans.Inbodys;
-import beans.Members;
 
 @Service
 public class Inbody extends CommonMethod {
 	@Autowired
 	private MapperBon mb;
-	@Autowired
-	private MapperDong md;
-	@Autowired
-	private MapperYoung my;
-	@Autowired
-	private MapperUone mu;
 	private ModelAndView mav;
 
-	private DataSourceTransactionManager tx;
-
-	private TransactionStatus txStatus;
-
-	private DefaultTransactionDefinition txdef;
 	String msg = null;
 
 	public Inbody() {
@@ -60,14 +46,11 @@ public class Inbody extends CommonMethod {
 	public void insInbody(ArrayList<ArrayList<String>> filters, Model model) {
 		Inbodys inbody = new Inbodys();
 
-		System.out.println(filters.size() + "사이즈");
 		for (int i = 0; i < filters.size()-2; i++) { // 행
-			System.out.println("234"+filters.get(i).get(0));
 			if(filters.get(i).get(0).equals("false")) {
 				insInbodyDetail(filters,model);
 				break;
 			}
-			System.out.println(filters.get(i));
 			inbody.setCtCode(filters.get(i).get(0));
 			inbody.setMeCode(filters.get(i).get(1));
 
@@ -75,7 +58,6 @@ public class Inbody extends CommonMethod {
 				this.mb.insInbody(inbody);
 				}
 			catch (Exception e) {
-				System.out.println(22);
 				inbody.setMsg("이미 오늘 날짜에 인바디등록이 되어있습니다. 내일 시도하여 주십시오.");
 				model.addAttribute("msg", inbody);
 				break;
@@ -106,7 +88,6 @@ public class Inbody extends CommonMethod {
 		for (int i = 0; i < filters.size(); i++) {
 			inbody.setMeCode(filters.get(i).get(1));
 
-			System.out.println(inbody.getMeCode() + "kk");
 			if(inbody.getMeCode().equals("false")) {
 				sendmsg(model);
 				break;

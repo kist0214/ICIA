@@ -5,7 +5,7 @@
 		
 		ajax.onreadystatechange = function() {
 			if (ajax.readyState == 4 && ajax.status == 200) {
-			//alert(ajax.responseText);
+
 			window[fn](JSON.parse(ajax.responseText));
 			
 			
@@ -16,7 +16,6 @@
 		}
 		else{
 		ajax.open("post", action, true);
-		//ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8 ");
 		}
 		
 		ajax.send(data);

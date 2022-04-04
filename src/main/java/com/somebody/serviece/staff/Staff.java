@@ -102,16 +102,13 @@ public class Staff extends CommonMethod {
 		boolean tran = false;
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 
-System.out.println("2::"+sf.getSfPw());
 		sf.setSfPw(this.enc.encode(sf.getSfPw()));
 		if (convertToBoolean(this.my.modSf(sf))) {
 
-System.out.println("4::"+sf.getSfPw());
 			model.addAttribute("modSf", this.md.sfList(sf));
 			tran = true;
 		}
 
-System.out.println("3::"+sf.getSfPw());
 		tranend(tran);
 
 	}
