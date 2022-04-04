@@ -60,6 +60,7 @@ function leMeDt(lsCode,ctcode,i){
 
 let data1;
 function lsMeList(json){
+	alert(idx);
 	data1 = json;
 	const ajax2 = document.getElementsByName("ajax2");
 	for(a=0;a<ajax2.length;a++){

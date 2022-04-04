@@ -337,16 +337,16 @@ function lsList(jsonData) {
 	if(jsonData.length>0){
 	lsInfo = jsonData;
 
-	datat = '<thead><tr><td></td><td>수업명</td><td>개강일</td><td>트레이너명</td><td>수강인원</td></tr></thead>';	
+	datat = '<thead><tr><td></td><td colspan="2">수업명</td><td colspan="2">개강일</td><td>트레이너명</td><td>수강인원</td></tr></thead>';	
 	
 	for (i=0; i<jsonData.length;i++) {
 		
-		datat += '<tbody><tr><td><input type="radio" name="radioBtn"/></td>'
-		datat += '<td>' + jsonData[i].lsName + '</td>' 
-		datat += '<td>' + jsonData[i].lsOpen 
+		datat += '<tbody><tr onclick = "leMeDt(\''+jsonData[i].lsCode+'\',\''+ctcode1+'\',\''+i+'\')"><td><input type="radio" name="radioBtn"/></td>'
+		datat += '<td colspan="2">' + jsonData[i].lsName + '</td>'; 
+		datat += '<td colspan="2">' + jsonData[i].lsOpen;
 		datat += '</td><td>' + jsonData[i].sfName  
 		datat += '</td><td>' + jsonData[i].lsMeCount + '</td>';
-		datat += '</tr></tbody>';
+		datat += '</tr></tbody><tbody name = "ajax2"></tbody>';
 
 	}
 	body.innerHTML = datat;
