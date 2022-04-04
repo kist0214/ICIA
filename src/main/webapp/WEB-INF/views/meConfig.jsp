@@ -14,7 +14,7 @@
 </head>
 
 
-<body>
+<body onLoad="getCenterListInbody('${meInfo[0].meCode}')">
 	<div class="firstTop">
 		<div class="logo">
 			<div class="zero">
@@ -31,6 +31,7 @@
 		<span id="center"></span>
 			<section>
 				<article class="topmenu">
+					<input id="meCode" class="profile" type = 'hidden' value="${meInfo[0].meCode}"/>
 					<input type="button" id="meLessonMg" value="수업관리"
 						onClick="meLessonMg()" /> <input type="button" id="meConfig"
 						value="환경설정" onClick="meConfig()"></input> <input type="button"
@@ -52,6 +53,7 @@
 	<div class="middle">
 		<div id="profile" class="profile">
 			<form id="profile2">
+			
 				<span id="meName" class="profile">${meName }이름 : </span>
 				<span id="meGender" class="profile">${meGender }성별 : </span>
 				<span id="meBirth"	class="profile">${meBirth }나이 : </span>
@@ -172,9 +174,9 @@
 					<!-- 모달 푸터 -->
 					<div class="mfooter">
 						<span>** 주의 **<br>탈퇴 시 개인정보가 파기됩니다. 정말 탈퇴하시겠습니까?
-						</span> <input type="password" class="fireMe" placeHolder="비밀번호" /><br>
+						</span> <input type="password" id = "mePw" class="fireMe" placeHolder="비밀번호" /><br>
 						<input type="button" class="mbtn" name="fire" value="확인"
-							onClick="checkMePw()" /> <input type="button" class="mbtn"
+							onClick="checkMePw('${meInfo[0].ctCode}','${meInfo[0].meCode}')" /> <input type="button" class="mbtn"
 							value="취소" onclick="closeModal()" />
 					</div>
 				</div>

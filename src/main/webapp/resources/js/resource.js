@@ -101,7 +101,7 @@ function ajaxconnection(action, data, fn, content) {
    };
       ajax.open("post", action, true);
 if(content){
-      ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
+      ajax.setRequestHeader("Content-type", "application/json;charset=utf-8");
    }
    ajax.send(data);
 }
@@ -143,9 +143,26 @@ function getAjax1(action, data, fn, content ,method) {
    ajax.send(data);
 }
 
-function meProfile(mecode){
+function getAjax2(action, data, fn, content ,method) {
+   let ajax = new XMLHttpRequest();
+
+   ajax.onreadystatechange = function() {
+      if (ajax.readyState == 4 && ajax.status == 200) {
+         window[fn](JSON.parse(ajax.responseText));
+         //document.getElementById("ajaxData").innerHTML = serverData;
+      }
+   };
+
+   ajax.open("post", action, true);
+   ajax.setRequestHeader("Content-type",
+         "application/json;charset=utf-8");
+   ajax.send(data);
+}
+
+function meProfile(mecode,cctcode){
 	let jsondata = [];
-	let cctcode = document.getElementById("searchct")[0].value;
+	alert(cctcode);
+	//let cctcode = document.getElementById("searchct")[0].value;
 	jsondata.push({"meCode":mecode,"ctCode":cctcode});
 	const clientData = JSON.stringify(jsondata);
 	whatsend("ajax/meDtInfo",clientData,"modProfileInfo",false,"post");
@@ -377,19 +394,19 @@ function checkMePw(cctcode, mmecode){
 	let jsondata = [];
 	
 
-	jsondata.push({"meCode":mmecode,"ctCode":cctcode});
+	jsondata.push({"ctCode":cctcode,"meCode":mmecode});
 	const clientData = JSON.stringify(jsondata);
 	
 		whatsend("ajax/meDtInfo",clientData,"checkMePw1",false,"post");
 	
 	}
 
-function checkMePw2(mmecode, cctcode){
+function checkMePw2(cctcode, mmecode){
 	let jsondata = [];
 	
 
 	
-	jsondata.push({"meCode":'10001',"ctCode":'1234567890'});
+	jsondata.push({"meCode":mmecode,"ctCode":cctcode});
 	const clientData = JSON.stringify(jsondata);
 	
 		whatsend("ajax/meDtInfo",clientData,"checkMePw3",false,"post");
@@ -401,7 +418,7 @@ function checkMePw3(data){
 
 	const list = document.getElementById("profile");
 	const list2 = document.getElementById("profile2");
-	
+	let ctCode = document.getElementById("searchct").value;
 	for(idx = 0; idx< data.length; idx++){
 	
 		if(data[idx].mePw == document.getElementById("mePw1").value){
@@ -440,7 +457,8 @@ function checkMePw3(data){
 			input5.setAttribute("id","meNumber")
 			let input6 = document.createElement("input");
 			input6.setAttribute("class","modMeMg");
-			input6.setAttribute("onClick","modMeMg("+data[idx].meCode+")");
+			let meCode = document.getElementById("meCode").value;
+			input6.setAttribute("onClick","modMeMg("+meCode+","+ctCode+")");
 			input6.setAttribute("type","button");
 			input6.setAttribute("value","저장");
 			
@@ -450,6 +468,7 @@ function checkMePw3(data){
 			list2.appendChild(input2);
 			list2.appendChild(document.createElement("br"));
 			list2.appendChild(input3);
+			list2.appendChild(document.createElement("br"));
 			list2.appendChild(document.createElement("br"));
 			list2.appendChild(input4);
 			list2.appendChild(document.createElement("br"));
@@ -461,8 +480,7 @@ function checkMePw3(data){
 		}
 }
 
-function modMeMg(mmecode){
-
+function modMeMg(mmecode,cctcode){
 	let form = document.getElementById("profile2");
 	const meEmail = document.getElementById("meEmail").value;
 	const meGender = document.getElementById("meGender").value;
@@ -470,28 +488,36 @@ function modMeMg(mmecode){
 	const meName = document.getElementById("meName").value;
 	const meNumber = document.getElementById("meNumber").value;
 	let jsondata = [];
-	jsondata.push({meCode: mmecode ,meEmail:meEmail,meGender:meGender,meBirth:meBirth,meName:meName,meNumber:meNumber});
+	jsondata.push({meCode: mmecode ,meEmail:meEmail,meGender:meGender,meBirth:meBirth,meName:meName,meNumber:meNumber,ctCode:cctcode});
 	const clientdata = JSON.stringify(jsondata);
-	
-	whatsend("ajax/modMeMg",clientdata,"",false,"post");
+
+	getAjax1("ajax/modMeMg",clientdata,"meConfig",false,"post");
 }
 
 function checkMePw1(data){
-	for(idx = 0; idx< data.length; idx++){
-		if(data[idx].mePw == document.getElementById("mePw").value){
+	alert(document.getElementById("mePw").value);
+		if(data[0].mePw == document.getElementById("mePw").value){
 		alert("이용해주셔서 감사합니다.");
 		delMe();
 		closeModal();
 	}else{
 		alert("비밀번호가 틀렸습니다.");
 	}
-	}
+	
 }
-function delMe1(){
-	getAjax1("/delMe","","",true,"post");
+function delMe(){
+	const mmecode = document.getElementById("meCode").value;
+	alert(mmecode);
+	let jsondata = [];
+	jsondata.push({meCode:mmecode,ctCode:mmecode});
+	const clientdata = JSON.stringify(jsondata);
+	alert(clientdata);
+	getAjax1("/delMe",clientdata,"",false,"post");
+	logOut();
+	goHome();
 }
 
-function delMe(){
+function delMe1(){
 	
 	const form = makeForm("", "/delMe", "POST")
 	//const ctCode = makeInputElement("hidden","ctCode",ctCode,"")
@@ -730,7 +756,6 @@ let meall;
 }
 	function getCenterListInbody(mecode){
 		meall = mecode;
-		alert(meall);
 		let jsondata = [];
 	jsondata.push({"meCode":mecode});
 	const clientdata = JSON.stringify(jsondata);
@@ -748,7 +773,7 @@ function getmectlistin(json){
 	if(pjson.length>0){
 
 		data = ""
-		data+= "<select name='searchct'>"
+		data+= "<select id = 'searchct' name='searchct'>"
 
 		for(i=0;i<pjson.length;i++){
 			data+=	"<option value='"+pjson[i].ctCode+"'>"+pjson[i].ctName+"</option>"
@@ -756,7 +781,7 @@ function getmectlistin(json){
 		data+= "</select>"
 
 	body.innerHTML = data;
-	meProfile(json[0].meCode);
+	meProfile(json[0].meCode,json[0].ctCode);
 	}
 	
 }
