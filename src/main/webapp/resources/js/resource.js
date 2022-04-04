@@ -6,9 +6,6 @@ let datalesson;
 
 	
 function logOut(ct,id){
-	 whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
-	
-	
 	let a = makeInputElement("hidden", "sfId", id);
 	let b = makeInputElement("hidden", "ctCode", ct);
 	var c = makeInputElement("hidden", "ahIp", jsPIp);
@@ -161,8 +158,6 @@ function getAjax2(action, data, fn, content ,method) {
 
 function meProfile(mecode,cctcode){
 	let jsondata = [];
-	alert(cctcode);
-	//let cctcode = document.getElementById("searchct")[0].value;
 	jsondata.push({"meCode":mecode,"ctCode":cctcode});
 	const clientData = JSON.stringify(jsondata);
 	whatsend("ajax/meDtInfo",clientData,"modProfileInfo",false,"post");
@@ -187,7 +182,6 @@ function meDtInf(mmeCode){
 
 	let jsondata = [];
 	let cctCode = document.getElementsByName("searchct")[0].value;
-	alert(cctCode);
 	jsondata.push({"ctCode":cctCode,"meCode":mmeCode});
 	const clientData = JSON.stringify(jsondata);
 	
@@ -364,8 +358,6 @@ function inbodyChart(data){
 function findDay(mmeCode){
 	const findDay = document.getElementById("findDay").value;
 	let cctCode = document.getElementsByName("searchct")[0].value;
-	alert(cctCode);
-	alert(findDay);
 	let jsondata = [];
 	/*const mmeCode = "10001";
 	const cctCode = "1234567890";*/
@@ -481,7 +473,6 @@ function checkMePw3(data){
 }
 
 function modMeMg(mmecode,cctcode){
-	let form = document.getElementById("profile2");
 	const meEmail = document.getElementById("meEmail").value;
 	const meGender = document.getElementById("meGender").value;
 	const meBirth = document.getElementById("meBirth").value;
@@ -495,7 +486,6 @@ function modMeMg(mmecode,cctcode){
 }
 
 function checkMePw1(data){
-	alert(document.getElementById("mePw").value);
 		if(data[0].mePw == document.getElementById("mePw").value){
 		alert("이용해주셔서 감사합니다.");
 		delMe();
@@ -505,56 +495,26 @@ function checkMePw1(data){
 	}
 	
 }
-function delMe(){
-	const mmecode = document.getElementById("meCode").value;
-	alert(mmecode);
-	let jsondata = [];
-	jsondata.push({meCode:mmecode,ctCode:mmecode});
-	const clientdata = JSON.stringify(jsondata);
-	alert(clientdata);
-	getAjax1("/delMe",clientdata,"",false,"post");
-	logOut();
-	goHome();
-}
 
 function delMe1(){
-	
-	const form = makeForm("", "/delMe", "POST")
-	//const ctCode = makeInputElement("hidden","ctCode",ctCode,"")
+   const mmecode = document.getElementById("meCode").value;
+   let jsondata = [];
+   jsondata.push({meCode:mmecode});
+   const clientdata = JSON.stringify(jsondata);
+   getAjax1("/delMe",clientdata,"",false,"post");
+   logOut();
+   goHome();
+}
 
-	//form.appendChild(ctCode);
+function delMe(){
+	const mmecode = document.getElementById("meCode").value;
+	const form = makeForm("", "/delMe", "POST");
+	const meCode = makeInputElement("hidden","meCode",mmecode,"");
+	form.appendChild(meCode);
       document.body.appendChild(form);
       form.submit();
 }
 
-function getAjaxJsonUsingJquery(action, clientData, fn) {
-		$.ajax({
-			async : true,
-			type : "post",
-			url : action,
-			data : clientData,
-			contentType : "application/x-www-form-urlencoded; charset=utf-8",
-			dataType : "json",
-			success : function(jsonObject){
-				alert("AJAX 통신 성공으로 서버 데이터가 도착했습니다.");
-				alert(JSON.stringify(jsonObject));
-				window[fn](jsonObject);
-			},
-			beforeSend : function(){
-				// AJAX 통신 요청 전 호출되는 이벤트
-				alert("AJAX 통신을 시작합니다.");
-			},
-			complete : function(){
-				// AJAX 통신이 완료 될 때 호출되는 이벤트
-				alert("AJAX 통신을 종료합니다.");
-			},
-			err : function(error){
-				// 통신 실패시 호출되는 이벤트
-				alert("AJAX 통신실패했습니다.");
-			},
-			timeout : 10000
-		});
-	}
 
 function initPage(){
 	 whatsend("https://api.ipify.org?format=json","","getPublicIp","","Get");
@@ -765,7 +725,6 @@ let meall;
 
 function getmectlistin(json){
 		 let pjson =json;
-	alert(json[0].ctCode);
 
 		centerdata = json;
 	let body = document.getElementById("center");
@@ -961,10 +920,10 @@ function getlslist(json){
 	
 }
 
-	/*
-function meFoodMg(){
 
-	let butn = document.getElementById("butn");
+function meFoodMg(){
+alert(' 준비중인 서비스입니다. ');
+/*	let butn = document.getElementById("butn");
 		while(butn.hasChildNodes()){
 			butn.removeChild(butn.lastChild);
 		}
@@ -982,13 +941,13 @@ function meFoodMg(){
 		
 	let recentib = '1234567';
 	
-	/*json.push({ibCode:recentib});
+	json.push({ibCode:recentib});
 	
 	const data = JSON.stringify(json);
 	
-	whatsend("ajax/meFoodMg", data, "restate",false,"post");
+	whatsend("ajax/meFoodMg", data, "restate",false,"post");*/
 }
-*/
+
 
 
 function insMeLesson(i){
@@ -1176,19 +1135,6 @@ function goHome() {
 }
 
 
-function logOut(ct,id){
- whatsend("https://api.ipify.org?format=json","","getPublicIp",false,"Get");
-	
-	
-	let a = makeInputElement("hidden", "sfId", id);
-	let b = makeInputElement("hidden", "ctCode", ct);
-	let form = makeForm("", "logOut", "POST");
-	form.appendChild(a);
-	form.appendChild(b);
-      document.body.appendChild(form);
-	form.submit();
-   
-}
 		
 
 

@@ -56,8 +56,6 @@ public class Authenticaion extends CommonMethod {
 	}
 
 	public ModelAndView backController(String sCode, Centers ct) {
-		String gs = null;
-
 		switch (sCode) {
 
 		case "P04":
@@ -148,8 +146,6 @@ public class Authenticaion extends CommonMethod {
 				page = "infoLine";
 			}else if (this.pu.getAttribute("sfInfo") == null && this.pu.getAttribute("meInfo") == null ) {
 				page = "home";
-			}else {
-				System.out.println("어케했누?");
 			}
 			this.mav.setViewName(page);
 		} catch (Exception e) {
@@ -244,14 +240,12 @@ public class Authenticaion extends CommonMethod {
 	public ModelAndView meLogin(Model model) {
 
 		String pw = mb.meLogin((Members) model.getAttribute("send"));
-		System.out.println(pw);
 
 		this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,
 				false);
 		try {
 				if(pw != null) {
 				if (enc.matches(((Members) model.getAttribute("send")).getMePw(), enc.encode(pw))) {
-					System.out.println(23);
 					this.mav.addObject("meInfo", this.mb.meInfo((Members) model.getAttribute("send")));
 					tran = true;
 					this.tranend(tran);
@@ -276,8 +270,6 @@ public class Authenticaion extends CommonMethod {
 	}
 
 	public ModelAndView ctLogin(Staffs sf) {
-
-		 System.out.println(enc.encode(sf.getSfPw()));
 		String pw = this.mb.sfLogin(sf);
 
 		this.tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED,
