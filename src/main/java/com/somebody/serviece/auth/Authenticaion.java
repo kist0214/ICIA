@@ -43,9 +43,7 @@ public class Authenticaion extends CommonMethod {
 	@Autowired
 	Member mes;
 
-	@Autowired
-	JavaMailSenderImpl javaMail;
-
+	
 	String page = null;
 	String message = null;
 	boolean tran = false;
@@ -92,7 +90,7 @@ public class Authenticaion extends CommonMethod {
 			logOutCt(sf);
 			break;
 		case "A05":
-			sendEmail(sf);
+//			sendEmail(sf);
 			break;
 
 		case "A06":
@@ -153,65 +151,65 @@ public class Authenticaion extends CommonMethod {
 		}
 	}
 
-	private ModelAndView sendEmail(Staffs sf) {
-		String message = "정보가 일치하지 않습니다.";
-		String page = "sendEmailForm";
-		String object = "sfEmail";
-		String meadress = this.mb.ismeEmail(sf);
-		String sfadress = this.mb.issfEmail(sf);
-
-		String adress = null;
-
-		if (meadress != null) {
-			adress = meadress;
-
-		} else if (sfadress != null) {
-			adress = sfadress;
-		} else {
-			mav.addObject(object, message);
-			mav.setViewName(page);
-		}
-
-		/* Email Info */
-		boolean sended = false;
-
-		String contents = "안녕하세요. somebody 플랫폼 입니다. 비밀번호를 수정하려면 링크를 클릭하여 페이지로 이동하여 주세요.";
-		String aftersendmsg = "<a href='http://localhost/modPwPage'>비밀번호 변경 요청</a>";
-		String sender = "zmffhqj7144@naver.com";
-
-		if (sf.getSfEmail().equals(adress)) {
-
-			/* Creation MimeMessage */
-			MimeMessage extendemail = javaMail.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(extendemail, "UTF-8");
-			// String aftersendmsg = "<a href='http://localhost/EmailAuth?authCode="+ auth +
-			// "'>비번변경페이지이동</a>";
-			try {
-				helper.setFrom(sender);
-				helper.setTo(sf.getSfEmail());
-				helper.setSubject(contents);
-				helper.setText(aftersendmsg, true);
-
-				javaMail.send(extendemail);
-				sended = true;
-			} catch (MessagingException e) {
-				sended = false;
-				e.printStackTrace();
-			}
-
-			/* message 작성 */
-			message = sended ? "메일을 발송하였습니다. 메일로 접속하여 링크를 확인하여 주십시오." : "메일 발송 실패!";
-
-			mav.addObject(object, message);
-			mav.setViewName(page);
-		} else {
-			message = sended ? "이메일이 일치합니다." : "일치하는 이메일이 없습니다. 회원가입을 해주세요.";
-			mav.addObject(object, message);
-			mav.setViewName(page);
-
-		}
-		return this.mav;
-	}
+//	private ModelAndView sendEmail(Staffs sf) {
+//		String message = "정보가 일치하지 않습니다.";
+//		String page = "sendEmailForm";
+//		String object = "sfEmail";
+//		String meadress = this.mb.ismeEmail(sf);
+//		String sfadress = this.mb.issfEmail(sf);
+//
+//		String adress = null;
+//
+//		if (meadress != null) {
+//			adress = meadress;
+//
+//		} else if (sfadress != null) {
+//			adress = sfadress;
+//		} else {
+//			mav.addObject(object, message);
+//			mav.setViewName(page);
+//		}
+//
+//		/* Email Info */
+//		boolean sended = false;
+//
+//		String contents = "안녕하세요. somebody 플랫폼 입니다. 비밀번호를 수정하려면 링크를 클릭하여 페이지로 이동하여 주세요.";
+//		String aftersendmsg = "<a href='http://localhost/modPwPage'>비밀번호 변경 요청</a>";
+//		String sender = "zmffhqj7144@naver.com";
+//
+//		if (sf.getSfEmail().equals(adress)) {
+//
+//			/* Creation MimeMessage */
+//			MimeMessage extendemail = javaMail.createMimeMessage();
+//			MimeMessageHelper helper = new MimeMessageHelper(extendemail, "UTF-8");
+//			// String aftersendmsg = "<a href='http://localhost/EmailAuth?authCode="+ auth +
+//			// "'>비번변경페이지이동</a>";
+//			try {
+//				helper.setFrom(sender);
+//				helper.setTo(sf.getSfEmail());
+//				helper.setSubject(contents);
+//				helper.setText(aftersendmsg, true);
+//
+//				javaMail.send(extendemail);
+//				sended = true;
+//			} catch (MessagingException e) {
+//				sended = false;
+//				e.printStackTrace();
+//			}
+//
+//			/* message 작성 */
+//			message = sended ? "메일을 발송하였습니다. 메일로 접속하여 링크를 확인하여 주십시오." : "메일 발송 실패!";
+//
+//			mav.addObject(object, message);
+//			mav.setViewName(page);
+//		} else {
+//			message = sended ? "이메일이 일치합니다." : "일치하는 이메일이 없습니다. 회원가입을 해주세요.";
+//			mav.addObject(object, message);
+//			mav.setViewName(page);
+//
+//		}
+//		return this.mav;
+//	}
 
 	private void checkCtCode(Model md) {
 		tranconfig(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
